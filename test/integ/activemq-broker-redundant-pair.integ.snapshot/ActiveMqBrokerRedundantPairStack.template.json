@@ -1,0 +1,789 @@
+{
+ "Resources": {
+  "BrokerVpc3A93CA16": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerRedundantPairStack/BrokerVpc"
+     }
+    ]
+   }
+  },
+  "BrokerVpcPrivateSubnet1SubnetA5340936": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.0/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerRedundantPairStack/BrokerVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "BrokerVpcPrivateSubnet1RouteTable6A753C97": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerRedundantPairStack/BrokerVpc/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BrokerVpcPrivateSubnet1RouteTable6A753C97"
+    },
+    "SubnetId": {
+     "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+    }
+   }
+  },
+  "BrokerVpcPrivateSubnet2Subnet6E2FB068": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      1,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.16/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerRedundantPairStack/BrokerVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "BrokerVpcPrivateSubnet2RouteTable242AB0A2": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerRedundantPairStack/BrokerVpc/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BrokerVpcPrivateSubnet2RouteTable242AB0A2"
+    },
+    "SubnetId": {
+     "Ref": "BrokerVpcPrivateSubnet2Subnet6E2FB068"
+    }
+   }
+  },
+  "BrokerVpcSecretsManagerEndpointFFEDBDF2": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "SecretsManagerVPCeSGA686095E",
+       "GroupId"
+      ]
+     }
+    ],
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".secretsmanager"
+      ]
+     ]
+    },
+    "SubnetIds": [
+     {
+      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+     },
+     {
+      "Ref": "BrokerVpcPrivateSubnet2Subnet6E2FB068"
+     }
+    ],
+    "VpcEndpointType": "Interface",
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "SecretsManagerVPCeSGA686095E": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ActiveMqBrokerRedundantPairStack/SecretsManagerVPCeSG",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "BrokerVpc3A93CA16",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "BrokerVpc3A93CA16",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "SecretsManagerVPCeSGfromActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AE4437250152A": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from ActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AE:443",
+    "FromPort": 443,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "SecretsManagerVPCeSGA686095E",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "MqttTesterSGA17A782E",
+      "GroupId"
+     ]
+    },
+    "ToPort": 443
+   }
+  },
+  "BrokerUserC8D843BF": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 24,
+     "SecretStringTemplate": "{\"username\":\"admin\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "ActiveMqBrokerPairAMQSG0B4D57EB": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatic security group for broker ActiveMqBrokerRedundantPairStackActiveMqBrokerPair14986C73",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "255.255.255.255/32",
+      "Description": "Disallow all traffic",
+      "FromPort": 252,
+      "IpProtocol": "icmp",
+      "ToPort": 86
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "ActiveMqBrokerPairAMQSGfromActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AEIndirectPortADDC9F0A": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from ActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AE:{IndirectPort}",
+    "FromPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "GroupId": {
+     "Fn::GetAtt": [
+      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "MqttTesterSGA17A782E",
+      "GroupId"
+     ]
+    },
+    "ToPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "ActiveMqBrokerPair49F6C84B": {
+   "Type": "AWS::AmazonMQ::Broker",
+   "Properties": {
+    "AutoMinorVersionUpgrade": true,
+    "BrokerName": "ActiveMqBrokerPair",
+    "DeploymentMode": "ACTIVE_STANDBY_MULTI_AZ",
+    "EncryptionOptions": {
+     "UseAwsOwnedKey": true
+    },
+    "EngineType": "ACTIVEMQ",
+    "EngineVersion": "5.15.16",
+    "HostInstanceType": "mq.m5.large",
+    "PubliclyAccessible": false,
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "ActiveMqBrokerPairAMQSG0B4D57EB",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetIds": [
+     {
+      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+     },
+     {
+      "Ref": "BrokerVpcPrivateSubnet2Subnet6E2FB068"
+     }
+    ],
+    "Users": [
+     {
+      "Password": {
+       "Fn::Join": [
+        "",
+        [
+         "{{resolve:secretsmanager:",
+         {
+          "Ref": "BrokerUserC8D843BF"
+         },
+         ":SecretString:password::}}"
+        ]
+       ]
+      },
+      "Username": {
+       "Fn::Join": [
+        "",
+        [
+         "{{resolve:secretsmanager:",
+         {
+          "Ref": "BrokerUserC8D843BF"
+         },
+         ":SecretString:username::}}"
+        ]
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "MqttTesterSGA17A782E": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ActiveMqBrokerRedundantPairStack/MqttTesterSG",
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "MqttTesterSGtoActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8IndirectPort38FD1B63": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "to ActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8:{IndirectPort}",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "GroupId"
+     ]
+    },
+    "FromPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "GroupId": {
+     "Fn::GetAtt": [
+      "MqttTesterSGA17A782E",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "MqttTesterSGtoActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C04433FD89489": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "to ActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C0:443",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "SecretsManagerVPCeSGA686095E",
+      "GroupId"
+     ]
+    },
+    "FromPort": 443,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "MqttTesterSGA17A782E",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": 443
+   }
+  },
+  "MqttTesterServiceRole6E0DA01E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
+   ]
+  },
+  "MqttTesterServiceRoleDefaultPolicy147F0EB6": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BrokerUserC8D843BF"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "MqttTesterServiceRoleDefaultPolicy147F0EB6",
+    "Roles": [
+     {
+      "Ref": "MqttTesterServiceRole6E0DA01E"
+     }
+    ]
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
+   ]
+  },
+  "MqttTester64231FEF": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "716c7c185e85f7e2bb17e8315928e11da2eb6aae901085f69381aba2e50e5353.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "MQTT_ENDPOINT": {
+       "Fn::Select": [
+        0,
+        {
+         "Fn::GetAtt": [
+          "ActiveMqBrokerPair49F6C84B",
+          "MqttEndpoints"
+         ]
+        }
+       ]
+      },
+      "CREDENTIALS": {
+       "Ref": "BrokerUserC8D843BF"
+      }
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "MqttTesterServiceRole6E0DA01E",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 30,
+    "VpcConfig": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "MqttTesterSGA17A782E",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      {
+       "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+      },
+      {
+       "Ref": "BrokerVpcPrivateSubnet2Subnet6E2FB068"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522",
+    "MqttTesterServiceRoleDefaultPolicy147F0EB6",
+    "MqttTesterServiceRole6E0DA01E"
+   ]
+  }
+ },
+ "Outputs": {
+  "ActiveConsole": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ActiveMqBrokerPair49F6C84B"
+      },
+      "-1.mq.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".amazonaws.com:8162"
+     ]
+    ]
+   }
+  },
+  "ActiveStompUrl": {
+   "Value": {
+    "Fn::Select": [
+     0,
+     {
+      "Fn::GetAtt": [
+       "ActiveMqBrokerPair49F6C84B",
+       "StompEndpoints"
+      ]
+     }
+    ]
+   }
+  },
+  "ActiveStompPort": {
+   "Value": {
+    "Fn::Select": [
+     2,
+     {
+      "Fn::Split": [
+       ":",
+       {
+        "Fn::Select": [
+         0,
+         {
+          "Fn::GetAtt": [
+           "ActiveMqBrokerPair49F6C84B",
+           "StompEndpoints"
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "ActiveIpAddress": {
+   "Value": {
+    "Fn::Select": [
+     0,
+     {
+      "Fn::GetAtt": [
+       "ActiveMqBrokerPair49F6C84B",
+       "IpAddresses"
+      ]
+     }
+    ]
+   }
+  },
+  "StandbyConsole": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "ActiveMqBrokerPair49F6C84B"
+      },
+      "-2.mq.",
+      {
+       "Ref": "AWS::Region"
+      },
+      ".amazonaws.com:8162"
+     ]
+    ]
+   }
+  },
+  "StandbyStompUrl": {
+   "Value": {
+    "Fn::Select": [
+     1,
+     {
+      "Fn::GetAtt": [
+       "ActiveMqBrokerPair49F6C84B",
+       "StompEndpoints"
+      ]
+     }
+    ]
+   }
+  },
+  "StandbyStompPort": {
+   "Value": {
+    "Fn::Select": [
+     2,
+     {
+      "Fn::Split": [
+       ":",
+       {
+        "Fn::Select": [
+         1,
+         {
+          "Fn::GetAtt": [
+           "ActiveMqBrokerPair49F6C84B",
+           "StompEndpoints"
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "StandbyIpAddress": {
+   "Value": {
+    "Fn::Select": [
+     1,
+     {
+      "Fn::GetAtt": [
+       "ActiveMqBrokerPair49F6C84B",
+       "IpAddresses"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

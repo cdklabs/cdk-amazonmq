@@ -148,6 +148,8 @@
         "devDependencies": [
           "**/test/**",
           "**/build-tools/**",
+          "src/mq-esm/esm-deleter.is-complete.lambda.ts",
+          "src/mq-esm/esm-deleter.on-event.lambda.ts",
           ".projenrc.ts",
           "projenrc/**/*.ts"
         ],
