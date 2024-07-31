@@ -566,8 +566,6 @@ import { IRabbitMqBrokerDeployment } from '@cdklabs/cdk-amazonmq';
 
 declare const deployment: IRabbitMqBrokerDeployment;
 
-if (deployment.connections) {
-  deployment.connections.allowDefaultPortFrom(deployment.connections);
-}
+deployment.connections?.allowDefaultPortInternally();
 
 ```
