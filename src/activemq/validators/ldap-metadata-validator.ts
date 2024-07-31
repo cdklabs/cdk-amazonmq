@@ -1,4 +1,8 @@
-import { URL } from 'url'; 'url';
+/*
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
+*/
+import { URL } from 'url';
 import { CfnBroker } from 'aws-cdk-lib/aws-amazonmq';
 import { IValidation } from 'constructs';
 

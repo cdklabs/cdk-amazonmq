@@ -9447,6 +9447,7 @@ ActiveMqBrokerEngineVersion.of(version: string)
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_15_16">V5_15_16</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7">V5_16_7</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6">V5_17_6</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_18">V5_18</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 
 ---
 
@@ -9474,6 +9475,16 @@ public readonly V5_16_7: ActiveMqBrokerEngineVersion;
 
 ```typescript
 public readonly V5_17_6: ActiveMqBrokerEngineVersion;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>
+
+---
+
+##### `V5_18`<sup>Required</sup> <a name="V5_18" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_18"></a>
+
+```typescript
+public readonly V5_18: ActiveMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>

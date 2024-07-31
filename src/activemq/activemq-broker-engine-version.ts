@@ -2,11 +2,14 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
+
 /**
  *
  * @see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/activemq-version-management.html
  */
 export class ActiveMqBrokerEngineVersion {
+  public static readonly V5_18 = new ActiveMqBrokerEngineVersion('5.18');
+
   public static readonly V5_17_6 = new ActiveMqBrokerEngineVersion('5.17.6');
 
   public static readonly V5_16_7 = new ActiveMqBrokerEngineVersion('5.16.7');
