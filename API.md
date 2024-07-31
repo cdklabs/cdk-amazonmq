@@ -9801,6 +9801,7 @@ RabbitMqBrokerEngineVersion.of(version: string)
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_10_20">V3_10_20</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_20">V3_11_20</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13">V3_12_13</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_13">V3_13</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_8_34">V3_8_34</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_9_27">V3_9_27</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 
@@ -9830,6 +9831,16 @@ public readonly V3_11_20: RabbitMqBrokerEngineVersion;
 
 ```typescript
 public readonly V3_12_13: RabbitMqBrokerEngineVersion;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
+
+---
+
+##### `V3_13`<sup>Required</sup> <a name="V3_13" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_13"></a>
+
+```typescript
+public readonly V3_13: RabbitMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>

@@ -28,7 +28,7 @@ const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
 
 const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBrokerInstance', {
   publiclyAccessible: true,
-  version: RabbitMqBrokerEngineVersion.V3_12_13,
+  version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   admin: {
     username: brokerAdminCreds.secretValueFromJson('username').unsafeUnwrap(),

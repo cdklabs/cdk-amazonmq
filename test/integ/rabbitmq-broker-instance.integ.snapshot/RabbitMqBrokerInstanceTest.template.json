@@ -23,7 +23,7 @@
      "UseAwsOwnedKey": true
     },
     "EngineType": "RABBITMQ",
-    "EngineVersion": "3.12.13",
+    "EngineVersion": "3.13",
     "HostInstanceType": "mq.t3.micro",
     "Logs": {
      "General": true

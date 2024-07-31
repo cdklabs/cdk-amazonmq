@@ -79,7 +79,7 @@
         }
       }
     },
-    "ba0e4e7c1d7abbc146e3935f8dd6b91da911f19764ddabd5ffcc213b2c81be9c": {
+    "7e889d032f610c4171140df6bac68abe22091fde67a74d655c4710ed0c177949": {
       "source": {
         "path": "RabbitMqBrokerInstanceTest.template.json",
         "packaging": "file"
@@ -87,7 +87,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "ba0e4e7c1d7abbc146e3935f8dd6b91da911f19764ddabd5ffcc213b2c81be9c.json",
+          "objectKey": "7e889d032f610c4171140df6bac68abe22091fde67a74d655c4710ed0c177949.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

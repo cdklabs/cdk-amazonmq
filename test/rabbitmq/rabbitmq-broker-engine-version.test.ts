@@ -7,6 +7,7 @@ import { RabbitMqBrokerEngineVersion } from '../../src';
 describe('RabbitMqBrokerEngineVersion', () => {
   test('Only Known Versions Specified', () => {
     const expectedEngineVersions = [
+      { version: '3.13' },
       { version: '3.12.13' },
       { version: '3.11.20' },
       { version: '3.10.20' },
