@@ -5,6 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 import path from 'path';
 import { App, CfnOutput, SecretValue, Stack } from 'aws-cdk-lib';
 import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
+import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
@@ -58,6 +59,7 @@ const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
 const listener = new NodejsFunction(stack, 'RabbitListener', {
   entry: path.join(__dirname, 'clients/listener.lambda.ts'),
   logRetention: RetentionDays.ONE_DAY,
+  runtime: Runtime.NODEJS_LATEST,
 });
 
 listener.addEventSource(

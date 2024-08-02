@@ -103,6 +103,7 @@
     "mqtt": "^5.9.0",
     "projen": "^0.84.13",
     "rabbitmq-client": "^4.6.0",
+    "rhea": "^3.0.2",
     "standard-version": "^9",
     "ts-jest": "^29.2.3",
     "ts-node": "^10.9.2",

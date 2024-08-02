@@ -68,12 +68,8 @@ listener.addEventSource(new RabbitMqEventSource({
   queueName,
 }));
 
-if (broker.connections) {
-  broker.connections.allowDefaultPortFrom(broker.connections);
-}
-
 const publisher = new NodejsFunction(stack, 'RabbitPublisher', {
-  entry: path.join(__dirname, 'clients/amqp/amqps-publisher.lambda.ts'),
+  entry: path.join(__dirname, 'clients/amqp091/amqps-publisher.lambda.ts'),
   environment: {
     AMQP_ENDPOINT: broker.endpoints.amqp.url,
     CREDENTIALS: brokerAdminCreds.secretArn,
@@ -86,6 +82,21 @@ const publisher = new NodejsFunction(stack, 'RabbitPublisher', {
 
 broker.connections?.allowDefaultPortFrom(publisher);
 brokerAdminCreds.grantRead(publisher);
+
+const subscriber = new NodejsFunction(stack, 'RabbitMqSubscriber', {
+  entry: path.join(__dirname, 'clients/amqp091/amqps-subscriber.lambda.ts'),
+  environment: {
+    AMQP_ENDPOINT: broker.endpoints.amqp.url,
+    CREDENTIALS: brokerAdminCreds.secretArn,
+    QUEUE_NAME: queueName,
+  },
+  runtime: Runtime.NODEJS_LATEST,
+  timeout: Duration.seconds(30),
+  logRetention: RetentionDays.ONE_DAY,
+});
+
+broker.connections?.allowDefaultPortFrom(subscriber);
+brokerAdminCreds.grantRead(subscriber);
 
 new CfnOutput(stack, 'ConfigurationId', {
   value: broker.configuration.id,

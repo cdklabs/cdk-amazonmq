@@ -26,6 +26,7 @@ const project = new CdklabsConstructLibrary({
     'esbuild',
     'mqtt',
     'rabbitmq-client',
+    'rhea',
   ],
   jsiiVersion: '~5.4.0',
 

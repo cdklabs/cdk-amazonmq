@@ -96,8 +96,8 @@ const cluster = new RabbitMqBrokerCluster(stack, 'RabbitMqBrokerCluster', {
   cloudwatchLogsRetention: RetentionDays.ONE_DAY,
 });
 
-const publisher = new NodejsFunction(stack, 'RabbitPublisher', {
-  entry: path.join(__dirname, 'clients/amqp/amqps-publisher.lambda.ts'),
+const publisher = new NodejsFunction(stack, 'RabbitMqPublisher', {
+  entry: path.join(__dirname, 'clients/amqp091/amqps-publisher.lambda.ts'),
   environment: {
     AMQP_ENDPOINT: cluster.endpoints.amqp.url,
     CREDENTIALS: brokerAdminCreds.secretArn,
@@ -107,7 +107,7 @@ const publisher = new NodejsFunction(stack, 'RabbitPublisher', {
   timeout: Duration.seconds(30),
   vpc,
   vpcSubnets: functionSubnets,
-  securityGroups: [new SecurityGroup(stack, 'RabbitPublisherSG', {
+  securityGroups: [new SecurityGroup(stack, 'RabbitMqPublisherSG', {
     vpc,
     allowAllOutbound: false,
   })],
@@ -119,28 +119,7 @@ cluster.connections?.allowDefaultPortFrom(publisher);
 
 brokerAdminCreds.grantRead(publisher);
 
-const subscriber = new NodejsFunction(stack, 'RabbitSubscriber', {
-  entry: path.join(__dirname, 'clients/amqp/amqps-subscriber.lambda.ts'),
-  environment: {
-    AMQP_ENDPOINT: cluster.endpoints.amqp.url,
-    CREDENTIALS: brokerAdminCreds.secretArn,
-    QUEUE_NAME: queueName,
-  },
-  runtime: Runtime.NODEJS_LATEST,
-  timeout: Duration.seconds(30),
-  vpc,
-  vpcSubnets: functionSubnets,
-  securityGroups: [new SecurityGroup(stack, 'RabbitSubscriberSG', {
-    vpc,
-    allowAllOutbound: false,
-  })],
-  logRetention: RetentionDays.ONE_DAY,
-});
-
-subscriber.connections.allowToAnyIpv4(Port.tcp(443));
-cluster.connections?.allowDefaultPortFrom(subscriber);
-
-const listener = new NodejsFunction(stack, 'RabbitListener', {
+const listener = new NodejsFunction(stack, 'RabbitMqListener', {
   entry: path.join(__dirname, 'clients/listener.lambda.ts'),
   logRetention: RetentionDays.ONE_DAY,
   runtime: Runtime.NODEJS_LATEST,
@@ -167,8 +146,6 @@ cluster.connections?.allowDefaultPortInternally();
 cluster.connections?.allowTo(smVPCe, Port.tcp(443));
 cluster.connections?.allowTo(stsVPCe, Port.tcp(443));
 cluster.connections?.allowTo(lambdaVPCe, Port.tcp(443));
-
-brokerAdminCreds.grantRead(subscriber);
 
 new CfnOutput(stack, 'ConfigurationId', {
   value: cluster.configuration.id,

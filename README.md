@@ -164,7 +164,7 @@ For the redundant pair deployments one can access all the endpoints under proper
 
 ### Allowing Connections to ActiveMQ Brokers
 
-For ActiveMQ broker deployments that are not publically accessible and with specified VPC and subnets you can control who can access the Broker, use the `connections` attribute. By default no connection is allowed and it has to be explicitly allowed.
+For ActiveMQ broker deployments that are not publically accessible and with specified VPC and subnets you can control who can access the Broker using `connections` attribute. By default no connection is allowed and it has to be explicitly allowed.
 
 ```typescript
 import { Peer, Port } from 'aws-cdk-lib/aws-ec2';
@@ -327,7 +327,9 @@ consumerCountMetric.createAlarm(stack, 'ConsumerCountAlarm', {
 
 ### ActiveMQ Broker Integration with AWS Lambda
 
-Amazon MQ for ActiveMQ broker queues can be used as event sources for AWS Lambda functions. This is valid only if the identity management is not LDAP-based. The example below presents an example of creating such an event source mapping:
+Amazon MQ for ActiveMQ broker queues can be used as event sources for AWS Lambda functions. For authentication only the ActiveMQ SimpleAuthenticationPlugin is supported. Lambda consumes messages using the OpenWire/Java Message Service (JMS) protocol. No other protocols are supported for consuming messages. Within the JMS protocol, only TextMessage and BytesMessage are supported. Lambda also supports JMS custom properties. For more details on the requirements of the integration read [the documentation](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html).
+
+The example below presents an example of creating such an event source mapping:
 
 ```typescript
 import { IFunction } from 'aws-cdk-lib/aws-lambda';
@@ -351,6 +353,19 @@ target.addEventSource(new ActiveMqEventSource({
 ```
 
 ***Security:*** When adding an Amazon MQ for ActiveMQ as an AWS Lambda function's event source the library updates the execution role's permissions to satisfy [Amazon MQ requirements for provisioning the event source mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions).
+
+In the case of a private deployment the defined event source mapping will create a set of Elastic Network Interfaces (ENIs) in the subnets in which the broker deployment created communication VPC Endpoints. Thus, in order to allow the event source mapping to communicate with the broker one needs to additionally allow inbound traffic from the ENIs on the OpenWire port. As ENIs will use the same security group that governs the access to the VPC Endpoints you can simply allow communication from the broker's security group to itself on the OpenWire port as in the example below:
+
+```typescript
+import { Port } from 'aws-cdk-lib/aws-ec2';
+import { IActiveMqBrokerDeployment } from '@cdklabs/cdk-amazonmq';
+
+declare const deployment: IActiveMqBrokerDeployment;
+declare const broker: IActiveMqBroker;
+
+deployment.connections?.allowInternally(Port.tcp(broker.endpoints.openWire.port), 'Allowing for the ESM');
+
+```
 
 ## RabbitMQ Brokers
 
@@ -423,7 +438,7 @@ new CfnOutput(this, 'WebConsolePort', { value: broker.endpoints.console.port.toS
 
 ### Allowing Connections to a RabbitMQ Broker
 
-For the RabbitMQ broker deployments that are not publically accessible and with specified VPC and subnets you can control who can access the broker, use the `connections` attribute. 
+For the RabbitMQ broker deployments that are not publically accessible and with specified VPC and subnets you can control who can access the broker using `connections` attribute. 
 
 ```typescript
 import { Peer, Port } from 'aws-cdk-lib/aws-ec2';
@@ -538,7 +553,9 @@ consumerCountMetric.createAlarm(stack, 'ConsumerCountAlarm', {
 
 ### RabbitMQ Broker Integration with AWS Lambda
 
-Amazon MQ for RabbitMQ broker queues can be used as event sources for AWS Lambda functions. The example below presents an example of creating such an event source mapping:
+Amazon MQ for RabbitMQ broker queues can be used as event sources for AWS Lambda functions. For authentication only the PLAIN authentication mechanism is supported. Lambda consumes messages using the AMQP 0-9-1 protocol. No other protocols are supported for consuming messages. For more details on the requirements of the integration read [the documentation](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html).
+
+The example below presents an example of creating such an event source mapping:
 
 ```typescript
 import { IFunction } from 'aws-cdk-lib/aws-lambda';
@@ -559,7 +576,7 @@ target.addEventSource(new RabbitMqEventSource({
 ```
 ***Security:*** When adding an Amazon MQ for RabbitMQ as an AWS Lambda function's event source the library updates the execution role's permissions to satisfy [Amazon MQ requirements for provisioning the event source mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions).
 
-In the case of a private deployment the defined event source mapping will create a set of Elastic Network Interfaces (ENIs) in the subnets in which the broker deployment created communication VPC Endpoints. Thus, in order to allow the ESM to communicate with the broekr one needs to additionally allow inbound traffic from the ENIs. As ENIs will use the same security group that governs the access to the VPC Endpoints you can simply allow communication from the broker's security group to itself on the AMQP port as in the example below:
+In the case of a private deployment the defined event source mapping will create a set of Elastic Network Interfaces (ENIs) in the subnets in which the broker deployment created communication VPC Endpoints. Thus, in order to allow the event source mapping to communicate with the broekr one needs to additionally allow inbound traffic from the ENIs. As ENIs will use the same security group that governs the access to the VPC Endpoints you can simply allow communication from the broker's security group to itself on the AMQP port as in the example below:
 
 ```typescript
 import { IRabbitMqBrokerDeployment } from '@cdklabs/cdk-amazonmq';

@@ -213,10 +213,10 @@
     }
    }
   },
-  "SecretsManagerVPCeSGfromActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AE4437250152A": {
+  "SecretsManagerVPCeSGfromActiveMqBrokerRedundantPairStackMqttPublisherSG9C9880984435D7CBF2E": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from ActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AE:443",
+    "Description": "from ActiveMqBrokerRedundantPairStackMqttPublisherSG9C988098:443",
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
@@ -227,7 +227,28 @@
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "MqttTesterSGA17A782E",
+      "MqttPublisherSGFC0FDEC8",
+      "GroupId"
+     ]
+    },
+    "ToPort": 443
+   }
+  },
+  "SecretsManagerVPCeSGfromActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4B4430566D1B7": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from ActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4B:443",
+    "FromPort": 443,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "SecretsManagerVPCeSGA686095E",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "MqttSubscriberSGF523C88E",
       "GroupId"
      ]
     },
@@ -265,10 +286,10 @@
     }
    }
   },
-  "ActiveMqBrokerPairAMQSGfromActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AEIndirectPortADDC9F0A": {
+  "ActiveMqBrokerPairAMQSGfromActiveMqBrokerRedundantPairStackMqttPublisherSG9C988098IndirectPort15CACBB6": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from ActiveMqBrokerRedundantPairStackMqttTesterSGCE4057AE:{IndirectPort}",
+    "Description": "from ActiveMqBrokerRedundantPairStackMqttPublisherSG9C988098:{IndirectPort}",
     "FromPort": {
      "Fn::Select": [
       2,
@@ -299,7 +320,68 @@
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "MqttTesterSGA17A782E",
+      "MqttPublisherSGFC0FDEC8",
+      "GroupId"
+     ]
+    },
+    "ToPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "ActiveMqBrokerPairAMQSGfromActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4BIndirectPortC6C0F1E6": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "from ActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4B:{IndirectPort}",
+    "FromPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "GroupId": {
+     "Fn::GetAtt": [
+      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "MqttSubscriberSGF523C88E",
       "GroupId"
      ]
     },
@@ -336,7 +418,7 @@
      "UseAwsOwnedKey": true
     },
     "EngineType": "ACTIVEMQ",
-    "EngineVersion": "5.15.16",
+    "EngineVersion": "5.18",
     "HostInstanceType": "mq.m5.large",
     "PubliclyAccessible": false,
     "SecurityGroups": [
@@ -385,16 +467,16 @@
     ]
    }
   },
-  "MqttTesterSGA17A782E": {
+  "MqttPublisherSGFC0FDEC8": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "ActiveMqBrokerRedundantPairStack/MqttTesterSG",
+    "GroupDescription": "ActiveMqBrokerRedundantPairStack/MqttPublisherSG",
     "VpcId": {
      "Ref": "BrokerVpc3A93CA16"
     }
    }
   },
-  "MqttTesterSGtoActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8IndirectPort38FD1B63": {
+  "MqttPublisherSGtoActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8IndirectPortBBF53820": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "Description": "to ActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8:{IndirectPort}",
@@ -427,7 +509,7 @@
     },
     "GroupId": {
      "Fn::GetAtt": [
-      "MqttTesterSGA17A782E",
+      "MqttPublisherSGFC0FDEC8",
       "GroupId"
      ]
     },
@@ -455,7 +537,7 @@
     }
    }
   },
-  "MqttTesterSGtoActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C04433FD89489": {
+  "MqttPublisherSGtoActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C0443A0BB7E24": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "Description": "to ActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C0:443",
@@ -468,7 +550,7 @@
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
-      "MqttTesterSGA17A782E",
+      "MqttPublisherSGFC0FDEC8",
       "GroupId"
      ]
     },
@@ -476,7 +558,7 @@
     "ToPort": 443
    }
   },
-  "MqttTesterServiceRole6E0DA01E": {
+  "MqttPublisherServiceRole77A3C72E": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -523,7 +605,7 @@
     "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
    ]
   },
-  "MqttTesterServiceRoleDefaultPolicy147F0EB6": {
+  "MqttPublisherServiceRoleDefaultPolicy1350B7F8": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -541,10 +623,10 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "MqttTesterServiceRoleDefaultPolicy147F0EB6",
+    "PolicyName": "MqttPublisherServiceRoleDefaultPolicy1350B7F8",
     "Roles": [
      {
-      "Ref": "MqttTesterServiceRole6E0DA01E"
+      "Ref": "MqttPublisherServiceRole77A3C72E"
      }
     ]
    },
@@ -553,37 +635,57 @@
     "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
    ]
   },
-  "MqttTester64231FEF": {
+  "MqttPublisher6F739522": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "9c1dc46895fbfa1e7cf1771c7d52a568af7dfa3414df77f719eab13ac049ca87.zip"
+     "S3Key": "889a0fd9467f6c7c6fdcd6d8ee7cddac407e46d76b3eb03017d567995fab8924.zip"
     },
     "Environment": {
      "Variables": {
-      "MQTT_ENDPOINT": {
-       "Fn::Select": [
-        0,
-        {
-         "Fn::GetAtt": [
-          "ActiveMqBrokerPair49F6C84B",
-          "MqttEndpoints"
-         ]
-        }
+      "MQTT_ENDPOINTS": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::Select": [
+           0,
+           {
+            "Fn::GetAtt": [
+             "ActiveMqBrokerPair49F6C84B",
+             "MqttEndpoints"
+            ]
+           }
+          ]
+         },
+         ",",
+         {
+          "Fn::Select": [
+           1,
+           {
+            "Fn::GetAtt": [
+             "ActiveMqBrokerPair49F6C84B",
+             "MqttEndpoints"
+            ]
+           }
+          ]
+         }
+        ]
        ]
       },
       "CREDENTIALS": {
        "Ref": "BrokerUserC8D843BF"
-      }
+      },
+      "QUEUE_NAME": "myQueue"
      }
     },
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "MqttTesterServiceRole6E0DA01E",
+      "MqttPublisherServiceRole77A3C72E",
       "Arn"
      ]
     },
@@ -593,7 +695,7 @@
      "SecurityGroupIds": [
       {
        "Fn::GetAtt": [
-        "MqttTesterSGA17A782E",
+        "MqttPublisherSGFC0FDEC8",
         "GroupId"
        ]
       }
@@ -611,9 +713,524 @@
    "DependsOn": [
     "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
     "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522",
-    "MqttTesterServiceRoleDefaultPolicy147F0EB6",
-    "MqttTesterServiceRole6E0DA01E"
+    "MqttPublisherServiceRoleDefaultPolicy1350B7F8",
+    "MqttPublisherServiceRole77A3C72E"
    ]
+  },
+  "MqttPublisherLogRetention71725F0C": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "MqttPublisher6F739522"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 1
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
+   ]
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:PutRetentionPolicy",
+        "logs:DeleteRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ]
+  },
+  "MqttSubscriberSGF523C88E": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ActiveMqBrokerRedundantPairStack/MqttSubscriberSG",
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "MqttSubscriberSGtoActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8IndirectPort70016A5E": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "to ActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8:{IndirectPort}",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "GroupId"
+     ]
+    },
+    "FromPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    "GroupId": {
+     "Fn::GetAtt": [
+      "MqttSubscriberSGF523C88E",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": {
+     "Fn::Select": [
+      2,
+      {
+       "Fn::Split": [
+        ":",
+        {
+         "Fn::Select": [
+          0,
+          {
+           "Fn::GetAtt": [
+            "ActiveMqBrokerPair49F6C84B",
+            "MqttEndpoints"
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  },
+  "MqttSubscriberSGtoActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C0443623AABF4": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "to ActiveMqBrokerRedundantPairStackSecretsManagerVPCeSG632236C0:443",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "SecretsManagerVPCeSGA686095E",
+      "GroupId"
+     ]
+    },
+    "FromPort": 443,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "MqttSubscriberSGF523C88E",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": 443
+   }
+  },
+  "MqttSubscriberServiceRole7426B0E6": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
+   ]
+  },
+  "MqttSubscriberServiceRoleDefaultPolicy2DDB5E23": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BrokerUserC8D843BF"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "MqttSubscriberServiceRoleDefaultPolicy2DDB5E23",
+    "Roles": [
+     {
+      "Ref": "MqttSubscriberServiceRole7426B0E6"
+     }
+    ]
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
+   ]
+  },
+  "MqttSubscriber470C4F97": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "096eb707f46068036066d5c1a9fac71f1024165b12e6fba376425171818233ba.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "MQTT_ENDPOINTS": {
+       "Fn::Join": [
+        "",
+        [
+         {
+          "Fn::Select": [
+           0,
+           {
+            "Fn::GetAtt": [
+             "ActiveMqBrokerPair49F6C84B",
+             "MqttEndpoints"
+            ]
+           }
+          ]
+         },
+         ",",
+         {
+          "Fn::Select": [
+           1,
+           {
+            "Fn::GetAtt": [
+             "ActiveMqBrokerPair49F6C84B",
+             "MqttEndpoints"
+            ]
+           }
+          ]
+         }
+        ]
+       ]
+      },
+      "CREDENTIALS": {
+       "Ref": "BrokerUserC8D843BF"
+      },
+      "QUEUE_NAME": "myQueue"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "MqttSubscriberServiceRole7426B0E6",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 30,
+    "VpcConfig": {
+     "SecurityGroupIds": [
+      {
+       "Fn::GetAtt": [
+        "MqttSubscriberSGF523C88E",
+        "GroupId"
+       ]
+      }
+     ],
+     "SubnetIds": [
+      {
+       "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+      },
+      {
+       "Ref": "BrokerVpcPrivateSubnet2Subnet6E2FB068"
+      }
+     ]
+    }
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522",
+    "MqttSubscriberServiceRoleDefaultPolicy2DDB5E23",
+    "MqttSubscriberServiceRole7426B0E6"
+   ]
+  },
+  "MqttSubscriberLogRetentionD8B0FF2B": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "MqttSubscriber470C4F97"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 1
+   },
+   "DependsOn": [
+    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6",
+    "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522"
+   ]
+  }
+ },
+ "Mappings": {
+  "LatestNodeRuntimeMap": {
+   "af-south-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-east-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-3": {
+    "value": "nodejs20.x"
+   },
+   "ap-south-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-south-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-3": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-4": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-5": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-7": {
+    "value": "nodejs20.x"
+   },
+   "ca-central-1": {
+    "value": "nodejs20.x"
+   },
+   "ca-west-1": {
+    "value": "nodejs20.x"
+   },
+   "cn-north-1": {
+    "value": "nodejs18.x"
+   },
+   "cn-northwest-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-central-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-central-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-isoe-west-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-north-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-south-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-south-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-3": {
+    "value": "nodejs20.x"
+   },
+   "il-central-1": {
+    "value": "nodejs20.x"
+   },
+   "me-central-1": {
+    "value": "nodejs20.x"
+   },
+   "me-south-1": {
+    "value": "nodejs20.x"
+   },
+   "mx-central-1": {
+    "value": "nodejs20.x"
+   },
+   "sa-east-1": {
+    "value": "nodejs20.x"
+   },
+   "us-east-1": {
+    "value": "nodejs20.x"
+   },
+   "us-east-2": {
+    "value": "nodejs20.x"
+   },
+   "us-gov-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-gov-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-isob-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-west-1": {
+    "value": "nodejs20.x"
+   },
+   "us-west-2": {
+    "value": "nodejs20.x"
+   }
   }
  },
  "Outputs": {

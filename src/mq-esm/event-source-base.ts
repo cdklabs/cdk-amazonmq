@@ -86,7 +86,7 @@ export abstract class EventSourceBase implements IEventSource {
    *
    * @param props properties of the RabbitMQ event source
    */
-  constructor(protected readonly props: EventSourceBaseProps) {
+  constructor(protected readonly props: EventSourceBaseProps, protected readonly mqType: string) {
     this.props.batchSize !== undefined && withResolved(this.props.batchSize, batchSize => {
       if (batchSize < 1 || batchSize > 10000) {
         throw new Error(`Maximum batch size must be between 1 and 10000 inclusive (given ${this.props.batchSize})`);
@@ -189,6 +189,7 @@ export abstract class EventSourceBase implements IEventSource {
       const cr = new CustomResource(mapping, `MqEsmDeleterCR:${Names.nodeUniqueId(mapping.node)}`, {
         serviceToken: provider.serviceToken,
         properties: {
+          MqType: this.mqType,
           EsmId: mapping.eventSourceMappingId,
           AccountId: Aws.ACCOUNT_ID,
         },

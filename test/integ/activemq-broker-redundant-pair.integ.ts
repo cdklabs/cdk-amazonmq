@@ -7,6 +7,7 @@ import { App, CfnOutput, Duration, Stack } from 'aws-cdk-lib';
 import { InstanceClass, InstanceSize, InstanceType, InterfaceVpcEndpointAwsService, Port, SecurityGroup, SubnetSelection, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { ActiveMqBrokerRedundantPair, ActiveMqBrokerEngineVersion, ActiveMqBrokerUserManagement } from '../../src';
 
@@ -49,7 +50,7 @@ const brokerUser = new Secret(stack, 'BrokerUser', {
 
 const broker = new ActiveMqBrokerRedundantPair(stack, 'ActiveMqBrokerPair', {
   publiclyAccessible: false,
-  version: ActiveMqBrokerEngineVersion.V5_15_16,
+  version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
   userManagement: ActiveMqBrokerUserManagement.simple({
     users: [{
@@ -62,32 +63,67 @@ const broker = new ActiveMqBrokerRedundantPair(stack, 'ActiveMqBrokerPair', {
   vpcSubnets,
 });
 
-const tester = new NodejsFunction(stack, 'MqttTester', {
-  entry: path.join(__dirname, 'clients/mqtt/mqtt-tester.lambda.ts'),
+const queueName = 'myQueue';
+
+const publisher = new NodejsFunction(stack, 'MqttPublisher', {
+  entry: path.join(__dirname, 'clients/mqtt/mqtt-publisher.lambda.ts'),
   environment: {
-    MQTT_ENDPOINT: broker.first.endpoints.mqtt.url,
+    MQTT_ENDPOINTS: `${broker.first.endpoints.mqtt.url},${broker.second.endpoints.mqtt.url}`,
     CREDENTIALS: brokerUser.secretArn,
+    QUEUE_NAME: queueName,
   },
   runtime: Runtime.NODEJS_LATEST,
   timeout: Duration.seconds(30),
   vpc,
   vpcSubnets,
-  securityGroups: [new SecurityGroup(stack, 'MqttTesterSG', {
+  securityGroups: [new SecurityGroup(stack, 'MqttPublisherSG', {
     vpc,
     allowAllOutbound: false,
   })],
+  logRetention: RetentionDays.ONE_DAY,
 });
 
 if (broker.connections) {
   // inbound rule in broker SG
-  broker.connections.allowFrom(tester, Port.tcp(broker.first.endpoints.mqtt.port));
+  broker.connections.allowFrom(publisher, Port.tcp(broker.first.endpoints.mqtt.port));
   // outbound rule in tester
-  tester.connections.allowTo(broker.connections, Port.tcp(broker.first.endpoints.mqtt.port));
+  publisher.connections.allowTo(broker.connections, Port.tcp(broker.first.endpoints.mqtt.port));
 }
 
-tester.connections.allowTo(smVPCe, Port.tcp(443));
+// publisher needs to be able to read the secret with username and password
+brokerUser.grantRead(publisher);
+// as the networking is isolated - we need to establish connectivity to the SM to read the secret.
+publisher.connections.allowTo(smVPCe, Port.tcp(443));
 
-brokerUser.grantRead(tester);
+const subscriber = new NodejsFunction(stack, 'MqttSubscriber', {
+  entry: path.join(__dirname, 'clients/mqtt/mqtt-subscriber.lambda.ts'),
+  environment: {
+    MQTT_ENDPOINTS: `${broker.first.endpoints.mqtt.url},${broker.second.endpoints.mqtt.url}`,
+    CREDENTIALS: brokerUser.secretArn,
+    QUEUE_NAME: queueName,
+  },
+  runtime: Runtime.NODEJS_LATEST,
+  timeout: Duration.seconds(30),
+  vpc,
+  vpcSubnets,
+  securityGroups: [new SecurityGroup(stack, 'MqttSubscriberSG', {
+    vpc,
+    allowAllOutbound: false,
+  })],
+  logRetention: RetentionDays.ONE_DAY,
+});
+
+if (broker.connections) {
+  // inbound rule in broker SG
+  broker.connections.allowFrom(subscriber, Port.tcp(broker.first.endpoints.mqtt.port));
+  // outbound rule in tester
+  subscriber.connections.allowTo(broker.connections, Port.tcp(broker.first.endpoints.mqtt.port));
+}
+
+// publisher needs to be able to read the secret with username and password
+brokerUser.grantRead(subscriber);
+// as the networking is isolated - we need to establish connectivity to the SM to read the secret.
+subscriber.connections.allowTo(smVPCe, Port.tcp(443));
 
 new CfnOutput(stack, 'ActiveConsole', {
   value: broker.first.endpoints.console.url,

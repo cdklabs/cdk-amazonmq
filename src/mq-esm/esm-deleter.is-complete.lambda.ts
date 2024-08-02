@@ -11,7 +11,11 @@ export async function handler(event: CloudFormationCustomResourceEvent) {
   let isReady = true;
 
   if (requestType === 'Delete') {
-    const { EsmId, AccountId } = event.ResourceProperties;
+    const { MqType, EsmId, AccountId } = event.ResourceProperties;
+
+    if (MqType === undefined) {
+      throw new Error('MqType');
+    }
 
     if (EsmId === undefined) {
       throw new Error('EsmId');
@@ -24,7 +28,7 @@ export async function handler(event: CloudFormationCustomResourceEvent) {
     const response = await ec2Client.send(new DescribeNetworkInterfacesCommand({
       Filters: [{
         Name: 'description',
-        Values: [`AWS Lambda VPC ENI-armq-${AccountId}-${EsmId}*`],
+        Values: [`AWS Lambda VPC ENI-${MqType}-${AccountId}-${EsmId}*`],
       }],
     }));
 

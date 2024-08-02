@@ -793,13 +793,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@types/aws-lambda,@types/jest,cdk-nag,cdklabs-projen-project-types,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-docgen,jsii-pacmak,jsii-rosetta,mqtt,projen,rabbitmq-client,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@types/aws-lambda,@types/jest,cdk-nag,cdklabs-projen-project-types,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-docgen,jsii-pacmak,jsii-rosetta,mqtt,projen,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag cdklabs-projen-project-types esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt projen rabbitmq-client standard-version ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
+          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag cdklabs-projen-project-types esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt projen rabbitmq-client rhea standard-version ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
         },
         {
           "exec": "npx projen"

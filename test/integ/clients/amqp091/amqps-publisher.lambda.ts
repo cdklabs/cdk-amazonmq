@@ -37,7 +37,9 @@ export const handler = async () => {
   };
 
   const rabbit = new Connection({
-    url: AMQP_ENDPOINT.replace('amqps://', `amqps://${encodeURIComponent(username)}:${encodeURIComponent(password)}@`),
+    url: AMQP_ENDPOINT.replace('amqps://', `amqps://${encodeURIComponent(username)}:${encodeURIComponent(password)}@`)
+      .replace('amqp+ssl://', `amqps://${encodeURIComponent(username)}:${encodeURIComponent(password)}@`)
+    ,
   });
 
   rabbit.on('error', (err) => {
@@ -67,10 +69,10 @@ export const handler = async () => {
   // Publish a message to a custom exchange
   await pub.send(
     { exchange: 'my-events', routingKey: 'users.visit' }, // metadata
-    { id: 1, name: 'Alan Turing' }); // message content
+    { id: 1, name: `Test at ${new Date().toISOString()}` }); // message content
 
   // Or publish directly to a queue
-  await pub.send(QUEUE_NAME, { id: 2, name: 'Alan Turing' });
+  await pub.send(QUEUE_NAME, { id: 2, name: `Test at ${new Date().toISOString()}` });
 
   await pub.close();
   await rabbit.close();

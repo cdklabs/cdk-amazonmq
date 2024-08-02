@@ -26,6 +26,6 @@ export class ActiveMqEventSource extends EventSourceBase implements IEventSource
    * @param props properties of the ActiveMQ event source
    */
   constructor(props: ActiveMqEventSourceProps) {
-    super(props);
+    super(props, 'mq');
   }
 }

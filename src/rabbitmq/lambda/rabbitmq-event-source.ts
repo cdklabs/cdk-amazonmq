@@ -32,7 +32,7 @@ export class RabbitMqEventSource extends EventSourceBase implements IEventSource
    * @param props properties of the RabbitMQ event source
    */
   constructor(props: RabbitMqEventSourceProps) {
-    super(props);
+    super(props, 'armq');
 
     if (props.virtualHost) {
       this.addToSourceAccessConfigurations({
