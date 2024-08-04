@@ -132,6 +132,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         "EsmId": {
           "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58",
         },
+        "MqType": "armq",
         "ServiceToken": {
           "Fn::GetAtt": [
             "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEvent22B54D70",
@@ -748,7 +749,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       "Properties": {
         "Code": {
           "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
-          "S3Key": "be51cd20ecac8eba53c84fcb40ff5c70bbc0e6681feb993ef62e5b50b179fb80.zip",
+          "S3Key": "1663f37bd948431d89de211dfae94cede618bfefe1efb0588e57a4b57a55db61.zip",
         },
         "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
         "Environment": {

@@ -253,11 +253,6 @@
      },
      "S3Key": "bbfcf3a74a9353dfde8e6f81d25f411e9d8d2f35a9c40970cb5b5bac72638e7e.zip"
     },
-    "Environment": {
-     "Variables": {
-      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
-     }
-    },
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
@@ -265,7 +260,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs16.x"
+    "Runtime": "nodejs18.x"
    },
    "DependsOn": [
     "RabbitListenerServiceRoleDefaultPolicy64BEE7A0",
@@ -482,7 +477,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "be51cd20ecac8eba53c84fcb40ff5c70bbc0e6681feb993ef62e5b50b179fb80.zip"
+     "S3Key": "1663f37bd948431d89de211dfae94cede618bfefe1efb0588e57a4b57a55db61.zip"
     },
     "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
     "Environment": {
@@ -1141,6 +1136,7 @@
       "Arn"
      ]
     },
+    "MqType": "mq",
     "EsmId": {
      "Ref": "RabbitListenerRabbitMqEventSourceActiveMqBrokerInstanceStackActiveMqBrokerInstanceD3B83FA5119FB86B"
     },

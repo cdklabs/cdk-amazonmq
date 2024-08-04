@@ -9616,12 +9616,13 @@ the AWS Lambda function's IAM Role following https://docs.aws.amazon.com/lambda/
 ```typescript
 import { EventSourceBase } from '@cdklabs/cdk-amazonmq'
 
-new EventSourceBase(props: EventSourceBaseProps)
+new EventSourceBase(props: EventSourceBaseProps, mqType: string)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.EventSourceBase.Initializer.parameter.props">props</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.EventSourceBaseProps">EventSourceBaseProps</a></code> | properties of the RabbitMQ event source. |
+| <code><a href="#@cdklabs/cdk-amazonmq.EventSourceBase.Initializer.parameter.mqType">mqType</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -9630,6 +9631,12 @@ new EventSourceBase(props: EventSourceBaseProps)
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.EventSourceBaseProps">EventSourceBaseProps</a>
 
 properties of the RabbitMQ event source.
+
+---
+
+##### `mqType`<sup>Required</sup> <a name="mqType" id="@cdklabs/cdk-amazonmq.EventSourceBase.Initializer.parameter.mqType"></a>
+
+- *Type:* string
 
 ---
 

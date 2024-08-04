@@ -358,7 +358,10 @@ In the case of a private deployment the defined event source mapping will create
 
 ```typescript
 import { Port } from 'aws-cdk-lib/aws-ec2';
-import { IActiveMqBrokerDeployment } from '@cdklabs/cdk-amazonmq';
+import { 
+  IActiveMqBroker,
+  IActiveMqBrokerDeployment,
+} from '@cdklabs/cdk-amazonmq';
 
 declare const deployment: IActiveMqBrokerDeployment;
 declare const broker: IActiveMqBroker;
