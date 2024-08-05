@@ -9,14 +9,14 @@ import { ActiveMqBrokerConfiguration, IActiveMqBrokerConfiguration } from './act
 import { ActiveMqBrokerDeploymentBase, ActiveMqBrokerDeploymentProps } from './activemq-broker-deployment';
 import { ActiveMqBrokerEndpoints } from './activemq-broker-endpoints';
 import { BrokerDeploymentMode } from '../broker-deployment-mode';
-import { BrokerStorageType } from '../broker-storage-type';
+import { StorageType } from '../storage-type';
 
 export interface ActiveMqBrokerInstanceProps extends ActiveMqBrokerDeploymentProps {
   /**
    * Sets the storage type of the Amazon MQ for ActiveMQ broker.
    * @default - undefined; EFS will be used.
    */
-  readonly storageType?: BrokerStorageType;
+  readonly storageType?: StorageType;
 }
 
 /**

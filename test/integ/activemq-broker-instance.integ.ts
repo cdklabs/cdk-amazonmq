@@ -48,7 +48,7 @@ import {
   ActiveMqBrokerEngineVersion,
   ActiveMqEventSource,
   ActiveMqBrokerUserManagement,
-  BrokerStorageType,
+  StorageType,
 } from '../../src';
 
 const app = new App({
@@ -132,7 +132,7 @@ const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
   vpcSubnets,
   version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
-  storageType: BrokerStorageType.EBS,
+  storageType: StorageType.EBS,
   userManagement: ActiveMqBrokerUserManagement.simple({
     users: [
       {

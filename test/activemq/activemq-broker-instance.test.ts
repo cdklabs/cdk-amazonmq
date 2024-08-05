@@ -7,7 +7,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 import { InstanceClass, InstanceSize, InstanceType, SubnetSelection, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Key } from 'aws-cdk-lib/aws-kms';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
-import { ActiveMqBrokerEngineVersion, ActiveMqBrokerInstance, ActiveMqBrokerUserManagement, BrokerStorageType } from '../../src';
+import { ActiveMqBrokerEngineVersion, ActiveMqBrokerInstance, ActiveMqBrokerUserManagement, StorageType } from '../../src';
 
 describe('ActiveMqBrokerInstance', () => {
 
@@ -68,7 +68,7 @@ describe('ActiveMqBrokerInstance', () => {
         }],
       }),
       autoMinorVersionUpgrade: false,
-      storageType: BrokerStorageType.EFS,
+      storageType: StorageType.EFS,
       cloudwatchLogsExports: {
         general: true,
       },

@@ -12,9 +12,9 @@ import { LogRetention, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import { BrokerCloudwatchLogsExports } from './broker-cloudwatch-logs-exports';
 import { BrokerDeploymentMode } from './broker-deployment-mode';
-import { BrokerStorageType } from './broker-storage-type';
 import { IBrokerConfiguration } from './configuration';
 import { MaintenanceWindowStartTime } from './maintenance-window-start-time';
+import { StorageType } from './storage-type';
 
 export interface IBrokerDeployment extends IResource {
 
@@ -106,7 +106,7 @@ export interface BrokerDeploymentBaseProps extends BrokerDeploymentProps {
   readonly deploymentMode: BrokerDeploymentMode;
   readonly defaultPort?: Port;
   readonly engine: BrokerEngine;
-  readonly storageType?: BrokerStorageType;
+  readonly storageType?: StorageType;
   readonly configuration?: IBrokerConfiguration;
   readonly cloudwatchLogsExports?: BrokerCloudwatchLogsExports;
   readonly users: CfnBroker.UserProperty[];

@@ -8,7 +8,7 @@ export * from './maintenance-window-start-time';
 
 export * from './broker-deployment';
 export * from './broker-deployment-mode';
-export * from './broker-storage-type';
+export * from './storage-type';
 export * from './broker-endpoint';
 
 export * from './mq-esm';
