@@ -60,6 +60,8 @@ In order to build secure solutions follow the guidelines and recommendations in 
 
 ## ActiveMQ Brokers
 
+Amazon MQ allows for creating AWS-managed ActiveMQ brokers. The brokers enable exchanging messages over [a number of protocols](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/broker.html#broker-protocols), e.g. AMQP 1.0, OpenWire, STOMP, MQTT.
+
 ### ActiveMQ Broker Deployments
 
 The following example creates a minimal, [single-instance ActiveMQ Broker deployment](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/single-broker-deployment.html):
@@ -372,7 +374,7 @@ deployment.connections?.allowInternally(Port.tcp(broker.endpoints.openWire.port)
 
 ## RabbitMQ Brokers
 
-Amazon MQ allows for creating AWS-managed RabbitMQ brokers. The brokers enable exchanging messages over AMQP protocol.
+Amazon MQ allows for creating AWS-managed RabbitMQ brokers. The brokers enable exchanging messages over AMQP 0-9-1 protocol.
 
 ### RabbitMQ Broker Deployments
 

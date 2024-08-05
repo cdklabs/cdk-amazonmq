@@ -28,7 +28,7 @@ const project = new CdklabsConstructLibrary({
     'rabbitmq-client',
     'rhea',
   ],
-  jsiiVersion: '~5.4.0',
+  jsiiVersion: '~5.4.30',
 
   // deps: [],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
