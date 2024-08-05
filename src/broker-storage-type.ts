@@ -3,6 +3,10 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 export enum BrokerStorageType {
+  /** Amazon Elastic Block Store.
+   * NOTE: Available only for single-instance ActiveMQ brokers
+   */
   EBS = 'EBS',
-  EFS = 'EFS'
+  // Amazon Elastic File System
+  EFS = 'EFS',
 }

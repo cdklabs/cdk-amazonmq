@@ -5301,7 +5301,6 @@ const activeMqBrokerDeploymentBaseProps: ActiveMqBrokerDeploymentBaseProps = { .
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqCloudwatchLogsExports">ActiveMqCloudwatchLogsExports</a></code> | Sets the CloudWatch Logs exports for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.storageType">storageType</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a></code> | Sets the storage type of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.deploymentMode">deploymentMode</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentMode">BrokerDeploymentMode</a></code> | *No description.* |
 
 ---
@@ -5504,18 +5503,6 @@ Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker.
 
 ---
 
-##### `storageType`<sup>Optional</sup> <a name="storageType" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.storageType"></a>
-
-```typescript
-public readonly storageType: BrokerStorageType;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a>
-
-Sets the storage type of the Amazon MQ for ActiveMQ broker.
-
----
-
 ##### `deploymentMode`<sup>Required</sup> <a name="deploymentMode" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.deploymentMode"></a>
 
 ```typescript
@@ -5556,7 +5543,6 @@ const activeMqBrokerDeploymentProps: ActiveMqBrokerDeploymentProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqCloudwatchLogsExports">ActiveMqCloudwatchLogsExports</a></code> | Sets the CloudWatch Logs exports for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.storageType">storageType</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a></code> | Sets the storage type of the Amazon MQ for ActiveMQ broker. |
 
 ---
 
@@ -5755,18 +5741,6 @@ public readonly logsRetentionDays: number;
 - *Type:* number
 
 Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker.
-
----
-
-##### `storageType`<sup>Optional</sup> <a name="storageType" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.storageType"></a>
-
-```typescript
-public readonly storageType: BrokerStorageType;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a>
-
-Sets the storage type of the Amazon MQ for ActiveMQ broker.
 
 ---
 
@@ -6152,6 +6126,7 @@ public readonly storageType: BrokerStorageType;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a>
+- *Default:* undefined; EFS will be used.
 
 Sets the storage type of the Amazon MQ for ActiveMQ broker.
 
@@ -6187,7 +6162,6 @@ const activeMqBrokerRedundantPairProps: ActiveMqBrokerRedundantPairProps = { ...
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqCloudwatchLogsExports">ActiveMqCloudwatchLogsExports</a></code> | Sets the CloudWatch Logs exports for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.storageType">storageType</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a></code> | Sets the storage type of the Amazon MQ for ActiveMQ broker. |
 
 ---
 
@@ -6386,18 +6360,6 @@ public readonly logsRetentionDays: number;
 - *Type:* number
 
 Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker.
-
----
-
-##### `storageType`<sup>Optional</sup> <a name="storageType" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.storageType"></a>
-
-```typescript
-public readonly storageType: BrokerStorageType;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.BrokerStorageType">BrokerStorageType</a>
-
-Sets the storage type of the Amazon MQ for ActiveMQ broker.
 
 ---
 
@@ -11537,12 +11499,16 @@ Amazon MQ for ActiveMQ's authentication strategy.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.BrokerStorageType.EBS">EBS</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerStorageType.EBS">EBS</a></code> | Amazon Elastic Block Store. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerStorageType.EFS">EFS</a></code> | *No description.* |
 
 ---
 
 ##### `EBS` <a name="EBS" id="@cdklabs/cdk-amazonmq.BrokerStorageType.EBS"></a>
+
+Amazon Elastic Block Store.
+
+NOTE: Available only for single-instance ActiveMQ brokers
 
 ---
 

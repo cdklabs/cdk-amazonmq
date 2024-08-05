@@ -11,7 +11,6 @@ import { IActiveMqBrokerUserManagement } from './usermanagement/activemq-broker-
 import { ActiveMqLdapValidation } from './validators/ldap-metadata-validator';
 import { BrokerDeploymentBase, BrokerEngine, BrokerDeploymentProps, IBrokerDeployment } from '../broker-deployment';
 import { BrokerDeploymentMode } from '../broker-deployment-mode';
-import { BrokerStorageType } from '../broker-storage-type';
 
 export interface ActiveMqCloudwatchLogsExports {
   /**
@@ -51,11 +50,6 @@ export interface ActiveMqBrokerDeploymentProps extends BrokerDeploymentProps {
    * @default - undefined; No logs are exported to CloudWatch.
    */
   readonly cloudwatchLogsExports?: ActiveMqCloudwatchLogsExports;
-
-  /**
-   * Sets the storage type of the Amazon MQ for ActiveMQ broker.
-   */
-  readonly storageType?: BrokerStorageType;
 
   /**
    * Sets the configuration of the Amazon MQ for ActiveMQ broker.

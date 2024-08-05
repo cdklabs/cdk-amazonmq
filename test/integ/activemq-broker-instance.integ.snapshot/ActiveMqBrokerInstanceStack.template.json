@@ -678,7 +678,7 @@
     },
     "EngineType": "ACTIVEMQ",
     "EngineVersion": "5.18",
-    "HostInstanceType": "mq.t3.micro",
+    "HostInstanceType": "mq.m5.large",
     "Logs": {
      "General": true
     },
@@ -691,6 +691,7 @@
       ]
      }
     ],
+    "StorageType": "EBS",
     "SubnetIds": [
      {
       "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
