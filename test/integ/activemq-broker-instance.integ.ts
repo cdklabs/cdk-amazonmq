@@ -2,6 +2,30 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
+
+
+/**
+ * This integration test creates an ActiveMQ single-instance broker with Simple Authentication and two lambdas:
+ *  - an AMQP 1.0 message producer Lambda
+ *  - a listener lambda with an event source mapping for ActiveMQ using OpenWire for polling for new messages
+ *
+ * The purpose of this test is to:
+ *  - verify that a single-instance ActiveMQ broker is successfully provisioned
+ *  - verify if an isolated network setup enables connectivity between all the actors
+ *  - verify is the event-source mapping works successfully.
+ *
+ * In order to perform the test after the deployment go to the AWS Console and open CloudFormation page.
+ *
+ * Find and choose the ActiveMqBrokerInstanceStack stack and in the resources find and open the page for
+ * the publisher AWS Lambda function. In the publisher code view select 'Test' to run the lambda
+ * (the invoke event is not important). The function should run successfully.
+ *
+ * In the CloudFormation ActiveMqBrokerInstanceStack stack page find and open a page for the listener AWS Lambda Function.
+ * Go to 'Monitoring' tab and open the CloudWatch Logs link. There should be a LogStream created. Open it and verify if
+ * there is a new message. This is the message created by the publisher.
+ *
+ * If the test result is as described - the integration test succeeded and the functionality is as expected.
+ */
 import path from 'path';
 import { App, CfnOutput, Duration, Stack } from 'aws-cdk-lib';
 import {
