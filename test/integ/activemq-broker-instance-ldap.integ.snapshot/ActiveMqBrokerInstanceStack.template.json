@@ -396,7 +396,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "0774deac24a824550ca6e1c942615799e4f6b7c85bf2f32ffe75f59471d5b94a.zip"
+     "S3Key": "f09b6cc320f07d9fd3dc1507063b6b5eab4f55c0e12e319a47e058fa3b3e1f15.zip"
     },
     "Description": "src/mq-esm/esm-deleter.on-event.lambda.ts",
     "Environment": {
@@ -477,7 +477,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "1663f37bd948431d89de211dfae94cede618bfefe1efb0588e57a4b57a55db61.zip"
+     "S3Key": "cc3114789a2169a27590b14542ccfec97a0f543028a311e72dc31eabe0735d54.zip"
     },
     "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
     "Environment": {

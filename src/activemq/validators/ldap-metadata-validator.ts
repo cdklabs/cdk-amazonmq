@@ -10,7 +10,9 @@ export interface ActiveMqLdapAuthorizationProps {
   readonly config: CfnBroker.LdapServerMetadataProperty;
 }
 
-// Class implementing IValidation to validate if provided string is in form required by [Active MQ](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html).
+/**
+ * Validates if provided string is in form required by [Active MQ](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html).
+ */
 export class ActiveMqLdapValidation implements IValidation {
   readonly ActiveMqLdapAuthorization: CfnBroker.LdapServerMetadataProperty;
   private readonly ditRegex?: RegExp;

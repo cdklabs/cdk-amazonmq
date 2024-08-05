@@ -20,12 +20,12 @@ export interface ActiveMqBrokerRedundantPairProps extends ActiveMqBrokerDeployme
 export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
 
   /**
-   * The first broker of the redundant paier for the deployment.
+   * The first broker of the redundant pair for the deployment.
    */
   public readonly first: IActiveMqBroker;
 
   /**
-   * The second broker of the redundant paier for the deployment.
+   * The second broker of the redundant pair for the deployment.
    */
   public readonly second: IActiveMqBroker;
 

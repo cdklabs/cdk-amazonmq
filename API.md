@@ -2520,8 +2520,8 @@ Check whether the given construct is a Resource.
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Manages connections for the cluster. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.first">first</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | The first broker of the redundant paier for the deployment. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.second">second</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | The second broker of the redundant paier for the deployment. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.first">first</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | The first broker of the redundant pair for the deployment. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.second">second</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | The second broker of the redundant pair for the deployment. |
 
 ---
 
@@ -2618,7 +2618,7 @@ public readonly first: IActiveMqBroker;
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
 
-The first broker of the redundant paier for the deployment.
+The first broker of the redundant pair for the deployment.
 
 ---
 
@@ -2630,7 +2630,7 @@ public readonly second: IActiveMqBroker;
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
 
-The second broker of the redundant paier for the deployment.
+The second broker of the redundant pair for the deployment.
 
 ---
 
@@ -11461,6 +11461,8 @@ public readonly connections: Connections;
 ## Enums <a name="Enums" id="Enums"></a>
 
 ### ActiveMqAuthenticationStrategy <a name="ActiveMqAuthenticationStrategy" id="@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy"></a>
+
+Amazon MQ for ActiveMQ's authentication strategy.
 
 #### Members <a name="Members" id="Members"></a>
 

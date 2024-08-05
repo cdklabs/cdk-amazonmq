@@ -56,8 +56,21 @@ const app = new App({
 
 const stack = new Stack(app, 'ActiveMqBrokerInstanceStack');
 
+// A secret creating the username and password for the ActiveMQ broker user.
+const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
+  generateSecretString: {
+    secretStringTemplate: JSON.stringify({ username: 'admin' }),
+    excludePunctuation: true,
+    generateStringKey: 'password',
+    passwordLength: 24,
+  },
+});
+
+// A fully-isolated VPC with a single subnet in a single AZ. As the test setup relies on
+// a single-instance ActiveMQ broker - a single subnet is what is needed.
 const vpc = new Vpc(stack, 'BrokerVpc', {
   createInternetGateway: false,
+  maxAzs: 1,
   subnetConfiguration: [
     {
       cidrMask: 28,
@@ -67,8 +80,18 @@ const vpc = new Vpc(stack, 'BrokerVpc', {
   ],
 });
 
-const vpcSubnets: SubnetSelection = { subnets: [vpc.isolatedSubnets[0]] };
+// As the ActiveMQ broker is single-instance - we can provide only a single subnet.
+// This is assured by the maxAzs: 1 parameter when creating the VPC.
+const vpcSubnets: SubnetSelection = { subnetType: SubnetType.PRIVATE_ISOLATED };
 
+// The test verifies the communication from the producer (below) to the broker as well as
+// from the broker to the listener (event source mapping). In order for them to work there
+// needs to be a connectivity between the actors and three AWS services:
+//  - SecretsManager - for fetching the secret containing the admin username/password
+//  - STS - for assuming the IAM Role (by the ESM)
+//  - Lambda - for invoking the listener (by the ESM)
+// That is why below there are three VPC Endpoints created to enable connectivity to
+// the mentioned AWS services from the isolated network setup.\
 const smVPCe = vpc.addInterfaceEndpoint('SecretsManagerEndpoint', {
   service: InterfaceVpcEndpointAwsService.SECRETS_MANAGER,
   subnets: vpcSubnets,
@@ -100,15 +123,6 @@ const lambdaVPCe = vpc.addInterfaceEndpoint('LambdaEndpoint', {
       allowAllOutbound: false,
     }),
   ],
-});
-
-const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
-  generateSecretString: {
-    secretStringTemplate: JSON.stringify({ username: 'admin' }),
-    excludePunctuation: true,
-    generateStringKey: 'password',
-    passwordLength: 24,
-  },
 });
 
 const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
@@ -186,7 +200,9 @@ broker.connections?.allowInternally(
   'Allowing for the ESM',
 );
 
-// INFO: In order to access the VPC Endpoints - we need to explicity allow it in the security groups
+// In order to access the VPC Endpoints - we need to explicity allow it in the security group used by the ESM.
+// By design the ESM reuses the security group and that is why it is the connections from the ActiveMQ broker's
+// are being allowed to access the VPC Endpoints.
 broker.connections?.allowTo(smVPCe, Port.tcp(443));
 broker.connections?.allowTo(stsVPCe, Port.tcp(443));
 broker.connections?.allowTo(lambdaVPCe, Port.tcp(443));

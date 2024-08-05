@@ -1,5 +1,18 @@
 {
  "Resources": {
+  "BrokerCreds13028F98": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 24,
+     "SecretStringTemplate": "{\"username\":\"admin\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
   "BrokerVpc3A93CA16": {
    "Type": "AWS::EC2::VPC",
    "Properties": {
@@ -69,63 +82,6 @@
     },
     "SubnetId": {
      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
-    }
-   }
-  },
-  "BrokerVpcPrivateSubnet2Subnet6E2FB068": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.0.16/28",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "Private"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Isolated"
-     },
-     {
-      "Key": "Name",
-      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/PrivateSubnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "BrokerVpc3A93CA16"
-    }
-   }
-  },
-  "BrokerVpcPrivateSubnet2RouteTable242AB0A2": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/PrivateSubnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "BrokerVpc3A93CA16"
-    }
-   }
-  },
-  "BrokerVpcPrivateSubnet2RouteTableAssociationD4B0A522": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "BrokerVpcPrivateSubnet2RouteTable242AB0A2"
-    },
-    "SubnetId": {
-     "Ref": "BrokerVpcPrivateSubnet2Subnet6E2FB068"
     }
    }
   },
@@ -455,19 +411,6 @@
     },
     "ToPort": 443
    }
-  },
-  "BrokerCreds13028F98": {
-   "Type": "AWS::SecretsManager::Secret",
-   "Properties": {
-    "GenerateSecretString": {
-     "ExcludePunctuation": true,
-     "GenerateStringKey": "password",
-     "PasswordLength": 24,
-     "SecretStringTemplate": "{\"username\":\"admin\"}"
-    }
-   },
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete"
   },
   "ActiveMqBrokerInstanceAMQSGECB184CE": {
    "Type": "AWS::EC2::SecurityGroup",
@@ -1382,7 +1325,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "0774deac24a824550ca6e1c942615799e4f6b7c85bf2f32ffe75f59471d5b94a.zip"
+     "S3Key": "f09b6cc320f07d9fd3dc1507063b6b5eab4f55c0e12e319a47e058fa3b3e1f15.zip"
     },
     "Description": "src/mq-esm/esm-deleter.on-event.lambda.ts",
     "Environment": {
@@ -1463,7 +1406,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "1663f37bd948431d89de211dfae94cede618bfefe1efb0588e57a4b57a55db61.zip"
+     "S3Key": "cc3114789a2169a27590b14542ccfec97a0f543028a311e72dc31eabe0735d54.zip"
     },
     "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
     "Environment": {

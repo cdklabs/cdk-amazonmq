@@ -17,10 +17,7 @@ interface Response {
   PhysicalResourceId: string;
 }
 
-export async function handler(
-  event: CloudFormationCustomResourceEvent,
-) {
-  console.log('Event 👉', event);
+export async function handler(event: CloudFormationCustomResourceEvent) {
   let response: Promise<Response>;
   switch (event.RequestType) {
     case 'Create':
@@ -35,18 +32,20 @@ export async function handler(
     default:
       throw new Error('Unknown Request Type of CloudFormation');
   }
-  console.log('Return value:', JSON.stringify(response));
   return response;
 }
 
-async function onCreate(event: CloudFormationCustomResourceCreateEvent) : Promise<Response> {
+async function onCreate(
+  event: CloudFormationCustomResourceCreateEvent,
+): Promise<Response> {
   return {
     PhysicalResourceId: 'abcdef-' + event.RequestId,
   };
 }
 
-async function onDelete(event: CloudFormationCustomResourceDeleteEvent) : Promise<Response> {
-
+async function onDelete(
+  event: CloudFormationCustomResourceDeleteEvent,
+): Promise<Response> {
   const { EsmId } = event.ResourceProperties;
 
   if (EsmId === undefined) {
@@ -65,7 +64,9 @@ async function onDelete(event: CloudFormationCustomResourceDeleteEvent) : Promis
   };
 }
 
-async function onUpdate(event: CloudFormationCustomResourceUpdateEvent) : Promise<Response> {
+async function onUpdate(
+  event: CloudFormationCustomResourceUpdateEvent,
+): Promise<Response> {
   return {
     PhysicalResourceId: event.PhysicalResourceId || '',
   };

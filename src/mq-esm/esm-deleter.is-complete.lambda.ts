@@ -5,9 +5,7 @@ import { CloudFormationCustomResourceEvent } from 'aws-lambda';
 const ec2Client = new EC2Client();
 
 export async function handler(event: CloudFormationCustomResourceEvent) {
-  console.log('Event 👉', event);
   const requestType = event.RequestType;
-  console.log('Request Type is 👉', requestType);
   let isReady = true;
 
   if (requestType === 'Delete') {
@@ -42,6 +40,5 @@ export async function handler(event: CloudFormationCustomResourceEvent) {
     IsComplete: isReady,
   };
 
-  console.log('Return value:', JSON.stringify(response));
   return response;
 }
