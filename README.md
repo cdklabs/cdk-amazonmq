@@ -43,7 +43,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
 
 ## Introduction
 
-Amazon MQ is a fully managed service that makes it easy to create and run ActiveMQ and RabbitMQ message brokers at scale. This library brings L2 AWS CDK constructs for Amazon MQ and introduces a notion of *broker deployment* and distincts between *a broker* and *a broker deployment*. 
+Amazon MQ is a managed service that makes it easy to create and run Apache ActiveMQ and RabbitMQ message brokers at scale. This library brings L2 AWS CDK constructs for Amazon MQ and introduces a notion of *broker deployment* and distincts between *a broker* and *a broker deployment*. 
 
 - *broker deployment* represents the configuration that defines how the broker (or a set of brokers in a particular configuration) will be deployed. Effectively, this is the representation of the `AWS::AmazonMQ::Broker` resource type, and will expose the relevant attributes of the resource type (such as ARN, Id).
 - *broker* represents the means for accessing the broker, that is its endpoints and (in the case of ActiveMQ) IPv4 address(es).
