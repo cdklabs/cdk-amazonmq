@@ -12,7 +12,7 @@ import mqtt from 'mqtt';
 const client = new SecretsManagerClient({});
 
 export const handler = async () => {
-  const { MQTT_ENDPOINTS, CREDENTIALS, QUEUE_NAME } = process.env;
+  const { MQTT_ENDPOINTS, CREDENTIALS, TOPIC_NAME } = process.env;
 
   if (MQTT_ENDPOINTS === undefined) {
     throw new Error('MQTT_ENDPOINTS');
@@ -22,8 +22,8 @@ export const handler = async () => {
     throw new Error('CREDENTIALS');
   }
 
-  if (QUEUE_NAME === undefined) {
-    throw new Error('QUEUE_NAME');
+  if (TOPIC_NAME === undefined) {
+    throw new Error('TOPIC_NAME');
   }
 
   const { SecretString } = await client.send(
@@ -62,7 +62,7 @@ export const handler = async () => {
       continue;
     }
 
-    await mqttClient.publishAsync(QUEUE_NAME, `Test ${new Date().toISOString()}`);
+    await mqttClient.publishAsync(TOPIC_NAME, `Test ${new Date().toISOString()}`);
     await mqttClient.endAsync();
   }
 };

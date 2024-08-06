@@ -2,6 +2,31 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
+
+/**
+ * This integration test creates an ActiveMQ broker redundant pair with Simple Authentication and two lambdas:
+ *
+ *  - an MQTT message producer Lambda
+ *  - an MQTT message subscriber Lambda
+ *
+ * The purpose of this test is to:
+ *  - verify that a redundant pair ActiveMQ deployment is successfully provisioned
+ *  - verify that in an isolated network setup connectivity between all actors is established
+ *  - verify is MQTT protocol works for two, separate clients: the publisher and the subscriber
+ *
+ * In order to perform the test, after the deployment go to the AWS Console and open CloudFormation page.
+ *
+ * Find and select the ActiveMqBrokerRedundantPairStack stack and in the resources find and open the page for
+ * the subscriber AWS Lambda function (in a separate tab). Additionally, find and open the page for the publisher AWS Lambda function.
+ *
+ * In the subscriber function select 'Test' to run the function. The function has a timeout of 30 seconds.
+ * In this time you need to go to the publisher and also run it. This will make the publisher send a message
+ * to the topic to which the subscriber is subscribed. You should observe in the subscriber function's CloudWatch Logs
+ * the entry containing the message sent by the publisher.
+ *
+* If the test result is as described - the integration test succeeded and the functionality is as expected.
+ *
+ */
 import path from 'path';
 import { App, CfnOutput, Duration, Stack } from 'aws-cdk-lib';
 import { InstanceClass, InstanceSize, InstanceType, InterfaceVpcEndpointAwsService, Port, SecurityGroup, SubnetSelection, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
@@ -19,6 +44,7 @@ const stack = new Stack(app, 'ActiveMqBrokerRedundantPairStack');
 
 const vpc = new Vpc(stack, 'BrokerVpc', {
   createInternetGateway: false,
+  maxAzs: 2,
   subnetConfiguration: [
     {
       cidrMask: 28,
@@ -63,14 +89,14 @@ const broker = new ActiveMqBrokerRedundantPair(stack, 'ActiveMqBrokerPair', {
   vpcSubnets,
 });
 
-const queueName = 'myQueue';
+const topicName = 'myTopic';
 
 const publisher = new NodejsFunction(stack, 'MqttPublisher', {
   entry: path.join(__dirname, 'clients/mqtt/mqtt-publisher.lambda.ts'),
   environment: {
     MQTT_ENDPOINTS: `${broker.first.endpoints.mqtt.url},${broker.second.endpoints.mqtt.url}`,
     CREDENTIALS: brokerUser.secretArn,
-    QUEUE_NAME: queueName,
+    TOPIC_NAME: topicName,
   },
   runtime: Runtime.NODEJS_LATEST,
   timeout: Duration.seconds(30),
@@ -100,7 +126,7 @@ const subscriber = new NodejsFunction(stack, 'MqttSubscriber', {
   environment: {
     MQTT_ENDPOINTS: `${broker.first.endpoints.mqtt.url},${broker.second.endpoints.mqtt.url}`,
     CREDENTIALS: brokerUser.secretArn,
-    QUEUE_NAME: queueName,
+    TOPIC_NAME: topicName,
   },
   runtime: Runtime.NODEJS_LATEST,
   timeout: Duration.seconds(30),

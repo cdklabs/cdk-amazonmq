@@ -3,7 +3,6 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-
 /**
  * This integration test creates an ActiveMQ single-instance broker with Simple Authentication and two lambdas:
  *  - an AMQP 1.0 message producer Lambda
@@ -11,8 +10,10 @@ SPDX-License-Identifier: Apache-2.0
  *
  * The purpose of this test is to:
  *  - verify that a single-instance ActiveMQ broker is successfully provisioned
+ *  - verify that the StorageType.EBS takes effect
  *  - verify if an isolated network setup enables connectivity between all the actors
  *  - verify is the event-source mapping works successfully.
+ *  - verify (last to verify) if deletion of the stack completes successfully (due to the way the service deprovisions the ESM there would be a failure in the deletion. This library adds a custom resource that prevents that failure)
  *
  * In order to perform the test after the deployment go to the AWS Console and open CloudFormation page.
  *

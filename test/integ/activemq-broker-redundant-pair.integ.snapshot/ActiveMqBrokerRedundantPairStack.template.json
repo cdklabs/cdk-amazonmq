@@ -642,7 +642,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "7ce25c3ad04318e0dcb5a3a04790911b92468b3969a9fe7da662566d435d8ef8.zip"
+     "S3Key": "d8f2cb8319c514091afc60bc315e227e13de503b615ff5bc4717bf245bc46da7.zip"
     },
     "Environment": {
      "Variables": {
@@ -679,7 +679,7 @@
       "CREDENTIALS": {
        "Ref": "BrokerUserC8D843BF"
       },
-      "QUEUE_NAME": "myQueue"
+      "TOPIC_NAME": "myTopic"
      }
     },
     "Handler": "index.handler",
@@ -1006,7 +1006,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "38fc961783751eb88478e5292649420b620d0e2464f78f4d3f56ed5498c97c45.zip"
+     "S3Key": "22d0264eb0e17fe552e19d67e8d16ab8405d55d7b58185391a196bdfd82e74da.zip"
     },
     "Environment": {
      "Variables": {
@@ -1043,7 +1043,7 @@
       "CREDENTIALS": {
        "Ref": "BrokerUserC8D843BF"
       },
-      "QUEUE_NAME": "myQueue"
+      "TOPIC_NAME": "myTopic"
      }
     },
     "Handler": "index.handler",
