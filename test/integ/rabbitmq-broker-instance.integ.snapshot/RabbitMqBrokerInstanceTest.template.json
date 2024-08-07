@@ -1,0 +1,1662 @@
+{
+ "Resources": {
+  "BrokerCreds13028F98": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 24,
+     "SecretStringTemplate": "{\"username\":\"admin\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "RabbitMqBrokerInstance9BE002C0": {
+   "Type": "AWS::AmazonMQ::Broker",
+   "Properties": {
+    "AutoMinorVersionUpgrade": true,
+    "BrokerName": "RabbitMqBrokerInstance",
+    "DeploymentMode": "SINGLE_INSTANCE",
+    "EncryptionOptions": {
+     "UseAwsOwnedKey": true
+    },
+    "EngineType": "RABBITMQ",
+    "EngineVersion": "3.13",
+    "HostInstanceType": "mq.t3.micro",
+    "Logs": {
+     "General": true
+    },
+    "MaintenanceWindowStartTime": {
+     "DayOfWeek": "SUNDAY",
+     "TimeOfDay": "13:00",
+     "TimeZone": "Europe/Warsaw"
+    },
+    "PubliclyAccessible": true,
+    "Users": [
+     {
+      "Password": {
+       "Fn::Join": [
+        "",
+        [
+         "{{resolve:secretsmanager:",
+         {
+          "Ref": "BrokerCreds13028F98"
+         },
+         ":SecretString:password::}}"
+        ]
+       ]
+      },
+      "Username": {
+       "Fn::Join": [
+        "",
+        [
+         "{{resolve:secretsmanager:",
+         {
+          "Ref": "BrokerCreds13028F98"
+         },
+         ":SecretString:username::}}"
+        ]
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "RabbitMqBrokerInstanceLogRetentiongeneral59C0BD5E": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/amazonmq/broker/",
+       {
+        "Ref": "RabbitMqBrokerInstance9BE002C0"
+       },
+       "/general"
+      ]
+     ]
+    },
+    "RetentionInDays": 14
+   }
+  },
+  "RabbitMqBrokerInstanceLogRetentionchannelE2445030": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/amazonmq/broker/",
+       {
+        "Ref": "RabbitMqBrokerInstance9BE002C0"
+       },
+       "/channel"
+      ]
+     ]
+    },
+    "RetentionInDays": 14
+   }
+  },
+  "RabbitMqBrokerInstanceLogRetentionconnectionCE359F72": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/amazonmq/broker/",
+       {
+        "Ref": "RabbitMqBrokerInstance9BE002C0"
+       },
+       "/connection"
+      ]
+     ]
+    },
+    "RetentionInDays": 14
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:PutRetentionPolicy",
+        "logs:DeleteRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ]
+  },
+  "ExchangeCountAlarm66F8A29F": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 2,
+    "Dimensions": [
+     {
+      "Name": "Broker",
+      "Value": {
+       "Ref": "RabbitMqBrokerInstance9BE002C0"
+      }
+     }
+    ],
+    "EvaluationPeriods": 3,
+    "MetricName": "ExchangeCount",
+    "Namespace": "AWS/AmazonMQ",
+    "Period": 300,
+    "Statistic": "Average",
+    "Threshold": 100
+   }
+  },
+  "RabbitListenerServiceRoleC22D122D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitListenerServiceRoleDefaultPolicy64BEE7A0": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BrokerCreds13028F98"
+       }
+      },
+      {
+       "Action": [
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeNetworkInterfaces",
+        "ec2:DescribeSubnets"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      },
+      {
+       "Action": "mq:DescribeBroker",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitMqBrokerInstance9BE002C0",
+         "Arn"
+        ]
+       }
+      },
+      {
+       "Action": [
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSecurityGroups"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RabbitListenerServiceRoleDefaultPolicy64BEE7A0",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerServiceRoleC22D122D"
+     }
+    ]
+   }
+  },
+  "RabbitListener30550EFB": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "bbfcf3a74a9353dfde8e6f81d25f411e9d8d2f35a9c40970cb5b5bac72638e7e.zip"
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitListenerServiceRoleC22D122D",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x"
+   },
+   "DependsOn": [
+    "RabbitListenerServiceRoleDefaultPolicy64BEE7A0",
+    "RabbitListenerServiceRoleC22D122D"
+   ]
+  },
+  "RabbitListenerLogRetentionB22A5CDD": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "RabbitListener30550EFB"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 1
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BACA1F4C05": {
+   "Type": "AWS::Lambda::EventSourceMapping",
+   "Properties": {
+    "EventSourceArn": {
+     "Fn::GetAtt": [
+      "RabbitMqBrokerInstance9BE002C0",
+      "Arn"
+     ]
+    },
+    "FunctionName": {
+     "Ref": "RabbitListener30550EFB"
+    },
+    "Queues": [
+     "user-events"
+    ],
+    "SourceAccessConfigurations": [
+     {
+      "Type": "BASIC_AUTH",
+      "URI": {
+       "Ref": "BrokerCreds13028F98"
+      }
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleC490DCF7": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleDefaultPolicy5DECE872": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:DeleteEventSourceMapping",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::Join": [
+         "",
+         [
+          "arn:",
+          {
+           "Ref": "AWS::Partition"
+          },
+          ":lambda:",
+          {
+           "Ref": "AWS::Region"
+          },
+          ":",
+          {
+           "Ref": "AWS::AccountId"
+          },
+          ":event-source-mapping:",
+          {
+           "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BACA1F4C05"
+          }
+         ]
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleDefaultPolicy5DECE872",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleC490DCF7"
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "f09b6cc320f07d9fd3dc1507063b6b5eab4f55c0e12e319a47e058fa3b3e1f15.zip"
+    },
+    "Description": "src/mq-esm/esm-deleter.on-event.lambda.ts",
+    "Environment": {
+     "Variables": {
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleC490DCF7",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x"
+   },
+   "DependsOn": [
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleDefaultPolicy5DECE872",
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAoneventServiceRoleC490DCF7"
+   ]
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRole4FA3A3D8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRoleDefaultPolicyBD629DE1": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ec2:DescribeNetworkInterfaces",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "bitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRoleDefaultPolicyBD629DE1",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRole4FA3A3D8"
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "cc3114789a2169a27590b14542ccfec97a0f543028a311e72dc31eabe0735d54.zip"
+    },
+    "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
+    "Environment": {
+     "Variables": {
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRole4FA3A3D8",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x"
+   },
+   "DependsOn": [
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRoleDefaultPolicyBD629DE1",
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscompleteServiceRole4FA3A3D8"
+   ]
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent3A19813E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent2472FB81": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "states:StartExecution",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiA43E4148"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "nceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent2472FB81",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent3A19813E"
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEventA4687EB3": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip"
+    },
+    "Description": "AWS CDK resource provider framework - onEvent (RabbitMqBrokerInstanceTest/RabbitListener/RabbitMqEventSource:RabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA/MqEsmDeleter:RabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInst",
+    "Environment": {
+     "Variables": {
+      "USER_ON_EVENT_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+        "Arn"
+       ]
+      },
+      "USER_IS_COMPLETE_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+        "Arn"
+       ]
+      },
+      "WAITER_STATE_MACHINE_ARN": {
+       "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiA43E4148"
+      }
+     }
+    },
+    "Handler": "framework.onEvent",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent3A19813E",
+      "Arn"
+     ]
+    },
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent2472FB81",
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEvent3A19813E"
+   ]
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl2179478E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl551D6367": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "nceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl551D6367",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl2179478E"
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl78C7792F": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip"
+    },
+    "Description": "AWS CDK resource provider framework - isComplete (RabbitMqBrokerInstanceTest/RabbitListener/RabbitMqEventSource:RabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA/MqEsmDeleter:RabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerI",
+    "Environment": {
+     "Variables": {
+      "USER_ON_EVENT_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+        "Arn"
+       ]
+      },
+      "USER_IS_COMPLETE_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+        "Arn"
+       ]
+      }
+     }
+    },
+    "Handler": "framework.isComplete",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl2179478E",
+      "Arn"
+     ]
+    },
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl551D6367",
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl2179478E"
+   ]
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeoF0A8AA1D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo00C88112": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "nceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo00C88112",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeoF0A8AA1D"
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo5C8319B2": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip"
+    },
+    "Description": "AWS CDK resource provider framework - onTimeout (RabbitMqBrokerInstanceTest/RabbitListener/RabbitMqEventSource:RabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA/MqEsmDeleter:RabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerIn",
+    "Environment": {
+     "Variables": {
+      "USER_ON_EVENT_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAonevent115146D8",
+        "Arn"
+       ]
+      },
+      "USER_IS_COMPLETE_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAiscomplete30CE92BD",
+        "Arn"
+       ]
+      }
+     }
+    },
+    "Handler": "framework.onTimeout",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeoF0A8AA1D",
+      "Arn"
+     ]
+    },
+    "Runtime": {
+     "Fn::FindInMap": [
+      "LatestNodeRuntimeMap",
+      {
+       "Ref": "AWS::Region"
+      },
+      "value"
+     ]
+    },
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo00C88112",
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeoF0A8AA1D"
+   ]
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiFC096102": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "states.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiD5D455E1": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl78C7792F",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl78C7792F",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo5C8319B2",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo5C8319B2",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      },
+      {
+       "Action": [
+        "logs:CreateLogDelivery",
+        "logs:CreateLogStream",
+        "logs:GetLogDelivery",
+        "logs:UpdateLogDelivery",
+        "logs:DeleteLogDelivery",
+        "logs:ListLogDeliveries",
+        "logs:PutLogEvents",
+        "logs:PutResourcePolicy",
+        "logs:DescribeResourcePolicies",
+        "logs:DescribeLogGroups"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "nceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiD5D455E1",
+    "Roles": [
+     {
+      "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiFC096102"
+     }
+    ]
+   }
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachi6C4F881B": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/vendedlogs/states/waiter-state-machine-",
+       {
+        "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl78C7792F"
+       },
+       "-c88f25467f32f013f947bf73d737cb3aa1406f6fab"
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiA43E4148": {
+   "Type": "AWS::StepFunctions::StateMachine",
+   "Properties": {
+    "DefinitionString": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"StartAt\":\"framework-isComplete-task\",\"States\":{\"framework-isComplete-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":60,\"MaxAttempts\":30,\"BackoffRate\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"framework-onTimeout-task\"}],\"Type\":\"Task\",\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkisCompl78C7792F",
+         "Arn"
+        ]
+       },
+       "\"},\"framework-onTimeout-task\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"",
+       {
+        "Fn::GetAtt": [
+         "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonTimeo5C8319B2",
+         "Arn"
+        ]
+       },
+       "\"}}}"
+      ]
+     ]
+    },
+    "LoggingConfiguration": {
+     "Destinations": [
+      {
+       "CloudWatchLogsLogGroup": {
+        "LogGroupArn": {
+         "Fn::GetAtt": [
+          "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachi6C4F881B",
+          "Arn"
+         ]
+        }
+       }
+      }
+     ],
+     "IncludeExecutionData": false,
+     "Level": "ERROR"
+    },
+    "RoleArn": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiFC096102",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiD5D455E1",
+    "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77waiterstatemachiFC096102"
+   ]
+  },
+  "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterCRRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77EECAD0C2": {
+   "Type": "AWS::CloudFormation::CustomResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BAMqEsmDeleterRabbitMqBrokerInstanceTestRabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BA0C990A77frameworkonEventA4687EB3",
+      "Arn"
+     ]
+    },
+    "MqType": "armq",
+    "EsmId": {
+     "Ref": "RabbitListenerRabbitMqEventSourceRabbitMqBrokerInstanceTestRabbitMqBrokerInstance6B3551BACA1F4C05"
+    },
+    "AccountId": {
+     "Ref": "AWS::AccountId"
+    }
+   },
+   "DependsOn": [
+    "RabbitListenerServiceRoleDefaultPolicy64BEE7A0",
+    "RabbitListenerServiceRoleC22D122D"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "RabbitPublisherServiceRole5A2FBEB6": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitPublisherServiceRoleDefaultPolicyBD37AE24": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BrokerCreds13028F98"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RabbitPublisherServiceRoleDefaultPolicyBD37AE24",
+    "Roles": [
+     {
+      "Ref": "RabbitPublisherServiceRole5A2FBEB6"
+     }
+    ]
+   }
+  },
+  "RabbitPublisherE6CB8FBF": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "c79028adb0b0640650b34eb933fa82f963de546800884b69687f3e1ad3da6c12.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AMQP_ENDPOINT": {
+       "Fn::Select": [
+        0,
+        {
+         "Fn::GetAtt": [
+          "RabbitMqBrokerInstance9BE002C0",
+          "AmqpEndpoints"
+         ]
+        }
+       ]
+      },
+      "CREDENTIALS": {
+       "Ref": "BrokerCreds13028F98"
+      },
+      "QUEUE_NAME": "user-events"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitPublisherServiceRole5A2FBEB6",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "RabbitPublisherServiceRoleDefaultPolicyBD37AE24",
+    "RabbitPublisherServiceRole5A2FBEB6"
+   ]
+  },
+  "RabbitPublisherLogRetention3E18A75E": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "RabbitPublisherE6CB8FBF"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 1
+   }
+  },
+  "RabbitMqSubscriberServiceRoleC3492ABA": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RabbitMqSubscriberServiceRoleDefaultPolicyD65FE432": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BrokerCreds13028F98"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RabbitMqSubscriberServiceRoleDefaultPolicyD65FE432",
+    "Roles": [
+     {
+      "Ref": "RabbitMqSubscriberServiceRoleC3492ABA"
+     }
+    ]
+   }
+  },
+  "RabbitMqSubscriber360F32E4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "2e6186ab58c257bb28ac676adf068105293ffdeabe351bb34ca12a901fd91590.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AMQP_ENDPOINT": {
+       "Fn::Select": [
+        0,
+        {
+         "Fn::GetAtt": [
+          "RabbitMqBrokerInstance9BE002C0",
+          "AmqpEndpoints"
+         ]
+        }
+       ]
+      },
+      "CREDENTIALS": {
+       "Ref": "BrokerCreds13028F98"
+      },
+      "QUEUE_NAME": "user-events"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "RabbitMqSubscriberServiceRoleC3492ABA",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "RabbitMqSubscriberServiceRoleDefaultPolicyD65FE432",
+    "RabbitMqSubscriberServiceRoleC3492ABA"
+   ]
+  },
+  "RabbitMqSubscriberLogRetention86571C24": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "RabbitMqSubscriber360F32E4"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 1
+   }
+  }
+ },
+ "Mappings": {
+  "LatestNodeRuntimeMap": {
+   "af-south-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-east-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-northeast-3": {
+    "value": "nodejs20.x"
+   },
+   "ap-south-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-south-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-1": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-2": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-3": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-4": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-5": {
+    "value": "nodejs20.x"
+   },
+   "ap-southeast-7": {
+    "value": "nodejs20.x"
+   },
+   "ca-central-1": {
+    "value": "nodejs20.x"
+   },
+   "ca-west-1": {
+    "value": "nodejs20.x"
+   },
+   "cn-north-1": {
+    "value": "nodejs18.x"
+   },
+   "cn-northwest-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-central-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-central-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-isoe-west-1": {
+    "value": "nodejs18.x"
+   },
+   "eu-north-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-south-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-south-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-1": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-2": {
+    "value": "nodejs20.x"
+   },
+   "eu-west-3": {
+    "value": "nodejs20.x"
+   },
+   "il-central-1": {
+    "value": "nodejs20.x"
+   },
+   "me-central-1": {
+    "value": "nodejs20.x"
+   },
+   "me-south-1": {
+    "value": "nodejs20.x"
+   },
+   "mx-central-1": {
+    "value": "nodejs20.x"
+   },
+   "sa-east-1": {
+    "value": "nodejs20.x"
+   },
+   "us-east-1": {
+    "value": "nodejs20.x"
+   },
+   "us-east-2": {
+    "value": "nodejs20.x"
+   },
+   "us-gov-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-gov-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-iso-west-1": {
+    "value": "nodejs18.x"
+   },
+   "us-isob-east-1": {
+    "value": "nodejs18.x"
+   },
+   "us-west-1": {
+    "value": "nodejs20.x"
+   },
+   "us-west-2": {
+    "value": "nodejs20.x"
+   }
+  }
+ },
+ "Outputs": {
+  "ConfigurationId": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RabbitMqBrokerInstance9BE002C0",
+     "ConfigurationId"
+    ]
+   }
+  },
+  "ConfigurationRevision": {
+   "Value": {
+    "Fn::GetAtt": [
+     "RabbitMqBrokerInstance9BE002C0",
+     "ConfigurationRevision"
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

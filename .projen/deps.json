@@ -1,6 +1,22 @@
 {
   "dependencies": [
     {
+      "name": "@aws-sdk/client-ec2",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-lambda",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/client-secrets-manager",
+      "type": "build"
+    },
+    {
+      "name": "@types/aws-lambda",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "type": "build"
     },
@@ -20,7 +36,20 @@
       "type": "build"
     },
     {
+      "name": "aws-cdk",
+      "version": "^2",
+      "type": "build"
+    },
+    {
+      "name": "cdk-nag",
+      "type": "build"
+    },
+    {
       "name": "cdklabs-projen-project-types",
+      "type": "build"
+    },
+    {
+      "name": "esbuild",
       "type": "build"
     },
     {
@@ -63,11 +92,28 @@
     },
     {
       "name": "jsii",
-      "version": "~5.2",
+      "version": "~5.4.30",
+      "type": "build"
+    },
+    {
+      "name": "mqtt",
       "type": "build"
     },
     {
       "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "rabbitmq-client",
+      "type": "build"
+    },
+    {
+      "name": "rhea",
+      "type": "build"
+    },
+    {
+      "name": "standard-version",
+      "version": "^9",
       "type": "build"
     },
     {
@@ -94,7 +140,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.1.0",
+      "version": "^2.151.0",
       "type": "peer"
     },
     {

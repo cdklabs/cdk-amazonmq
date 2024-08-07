@@ -1,0 +1,994 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance Broker Deployment with custom permissions satisfies CDK NAG AwsSolutionsChecks 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "BrokerCreds13028F98": {
+      "DeletionPolicy": "Delete",
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "AwsSolutions-SMG4",
+              "reason": "Not a focus of the test.",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "GenerateSecretString": {
+          "ExcludePunctuation": true,
+          "GenerateStringKey": "password",
+          "PasswordLength": 24,
+          "SecretStringTemplate": "{"username":"admin"}",
+        },
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "TestBrokerBD4D5330": {
+      "Properties": {
+        "AutoMinorVersionUpgrade": false,
+        "BrokerName": "TestBroker",
+        "DeploymentMode": "SINGLE_INSTANCE",
+        "EncryptionOptions": {
+          "UseAwsOwnedKey": true,
+        },
+        "EngineType": "RABBITMQ",
+        "EngineVersion": "3.12.13",
+        "HostInstanceType": "mq.m5.large",
+        "PubliclyAccessible": false,
+        "Users": [
+          {
+            "Password": {
+              "Fn::Join": [
+                "",
+                [
+                  "{{resolve:secretsmanager:",
+                  {
+                    "Ref": "BrokerCreds13028F98",
+                  },
+                  ":SecretString:password::}}",
+                ],
+              ],
+            },
+            "Username": {
+              "Fn::Join": [
+                "",
+                [
+                  "{{resolve:secretsmanager:",
+                  {
+                    "Ref": "BrokerCreds13028F98",
+                  },
+                  ":SecretString:username::}}",
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      "Type": "AWS::AmazonMQ::Broker",
+    },
+    "fn5FF616E3": {
+      "DependsOn": [
+        "fnRole4CCF776E",
+      ],
+      "Properties": {
+        "Code": {
+          "ZipFile": "exports.handler = async (event) => { console.log(JSON.stringify(event, null, 2)); };",
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "fnRole4CCF776E",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs20.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58": {
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "TestBrokerBD4D5330",
+            "Arn",
+          ],
+        },
+        "FunctionName": {
+          "Ref": "fn5FF616E3",
+        },
+        "Queues": [
+          "myQueue",
+        ],
+        "SourceAccessConfigurations": [
+          {
+            "Type": "BASIC_AUTH",
+            "URI": {
+              "Ref": "BrokerCreds13028F98",
+            },
+          },
+        ],
+      },
+      "Type": "AWS::Lambda::EventSourceMapping",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterCRTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800A9A44812": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "fnRole4CCF776E",
+      ],
+      "Properties": {
+        "AccountId": {
+          "Ref": "AWS::AccountId",
+        },
+        "EsmId": {
+          "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58",
+        },
+        "MqType": "armq",
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEvent22B54D70",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307": {
+      "DependsOn": [
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRoleDefaultPolicy0D3CF640",
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip",
+        },
+        "Description": "AWS CDK resource provider framework - isComplete (TestStack/fn/RabbitMqEventSource:TestStackTestBrokerD8FA2BF7/MqEsmDeleter:TestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800)",
+        "Environment": {
+          "Variables": {
+            "USER_IS_COMPLETE_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.isComplete",
+        "Role": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRoleDefaultPolicy0D3CF640": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRoleDefaultPolicy0D3CF640",
+        "Roles": [
+          {
+            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEvent22B54D70": {
+      "DependsOn": [
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRoleDefaultPolicyB482D9ED",
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (TestStack/fn/RabbitMqEventSource:TestStackTestBrokerD8FA2BF7/MqEsmDeleter:TestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800)",
+        "Environment": {
+          "Variables": {
+            "USER_IS_COMPLETE_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                "Arn",
+              ],
+            },
+            "WAITER_STATE_MACHINE_ARN": {
+              "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachine94B6A8E7",
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRoleDefaultPolicyB482D9ED": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "states:StartExecution",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachine94B6A8E7",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRoleDefaultPolicyB482D9ED",
+        "Roles": [
+          {
+            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8": {
+      "DependsOn": [
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRoleDefaultPolicy676BCC99",
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onTimeout (TestStack/fn/RabbitMqEventSource:TestStackTestBrokerD8FA2BF7/MqEsmDeleter:TestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800)",
+        "Environment": {
+          "Variables": {
+            "USER_IS_COMPLETE_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                "Arn",
+              ],
+            },
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onTimeout",
+        "Role": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRoleDefaultPolicy676BCC99": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRoleDefaultPolicy676BCC99",
+        "Roles": [
+          {
+            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachine94B6A8E7": {
+      "DependsOn": [
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleDefaultPolicy8CA26E0A",
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201",
+      ],
+      "Properties": {
+        "DefinitionString": {
+          "Fn::Join": [
+            "",
+            [
+              "{"StartAt":"framework-isComplete-task","States":{"framework-isComplete-task":{"End":true,"Retry":[{"ErrorEquals":["States.ALL"],"IntervalSeconds":60,"MaxAttempts":30,"BackoffRate":1}],"Catch":[{"ErrorEquals":["States.ALL"],"Next":"framework-onTimeout-task"}],"Type":"Task","Resource":"",
+              {
+                "Fn::GetAtt": [
+                  "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                  "Arn",
+                ],
+              },
+              ""},"framework-onTimeout-task":{"End":true,"Type":"Task","Resource":"",
+              {
+                "Fn::GetAtt": [
+                  "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8",
+                  "Arn",
+                ],
+              },
+              ""}}}",
+            ],
+          ],
+        },
+        "LoggingConfiguration": {
+          "Destinations": [
+            {
+              "CloudWatchLogsLogGroup": {
+                "LogGroupArn": {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineLogGroupB4283E8E",
+                    "Arn",
+                  ],
+                },
+              },
+            },
+          ],
+          "IncludeExecutionData": false,
+          "Level": "ERROR",
+        },
+        "RoleArn": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::StepFunctions::StateMachine",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineLogGroupB4283E8E": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LogGroupName": {
+          "Fn::Join": [
+            "",
+            [
+              "/aws/vendedlogs/states/waiter-state-machine-",
+              {
+                "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+              },
+              "-c898a191c6ec353d4785322ed4c02131d920dadc6e",
+            ],
+          ],
+        },
+        "RetentionInDays": 731,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "states.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleDefaultPolicy8CA26E0A": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": [
+                "logs:CreateLogDelivery",
+                "logs:CreateLogStream",
+                "logs:GetLogDelivery",
+                "logs:UpdateLogDelivery",
+                "logs:DeleteLogDelivery",
+                "logs:ListLogDeliveries",
+                "logs:PutLogEvents",
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups",
+              ],
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "D8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleDefaultPolicy8CA26E0A",
+        "Roles": [
+          {
+            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451": {
+      "DependsOn": [
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRoleDefaultPolicy98AFFA70",
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Key": "cc3114789a2169a27590b14542ccfec97a0f543028a311e72dc31eabe0735d54.zip",
+        },
+        "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRoleDefaultPolicy98AFFA70": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "ec2:DescribeNetworkInterfaces",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRoleDefaultPolicy98AFFA70",
+        "Roles": [
+          {
+            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E": {
+      "DependsOn": [
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleDefaultPolicyB3EC5DCA",
+        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Key": "f09b6cc320f07d9fd3dc1507063b6b5eab4f55c0e12e319a47e058fa3b3e1f15.zip",
+        },
+        "Description": "src/mq-esm/esm-deleter.on-event.lambda.ts",
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+          },
+        },
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleDefaultPolicyB3EC5DCA": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:DeleteEventSourceMapping",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":lambda:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":event-source-mapping:",
+                    {
+                      "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleDefaultPolicyB3EC5DCA",
+        "Roles": [
+          {
+            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "fnRole4CCF776E": {
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "AwsSolutions-IAM4",
+              "reason": "AWSLambdaBasicExecutionRole added explicitly and intentionally",
+            },
+          ],
+        },
+      },
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
