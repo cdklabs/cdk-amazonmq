@@ -8,14 +8,16 @@ import { Stability } from 'projen/lib/cdk';
 const cdkVersion = '2.151.0';
 
 const project = new CdklabsConstructLibrary({
-  cdkVersion,
-  defaultReleaseBranch: 'main',
   name: '@cdklabs/cdk-amazonmq',
-  projenrcTs: true,
-  repositoryUrl: 'https://github.com/cdklabs/cdk-amazonmq.git',
-  stability: Stability.EXPERIMENTAL,
   author: 'AWS',
   authorAddress: 'cdk-amazonmq-maintainers@amazon.com',
+  cdkVersion,
+  defaultReleaseBranch: 'main',
+  projenrcTs: true,
+  private: false,
+  repositoryUrl: 'https://github.com/cdklabs/cdk-amazonmq.git',
+  stability: Stability.EXPERIMENTAL,
+  docgen: true,
   devDeps: [
     'cdklabs-projen-project-types',
     'cdk-nag',
@@ -29,10 +31,16 @@ const project = new CdklabsConstructLibrary({
     'rhea',
   ],
   jsiiVersion: '~5.4.30',
-
-  // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
-  // devDeps: [],             /* Build dependencies for this module. */
-  // packageName: undefined,  /* The "name" in package.json. */
+  keywords: [
+    'aws',
+    'Amazon MQ',
+    'ActiveMQ',
+    'RabbitMQ',
+    'AWS CDK',
+  ],
+  gitignore: [
+    '.vscode', '**/.DS_Store',
+  ],
 });
+
 project.synth();

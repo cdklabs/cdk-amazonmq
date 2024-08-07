@@ -92,7 +92,7 @@ const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBroker', {
 });
 ```
 
-The example below shows how to instantiate an active-standby redundant pair. `ActiveMqBrokerRedundantPair` doesn't implement `IActiveMqBroker`, but has two properties: `first`, and `second` that do. This stems from the fact that [ActiveMq redundant-pair deployment](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/active-standby-broker-deployment.html) exposes two, separate brokers that work in an active-standby configuration. The names are `first` (instead of `active`) and `second` (instead of `standby`) as only after the creation of the stack with `ActiveMqBrokerRedundantPair` `first` can be said to be the *active*, and `second` the *standby*, but during any further stack update this cannot be guaranteed.
+The example below shows how to instantiate an active-standby redundant pair. `ActiveMqBrokerRedundantPair` doesn't implement `IActiveMqBroker`, but has two properties: `first`, and `second` that do. This stems from the fact that [ActiveMq redundant-pair deployment](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/active-standby-broker-deployment.html) exposes two, separate brokers that work in an active-standby configuration. The names are `first` (instead of `active`) and `second` (instead of `standby`) as there cannot be a guarantee which broker will be the `active` and which - the `standby`.
 
 ```typescript
 import { 
