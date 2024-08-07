@@ -12,7 +12,7 @@ const project = new CdklabsConstructLibrary({
   defaultReleaseBranch: 'main',
   name: '@cdklabs/cdk-amazonmq',
   projenrcTs: true,
-  repositoryUrl: 'https://gitlab.aws.dev/rpawlasz/aws-amazonmq-alpha',
+  repositoryUrl: 'https://github.com/cdklabs/cdk-amazonmq',
   stability: Stability.EXPERIMENTAL,
   author: 'Rafał K. Pawłaszek',
   authorAddress: 'rpawlasz@amazon.pl',
