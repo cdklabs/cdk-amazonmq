@@ -12,10 +12,10 @@ const project = new CdklabsConstructLibrary({
   defaultReleaseBranch: 'main',
   name: '@cdklabs/cdk-amazonmq',
   projenrcTs: true,
-  repositoryUrl: 'https://github.com/cdklabs/cdk-amazonmq',
+  repositoryUrl: 'https://github.com/cdklabs/cdk-amazonmq.git',
   stability: Stability.EXPERIMENTAL,
-  author: 'Rafał K. Pawłaszek',
-  authorAddress: 'rpawlasz@amazon.pl',
+  author: 'AWS',
+  authorAddress: 'cdk-amazonmq-maintainers@amazon.com',
   devDeps: [
     'cdklabs-projen-project-types',
     'cdk-nag',
