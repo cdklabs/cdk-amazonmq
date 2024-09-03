@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import path from 'path';
-import { App, CfnOutput, Duration, Stack } from 'aws-cdk-lib';
+import { App, Duration, Stack } from 'aws-cdk-lib';
 import { InstanceClass, InstanceSize, InstanceType, InterfaceVpcEndpointAwsService, Port, SecurityGroup, SubnetSelection, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -79,7 +79,8 @@ const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
   },
 });
 
-const cluster = new RabbitMqBrokerCluster(stack, 'RabbitMqBrokerCluster', {
+const cluster = new RabbitMqBrokerCluster(stack, 'Broker', {
+  brokerName: 'my-super-broker',
   publiclyAccessible: false,
   version: RabbitMqBrokerEngineVersion.V3_10_20,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
@@ -147,13 +148,13 @@ cluster.connections?.allowTo(smVPCe, Port.tcp(443));
 cluster.connections?.allowTo(stsVPCe, Port.tcp(443));
 cluster.connections?.allowTo(lambdaVPCe, Port.tcp(443));
 
-new CfnOutput(stack, 'ConfigurationId', {
-  value: cluster.configuration.id,
-});
+// new CfnOutput(stack, 'ConfigurationId', {
+//   value: cluster.configuration.id,
+// });
 
-new CfnOutput(stack, 'ConfigurationRevision', {
-  value: `${cluster.configuration.revision}`,
-});
+// new CfnOutput(stack, 'ConfigurationRevision', {
+//   value: `${cluster.configuration.revision}`,
+// });
 
 
 app.synth();

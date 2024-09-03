@@ -2,6 +2,130 @@
 
 exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance Broker Deployment with custom permissions satisfies CDK NAG AwsSolutionsChecks 1`] = `
 {
+  "Mappings": {
+    "LatestNodeRuntimeMap": {
+      "af-south-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-east-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-northeast-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-northeast-2": {
+        "value": "nodejs20.x",
+      },
+      "ap-northeast-3": {
+        "value": "nodejs20.x",
+      },
+      "ap-south-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-south-2": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-1": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-2": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-3": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-4": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-5": {
+        "value": "nodejs20.x",
+      },
+      "ap-southeast-7": {
+        "value": "nodejs20.x",
+      },
+      "ca-central-1": {
+        "value": "nodejs20.x",
+      },
+      "ca-west-1": {
+        "value": "nodejs20.x",
+      },
+      "cn-north-1": {
+        "value": "nodejs18.x",
+      },
+      "cn-northwest-1": {
+        "value": "nodejs18.x",
+      },
+      "eu-central-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-central-2": {
+        "value": "nodejs20.x",
+      },
+      "eu-isoe-west-1": {
+        "value": "nodejs18.x",
+      },
+      "eu-north-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-south-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-south-2": {
+        "value": "nodejs20.x",
+      },
+      "eu-west-1": {
+        "value": "nodejs20.x",
+      },
+      "eu-west-2": {
+        "value": "nodejs20.x",
+      },
+      "eu-west-3": {
+        "value": "nodejs20.x",
+      },
+      "il-central-1": {
+        "value": "nodejs20.x",
+      },
+      "me-central-1": {
+        "value": "nodejs20.x",
+      },
+      "me-south-1": {
+        "value": "nodejs20.x",
+      },
+      "mx-central-1": {
+        "value": "nodejs20.x",
+      },
+      "sa-east-1": {
+        "value": "nodejs20.x",
+      },
+      "us-east-1": {
+        "value": "nodejs20.x",
+      },
+      "us-east-2": {
+        "value": "nodejs20.x",
+      },
+      "us-gov-east-1": {
+        "value": "nodejs18.x",
+      },
+      "us-gov-west-1": {
+        "value": "nodejs18.x",
+      },
+      "us-iso-east-1": {
+        "value": "nodejs18.x",
+      },
+      "us-iso-west-1": {
+        "value": "nodejs18.x",
+      },
+      "us-isob-east-1": {
+        "value": "nodejs18.x",
+      },
+      "us-west-1": {
+        "value": "nodejs20.x",
+      },
+      "us-west-2": {
+        "value": "nodejs20.x",
+      },
+    },
+  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
@@ -95,7 +219,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::Lambda::Function",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58": {
+    "fnRabbitMqEventSourceTestBrokerF12A0BDD": {
       "Properties": {
         "EventSourceArn": {
           "Fn::GetAtt": [
@@ -120,7 +244,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::Lambda::EventSourceMapping",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterCRTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800A9A44812": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterCRfnRabbitMqEventSourceTestBrokerA97659E698D4C1F6": {
       "DeletionPolicy": "Delete",
       "DependsOn": [
         "fnRole4CCF776E",
@@ -130,12 +254,12 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           "Ref": "AWS::AccountId",
         },
         "EsmId": {
-          "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58",
+          "Ref": "fnRabbitMqEventSourceTestBrokerF12A0BDD",
         },
         "MqType": "armq",
         "ServiceToken": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEvent22B54D70",
+            "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventE3375FBB",
             "Arn",
           ],
         },
@@ -143,28 +267,40 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteF13BAB74": {
       "DependsOn": [
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRoleDefaultPolicy0D3CF640",
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleDefaultPolicyFDB43E4D",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleB6BBA28C",
       ],
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "CdkNagValidationFailure",
+              "reason": "We use primite functions for ids",
+            },
+          ],
+        },
+      },
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
           "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip",
         },
-        "Description": "AWS CDK resource provider framework - isComplete (TestStack/fn/RabbitMqEventSource:TestStackTestBrokerD8FA2BF7/MqEsmDeleter:TestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800)",
+        "Description": "AWS CDK resource provider framework - isComplete (Default/fn/RabbitMqEventSource:TestBroker/MqEsmDeleter:fnRabbitMqEventSourceTestBrokerA97659E6)",
         "Environment": {
           "Variables": {
             "USER_IS_COMPLETE_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                 "Arn",
               ],
             },
             "USER_ON_EVENT_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                 "Arn",
               ],
             },
@@ -173,16 +309,24 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         "Handler": "framework.isComplete",
         "Role": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1",
+            "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleB6BBA28C",
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": {
+          "Fn::FindInMap": [
+            "LatestNodeRuntimeMap",
+            {
+              "Ref": "AWS::Region",
+            },
+            "value",
+          ],
+        },
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleB6BBA28C": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -213,7 +357,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::IAM::Role",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRoleDefaultPolicy0D3CF640": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleDefaultPolicyFDB43E4D": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -223,7 +367,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                    "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                     "Arn",
                   ],
                 },
@@ -233,7 +377,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                          "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                           "Arn",
                         ],
                       },
@@ -249,7 +393,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                    "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                     "Arn",
                   ],
                 },
@@ -259,7 +403,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                          "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                           "Arn",
                         ],
                       },
@@ -272,58 +416,78 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRoleDefaultPolicy0D3CF640",
+        "PolicyName": "bitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleDefaultPolicyFDB43E4D",
         "Roles": [
           {
-            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteServiceRole59DAE8C1",
+            "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteServiceRoleB6BBA28C",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEvent22B54D70": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventE3375FBB": {
       "DependsOn": [
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRoleDefaultPolicyB482D9ED",
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRoleDefaultPolicy2DEA3EA2",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRole68E3F0F7",
       ],
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "CdkNagValidationFailure",
+              "reason": "We use primite functions for ids",
+            },
+          ],
+        },
+      },
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
           "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip",
         },
-        "Description": "AWS CDK resource provider framework - onEvent (TestStack/fn/RabbitMqEventSource:TestStackTestBrokerD8FA2BF7/MqEsmDeleter:TestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800)",
+        "Description": "AWS CDK resource provider framework - onEvent (Default/fn/RabbitMqEventSource:TestBroker/MqEsmDeleter:fnRabbitMqEventSourceTestBrokerA97659E6)",
         "Environment": {
           "Variables": {
             "USER_IS_COMPLETE_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                 "Arn",
               ],
             },
             "USER_ON_EVENT_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                 "Arn",
               ],
             },
             "WAITER_STATE_MACHINE_ARN": {
-              "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachine94B6A8E7",
+              "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineEC486225",
             },
           },
         },
         "Handler": "framework.onEvent",
         "Role": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D",
+            "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRole68E3F0F7",
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": {
+          "Fn::FindInMap": [
+            "LatestNodeRuntimeMap",
+            {
+              "Ref": "AWS::Region",
+            },
+            "value",
+          ],
+        },
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRole68E3F0F7": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -354,7 +518,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::IAM::Role",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRoleDefaultPolicyB482D9ED": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRoleDefaultPolicy2DEA3EA2": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -364,7 +528,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                    "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                     "Arn",
                   ],
                 },
@@ -374,7 +538,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                          "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                           "Arn",
                         ],
                       },
@@ -390,7 +554,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                    "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                     "Arn",
                   ],
                 },
@@ -400,7 +564,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                          "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                           "Arn",
                         ],
                       },
@@ -414,43 +578,55 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Action": "states:StartExecution",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachine94B6A8E7",
+                "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineEC486225",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRoleDefaultPolicyB482D9ED",
+        "PolicyName": "RabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRoleDefaultPolicy2DEA3EA2",
         "Roles": [
           {
-            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonEventServiceRole8A081E3D",
+            "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonEventServiceRole68E3F0F7",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeout005373A3": {
       "DependsOn": [
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRoleDefaultPolicy676BCC99",
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRoleDefaultPolicyB8956DAA",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRole23B753D7",
       ],
+      "Metadata": {
+        "cdk_nag": {
+          "rules_to_suppress": [
+            {
+              "id": "CdkNagValidationFailure",
+              "reason": "We use primite functions for ids",
+            },
+          ],
+        },
+      },
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
           "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip",
         },
-        "Description": "AWS CDK resource provider framework - onTimeout (TestStack/fn/RabbitMqEventSource:TestStackTestBrokerD8FA2BF7/MqEsmDeleter:TestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800)",
+        "Description": "AWS CDK resource provider framework - onTimeout (Default/fn/RabbitMqEventSource:TestBroker/MqEsmDeleter:fnRabbitMqEventSourceTestBrokerA97659E6)",
         "Environment": {
           "Variables": {
             "USER_IS_COMPLETE_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                 "Arn",
               ],
             },
             "USER_ON_EVENT_FUNCTION_ARN": {
               "Fn::GetAtt": [
-                "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                 "Arn",
               ],
             },
@@ -459,16 +635,24 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         "Handler": "framework.onTimeout",
         "Role": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814",
+            "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRole23B753D7",
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": {
+          "Fn::FindInMap": [
+            "LatestNodeRuntimeMap",
+            {
+              "Ref": "AWS::Region",
+            },
+            "value",
+          ],
+        },
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRole23B753D7": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -499,7 +683,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::IAM::Role",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRoleDefaultPolicy676BCC99": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRoleDefaultPolicyB8956DAA": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -509,7 +693,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                    "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                     "Arn",
                   ],
                 },
@@ -519,7 +703,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E",
+                          "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6",
                           "Arn",
                         ],
                       },
@@ -535,7 +719,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                    "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                     "Arn",
                   ],
                 },
@@ -545,7 +729,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451",
+                          "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D",
                           "Arn",
                         ],
                       },
@@ -558,19 +742,19 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRoleDefaultPolicy676BCC99",
+        "PolicyName": "bbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRoleDefaultPolicyB8956DAA",
         "Roles": [
           {
-            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeoutServiceRole3231E814",
+            "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeoutServiceRole23B753D7",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachine94B6A8E7": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineEC486225": {
       "DependsOn": [
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleDefaultPolicy8CA26E0A",
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleDefaultPolicy397FE094",
+        "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleA565757E",
       ],
       "Properties": {
         "DefinitionString": {
@@ -580,14 +764,14 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "{"StartAt":"framework-isComplete-task","States":{"framework-isComplete-task":{"End":true,"Retry":[{"ErrorEquals":["States.ALL"],"IntervalSeconds":60,"MaxAttempts":30,"BackoffRate":1}],"Catch":[{"ErrorEquals":["States.ALL"],"Next":"framework-onTimeout-task"}],"Type":"Task","Resource":"",
               {
                 "Fn::GetAtt": [
-                  "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                  "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteF13BAB74",
                   "Arn",
                 ],
               },
               ""},"framework-onTimeout-task":{"End":true,"Type":"Task","Resource":"",
               {
                 "Fn::GetAtt": [
-                  "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8",
+                  "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeout005373A3",
                   "Arn",
                 ],
               },
@@ -601,7 +785,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "CloudWatchLogsLogGroup": {
                 "LogGroupArn": {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineLogGroupB4283E8E",
+                    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineLogGroup7ACE11CE",
                     "Arn",
                   ],
                 },
@@ -613,14 +797,14 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         },
         "RoleArn": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201",
+            "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleA565757E",
             "Arn",
           ],
         },
       },
       "Type": "AWS::StepFunctions::StateMachine",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineLogGroupB4283E8E": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineLogGroup7ACE11CE": {
       "DeletionPolicy": "Retain",
       "Properties": {
         "LogGroupName": {
@@ -629,9 +813,9 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
             [
               "/aws/vendedlogs/states/waiter-state-machine-",
               {
-                "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteF13BAB74",
               },
-              "-c898a191c6ec353d4785322ed4c02131d920dadc6e",
+              "-c8e31ae78af66c0050c6ced874896a2adf87431eb0",
             ],
           ],
         },
@@ -640,7 +824,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       "Type": "AWS::Logs::LogGroup",
       "UpdateReplacePolicy": "Retain",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleA565757E": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -657,7 +841,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::IAM::Role",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleDefaultPolicy8CA26E0A": {
+    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleDefaultPolicy397FE094": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -667,7 +851,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteF13BAB74",
                     "Arn",
                   ],
                 },
@@ -677,7 +861,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkisCompleteFD1C5307",
+                          "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkisCompleteF13BAB74",
                           "Arn",
                         ],
                       },
@@ -693,7 +877,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               "Resource": [
                 {
                   "Fn::GetAtt": [
-                    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8",
+                    "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeout005373A3",
                     "Arn",
                   ],
                 },
@@ -703,7 +887,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     [
                       {
                         "Fn::GetAtt": [
-                          "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800frameworkonTimeout9358BAB8",
+                          "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6frameworkonTimeout005373A3",
                           "Arn",
                         ],
                       },
@@ -732,23 +916,25 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "D8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleDefaultPolicy8CA26E0A",
+        "PolicyName": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleDefaultPolicy397FE094",
         "Roles": [
           {
-            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7MqEsmDeleterTestStackfnRabbitMqEventSourceTestStackTestBrokerD8FA2BF700229800waiterstatemachineRoleC88D1201",
+            "Ref": "fnRabbitMqEventSourceTestBrokerMqEsmDeleterfnRabbitMqEventSourceTestBrokerA97659E6waiterstatemachineRoleA565757E",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscomplete52D63451": {
+    "fnRabbitMqEventSourceTestBrokeriscompleteE5784A7D": {
       "DependsOn": [
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRoleDefaultPolicy98AFFA70",
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19",
+        "fnRabbitMqEventSourceTestBrokeriscompleteServiceRoleDefaultPolicyBCD3382B",
+        "fnRabbitMqEventSourceTestBrokeriscompleteServiceRole99350CE5",
       ],
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
           "S3Key": "cc3114789a2169a27590b14542ccfec97a0f543028a311e72dc31eabe0735d54.zip",
         },
         "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
@@ -760,7 +946,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19",
+            "fnRabbitMqEventSourceTestBrokeriscompleteServiceRole99350CE5",
             "Arn",
           ],
         },
@@ -768,7 +954,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::Lambda::Function",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19": {
+    "fnRabbitMqEventSourceTestBrokeriscompleteServiceRole99350CE5": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -799,7 +985,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::IAM::Role",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRoleDefaultPolicy98AFFA70": {
+    "fnRabbitMqEventSourceTestBrokeriscompleteServiceRoleDefaultPolicyBCD3382B": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -811,23 +997,25 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRoleDefaultPolicy98AFFA70",
+        "PolicyName": "fnRabbitMqEventSourceTestBrokeriscompleteServiceRoleDefaultPolicyBCD3382B",
         "Roles": [
           {
-            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7iscompleteServiceRole0563BD19",
+            "Ref": "fnRabbitMqEventSourceTestBrokeriscompleteServiceRole99350CE5",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventAD44129E": {
+    "fnRabbitMqEventSourceTestBrokeroneventCA58B3E6": {
       "DependsOn": [
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleDefaultPolicyB3EC5DCA",
-        "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00",
+        "fnRabbitMqEventSourceTestBrokeroneventServiceRoleDefaultPolicyFA8A1C48",
+        "fnRabbitMqEventSourceTestBrokeroneventServiceRole0A1AC08A",
       ],
       "Properties": {
         "Code": {
-          "S3Bucket": "cdk-hnb659fds-assets-123456789012-tst-wrld-1",
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
           "S3Key": "f09b6cc320f07d9fd3dc1507063b6b5eab4f55c0e12e319a47e058fa3b3e1f15.zip",
         },
         "Description": "src/mq-esm/esm-deleter.on-event.lambda.ts",
@@ -839,7 +1027,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         "Handler": "index.handler",
         "Role": {
           "Fn::GetAtt": [
-            "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00",
+            "fnRabbitMqEventSourceTestBrokeroneventServiceRole0A1AC08A",
             "Arn",
           ],
         },
@@ -847,7 +1035,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::Lambda::Function",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00": {
+    "fnRabbitMqEventSourceTestBrokeroneventServiceRole0A1AC08A": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -878,7 +1066,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
       },
       "Type": "AWS::IAM::Role",
     },
-    "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleDefaultPolicyB3EC5DCA": {
+    "fnRabbitMqEventSourceTestBrokeroneventServiceRoleDefaultPolicyFA8A1C48": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -903,7 +1091,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                     },
                     ":event-source-mapping:",
                     {
-                      "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF767DD5D58",
+                      "Ref": "fnRabbitMqEventSourceTestBrokerF12A0BDD",
                     },
                   ],
                 ],
@@ -912,10 +1100,10 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleDefaultPolicyB3EC5DCA",
+        "PolicyName": "fnRabbitMqEventSourceTestBrokeroneventServiceRoleDefaultPolicyFA8A1C48",
         "Roles": [
           {
-            "Ref": "fnRabbitMqEventSourceTestStackTestBrokerD8FA2BF7oneventServiceRoleD4EC1B00",
+            "Ref": "fnRabbitMqEventSourceTestBrokeroneventServiceRole0A1AC08A",
           },
         ],
       },

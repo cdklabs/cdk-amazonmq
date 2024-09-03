@@ -3,9 +3,17 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { IResolvable, IResource, Lazy, Names, Resource } from 'aws-cdk-lib';
-import { CfnBroker, CfnConfiguration } from 'aws-cdk-lib/aws-amazonmq';
+import { CfnBroker } from 'aws-cdk-lib/aws-amazonmq';
 import { Metric, MetricOptions } from 'aws-cdk-lib/aws-cloudwatch';
-import { ISecurityGroup, InstanceType, IVpc, SubnetSelection, Connections, Port, SecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import {
+  ISecurityGroup,
+  InstanceType,
+  IVpc,
+  SubnetSelection,
+  Connections,
+  Port,
+  SecurityGroup,
+} from 'aws-cdk-lib/aws-ec2';
 import { IRole } from 'aws-cdk-lib/aws-iam';
 import { IKey } from 'aws-cdk-lib/aws-kms';
 import { LogRetention, RetentionDays } from 'aws-cdk-lib/aws-logs';
@@ -17,7 +25,6 @@ import { MaintenanceWindowStartTime } from './maintenance-window-start-time';
 import { StorageType } from './storage-type';
 
 export interface IBrokerDeployment extends IResource {
-
   readonly arn: string;
 
   readonly id: string;
@@ -97,7 +104,7 @@ export interface BrokerDeploymentProps {
 
 export enum BrokerEngine {
   RABBITMQ = 'RABBITMQ',
-  ACTIVEMQ = 'ACTIVEMQ'
+  ACTIVEMQ = 'ACTIVEMQ',
 }
 
 export interface BrokerDeploymentBaseProps extends BrokerDeploymentProps {
@@ -110,11 +117,14 @@ export interface BrokerDeploymentBaseProps extends BrokerDeploymentProps {
   readonly configuration?: IBrokerConfiguration;
   readonly cloudwatchLogsExports?: BrokerCloudwatchLogsExports;
   readonly users: CfnBroker.UserProperty[];
-  readonly ldapServerMetadata?: IResolvable | CfnBroker.LdapServerMetadataProperty;
+  readonly ldapServerMetadata?:
+  | IResolvable
+  | CfnBroker.LdapServerMetadataProperty;
 }
 
-export abstract class BrokerDeploymentBase extends Resource implements IBrokerDeployment {
-
+export abstract class BrokerDeploymentBase
+  extends Resource
+  implements IBrokerDeployment {
   public readonly arn: string;
 
   public readonly id: string;
@@ -134,12 +144,16 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
   protected readonly _resource: CfnBroker;
 
   /** @internal */
-  protected _configuration: CfnConfiguration | undefined;
+  protected _configurationIdProperty:
+  | CfnBroker.ConfigurationIdProperty
+  | undefined;
+
+  /** @internal */
+  protected _configuration: IBrokerConfiguration | undefined;
 
   private readonly cloudwatchLogsExports?: BrokerCloudwatchLogsExports;
   private readonly cloudwatchLogsRetention?: RetentionDays;
   private readonly cloudwatchLogsRetentionRole?: IRole;
-
 
   /** Manages connections for the cluster */
   public get connections(): Connections | undefined {
@@ -147,7 +161,16 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
   }
 
   constructor(scope: Construct, id: string, props: BrokerDeploymentBaseProps) {
-    super(scope, id);
+    super(scope, id, {
+      physicalName:
+        props.brokerName ||
+        Lazy.string({
+          produce: () =>
+            Names.uniqueResourceName(this, {
+              maxLength: 50, allowedSpecialCharacters: '-_',
+            }),
+        }),
+    });
 
     this._authenticationStrategy = props.authenticationStrategy;
     this._engineVersion = props.version;
@@ -158,7 +181,9 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
           defaultPort: props.defaultPort,
           securityGroups: props.securityGroups ?? [
             new SecurityGroup(this, 'AMQ_SG', {
-              description: `Automatic security group for broker ${Names.uniqueId(this)}`,
+              description: `Automatic security group for broker ${Names.uniqueId(
+                this,
+              )}`,
               vpc: props.vpc,
               allowAllOutbound: false,
             }),
@@ -166,15 +191,14 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
         })
         : undefined;
 
-    this.name = props.brokerName ?? id;
-
     this._resource = new CfnBroker(this, 'Resource', {
-      brokerName: this.name,
+      brokerName: this.physicalName,
       configuration: Lazy.any({
-        produce: () => this._configuration && {
-          id: this._configuration.ref,
-          revision: this._configuration.attrRevision,
-        },
+        produce: () =>
+          this._configurationIdProperty && {
+            id: this._configurationIdProperty.id,
+            revision: this._configurationIdProperty.revision,
+          },
       }),
       engineType: props.engine,
       engineVersion: props.version,
@@ -193,25 +217,32 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
       logs: props.cloudwatchLogsExports,
       hostInstanceType: `mq.${props.instanceType.toString()}`,
       publiclyAccessible: props.publiclyAccessible,
-      securityGroups: this._conns?.securityGroups.map((sg) => sg.securityGroupId),
+      securityGroups: this._conns?.securityGroups.map(
+        (sg) => sg.securityGroupId,
+      ),
       subnetIds: props.vpc?.selectSubnets(props.vpcSubnets).subnetIds,
       users: props.users,
       authenticationStrategy: props.authenticationStrategy,
       ldapServerMetadata: props.ldapServerMetadata,
     });
 
+    this.name = this.physicalName;
     this.arn = this._resource.attrArn;
     this.id = this._resource.ref;
 
     // TODO: this is ugly. Make it more self-explanatory
-    this.cloudwatchLogsExports = props.engine === BrokerEngine.RABBITMQ && props.cloudwatchLogsExports && 'general' in props.cloudwatchLogsExports
-      ? {
-        general: true,
-        channel: true,
-        connection: true,
-        mirroring: props.deploymentMode === BrokerDeploymentMode.CLUSTER_MULTI_AZ,
-      }
-      : props.cloudwatchLogsExports;
+    this.cloudwatchLogsExports =
+      props.engine === BrokerEngine.RABBITMQ &&
+      props.cloudwatchLogsExports &&
+      'general' in props.cloudwatchLogsExports
+        ? {
+          general: true,
+          channel: true,
+          connection: true,
+          mirroring:
+              props.deploymentMode === BrokerDeploymentMode.CLUSTER_MULTI_AZ,
+        }
+        : props.cloudwatchLogsExports;
 
     this.cloudwatchLogsRetention = props.cloudwatchLogsRetention;
     this.cloudwatchLogsRetentionRole = props.cloudwatchLogsRetentionRole;
@@ -221,6 +252,16 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
     }
 
     this.configureLogRetention();
+  }
+
+  protected assignConfigurationIdProperty(
+    configuration: CfnBroker.ConfigurationIdProperty,
+  ) {
+    if (this._configurationIdProperty) {
+      throw new Error('Configuration already set');
+    }
+
+    this._configurationIdProperty = configuration;
   }
 
   public metric(metricName: string, options?: MetricOptions): Metric {
@@ -241,9 +282,18 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
       this.cloudwatchLogsRetentionRole,
     ];
     if (logExports !== undefined && retention !== undefined) {
-      const availableValues = ['general', 'audit', 'channel', 'connection', 'mirroring'];
+      const availableValues = [
+        'general',
+        'audit',
+        'channel',
+        'connection',
+        'mirroring',
+      ];
       Object.entries(logExports)
-        .filter(([log, enabled]: [string, boolean]) => availableValues.includes(log) && enabled)
+        .filter(
+          ([log, enabled]: [string, boolean]) =>
+            availableValues.includes(log) && enabled,
+        )
         .map(([log, _]) => log)
         .forEach((log) => {
           new LogRetention(this, `LogRetention${log}`, {
@@ -259,7 +309,8 @@ export abstract class BrokerDeploymentBase extends Resource implements IBrokerDe
    * @internal
    */
   protected _attachConfiguration(configuration: IBrokerConfiguration) {
-    this._configuration = configuration.node.defaultChild as CfnConfiguration;
+    // this._configuration = configuration.node.defaultChild as CfnConfiguration;
+    this.assignConfigurationIdProperty(configuration);
     this.node.addDependency(configuration);
   }
 }

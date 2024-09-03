@@ -361,6 +361,7 @@ new ActiveMqBrokerDeploymentBase(scope: Construct, id: string, props: ActiveMqBr
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -880,6 +881,24 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -951,6 +970,7 @@ Check whether the given construct is a Resource.
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Manages connections for the cluster. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -1036,6 +1056,16 @@ public readonly connections: Connections;
 - *Type:* aws-cdk-lib.aws_ec2.Connections
 
 Manages connections for the cluster.
+
+---
+
+##### `configuration`<sup>Required</sup> <a name="configuration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.configuration"></a>
+
+```typescript
+public readonly configuration: IActiveMqBrokerConfiguration;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a>
 
 ---
 
@@ -1128,6 +1158,7 @@ new ActiveMqBrokerInstance(scope: Construct, id: string, props: ActiveMqBrokerIn
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -1647,6 +1678,24 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -1930,6 +1979,7 @@ new ActiveMqBrokerRedundantPair(scope: Construct, id: string, props: ActiveMqBro
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -2449,6 +2499,24 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -2520,6 +2588,7 @@ Check whether the given construct is a Resource.
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Manages connections for the cluster. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.first">first</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | The first broker of the redundant pair for the deployment. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.second">second</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | The second broker of the redundant pair for the deployment. |
 
@@ -2607,6 +2676,16 @@ public readonly connections: Connections;
 - *Type:* aws-cdk-lib.aws_ec2.Connections
 
 Manages connections for the cluster.
+
+---
+
+##### `configuration`<sup>Required</sup> <a name="configuration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.configuration"></a>
+
+```typescript
+public readonly configuration: IActiveMqBrokerConfiguration;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a>
 
 ---
 
@@ -3370,6 +3449,7 @@ new RabbitMqBrokerCluster(scope: Construct, id: string, props: RabbitMqBrokerClu
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -3649,6 +3729,24 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -3720,7 +3818,6 @@ Check whether the given construct is a Resource.
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Manages connections for the cluster. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
 
 ---
@@ -3807,16 +3904,6 @@ public readonly connections: Connections;
 - *Type:* aws-cdk-lib.aws_ec2.Connections
 
 Manages connections for the cluster.
-
----
-
-##### `configuration`<sup>Required</sup> <a name="configuration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.configuration"></a>
-
-```typescript
-public readonly configuration: IRabbitMqBrokerConfiguration;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
 
 ---
 
@@ -4170,6 +4257,7 @@ new RabbitMqBrokerDeploymentBase(scope: Construct, id: string, props: RabbitMqBr
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -4449,6 +4537,24 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -4520,7 +4626,6 @@ Check whether the given construct is a Resource.
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Manages connections for the cluster. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
 
 ---
@@ -4610,16 +4715,6 @@ Manages connections for the cluster.
 
 ---
 
-##### `configuration`<sup>Required</sup> <a name="configuration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.configuration"></a>
-
-```typescript
-public readonly configuration: IRabbitMqBrokerConfiguration;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
-
----
-
 ##### `endpoints`<sup>Required</sup> <a name="endpoints" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.endpoints"></a>
 
 ```typescript
@@ -4697,6 +4792,7 @@ new RabbitMqBrokerInstance(scope: Construct, id: string, props: RabbitMqBrokerIn
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -4976,6 +5072,24 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -5047,7 +5161,6 @@ Check whether the given construct is a Resource.
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Manages connections for the cluster. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
 
 ---
@@ -5137,16 +5250,6 @@ Manages connections for the cluster.
 
 ---
 
-##### `configuration`<sup>Required</sup> <a name="configuration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.configuration"></a>
-
-```typescript
-public readonly configuration: IRabbitMqBrokerConfiguration;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
-
----
-
 ##### `endpoints`<sup>Required</sup> <a name="endpoints" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.endpoints"></a>
 
 ```typescript
@@ -5215,9 +5318,9 @@ const activeMqBrokerConfigurationProps: ActiveMqBrokerConfigurationProps = { ...
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.definition">definition</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationDefinition">ActiveMqBrokerConfigurationDefinition</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.description">description</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.authenticationStrategy">authenticationStrategy</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy">ActiveMqAuthenticationStrategy</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.engineVersion">engineVersion</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.authenticationStrategy">authenticationStrategy</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy">ActiveMqAuthenticationStrategy</a></code> | Sets authentication strategy for the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.configurationName">configurationName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -5241,17 +5344,7 @@ public readonly description: string;
 
 ---
 
-##### `authenticationStrategy`<sup>Optional</sup> <a name="authenticationStrategy" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.authenticationStrategy"></a>
-
-```typescript
-public readonly authenticationStrategy: ActiveMqAuthenticationStrategy;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy">ActiveMqAuthenticationStrategy</a>
-
----
-
-##### `engineVersion`<sup>Optional</sup> <a name="engineVersion" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.engineVersion"></a>
+##### `engineVersion`<sup>Required</sup> <a name="engineVersion" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.engineVersion"></a>
 
 ```typescript
 public readonly engineVersion: ActiveMqBrokerEngineVersion;
@@ -5261,10 +5354,23 @@ public readonly engineVersion: ActiveMqBrokerEngineVersion;
 
 ---
 
-##### `name`<sup>Optional</sup> <a name="name" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.name"></a>
+##### `authenticationStrategy`<sup>Optional</sup> <a name="authenticationStrategy" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.authenticationStrategy"></a>
 
 ```typescript
-public readonly name: string;
+public readonly authenticationStrategy: ActiveMqAuthenticationStrategy;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy">ActiveMqAuthenticationStrategy</a>
+- *Default:* undefined; a SIMPLE authentication strategy will be applied
+
+Sets authentication strategy for the broker.
+
+---
+
+##### `configurationName`<sup>Optional</sup> <a name="configurationName" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationProps.property.configurationName"></a>
+
+```typescript
+public readonly configurationName: string;
 ```
 
 - *Type:* string
@@ -7482,8 +7588,8 @@ const configurationProps: ConfigurationProps = { ... }
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.data">data</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.engine">engine</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerEngine">BrokerEngine</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.authenticationStrategy">authenticationStrategy</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy">ActiveMqAuthenticationStrategy</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.configurationName">configurationName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationProps.property.engineVersion">engineVersion</a></code> | <code>string</code> | *No description.* |
 
@@ -7509,16 +7615,6 @@ public readonly engine: BrokerEngine;
 
 ---
 
-##### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.ConfigurationProps.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
----
-
 ##### `authenticationStrategy`<sup>Optional</sup> <a name="authenticationStrategy" id="@cdklabs/cdk-amazonmq.ConfigurationProps.property.authenticationStrategy"></a>
 
 ```typescript
@@ -7526,6 +7622,16 @@ public readonly authenticationStrategy: ActiveMqAuthenticationStrategy;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy">ActiveMqAuthenticationStrategy</a>
+
+---
+
+##### `configurationName`<sup>Optional</sup> <a name="configurationName" id="@cdklabs/cdk-amazonmq.ConfigurationProps.property.configurationName"></a>
+
+```typescript
+public readonly configurationName: string;
+```
+
+- *Type:* string
 
 ---
 
@@ -8333,7 +8439,7 @@ const rabbitMqBrokerConfigurationProps: RabbitMqBrokerConfigurationProps = { ...
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.definition">definition</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationDefinition">RabbitMqBrokerConfigurationDefinition</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.description">description</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.engineVersion">engineVersion</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.configurationName">configurationName</a></code> | <code>string</code> | *No description.* |
 
 ---
 
@@ -8357,7 +8463,7 @@ public readonly description: string;
 
 ---
 
-##### `engineVersion`<sup>Optional</sup> <a name="engineVersion" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.engineVersion"></a>
+##### `engineVersion`<sup>Required</sup> <a name="engineVersion" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.engineVersion"></a>
 
 ```typescript
 public readonly engineVersion: RabbitMqBrokerEngineVersion;
@@ -8367,10 +8473,10 @@ public readonly engineVersion: RabbitMqBrokerEngineVersion;
 
 ---
 
-##### `name`<sup>Optional</sup> <a name="name" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.name"></a>
+##### `configurationName`<sup>Optional</sup> <a name="configurationName" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationProps.property.configurationName"></a>
 
 ```typescript
-public readonly name: string;
+public readonly configurationName: string;
 ```
 
 - *Type:* string
@@ -10106,6 +10212,7 @@ public readonly revision: number;
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -10574,6 +10681,24 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricWsMaximumConnections.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
 
 ---
 
@@ -11092,6 +11217,7 @@ public readonly revision: number;
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -11320,6 +11446,24 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricSystemCpuUtilization.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
+
+---
+
+##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration"></a>
+
+```typescript
+public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
+```
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
 
 ---
 

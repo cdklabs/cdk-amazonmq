@@ -202,6 +202,7 @@ import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import { 
   ActiveMqBrokerConfiguration, 
   ActiveMqBrokerConfigurationDefinition, 
+  ActiveMqAuthenticationStrategy,
   ActiveMqBrokerEngineVersion,
   ActiveMqBrokerInstance,
   ActiveMqBrokerUserManagement,
@@ -212,14 +213,16 @@ declare const brokerUser: ISecret;
 declare const configurationData: string;
 
 const customConfiguration = new ActiveMqBrokerConfiguration(stack, 'CustomConfiguration', {
-  name: 'ConfigurationName',
+  configurationName: 'ConfigurationName',
   description: 'ConfigurationDescription',
+  engineVersion: ActiveMqBrokerEngineVersion.V5_18,
+  authenticationStrategy: ActiveMqAuthenticationStrategy.SIMPLE,
   definition: ActiveMqBrokerConfigurationDefinition.data(configurationData),
 });
 
 const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: false,
-  version: ActiveMqBrokerEngineVersion.V5_17_6,
+  version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   userManagement: ActiveMqBrokerUserManagement.simple({
     users: [{
@@ -356,7 +359,7 @@ target.addEventSource(new ActiveMqEventSource({
 
 ***Security:*** When adding an Amazon MQ for ActiveMQ as an AWS Lambda function's event source the library updates the execution role's permissions to satisfy [Amazon MQ requirements for provisioning the event source mapping](https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions).
 
-In the case of a private deployment the defined event source mapping will create a set of Elastic Network Interfaces (ENIs) in the subnets in which the broker deployment created communication VPC Endpoints. Thus, in order to allow the event source mapping to communicate with the broker one needs to additionally allow inbound traffic from the ENIs on the OpenWire port. As ENIs will use the same security group that governs the access to the VPC Endpoints you can simply allow communication from the broker's security group to itself on the OpenWire port as in the example below:
+In the case of a private deployment the defined event source mapping will create a set of Elastic Network Interfaces (ENIs) in the subnets in which the broker deployment created communication endpoints. Thus, in order to allow the event source mapping to communicate with the broker one needs to additionally allow inbound traffic from the ENIs on the OpenWire port. As ENIs will use the same security group that governs the access to the broker endpoints you can simply allow communication from the broker's security group to itself on the OpenWire port as in the example below:
 
 ```typescript
 import { Port } from 'aws-cdk-lib/aws-ec2';
@@ -480,8 +483,9 @@ declare const stack: Stack;
 declare const adminSecret: ISecret;
 
 const customConfiguration = new RabbitMqBrokerConfiguration(stack, 'CustomConfiguration', {
-  name: 'ConfigurationName',
+  configurationName: 'ConfigurationName',
   description: 'ConfigurationDescription',
+  engineVersion: RabbitMqBrokerEngineVersion.V3_11_20,
   definition: RabbitMqBrokerConfigurationDefinition.parameters({
     consumerTimeout: Duration.minutes(20),
   }),

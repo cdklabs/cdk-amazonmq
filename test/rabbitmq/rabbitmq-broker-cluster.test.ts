@@ -10,7 +10,7 @@ import { RabbitMqBrokerEngineVersion, RabbitMqBrokerCluster } from '../../src';
 describe('RabbitMqBrokerCluster', () => {
 
   test('RabbitMQ Public Cluster Broker Deployment with no network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = new RabbitMqBrokerCluster(stack, 'TestBroker', {
       publiclyAccessible: true,
@@ -48,7 +48,7 @@ describe('RabbitMqBrokerCluster', () => {
   });
 
   test('RabbitMQ Private Cluster Broker Deployment with no network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = new RabbitMqBrokerCluster(stack, 'TestBroker', {
       publiclyAccessible: false,
@@ -87,7 +87,7 @@ describe('RabbitMqBrokerCluster', () => {
 
 
   test('RabbitMQ Private Cluster Broker Deployment with network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const vpc = new Vpc(stack, 'TestVpc');
     const vpcSubnets: SubnetSelection = { subnetType: SubnetType.PRIVATE_WITH_EGRESS };
@@ -122,7 +122,7 @@ describe('RabbitMqBrokerCluster', () => {
     template.resourceCountIs('AWS::EC2::SecurityGroup', 1);
 
     template.hasResourceProperties('AWS::EC2::SecurityGroup', {
-      GroupDescription: 'Automatic security group for broker TestStackTestBrokerD8FA2BF7',
+      GroupDescription: 'Automatic security group for broker TestBroker',
       SecurityGroupEgress: [
         {
           CidrIp: '255.255.255.255/32',

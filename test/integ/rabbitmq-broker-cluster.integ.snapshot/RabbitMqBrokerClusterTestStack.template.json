@@ -665,10 +665,10 @@
     }
    }
   },
-  "SecretsManagerVPCeSGfromRabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E24435488F077": {
+  "SecretsManagerVPCeSGfromRabbitMqBrokerClusterTestStackBrokerAMQSG7343A0144437785885F": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from RabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2:443",
+    "Description": "from RabbitMqBrokerClusterTestStackBrokerAMQSG7343A014:443",
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
@@ -679,7 +679,7 @@
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -732,10 +732,10 @@
     }
    }
   },
-  "STSVPCeSGfromRabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E244356319F33": {
+  "STSVPCeSGfromRabbitMqBrokerClusterTestStackBrokerAMQSG7343A0144436A6666CE": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from RabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2:443",
+    "Description": "from RabbitMqBrokerClusterTestStackBrokerAMQSG7343A014:443",
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
@@ -746,7 +746,7 @@
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -799,10 +799,10 @@
     }
    }
   },
-  "LambdaVPCeSGfromRabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2443C3EC3822": {
+  "LambdaVPCeSGfromRabbitMqBrokerClusterTestStackBrokerAMQSG7343A014443FC082DDD": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from RabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2:443",
+    "Description": "from RabbitMqBrokerClusterTestStackBrokerAMQSG7343A014:443",
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
@@ -813,7 +813,7 @@
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -833,23 +833,23 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
   },
-  "RabbitMqBrokerClusterAMQSG98056902": {
+  "BrokerAMQSG2734DF6F": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "Automatic security group for broker RabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61",
+    "GroupDescription": "Automatic security group for broker RabbitMqBrokerClusterTestStackBroker96B84F1B",
     "VpcId": {
      "Ref": "RabbitMqBrokerVpc836818D0"
     }
    }
   },
-  "RabbitMqBrokerClusterAMQSGfromRabbitMqBrokerClusterTestStackRabbitMqPublisherSG35C387B356719976CAB4": {
+  "BrokerAMQSGfromRabbitMqBrokerClusterTestStackRabbitMqPublisherSG35C387B356710BE93653": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
     "Description": "from RabbitMqBrokerClusterTestStackRabbitMqPublisherSG35C387B3:5671",
     "FromPort": 5671,
     "GroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -863,41 +863,41 @@
     "ToPort": 5671
    }
   },
-  "RabbitMqBrokerClusterAMQSGfromRabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E256713CF91227": {
+  "BrokerAMQSGfromRabbitMqBrokerClusterTestStackBrokerAMQSG7343A01456713D376570": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
-    "Description": "from RabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2:5671",
+    "Description": "from RabbitMqBrokerClusterTestStackBrokerAMQSG7343A014:5671",
     "FromPort": 5671,
     "GroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
     "IpProtocol": "tcp",
     "SourceSecurityGroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
     "ToPort": 5671
    }
   },
-  "RabbitMqBrokerClusterAMQSGtoRabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E25671F2200F6F": {
+  "BrokerAMQSGtoRabbitMqBrokerClusterTestStackBrokerAMQSG7343A01456715018752F": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
-    "Description": "to RabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2:5671",
+    "Description": "to RabbitMqBrokerClusterTestStackBrokerAMQSG7343A014:5671",
     "DestinationSecurityGroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
     "FromPort": 5671,
     "GroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -905,7 +905,7 @@
     "ToPort": 5671
    }
   },
-  "RabbitMqBrokerClusterAMQSGtoRabbitMqBrokerClusterTestStackSecretsManagerVPCeSGEA95DBA3443E5433293": {
+  "BrokerAMQSGtoRabbitMqBrokerClusterTestStackSecretsManagerVPCeSGEA95DBA3443900AD38E": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "Description": "to RabbitMqBrokerClusterTestStackSecretsManagerVPCeSGEA95DBA3:443",
@@ -918,7 +918,7 @@
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -926,7 +926,7 @@
     "ToPort": 443
    }
   },
-  "RabbitMqBrokerClusterAMQSGtoRabbitMqBrokerClusterTestStackSTSVPCeSG4A25E7844437E27DAEB": {
+  "BrokerAMQSGtoRabbitMqBrokerClusterTestStackSTSVPCeSG4A25E784443E40B4B95": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "Description": "to RabbitMqBrokerClusterTestStackSTSVPCeSG4A25E784:443",
@@ -939,7 +939,7 @@
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -947,7 +947,7 @@
     "ToPort": 443
    }
   },
-  "RabbitMqBrokerClusterAMQSGtoRabbitMqBrokerClusterTestStackLambdaVPCeSG96F9DC8B443C6696753": {
+  "BrokerAMQSGtoRabbitMqBrokerClusterTestStackLambdaVPCeSG96F9DC8B443E6C4D4E8": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
     "Description": "to RabbitMqBrokerClusterTestStackLambdaVPCeSG96F9DC8B:443",
@@ -960,7 +960,7 @@
     "FromPort": 443,
     "GroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -968,11 +968,11 @@
     "ToPort": 443
    }
   },
-  "RabbitMqBrokerClusterFA886819": {
+  "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
     "AutoMinorVersionUpgrade": true,
-    "BrokerName": "RabbitMqBrokerCluster",
+    "BrokerName": "my-super-broker",
     "DeploymentMode": "CLUSTER_MULTI_AZ",
     "EncryptionOptions": {
      "UseAwsOwnedKey": true
@@ -987,7 +987,7 @@
     "SecurityGroups": [
      {
       "Fn::GetAtt": [
-       "RabbitMqBrokerClusterAMQSG98056902",
+       "BrokerAMQSG2734DF6F",
        "GroupId"
       ]
      }
@@ -1030,7 +1030,7 @@
     ]
    }
   },
-  "RabbitMqBrokerClusterLogRetentiongeneral7A524A48": {
+  "BrokerLogRetentiongeneralFCA2F3E7": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -1045,7 +1045,7 @@
       [
        "/aws/amazonmq/broker/",
        {
-        "Ref": "RabbitMqBrokerClusterFA886819"
+        "Ref": "BrokerE1355FD6"
        },
        "/general"
       ]
@@ -1054,7 +1054,7 @@
     "RetentionInDays": 1
    }
   },
-  "RabbitMqBrokerClusterLogRetentionchannel2E4AEB7D": {
+  "BrokerLogRetentionchannel6575374E": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -1069,7 +1069,7 @@
       [
        "/aws/amazonmq/broker/",
        {
-        "Ref": "RabbitMqBrokerClusterFA886819"
+        "Ref": "BrokerE1355FD6"
        },
        "/channel"
       ]
@@ -1078,7 +1078,7 @@
     "RetentionInDays": 1
    }
   },
-  "RabbitMqBrokerClusterLogRetentionconnection7A211243": {
+  "BrokerLogRetentionconnection11B1D401": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -1093,7 +1093,7 @@
       [
        "/aws/amazonmq/broker/",
        {
-        "Ref": "RabbitMqBrokerClusterFA886819"
+        "Ref": "BrokerE1355FD6"
        },
        "/connection"
       ]
@@ -1102,7 +1102,7 @@
     "RetentionInDays": 1
    }
   },
-  "RabbitMqBrokerClusterLogRetentionmirroringF4FF823D": {
+  "BrokerLogRetentionmirroring1D0253DA": {
    "Type": "Custom::LogRetention",
    "Properties": {
     "ServiceToken": {
@@ -1117,7 +1117,7 @@
       [
        "/aws/amazonmq/broker/",
        {
-        "Ref": "RabbitMqBrokerClusterFA886819"
+        "Ref": "BrokerE1355FD6"
        },
        "/mirroring"
       ]
@@ -1231,13 +1231,13 @@
     }
    }
   },
-  "RabbitMqPublisherSGtoRabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E25671CAED94C9": {
+  "RabbitMqPublisherSGtoRabbitMqBrokerClusterTestStackBrokerAMQSG7343A0145671FA089EA2": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
-    "Description": "to RabbitMqBrokerClusterTestStackRabbitMqBrokerClusterAMQSG95DCF6E2:5671",
+    "Description": "to RabbitMqBrokerClusterTestStackBrokerAMQSG7343A014:5671",
     "DestinationSecurityGroupId": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterAMQSG98056902",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -1349,7 +1349,7 @@
         0,
         {
          "Fn::GetAtt": [
-          "RabbitMqBrokerClusterFA886819",
+          "BrokerE1355FD6",
           "AmqpEndpoints"
          ]
         }
@@ -1488,7 +1488,7 @@
        "Effect": "Allow",
        "Resource": {
         "Fn::GetAtt": [
-         "RabbitMqBrokerClusterFA886819",
+         "BrokerE1355FD6",
          "Arn"
         ]
        }
@@ -1558,12 +1558,12 @@
     "RetentionInDays": 1
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F6162F513C0": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B7961711D": {
    "Type": "AWS::Lambda::EventSourceMapping",
    "Properties": {
     "EventSourceArn": {
      "Fn::GetAtt": [
-      "RabbitMqBrokerClusterFA886819",
+      "BrokerE1355FD6",
       "Arn"
      ]
     },
@@ -1583,7 +1583,7 @@
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRole2DA94DD4": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRole248AD8F5": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1614,7 +1614,7 @@
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRoleDefaultPolicy62ED71B4": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRoleDefaultPolicy829D0B50": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1640,7 +1640,7 @@
           },
           ":event-source-mapping:",
           {
-           "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F6162F513C0"
+           "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B7961711D"
           }
          ]
         ]
@@ -1649,15 +1649,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "tMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRoleDefaultPolicy62ED71B4",
+    "PolicyName": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRoleDefaultPolicy829D0B50",
     "Roles": [
      {
-      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRole2DA94DD4"
+      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRole248AD8F5"
      }
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -1675,18 +1675,18 @@
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRole2DA94DD4",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRole248AD8F5",
       "Arn"
      ]
     },
     "Runtime": "nodejs18.x"
    },
    "DependsOn": [
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRoleDefaultPolicy62ED71B4",
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61oneventServiceRole2DA94DD4"
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRoleDefaultPolicy829D0B50",
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventServiceRole248AD8F5"
    ]
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRole01162127": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRole0E5384D6": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1717,7 +1717,7 @@
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRoleDefaultPolicy7A4EEF6F": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRoleDefaultPolicyF17AA5D7": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1730,15 +1730,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "ListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRoleDefaultPolicy7A4EEF6F",
+    "PolicyName": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRoleDefaultPolicyF17AA5D7",
     "Roles": [
      {
-      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRole01162127"
+      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRole0E5384D6"
      }
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -1756,18 +1756,18 @@
     "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRole01162127",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRole0E5384D6",
       "Arn"
      ]
     },
     "Runtime": "nodejs18.x"
    },
    "DependsOn": [
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRoleDefaultPolicy7A4EEF6F",
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscompleteServiceRole01162127"
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRoleDefaultPolicyF17AA5D7",
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BiscompleteServiceRole0E5384D6"
    ]
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrB8E6860A": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRole26F33543": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1798,7 +1798,7 @@
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr5A89EA5B": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRoleDefauAB388E33": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1809,7 +1809,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
           "Arn"
          ]
         },
@@ -1819,7 +1819,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
              "Arn"
             ]
            },
@@ -1835,7 +1835,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
           "Arn"
          ]
         },
@@ -1845,7 +1845,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
              "Arn"
             ]
            },
@@ -1859,21 +1859,21 @@
        "Action": "states:StartExecution",
        "Effect": "Allow",
        "Resource": {
-        "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa6216E0D1"
+        "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57Fwaiterstatemachine13DF9B01"
        }
       }
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "ClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr5A89EA5B",
+    "PolicyName": "kRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRoleDefauAB388E33",
     "Roles": [
      {
-      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrB8E6860A"
+      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRole26F33543"
      }
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrD04390E5": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEvent61F4223C": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -1882,30 +1882,30 @@
      },
      "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip"
     },
-    "Description": "AWS CDK resource provider framework - onEvent (RabbitMqBrokerClusterTestStack/RabbitMqListener/RabbitMqEventSource:RabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61/MqEsmDeleter:RabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRab",
+    "Description": "AWS CDK resource provider framework - onEvent (RabbitMqBrokerClusterTestStack/RabbitMqListener/RabbitMqEventSource:RabbitMqBrokerClusterTestStackBroker96B84F1B/MqEsmDeleter:RabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClus",
     "Environment": {
      "Variables": {
       "USER_ON_EVENT_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
         "Arn"
        ]
       },
       "USER_IS_COMPLETE_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
         "Arn"
        ]
       },
       "WAITER_STATE_MACHINE_ARN": {
-       "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa6216E0D1"
+       "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57Fwaiterstatemachine13DF9B01"
       }
      }
     },
     "Handler": "framework.onEvent",
     "Role": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrB8E6860A",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRole26F33543",
       "Arn"
      ]
     },
@@ -1921,11 +1921,11 @@
     "Timeout": 900
    },
    "DependsOn": [
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr5A89EA5B",
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrB8E6860A"
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRoleDefauAB388E33",
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEventServiceRole26F33543"
    ]
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr399D543F": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleF15C1BEA": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -1956,7 +1956,7 @@
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrD381A9C1": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleDe814B333C": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -1967,7 +1967,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
           "Arn"
          ]
         },
@@ -1977,7 +1977,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
              "Arn"
             ]
            },
@@ -1993,7 +1993,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
           "Arn"
          ]
         },
@@ -2003,7 +2003,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
              "Arn"
             ]
            },
@@ -2016,15 +2016,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "ClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrD381A9C1",
+    "PolicyName": "kRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleDe814B333C",
     "Roles": [
      {
-      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr399D543F"
+      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleF15C1BEA"
      }
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrC199AC9A": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteA102DAEB": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -2033,18 +2033,18 @@
      },
      "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip"
     },
-    "Description": "AWS CDK resource provider framework - isComplete (RabbitMqBrokerClusterTestStack/RabbitMqListener/RabbitMqEventSource:RabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61/MqEsmDeleter:RabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSource",
+    "Description": "AWS CDK resource provider framework - isComplete (RabbitMqBrokerClusterTestStack/RabbitMqListener/RabbitMqEventSource:RabbitMqBrokerClusterTestStackBroker96B84F1B/MqEsmDeleter:RabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerC",
     "Environment": {
      "Variables": {
       "USER_ON_EVENT_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
         "Arn"
        ]
       },
       "USER_IS_COMPLETE_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
         "Arn"
        ]
       }
@@ -2053,7 +2053,7 @@
     "Handler": "framework.isComplete",
     "Role": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr399D543F",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleF15C1BEA",
       "Arn"
      ]
     },
@@ -2069,11 +2069,11 @@
     "Timeout": 900
    },
    "DependsOn": [
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrD381A9C1",
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr399D543F"
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleDe814B333C",
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteServiceRoleF15C1BEA"
    ]
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr36694EA9": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRole18FE3E4F": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -2104,7 +2104,7 @@
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr143ADD0F": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRoleDefC3C06784": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -2115,7 +2115,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
           "Arn"
          ]
         },
@@ -2125,7 +2125,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
              "Arn"
             ]
            },
@@ -2141,7 +2141,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
           "Arn"
          ]
         },
@@ -2151,7 +2151,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
              "Arn"
             ]
            },
@@ -2164,15 +2164,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "ClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr143ADD0F",
+    "PolicyName": "kRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRoleDefC3C06784",
     "Roles": [
      {
-      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr36694EA9"
+      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRole18FE3E4F"
      }
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr48FA0ADC": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeout7EB12096": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
@@ -2181,18 +2181,18 @@
      },
      "S3Key": "d9861ea7a45affd23e47a614acb2fddc6e45c20a891284c958187dafbf9ee36b.zip"
     },
-    "Description": "AWS CDK resource provider framework - onTimeout (RabbitMqBrokerClusterTestStack/RabbitMqListener/RabbitMqEventSource:RabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61/MqEsmDeleter:RabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceR",
+    "Description": "AWS CDK resource provider framework - onTimeout (RabbitMqBrokerClusterTestStack/RabbitMqListener/RabbitMqEventSource:RabbitMqBrokerClusterTestStackBroker96B84F1B/MqEsmDeleter:RabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerCl",
     "Environment": {
      "Variables": {
       "USER_ON_EVENT_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61onevent616A21BC",
+        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BoneventAA080CF1",
         "Arn"
        ]
       },
       "USER_IS_COMPLETE_FUNCTION_ARN": {
        "Fn::GetAtt": [
-        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61iscomplete4254CE27",
+        "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1Biscomplete28FBE86B",
         "Arn"
        ]
       }
@@ -2201,7 +2201,7 @@
     "Handler": "framework.onTimeout",
     "Role": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr36694EA9",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRole18FE3E4F",
       "Arn"
      ]
     },
@@ -2217,11 +2217,11 @@
     "Timeout": 900
    },
    "DependsOn": [
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr143ADD0F",
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr36694EA9"
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRoleDefC3C06784",
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeoutServiceRole18FE3E4F"
    ]
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa4CEC6994": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleB7A2E20C": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -2238,7 +2238,7 @@
     }
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa03254C64": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleDefaultPolAE6ACF95": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -2249,7 +2249,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrC199AC9A",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteA102DAEB",
           "Arn"
          ]
         },
@@ -2259,7 +2259,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrC199AC9A",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteA102DAEB",
              "Arn"
             ]
            },
@@ -2275,7 +2275,7 @@
        "Resource": [
         {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr48FA0ADC",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeout7EB12096",
           "Arn"
          ]
         },
@@ -2285,7 +2285,7 @@
           [
            {
             "Fn::GetAtt": [
-             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr48FA0ADC",
+             "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeout7EB12096",
              "Arn"
             ]
            },
@@ -2314,15 +2314,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "ClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa03254C64",
+    "PolicyName": "kRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleDefaultPolAE6ACF95",
     "Roles": [
      {
-      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa4CEC6994"
+      "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleB7A2E20C"
      }
     ]
    }
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CwaACEA7CDE": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineLogGroupB11D6794": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "LogGroupName": {
@@ -2331,9 +2331,9 @@
       [
        "/aws/vendedlogs/states/waiter-state-machine-",
        {
-        "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrC199AC9A"
+        "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteA102DAEB"
        },
-       "-c8622e7cce073120995b7a01a66ebd71642e04a0a1"
+       "-c8fa7f93725e3b67fb50c8fd28004140799c76272d"
       ]
      ]
     },
@@ -2342,7 +2342,7 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain"
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa6216E0D1": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57Fwaiterstatemachine13DF9B01": {
    "Type": "AWS::StepFunctions::StateMachine",
    "Properties": {
     "DefinitionString": {
@@ -2352,14 +2352,14 @@
        "{\"StartAt\":\"framework-isComplete-task\",\"States\":{\"framework-isComplete-task\":{\"End\":true,\"Retry\":[{\"ErrorEquals\":[\"States.ALL\"],\"IntervalSeconds\":60,\"MaxAttempts\":30,\"BackoffRate\":1}],\"Catch\":[{\"ErrorEquals\":[\"States.ALL\"],\"Next\":\"framework-onTimeout-task\"}],\"Type\":\"Task\",\"Resource\":\"",
        {
         "Fn::GetAtt": [
-         "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrC199AC9A",
+         "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkisCompleteA102DAEB",
          "Arn"
         ]
        },
        "\"},\"framework-onTimeout-task\":{\"End\":true,\"Type\":\"Task\",\"Resource\":\"",
        {
         "Fn::GetAtt": [
-         "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cfr48FA0ADC",
+         "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonTimeout7EB12096",
          "Arn"
         ]
        },
@@ -2373,7 +2373,7 @@
        "CloudWatchLogsLogGroup": {
         "LogGroupArn": {
          "Fn::GetAtt": [
-          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CwaACEA7CDE",
+          "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineLogGroupB11D6794",
           "Arn"
          ]
         }
@@ -2385,28 +2385,28 @@
     },
     "RoleArn": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa4CEC6994",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleB7A2E20C",
       "Arn"
      ]
     }
    },
    "DependsOn": [
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa03254C64",
-    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8Cwa4CEC6994"
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleDefaultPolAE6ACF95",
+    "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FwaiterstatemachineRoleB7A2E20C"
    ]
   },
-  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterCRRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8C94FBA220": {
+  "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterCRRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FA8FC9C51": {
    "Type": "AWS::CloudFormation::CustomResource",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F61MqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F615BC57D8CfrD04390E5",
+      "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1BMqEsmDeleterRabbitMqBrokerClusterTestStackRabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B119FC57FframeworkonEvent61F4223C",
       "Arn"
      ]
     },
     "MqType": "armq",
     "EsmId": {
-     "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackRabbitMqBrokerCluster2B732F6162F513C0"
+     "Ref": "RabbitMqListenerRabbitMqEventSourceRabbitMqBrokerClusterTestStackBroker96B84F1B7961711D"
     },
     "AccountId": {
      "Ref": "AWS::AccountId"
@@ -2541,24 +2541,6 @@
    },
    "us-west-2": {
     "value": "nodejs20.x"
-   }
-  }
- },
- "Outputs": {
-  "ConfigurationId": {
-   "Value": {
-    "Fn::GetAtt": [
-     "RabbitMqBrokerClusterFA886819",
-     "ConfigurationId"
-    ]
-   }
-  },
-  "ConfigurationRevision": {
-   "Value": {
-    "Fn::GetAtt": [
-     "RabbitMqBrokerClusterFA886819",
-     "ConfigurationRevision"
-    ]
    }
   }
  },

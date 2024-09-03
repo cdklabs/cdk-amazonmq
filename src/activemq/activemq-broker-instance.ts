@@ -5,7 +5,6 @@ SPDX-License-Identifier: Apache-2.0
 import { Aws, Fn, Token } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { IActiveMqBroker } from './activemq-broker';
-import { ActiveMqBrokerConfiguration, IActiveMqBrokerConfiguration } from './activemq-broker-configuration';
 import { ActiveMqBrokerDeploymentBase, ActiveMqBrokerDeploymentProps } from './activemq-broker-deployment';
 import { ActiveMqBrokerEndpoints } from './activemq-broker-endpoints';
 import { BrokerDeploymentMode } from '../broker-deployment-mode';
@@ -37,8 +36,6 @@ export class ActiveMqBrokerInstance extends ActiveMqBrokerDeploymentBase impleme
    * Gets the available endpoints of the Amazon MQ for ActiveMQ broker.
    */
   public readonly endpoints: ActiveMqBrokerEndpoints;
-
-  public readonly configuration: IActiveMqBrokerConfiguration;
 
   constructor(scope: Construct, id: string, props: ActiveMqBrokerInstanceProps) {
     super(scope, id, {
@@ -74,10 +71,5 @@ export class ActiveMqBrokerInstance extends ActiveMqBrokerDeploymentBase impleme
     };
 
     this.ipAddress = Fn.select(0, this._resource.attrIpAddresses);
-
-    this.configuration = ActiveMqBrokerConfiguration.fromAttributes(this.stack, `${id}Configuration`, {
-      id: this._resource.attrConfigurationId,
-      revision: this._resource.attrConfigurationRevision,
-    });
   }
 }

@@ -74,7 +74,7 @@ const brokerUser = new Secret(stack, 'BrokerUser', {
   },
 });
 
-const broker = new ActiveMqBrokerRedundantPair(stack, 'ActiveMqBrokerPair', {
+const broker = new ActiveMqBrokerRedundantPair(stack, 'Broker', {
   publiclyAccessible: false,
   version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),

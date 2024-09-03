@@ -19,8 +19,8 @@ export interface RabbitMqBrokerConfigurationOptions {
 }
 
 export interface RabbitMqBrokerConfigurationProps extends RabbitMqBrokerConfigurationOptions {
-  readonly name?: string;
-  readonly engineVersion?: RabbitMqBrokerEngineVersion;
+  readonly configurationName?: string;
+  readonly engineVersion: RabbitMqBrokerEngineVersion;
 }
 
 export interface IRabbitMqBrokerConfiguration extends IBrokerConfiguration {
@@ -92,7 +92,6 @@ export class RabbitMqBrokerConfiguration extends BrokerConfiguration {
   constructor(scope: Construct, id: string, props: RabbitMqBrokerConfigurationProps) {
     super(scope, id, {
       ...props,
-      name: props.name ?? id,
       authenticationStrategy: ActiveMqAuthenticationStrategy.SIMPLE,
       engineVersion: props.engineVersion?.toString(),
       engine: BrokerEngine.RABBITMQ,

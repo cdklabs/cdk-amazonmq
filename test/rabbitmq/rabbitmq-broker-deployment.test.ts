@@ -13,7 +13,7 @@ describe('RabbitMqBrokerDeployment', () => {
     { opts: { period: Duration.minutes(10) } as MetricOptions },
     { opts: undefined },
   ])('RabbitMQ Broker Deployment renders all the metrics', ({ opts }) => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker: IRabbitMqBrokerDeployment = new RabbitMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: false,

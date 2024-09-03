@@ -46,7 +46,7 @@ describe('ActiveMqEventSource', () => {
     { batchSize: 10000 },
   ])('creates event source with correct batch sizes', ({ batchSize }) => {
 
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
     const credentials = Secret.fromSecretNameV2(stack, 'TestSecret', 'TestSecret');
@@ -99,7 +99,11 @@ describe('ActiveMqEventSource', () => {
               [
                 'arn:',
                 { Ref: 'AWS::Partition' },
-                ':secretsmanager:tst-wrld-1:123456789012:secret:TestSecret',
+                ':secretsmanager:',
+                { Ref: 'AWS::Region' },
+                ':',
+                { Ref: 'AWS::AccountId' },
+                ':secret:TestSecret',
               ]],
           },
         },
@@ -119,7 +123,7 @@ describe('ActiveMqEventSource', () => {
     { batchSize: 10001 },
   ])('App generation fails on incorrect batch sizes', ({ batchSize }) => {
 
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
     const credentials = Secret.fromSecretNameV2(stack, 'TestSecret', 'TestSecret');

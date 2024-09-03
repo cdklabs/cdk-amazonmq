@@ -5,7 +5,11 @@ SPDX-License-Identifier: Apache-2.0
 import { CfnOutput, SecretValue, Stack } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
-import { ActiveMqBrokerEngineVersion, ActiveMqBrokerInstance, ActiveMqBrokerUserManagement } from '../../src';
+import {
+  ActiveMqBrokerEngineVersion,
+  ActiveMqBrokerInstance,
+  ActiveMqBrokerUserManagement,
+} from '../../src';
 
 const createBroker = (stack: Stack) => {
   return new ActiveMqBrokerInstance(stack, 'TestBroker', {
@@ -13,19 +17,20 @@ const createBroker = (stack: Stack) => {
     version: ActiveMqBrokerEngineVersion.V5_15_16,
     instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
     userManagement: ActiveMqBrokerUserManagement.simple({
-      users: [{
-        username: 'username',
-        password: SecretValue.unsafePlainText('password'),
-      }],
+      users: [
+        {
+          username: 'username',
+          password: SecretValue.unsafePlainText('password'),
+        },
+      ],
     }),
     autoMinorVersionUpgrade: false,
   });
 };
 
 describe('ActiveMqBrokerEndpoints', () => {
-
   test('AMQP Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -44,10 +49,7 @@ describe('ActiveMqBrokerEndpoints', () => {
         'Fn::Select': [
           0,
           {
-            'Fn::GetAtt': [
-              'TestBrokerBD4D5330',
-              'AmqpEndpoints',
-            ],
+            'Fn::GetAtt': ['TestBrokerBD4D5330', 'AmqpEndpoints'],
           },
         ],
       },
@@ -64,10 +66,7 @@ describe('ActiveMqBrokerEndpoints', () => {
                 'Fn::Select': [
                   0,
                   {
-                    'Fn::GetAtt': [
-                      'TestBrokerBD4D5330',
-                      'AmqpEndpoints',
-                    ],
+                    'Fn::GetAtt': ['TestBrokerBD4D5330', 'AmqpEndpoints'],
                   },
                 ],
               },
@@ -79,7 +78,7 @@ describe('ActiveMqBrokerEndpoints', () => {
   });
 
   test('STOMP Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -98,10 +97,7 @@ describe('ActiveMqBrokerEndpoints', () => {
         'Fn::Select': [
           0,
           {
-            'Fn::GetAtt': [
-              'TestBrokerBD4D5330',
-              'StompEndpoints',
-            ],
+            'Fn::GetAtt': ['TestBrokerBD4D5330', 'StompEndpoints'],
           },
         ],
       },
@@ -118,10 +114,7 @@ describe('ActiveMqBrokerEndpoints', () => {
                 'Fn::Select': [
                   0,
                   {
-                    'Fn::GetAtt': [
-                      'TestBrokerBD4D5330',
-                      'StompEndpoints',
-                    ],
+                    'Fn::GetAtt': ['TestBrokerBD4D5330', 'StompEndpoints'],
                   },
                 ],
               },
@@ -133,7 +126,7 @@ describe('ActiveMqBrokerEndpoints', () => {
   });
 
   test('OpenWire Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -152,10 +145,7 @@ describe('ActiveMqBrokerEndpoints', () => {
         'Fn::Select': [
           0,
           {
-            'Fn::GetAtt': [
-              'TestBrokerBD4D5330',
-              'OpenWireEndpoints',
-            ],
+            'Fn::GetAtt': ['TestBrokerBD4D5330', 'OpenWireEndpoints'],
           },
         ],
       },
@@ -172,10 +162,7 @@ describe('ActiveMqBrokerEndpoints', () => {
                 'Fn::Select': [
                   0,
                   {
-                    'Fn::GetAtt': [
-                      'TestBrokerBD4D5330',
-                      'OpenWireEndpoints',
-                    ],
+                    'Fn::GetAtt': ['TestBrokerBD4D5330', 'OpenWireEndpoints'],
                   },
                 ],
               },
@@ -187,7 +174,7 @@ describe('ActiveMqBrokerEndpoints', () => {
   });
 
   test('MQTT Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -206,10 +193,7 @@ describe('ActiveMqBrokerEndpoints', () => {
         'Fn::Select': [
           0,
           {
-            'Fn::GetAtt': [
-              'TestBrokerBD4D5330',
-              'MqttEndpoints',
-            ],
+            'Fn::GetAtt': ['TestBrokerBD4D5330', 'MqttEndpoints'],
           },
         ],
       },
@@ -226,10 +210,7 @@ describe('ActiveMqBrokerEndpoints', () => {
                 'Fn::Select': [
                   0,
                   {
-                    'Fn::GetAtt': [
-                      'TestBrokerBD4D5330',
-                      'MqttEndpoints',
-                    ],
+                    'Fn::GetAtt': ['TestBrokerBD4D5330', 'MqttEndpoints'],
                   },
                 ],
               },
@@ -241,7 +222,7 @@ describe('ActiveMqBrokerEndpoints', () => {
   });
 
   test('WSS Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -260,10 +241,7 @@ describe('ActiveMqBrokerEndpoints', () => {
         'Fn::Select': [
           0,
           {
-            'Fn::GetAtt': [
-              'TestBrokerBD4D5330',
-              'WssEndpoints',
-            ],
+            'Fn::GetAtt': ['TestBrokerBD4D5330', 'WssEndpoints'],
           },
         ],
       },
@@ -280,10 +258,7 @@ describe('ActiveMqBrokerEndpoints', () => {
                 'Fn::Select': [
                   0,
                   {
-                    'Fn::GetAtt': [
-                      'TestBrokerBD4D5330',
-                      'WssEndpoints',
-                    ],
+                    'Fn::GetAtt': ['TestBrokerBD4D5330', 'WssEndpoints'],
                   },
                 ],
               },
@@ -295,7 +270,7 @@ describe('ActiveMqBrokerEndpoints', () => {
   });
 
   test('Console Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -328,5 +303,4 @@ describe('ActiveMqBrokerEndpoints', () => {
       Value: '8162',
     });
   });
-
 });

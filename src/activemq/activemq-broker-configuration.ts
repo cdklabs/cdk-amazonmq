@@ -20,8 +20,14 @@ export interface ActiveMqBrokerConfigurationOptions {
 }
 
 export interface ActiveMqBrokerConfigurationProps extends ActiveMqBrokerConfigurationOptions {
-  readonly name?: string;
-  readonly engineVersion?: ActiveMqBrokerEngineVersion;
+  readonly configurationName?: string;
+  readonly engineVersion: ActiveMqBrokerEngineVersion;
+
+  /**
+   * Sets authentication strategy for the broker
+   *
+   * @default - undefined; a SIMPLE authentication strategy will be applied
+   */
   readonly authenticationStrategy?: ActiveMqAuthenticationStrategy;
 }
 
@@ -94,7 +100,6 @@ export class ActiveMqBrokerConfiguration extends BrokerConfiguration {
   constructor(scope: Construct, id: string, props: ActiveMqBrokerConfigurationProps) {
     super(scope, id, {
       ...props,
-      name: props.name ?? id,
       authenticationStrategy: props.authenticationStrategy,
       engineVersion: props.engineVersion?.toString(),
       engine: BrokerEngine.ACTIVEMQ,

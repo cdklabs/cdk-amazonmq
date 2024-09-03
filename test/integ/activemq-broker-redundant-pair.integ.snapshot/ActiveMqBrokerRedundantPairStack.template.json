@@ -268,10 +268,10 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
   },
-  "ActiveMqBrokerPairAMQSG0B4D57EB": {
+  "BrokerAMQSG2734DF6F": {
    "Type": "AWS::EC2::SecurityGroup",
    "Properties": {
-    "GroupDescription": "Automatic security group for broker ActiveMqBrokerRedundantPairStackActiveMqBrokerPair14986C73",
+    "GroupDescription": "Automatic security group for broker ActiveMqBrokerRedundantPairStackBrokerFDDD2B51",
     "SecurityGroupEgress": [
      {
       "CidrIp": "255.255.255.255/32",
@@ -286,7 +286,7 @@
     }
    }
   },
-  "ActiveMqBrokerPairAMQSGfromActiveMqBrokerRedundantPairStackMqttPublisherSG9C988098IndirectPort15CACBB6": {
+  "BrokerAMQSGfromActiveMqBrokerRedundantPairStackMqttPublisherSG9C988098IndirectPortBFB7F68D": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
     "Description": "from ActiveMqBrokerRedundantPairStackMqttPublisherSG9C988098:{IndirectPort}",
@@ -301,7 +301,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -313,7 +313,7 @@
     },
     "GroupId": {
      "Fn::GetAtt": [
-      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -335,7 +335,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -347,7 +347,7 @@
     }
    }
   },
-  "ActiveMqBrokerPairAMQSGfromActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4BIndirectPortC6C0F1E6": {
+  "BrokerAMQSGfromActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4BIndirectPort309C4E24": {
    "Type": "AWS::EC2::SecurityGroupIngress",
    "Properties": {
     "Description": "from ActiveMqBrokerRedundantPairStackMqttSubscriberSGDDD61D4B:{IndirectPort}",
@@ -362,7 +362,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -374,7 +374,7 @@
     },
     "GroupId": {
      "Fn::GetAtt": [
-      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -396,7 +396,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -408,11 +408,11 @@
     }
    }
   },
-  "ActiveMqBrokerPair49F6C84B": {
+  "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
     "AutoMinorVersionUpgrade": true,
-    "BrokerName": "ActiveMqBrokerPair",
+    "BrokerName": "ActiveMqBrokerRedundantPairStackBrokerFDDD2B51",
     "DeploymentMode": "ACTIVE_STANDBY_MULTI_AZ",
     "EncryptionOptions": {
      "UseAwsOwnedKey": true
@@ -424,7 +424,7 @@
     "SecurityGroups": [
      {
       "Fn::GetAtt": [
-       "ActiveMqBrokerPairAMQSG0B4D57EB",
+       "BrokerAMQSG2734DF6F",
        "GroupId"
       ]
      }
@@ -476,13 +476,13 @@
     }
    }
   },
-  "MqttPublisherSGtoActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8IndirectPortBBF53820": {
+  "MqttPublisherSGtoActiveMqBrokerRedundantPairStackBrokerAMQSG37B71013IndirectPortED4D6BBA": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
-    "Description": "to ActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8:{IndirectPort}",
+    "Description": "to ActiveMqBrokerRedundantPairStackBrokerAMQSG37B71013:{IndirectPort}",
     "DestinationSecurityGroupId": {
      "Fn::GetAtt": [
-      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -497,7 +497,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -525,7 +525,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -655,7 +655,7 @@
            0,
            {
             "Fn::GetAtt": [
-             "ActiveMqBrokerPair49F6C84B",
+             "BrokerE1355FD6",
              "MqttEndpoints"
             ]
            }
@@ -667,7 +667,7 @@
            1,
            {
             "Fn::GetAtt": [
-             "ActiveMqBrokerPair49F6C84B",
+             "BrokerE1355FD6",
              "MqttEndpoints"
             ]
            }
@@ -840,13 +840,13 @@
     }
    }
   },
-  "MqttSubscriberSGtoActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8IndirectPort70016A5E": {
+  "MqttSubscriberSGtoActiveMqBrokerRedundantPairStackBrokerAMQSG37B71013IndirectPort59FB445A": {
    "Type": "AWS::EC2::SecurityGroupEgress",
    "Properties": {
-    "Description": "to ActiveMqBrokerRedundantPairStackActiveMqBrokerPairAMQSGBF8A97C8:{IndirectPort}",
+    "Description": "to ActiveMqBrokerRedundantPairStackBrokerAMQSG37B71013:{IndirectPort}",
     "DestinationSecurityGroupId": {
      "Fn::GetAtt": [
-      "ActiveMqBrokerPairAMQSG0B4D57EB",
+      "BrokerAMQSG2734DF6F",
       "GroupId"
      ]
     },
@@ -861,7 +861,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -889,7 +889,7 @@
           0,
           {
            "Fn::GetAtt": [
-            "ActiveMqBrokerPair49F6C84B",
+            "BrokerE1355FD6",
             "MqttEndpoints"
            ]
           }
@@ -1019,7 +1019,7 @@
            0,
            {
             "Fn::GetAtt": [
-             "ActiveMqBrokerPair49F6C84B",
+             "BrokerE1355FD6",
              "MqttEndpoints"
             ]
            }
@@ -1031,7 +1031,7 @@
            1,
            {
             "Fn::GetAtt": [
-             "ActiveMqBrokerPair49F6C84B",
+             "BrokerE1355FD6",
              "MqttEndpoints"
             ]
            }
@@ -1241,7 +1241,7 @@
      [
       "https://",
       {
-       "Ref": "ActiveMqBrokerPair49F6C84B"
+       "Ref": "BrokerE1355FD6"
       },
       "-1.mq.",
       {
@@ -1258,7 +1258,7 @@
      0,
      {
       "Fn::GetAtt": [
-       "ActiveMqBrokerPair49F6C84B",
+       "BrokerE1355FD6",
        "StompEndpoints"
       ]
      }
@@ -1277,7 +1277,7 @@
          0,
          {
           "Fn::GetAtt": [
-           "ActiveMqBrokerPair49F6C84B",
+           "BrokerE1355FD6",
            "StompEndpoints"
           ]
          }
@@ -1294,7 +1294,7 @@
      0,
      {
       "Fn::GetAtt": [
-       "ActiveMqBrokerPair49F6C84B",
+       "BrokerE1355FD6",
        "IpAddresses"
       ]
      }
@@ -1308,7 +1308,7 @@
      [
       "https://",
       {
-       "Ref": "ActiveMqBrokerPair49F6C84B"
+       "Ref": "BrokerE1355FD6"
       },
       "-2.mq.",
       {
@@ -1325,7 +1325,7 @@
      1,
      {
       "Fn::GetAtt": [
-       "ActiveMqBrokerPair49F6C84B",
+       "BrokerE1355FD6",
        "StompEndpoints"
       ]
      }
@@ -1344,7 +1344,7 @@
          1,
          {
           "Fn::GetAtt": [
-           "ActiveMqBrokerPair49F6C84B",
+           "BrokerE1355FD6",
            "StompEndpoints"
           ]
          }
@@ -1361,7 +1361,7 @@
      1,
      {
       "Fn::GetAtt": [
-       "ActiveMqBrokerPair49F6C84B",
+       "BrokerE1355FD6",
        "IpAddresses"
       ]
      }

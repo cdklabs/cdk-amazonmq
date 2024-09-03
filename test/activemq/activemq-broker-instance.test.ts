@@ -12,7 +12,7 @@ import { ActiveMqBrokerEngineVersion, ActiveMqBrokerInstance, ActiveMqBrokerUser
 describe('ActiveMqBrokerInstance', () => {
 
   test('ActiveMQ Public Single Instance Broker Deployment with no network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = new ActiveMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: true,
@@ -52,7 +52,7 @@ describe('ActiveMqBrokerInstance', () => {
   });
 
   test('ActiveMQ Public Single Instance Broker Deployment with KMS key and no network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const key = new Key(stack, 'TestKey');
 
@@ -104,7 +104,7 @@ describe('ActiveMqBrokerInstance', () => {
   });
 
   test('ActiveMQ Private Single Instance Broker Deployment with no network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = new ActiveMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: false,
@@ -145,7 +145,7 @@ describe('ActiveMqBrokerInstance', () => {
 
 
   test('ActiveMQ Private Single Instance Broker Deployment with network components provided', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const vpc = new Vpc(stack, 'TestVpc');
     const vpcSubnets: SubnetSelection = { subnetType: SubnetType.PRIVATE_WITH_EGRESS };
@@ -182,7 +182,7 @@ describe('ActiveMqBrokerInstance', () => {
     template.resourceCountIs('AWS::EC2::SecurityGroup', 1);
 
     template.hasResourceProperties('AWS::EC2::SecurityGroup', {
-      GroupDescription: 'Automatic security group for broker TestStackTestBrokerD8FA2BF7',
+      GroupDescription: 'Automatic security group for broker TestBroker',
       SecurityGroupEgress: [
         {
           CidrIp: '255.255.255.255/32',

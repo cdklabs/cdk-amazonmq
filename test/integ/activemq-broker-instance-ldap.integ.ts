@@ -31,7 +31,7 @@ const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
   },
 });
 
-const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
+const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: false,
   version: ActiveMqBrokerEngineVersion.V5_17_6,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
