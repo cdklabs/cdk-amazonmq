@@ -5,15 +5,12 @@ SPDX-License-Identifier: Apache-2.0
 import { IResource } from 'aws-cdk-lib';
 import { Metric, MetricOptions } from 'aws-cdk-lib/aws-cloudwatch';
 import { Construct } from 'constructs';
-import { ActiveMqAuthenticationStrategy } from './activemq-authentication-strategy';
+// import { ActiveMqAuthenticationStrategy } from './activemq-authentication-strategy';
 import {
   ActiveMqBrokerConfiguration,
-  ActiveMqBrokerConfigurationOptions,
   IActiveMqBrokerConfiguration,
 } from './activemq-broker-configuration';
 import { ActiveMqBrokerEngineVersion } from './activemq-broker-engine-version';
-import { IActiveMqBrokerUserManagement } from './usermanagement/activemq-broker-user-management';
-import { ActiveMqLdapValidation } from './validators/ldap-metadata-validator';
 import {
   BrokerDeploymentBase,
   BrokerEngine,
@@ -21,6 +18,8 @@ import {
   IBrokerDeployment,
 } from '../broker-deployment';
 import { BrokerDeploymentMode } from '../broker-deployment-mode';
+import { IActiveMqBrokerUserManagement } from './usermanagement/activemq-broker-user-management';
+import { ActiveMqLdapValidation } from './validators/ldap-metadata-validator';
 
 export interface ActiveMqCloudwatchLogsExports {
   /**
@@ -153,15 +152,15 @@ export interface IActiveMqBrokerDeployment
 
   metricTotalDequeueCount(props?: MetricOptions): Metric;
 
-  withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration;
+  // withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration;
 }
 
 export abstract class ActiveMqBrokerDeploymentBase
   extends BrokerDeploymentBase
   implements IActiveMqBrokerDeployment {
 
-  private readonly engineVersion: ActiveMqBrokerEngineVersion;
-  private readonly authenticationStrategy?: ActiveMqAuthenticationStrategy;
+  // private readonly engineVersion: ActiveMqBrokerEngineVersion;
+  // private readonly authenticationStrategy?: ActiveMqAuthenticationStrategy;
 
   public get configuration() {
     return this._configuration as IActiveMqBrokerConfiguration;
@@ -181,11 +180,11 @@ export abstract class ActiveMqBrokerDeploymentBase
       engine: BrokerEngine.ACTIVEMQ,
     });
 
-    this.engineVersion = props.version;
+    // this.engineVersion = props.version;
 
     if (renderedUserManagement.ldapServerMetadata) {
 
-      this.authenticationStrategy = ActiveMqAuthenticationStrategy.LDAP;
+      // this.authenticationStrategy = ActiveMqAuthenticationStrategy.LDAP;
 
       // validate ldap server metadata if present
       this.node.addValidation(
@@ -203,17 +202,17 @@ export abstract class ActiveMqBrokerDeploymentBase
       });
   }
 
-  public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration {
-    const configuration = new ActiveMqBrokerConfiguration(this.node.scope!, id, {
-      engineVersion: this.engineVersion,
-      authenticationStrategy: this.authenticationStrategy,
-      ...options,
-    });
+  // public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration {
+  //   const configuration = new ActiveMqBrokerConfiguration(this.node.scope!, id, {
+  //     engineVersion: this.engineVersion,
+  //     authenticationStrategy: this.authenticationStrategy,
+  //     ...options,
+  //   });
 
-    this._attachConfiguration(configuration);
+  //   this._attachConfiguration(configuration);
 
-    return configuration;
-  }
+  //   return configuration;
+  // }
 
   public metricAmqpMaximumConnections(props?: MetricOptions): Metric {
     return this.metric('AmqpMaximumConnections', props);

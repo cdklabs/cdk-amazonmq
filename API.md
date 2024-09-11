@@ -361,7 +361,6 @@ new ActiveMqBrokerDeploymentBase(scope: Construct, id: string, props: ActiveMqBr
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -881,24 +880,6 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
-
----
-
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -1158,7 +1139,6 @@ new ActiveMqBrokerInstance(scope: Construct, id: string, props: ActiveMqBrokerIn
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -1678,24 +1658,6 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
-
----
-
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -1979,7 +1941,6 @@ new ActiveMqBrokerRedundantPair(scope: Construct, id: string, props: ActiveMqBro
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -2496,24 +2457,6 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricWsMaximumConnections.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
-
----
-
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
 
 ---
 
@@ -10212,7 +10155,6 @@ public readonly revision: number;
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricVolumeReadOps">metricVolumeReadOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricVolumeWriteOps">metricVolumeWriteOps</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricWsMaximumConnections">metricWsMaximumConnections</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -10681,24 +10623,6 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.metricWsMaximumConnections.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
-
----
-
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions">ActiveMqBrokerConfigurationOptions</a>
 
 ---
 

@@ -172,7 +172,7 @@ export abstract class BrokerDeploymentBase
         }),
     });
 
-    this._authenticationStrategy = props.authenticationStrategy;
+    // this._authenticationStrategy = props.authenticationStrategy;
     this._engineVersion = props.version;
 
     this._conns =
