@@ -3392,7 +3392,6 @@ new RabbitMqBrokerCluster(scope: Construct, id: string, props: RabbitMqBrokerClu
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -3669,24 +3668,6 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricSystemCpuUtilization.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
-
----
-
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
 
 ---
 
@@ -4200,7 +4181,6 @@ new RabbitMqBrokerDeploymentBase(scope: Construct, id: string, props: RabbitMqBr
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -4480,24 +4460,6 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
-
----
-
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
@@ -4735,7 +4697,6 @@ new RabbitMqBrokerInstance(scope: Construct, id: string, props: RabbitMqBrokerIn
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -5012,24 +4973,6 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricSystemCpuUtilization.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
-
----
-
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
 
 ---
 
@@ -11141,7 +11084,6 @@ public readonly revision: number;
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricRabbitMQMemLimit">metricRabbitMQMemLimit</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricRabbitMQMemUsed">metricRabbitMQMemUsed</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricSystemCpuUtilization">metricSystemCpuUtilization</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration">withConfiguration</a></code> | *No description.* |
 
 ---
 
@@ -11370,24 +11312,6 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 ###### `props`<sup>Optional</sup> <a name="props" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.metricSystemCpuUtilization.parameter.props"></a>
 
 - *Type:* aws-cdk-lib.aws_cloudwatch.MetricOptions
-
----
-
-##### `withConfiguration` <a name="withConfiguration" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration"></a>
-
-```typescript
-public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
-```
-
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration.parameter.id"></a>
-
-- *Type:* string
-
----
-
-###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.withConfiguration.parameter.options"></a>
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfigurationOptions">RabbitMqBrokerConfigurationOptions</a>
 
 ---
 

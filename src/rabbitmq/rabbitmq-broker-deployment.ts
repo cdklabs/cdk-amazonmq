@@ -8,7 +8,7 @@ import { Port } from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
 import { Admin } from './admin';
 import { IRabbitMqBroker } from './rabbitmq-broker';
-import { IRabbitMqBrokerConfiguration, RabbitMqBrokerConfiguration, RabbitMqBrokerConfigurationOptions } from './rabbitmq-broker-configuration';
+import { IRabbitMqBrokerConfiguration, RabbitMqBrokerConfiguration } from './rabbitmq-broker-configuration';
 import { RabbitMqBrokerEndpoints } from './rabbitmq-broker-endpoints';
 import { RabbitMqBrokerEngineVersion } from './rabbitmq-broker-engine-version';
 import { BrokerDeploymentBase, BrokerEngine, BrokerDeploymentProps, IBrokerDeployment } from '../broker-deployment';
@@ -95,14 +95,14 @@ export interface IRabbitMqBrokerDeployment extends IResource, IBrokerDeployment 
 
   metricRabbitMQIOWriteAverageTime(props?: MetricOptions): Metric;
 
-  withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration;
+  // withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration;
 }
 
 export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase implements IRabbitMqBrokerDeployment, IRabbitMqBroker {
 
   public readonly endpoints: RabbitMqBrokerEndpoints;
 
-  private readonly engineVersion: RabbitMqBrokerEngineVersion;
+  // private readonly engineVersion: RabbitMqBrokerEngineVersion;
 
   constructor(scope: Construct, id: string, props: RabbitMqBrokerDeploymentBaseProps) {
     super(scope, id, {
@@ -117,7 +117,7 @@ export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase 
       cloudwatchLogsExports: props.cloudwatchLogsExports,
     });
 
-    this.engineVersion = props.version;
+    // this.engineVersion = props.version;
 
     this.endpoints = {
       amqp: {
@@ -136,16 +136,16 @@ export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase 
     });
   }
 
-  public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration {
-    const configuration = new RabbitMqBrokerConfiguration(this.node.scope!, id, {
-      engineVersion: this.engineVersion,
-      ...options,
-    });
+  // public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration {
+  //   const configuration = new RabbitMqBrokerConfiguration(this.node.scope!, id, {
+  //     engineVersion: this.engineVersion,
+  //     ...options,
+  //   });
 
-    this._attachConfiguration(configuration);
+  //   this._attachConfiguration(configuration);
 
-    return configuration;
-  }
+  //   return configuration;
+  // }
 
   public metricExchangeCount(props?: MetricOptions): Metric {
     return this.metric('ExchangeCount', props);
