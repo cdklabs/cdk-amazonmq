@@ -2,16 +2,30 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Arn, ArnFormat, Fn, IResource, Lazy, Resource, Stack } from 'aws-cdk-lib';
+import {
+  Arn,
+  ArnFormat,
+  Fn,
+  IResource,
+  Lazy,
+  Names,
+  Resource,
+  Stack,
+} from 'aws-cdk-lib';
 import { CfnConfiguration } from 'aws-cdk-lib/aws-amazonmq';
-import { AwsCustomResource, AwsCustomResourcePolicy, AwsSdkCall, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
+import {
+  AwsCustomResource,
+  AwsCustomResourcePolicy,
+  AwsSdkCall,
+  PhysicalResourceId,
+} from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { ActiveMqAuthenticationStrategy } from './activemq/activemq-authentication-strategy';
 import { BrokerEngine, IBrokerDeployment } from './broker-deployment';
 import { ConfigurationAssociation } from './configuration-association';
 
 export interface ConfigurationProps {
-  readonly name: string;
+  readonly configurationName?: string;
   readonly description?: string;
   readonly data: string;
   readonly engine: BrokerEngine;
@@ -31,12 +45,17 @@ export interface BrokerConfigurationAttributes {
   readonly revision: number;
 }
 
-export abstract class BrokerConfiguration extends Resource implements IBrokerConfiguration {
-
+export abstract class BrokerConfiguration
+  extends Resource
+  implements IBrokerConfiguration {
   /***
    * @internal
    */
-  protected static _fromAttributes(scope: Construct, logicalId: string, attrs: BrokerConfigurationAttributes): IBrokerConfiguration {
+  protected static _fromAttributes(
+    scope: Construct,
+    logicalId: string,
+    attrs: BrokerConfigurationAttributes,
+  ): IBrokerConfiguration {
     if (attrs.id === undefined && attrs.arn === undefined) {
       throw new Error("Either 'id' or 'arn' needs to be defined");
     }
@@ -50,13 +69,17 @@ export abstract class BrokerConfiguration extends Resource implements IBrokerCon
       constructor() {
         super(scope, logicalId);
         this.revision = attrs.revision;
-        this.arn = arn ? arn : Stack.of(this).formatArn({
-          service: 'mq',
-          resource: 'configuration',
-          resourceName: id,
-          arnFormat: ArnFormat.COLON_RESOURCE_NAME,
-        });
-        this.id = id ? id : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!;
+        this.arn = arn
+          ? arn
+          : Stack.of(this).formatArn({
+            service: 'mq',
+            resource: 'configuration',
+            resourceName: id,
+            arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+          });
+        this.id = id
+          ? id
+          : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!;
       }
     }
 
@@ -77,19 +100,36 @@ export abstract class BrokerConfiguration extends Resource implements IBrokerCon
   private isEngineVersionSet: boolean = false;
 
   constructor(scope: Construct, id: string, props: ConfigurationProps) {
-    super(scope, id);
+    super(scope, id, {
+      physicalName:
+        props.configurationName ||
+        Lazy.string({
+          produce: () =>
+            Names.uniqueResourceName(this, {
+              maxLength: 150, allowedSpecialCharacters: '-._~',
+            }),
+        }),
+    });
 
     const resource = new CfnConfiguration(this, 'Resource', {
-      name: props.name,
+      name: this.physicalName,
       description: props.description,
       data: Fn.base64(props.data),
       engineType: props.engine,
-      authenticationStrategy: Lazy.string({ produce: () => this._authenticationStrategy }),
+      authenticationStrategy: Lazy.string({
+        produce: () => this._authenticationStrategy,
+      }),
       engineVersion: Lazy.string({ produce: () => this._engineVersion }),
     });
 
-    this.arn = resource.attrArn;
-    this.id = resource.ref;
+    this.id = this.getResourceNameAttribute(resource.ref);
+    this.arn = this.getResourceArnAttribute(resource.attrArn, {
+      service: 'mq',
+      resource: 'configuration',
+      resourceName: this.physicalName,
+      arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+    });
+
     this.revision = resource.attrRevision;
     this.configureEngineVersion(props.engineVersion);
     this.configureAuthenticationStrategy(props.authenticationStrategy);
@@ -101,12 +141,16 @@ export abstract class BrokerConfiguration extends Resource implements IBrokerCon
         this._engineVersion = engineVersion;
         this.isEngineVersionSet = true;
       } else if (this._engineVersion !== engineVersion) {
-        throw new Error(`A configuraiton can be associated with only one engine version. (current: ${this._engineVersion}, new: ${engineVersion})`);
+        throw new Error(
+          `A configuraiton can be associated with only one engine version. (current: ${this._engineVersion}, new: ${engineVersion})`,
+        );
       }
     }
   }
 
-  private configureAuthenticationStrategy(authenticationStrategy: string | undefined) {
+  private configureAuthenticationStrategy(
+    authenticationStrategy: string | undefined,
+  ) {
     // TODO: think if this is the best approach
     //       maybe we should compeare and fail if things are/aren't set
     if (!this.isAuthenticationStrategySet) {
@@ -114,8 +158,13 @@ export abstract class BrokerConfiguration extends Resource implements IBrokerCon
       this.isAuthenticationStrategySet = true;
     } else if (this._authenticationStrategy !== authenticationStrategy) {
       // INFO: this way, as the default is simple, so an undefined will equal SIMPLE
-      if (this._authenticationStrategy === ActiveMqAuthenticationStrategy.LDAP || authenticationStrategy === ActiveMqAuthenticationStrategy.LDAP) {
-        throw new Error(`A configuration can be assigned only a single authentication strategy. (current: ${this._authenticationStrategy}, new: ${authenticationStrategy})`);
+      if (
+        this._authenticationStrategy === ActiveMqAuthenticationStrategy.LDAP ||
+        authenticationStrategy === ActiveMqAuthenticationStrategy.LDAP
+      ) {
+        throw new Error(
+          `A configuration can be assigned only a single authentication strategy. (current: ${this._authenticationStrategy}, new: ${authenticationStrategy})`,
+        );
       }
     }
   }

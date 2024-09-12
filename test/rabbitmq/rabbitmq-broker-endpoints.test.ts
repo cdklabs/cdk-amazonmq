@@ -23,7 +23,7 @@ const createBroker = (stack: Stack) => {
 describe('RabbitMqBrokerEndpoints', () => {
 
   test('AMQP Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 
@@ -77,7 +77,7 @@ describe('RabbitMqBrokerEndpoints', () => {
   });
 
   test('Console Endpoints render correctly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker = createBroker(stack);
 

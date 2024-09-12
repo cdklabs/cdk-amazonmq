@@ -9,7 +9,7 @@ import { ActiveMqBrokerConfiguration, ActiveMqBrokerConfigurationDefinition, Act
 describe('ActiveMqBrokerConfiguration', () => {
 
   test('Configuration Renders Properly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
@@ -29,7 +29,7 @@ describe('ActiveMqBrokerConfiguration', () => {
   });
 
   test('Configuration Revision Renders Properly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const config = new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
@@ -69,7 +69,15 @@ describe('ActiveMqBrokerConfiguration', () => {
 
     template.hasResourceProperties('AWS::Lambda::Function', {
       Role: { 'Fn::GetAtt': ['AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2', 'Arn'] },
-      Runtime: 'nodejs18.x',
+      Runtime: {
+        'Fn::FindInMap': [
+          'LatestNodeRuntimeMap',
+          {
+            Ref: 'AWS::Region',
+          },
+          'value',
+        ],
+      },
       Timeout: 120,
     });
 
@@ -105,7 +113,7 @@ describe('ActiveMqBrokerConfiguration', () => {
   });
 
   test('Configuration Renders Properly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const config = new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
@@ -148,7 +156,7 @@ describe('ActiveMqBrokerConfiguration', () => {
   });
 
   test('Importing by id does not introduce any resource', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const id = 'c-1234-1234-12341234-1234-12341234';
 
@@ -171,7 +179,7 @@ describe('ActiveMqBrokerConfiguration', () => {
   });
 
   test('Importing by ARN does not introduce any resource', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const expectedId = 'c-1234-1234-12341234-1234-12341234';
     const arn = stack.formatArn({
@@ -193,7 +201,7 @@ describe('ActiveMqBrokerConfiguration', () => {
   });
 
   test('Importing not providing props throws an error', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     expect(() => {
       ActiveMqBrokerConfiguration.fromAttributes(stack, 'TestImportedConfig', { revision: -1 });

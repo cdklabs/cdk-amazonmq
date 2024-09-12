@@ -10,7 +10,7 @@ import { RabbitMqBrokerConfiguration, RabbitMqBrokerConfigurationDefinition, Rab
 describe('RabbitMqBrokerConfiguration', () => {
 
   test('Configuration Renders Properly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     new RabbitMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
@@ -30,7 +30,7 @@ describe('RabbitMqBrokerConfiguration', () => {
   });
 
   test('Configuration Revision Renders and Associates Properly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const config = new RabbitMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
@@ -68,7 +68,15 @@ describe('RabbitMqBrokerConfiguration', () => {
 
     template.hasResourceProperties('AWS::Lambda::Function', {
       Role: { 'Fn::GetAtt': ['AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2', 'Arn'] },
-      Runtime: 'nodejs18.x',
+      Runtime: {
+        'Fn::FindInMap': [
+          'LatestNodeRuntimeMap',
+          {
+            Ref: 'AWS::Region',
+          },
+          'value',
+        ],
+      },
       Timeout: 120,
     });
 
@@ -104,9 +112,10 @@ describe('RabbitMqBrokerConfiguration', () => {
   });
 
   test('Configuration Renders Properly', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const config = new RabbitMqBrokerConfiguration(stack, 'TestConfig', {
+      engineVersion: RabbitMqBrokerEngineVersion.V3_12_13,
       description: 'Test Description',
       definition: RabbitMqBrokerConfigurationDefinition.data('Test Definition'),
     });
@@ -144,7 +153,7 @@ describe('RabbitMqBrokerConfiguration', () => {
   });
 
   test('Importing by id does not introduce any resource', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const id = 'c-1234-1234-12341234-1234-12341234';
 
@@ -167,7 +176,7 @@ describe('RabbitMqBrokerConfiguration', () => {
   });
 
   test('Importing by ARN does not introduce any resource', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const expectedId = 'c-1234-1234-12341234-1234-12341234';
     const arn = stack.formatArn({
@@ -190,7 +199,7 @@ describe('RabbitMqBrokerConfiguration', () => {
 
 
   test('Importing not providing props throws an error', () => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     expect(() => {
       RabbitMqBrokerConfiguration.fromAttributes(stack, 'TestImportedConfig', { revision: -1 });

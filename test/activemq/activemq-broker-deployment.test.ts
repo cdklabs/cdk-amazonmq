@@ -13,7 +13,7 @@ describe('ActiveMqBrokerDeployment', () => {
     { opts: { period: Duration.minutes(10) } as MetricOptions },
     { opts: undefined },
   ])('ActiveMQ Broker Deployment renders all the metrics', ({ opts }) => {
-    const stack = new Stack(undefined, 'TestStack', { env: { account: '123456789012', region: 'tst-wrld-1' } });
+    const stack = new Stack();
 
     const broker: IActiveMqBrokerDeployment = new ActiveMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: false,

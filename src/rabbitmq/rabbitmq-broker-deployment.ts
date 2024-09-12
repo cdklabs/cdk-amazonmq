@@ -94,13 +94,15 @@ export interface IRabbitMqBrokerDeployment extends IResource, IBrokerDeployment 
   metricRabbitMQIOReadAverageTime(props?: MetricOptions): Metric;
 
   metricRabbitMQIOWriteAverageTime(props?: MetricOptions): Metric;
+
+  // withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration;
 }
 
 export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase implements IRabbitMqBrokerDeployment, IRabbitMqBroker {
 
   public readonly endpoints: RabbitMqBrokerEndpoints;
 
-  public readonly configuration: IRabbitMqBrokerConfiguration;
+  // private readonly engineVersion: RabbitMqBrokerEngineVersion;
 
   constructor(scope: Construct, id: string, props: RabbitMqBrokerDeploymentBaseProps) {
     super(scope, id, {
@@ -115,6 +117,8 @@ export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase 
       cloudwatchLogsExports: props.cloudwatchLogsExports,
     });
 
+    // this.engineVersion = props.version;
+
     this.endpoints = {
       amqp: {
         url: Fn.select(0, this._resource.attrAmqpEndpoints),
@@ -126,11 +130,22 @@ export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase 
       },
     };
 
-    this.configuration = props.configuration ?? RabbitMqBrokerConfiguration.fromAttributes(this, 'Configuration', {
+    this._configuration = props.configuration ?? RabbitMqBrokerConfiguration.fromAttributes(this, 'Configuration', {
       id: this._resource.attrConfigurationId,
       revision: this._resource.attrConfigurationRevision,
     });
   }
+
+  // public withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration {
+  //   const configuration = new RabbitMqBrokerConfiguration(this.node.scope!, id, {
+  //     engineVersion: this.engineVersion,
+  //     ...options,
+  //   });
+
+  //   this._attachConfiguration(configuration);
+
+  //   return configuration;
+  // }
 
   public metricExchangeCount(props?: MetricOptions): Metric {
     return this.metric('ExchangeCount', props);

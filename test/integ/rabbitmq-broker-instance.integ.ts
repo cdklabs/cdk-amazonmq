@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import path from 'path';
-import { App, CfnOutput, Duration, Stack, TimeZone } from 'aws-cdk-lib';
+import { App, Duration, Stack, TimeZone } from 'aws-cdk-lib';
 import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
@@ -26,7 +26,7 @@ const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
   },
 });
 
-const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBrokerInstance', {
+const broker = new RabbitMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: true,
   version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
@@ -98,12 +98,12 @@ const subscriber = new NodejsFunction(stack, 'RabbitMqSubscriber', {
 broker.connections?.allowDefaultPortFrom(subscriber);
 brokerAdminCreds.grantRead(subscriber);
 
-new CfnOutput(stack, 'ConfigurationId', {
-  value: broker.configuration.id,
-});
+// new CfnOutput(stack, 'ConfigurationId', {
+//   value: broker.configuration.id,
+// });
 
-new CfnOutput(stack, 'ConfigurationRevision', {
-  value: `${broker.configuration.revision}`,
-});
+// new CfnOutput(stack, 'ConfigurationRevision', {
+//   value: `${broker.configuration.revision}`,
+// });
 
 app.synth();

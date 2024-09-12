@@ -127,7 +127,7 @@ const lambdaVPCe = vpc.addInterfaceEndpoint('LambdaEndpoint', {
   ],
 });
 
-const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
+const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: false,
   vpc,
   vpcSubnets,

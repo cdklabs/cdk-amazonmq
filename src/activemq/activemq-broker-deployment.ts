@@ -5,12 +5,21 @@ SPDX-License-Identifier: Apache-2.0
 import { IResource } from 'aws-cdk-lib';
 import { Metric, MetricOptions } from 'aws-cdk-lib/aws-cloudwatch';
 import { Construct } from 'constructs';
-import { IActiveMqBrokerConfiguration } from './activemq-broker-configuration';
+// import { ActiveMqAuthenticationStrategy } from './activemq-authentication-strategy';
+import {
+  ActiveMqBrokerConfiguration,
+  IActiveMqBrokerConfiguration,
+} from './activemq-broker-configuration';
 import { ActiveMqBrokerEngineVersion } from './activemq-broker-engine-version';
+import {
+  BrokerDeploymentBase,
+  BrokerEngine,
+  BrokerDeploymentProps,
+  IBrokerDeployment,
+} from '../broker-deployment';
+import { BrokerDeploymentMode } from '../broker-deployment-mode';
 import { IActiveMqBrokerUserManagement } from './usermanagement/activemq-broker-user-management';
 import { ActiveMqLdapValidation } from './validators/ldap-metadata-validator';
-import { BrokerDeploymentBase, BrokerEngine, BrokerDeploymentProps, IBrokerDeployment } from '../broker-deployment';
-import { BrokerDeploymentMode } from '../broker-deployment-mode';
 
 export interface ActiveMqCloudwatchLogsExports {
   /**
@@ -54,14 +63,17 @@ export interface ActiveMqBrokerDeploymentProps extends BrokerDeploymentProps {
   /**
    * Sets the configuration of the Amazon MQ for ActiveMQ broker.
    */
-  readonly configuration?: IActiveMqBrokerConfiguration;}
+  readonly configuration?: IActiveMqBrokerConfiguration;
+}
 
-export interface ActiveMqBrokerDeploymentBaseProps extends ActiveMqBrokerDeploymentProps {
+export interface ActiveMqBrokerDeploymentBaseProps
+  extends ActiveMqBrokerDeploymentProps {
   readonly deploymentMode: BrokerDeploymentMode;
 }
 
-export interface IActiveMqBrokerDeployment extends IResource, IBrokerDeployment {
-
+export interface IActiveMqBrokerDeployment
+  extends IResource,
+  IBrokerDeployment {
   metricAmqpMaximumConnections(props?: MetricOptions): Metric;
 
   metricBurstBalance(props?: MetricOptions): Metric;
@@ -139,11 +151,26 @@ export interface IActiveMqBrokerDeployment extends IResource, IBrokerDeployment 
   metricTotalEnqueueCount(props?: MetricOptions): Metric;
 
   metricTotalDequeueCount(props?: MetricOptions): Metric;
+
+  // withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration;
 }
 
-export abstract class ActiveMqBrokerDeploymentBase extends BrokerDeploymentBase implements IActiveMqBrokerDeployment {
+export abstract class ActiveMqBrokerDeploymentBase
+  extends BrokerDeploymentBase
+  implements IActiveMqBrokerDeployment {
 
-  constructor(scope: Construct, id: string, props: ActiveMqBrokerDeploymentBaseProps) {
+  // private readonly engineVersion: ActiveMqBrokerEngineVersion;
+  // private readonly authenticationStrategy?: ActiveMqAuthenticationStrategy;
+
+  public get configuration() {
+    return this._configuration as IActiveMqBrokerConfiguration;
+  }
+
+  constructor(
+    scope: Construct,
+    id: string,
+    props: ActiveMqBrokerDeploymentBaseProps,
+  ) {
     const renderedUserManagement = props.userManagement.render();
 
     super(scope, id, {
@@ -153,12 +180,39 @@ export abstract class ActiveMqBrokerDeploymentBase extends BrokerDeploymentBase 
       engine: BrokerEngine.ACTIVEMQ,
     });
 
+    // this.engineVersion = props.version;
 
     if (renderedUserManagement.ldapServerMetadata) {
+
+      // this.authenticationStrategy = ActiveMqAuthenticationStrategy.LDAP;
+
       // validate ldap server metadata if present
-      this.node.addValidation(new ActiveMqLdapValidation({ config: renderedUserManagement.ldapServerMetadata }));
+      this.node.addValidation(
+        new ActiveMqLdapValidation({
+          config: renderedUserManagement.ldapServerMetadata,
+        }),
+      );
     }
+
+    this._configuration =
+      props.configuration ??
+      ActiveMqBrokerConfiguration.fromAttributes(this, 'Configuration', {
+        id: this._resource.attrConfigurationId,
+        revision: this._resource.attrConfigurationRevision,
+      });
   }
+
+  // public withConfiguration(id: string, options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration {
+  //   const configuration = new ActiveMqBrokerConfiguration(this.node.scope!, id, {
+  //     engineVersion: this.engineVersion,
+  //     authenticationStrategy: this.authenticationStrategy,
+  //     ...options,
+  //   });
+
+  //   this._attachConfiguration(configuration);
+
+  //   return configuration;
+  // }
 
   public metricAmqpMaximumConnections(props?: MetricOptions): Metric {
     return this.metric('AmqpMaximumConnections', props);
@@ -188,7 +242,9 @@ export abstract class ActiveMqBrokerDeploymentBase extends BrokerDeploymentBase 
     return this.metric('HeapUsage', props);
   }
 
-  public metricInactiveDurableTopicSubscribersCount(props?: MetricOptions): Metric {
+  public metricInactiveDurableTopicSubscribersCount(
+    props?: MetricOptions,
+  ): Metric {
     return this.metric('InactiveDurableTopicSubscribersCount', props);
   }
 
