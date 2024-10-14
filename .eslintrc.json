@@ -150,6 +150,7 @@
           "**/build-tools/**",
           "src/mq-esm/esm-deleter.is-complete.lambda.ts",
           "src/mq-esm/esm-deleter.on-event.lambda.ts",
+          "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts",
           ".projenrc.ts",
           "projenrc/**/*.ts"
         ],

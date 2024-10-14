@@ -12,6 +12,8 @@
     "bundle:mq-esm/esm-deleter.is-complete.lambda:watch": "npx projen bundle:mq-esm/esm-deleter.is-complete.lambda:watch",
     "bundle:mq-esm/esm-deleter.on-event.lambda": "npx projen bundle:mq-esm/esm-deleter.on-event.lambda",
     "bundle:mq-esm/esm-deleter.on-event.lambda:watch": "npx projen bundle:mq-esm/esm-deleter.on-event.lambda:watch",
+    "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda": "npx projen bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda",
+    "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda:watch": "npx projen bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda:watch",
     "clobber": "npx projen clobber",
     "compat": "npx projen compat",
     "compile": "npx projen compile",
@@ -76,17 +78,18 @@
   "devDependencies": {
     "@aws-cdk/integ-runner": "latest",
     "@aws-cdk/integ-tests-alpha": "latest",
-    "@aws-sdk/client-ec2": "^3.679.0",
-    "@aws-sdk/client-lambda": "^3.680.0",
-    "@aws-sdk/client-secrets-manager": "^3.679.0",
+    "@aws-sdk/client-ec2": "^3.645.0",
+    "@aws-sdk/client-lambda": "^3.645.0",
+    "@aws-sdk/client-secrets-manager": "^3.645.0",
+    "@aws-sdk/client-ssm": "^3.670.0",
     "@types/aws-lambda": "^8.10.145",
     "@types/jest": "^29.5.14",
     "@types/node": "^18",
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
     "aws-cdk": "^2",
-    "aws-cdk-lib": "2.157.0",
-    "cdk-nag": "^2.29.20",
+    "aws-cdk-lib": "2.162.0",
+    "cdk-nag": "^2.28.195",
     "cdklabs-projen-project-types": "^0.1.202",
     "commit-and-tag-version": "^12",
     "constructs": "10.0.5",
@@ -110,7 +113,7 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.157.0",
+    "aws-cdk-lib": "^2.162.0",
     "constructs": "^10.0.5"
   },
   "keywords": [

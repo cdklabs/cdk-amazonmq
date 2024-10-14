@@ -5,7 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 import { CdklabsConstructLibrary } from 'cdklabs-projen-project-types';
 import { Stability } from 'projen/lib/cdk';
 
-const cdkVersion = '2.157.0';
+const cdkVersion = '2.162.0';
 
 const project = new CdklabsConstructLibrary({
   name: '@cdklabs/cdk-amazonmq',
@@ -24,6 +24,7 @@ const project = new CdklabsConstructLibrary({
     '@aws-sdk/client-ec2',
     '@aws-sdk/client-lambda',
     '@aws-sdk/client-secrets-manager',
+    '@aws-sdk/client-ssm',
     '@types/aws-lambda',
     'esbuild',
     'mqtt',
