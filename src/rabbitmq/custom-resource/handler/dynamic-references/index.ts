@@ -1,8 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /*
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
+
+/* eslint-disable import/no-extraneous-dependencies */
 
 /**
  * When invoking custom resources dynamics references to SecretsManager's Secrets are not resolved although they appera to be passed.
