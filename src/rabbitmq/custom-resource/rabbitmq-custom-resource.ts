@@ -26,10 +26,25 @@ import { Construct } from 'constructs';
 import { IRabbitMqBroker } from '../rabbitmq-broker';
 import { RabbitMqApiCallFunction } from './handler/rabbit-mq-api-call-function';
 
+/**
+ * A RabbitMQ Management HTTP API call
+ */
 export interface RabbitMqApiCall {
+  /**
+   * The RabbitMQ Management HTTP API call path.
+   */
   readonly path: string;
+
+  /**
+   * The HTTP Method used when invoking the RabbitMQ Management HTTP API call.
+   * @default GET
+   */
   readonly method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  readonly payload?: any;
+
+  /**
+   * The payload expected by the RabbitMQ Management HTTP API call.
+   */
+  readonly payload?: { [key: string]: any};
   /**
    * The physical resource id of the custom resource for this call.
    * Mandatory for onCreate call.
@@ -38,6 +53,12 @@ export interface RabbitMqApiCall {
    * @default - no physical resource id
    */
   readonly physicalResourceId?: PhysicalResourceId;
+
+  /**
+   * Restrict the data returned by the custom resource to specific paths in the API response.
+   *
+   * Use this to limit the data returned by the custom resource if working with API calls that could potentially result in custom response objects exceeding the hard limit of 4096 bytes.
+   */
   readonly outputPaths?: string[];
   /**
    * A property used to configure logging during lambda function execution.
@@ -55,6 +76,9 @@ export interface RabbitMqApiCall {
   readonly logging?: Logging;
 }
 
+/**
+ * The IAM Policy that will be applied to the calls.
+ */
 export class RabbitMqCustomResourcePolicy {
   /**
    * Use this constant to configure access to any resource.
@@ -77,6 +101,11 @@ export class RabbitMqCustomResourcePolicy {
   private constructor(public readonly statements: PolicyStatement[]) {}
 }
 
+/**
+ * Properties for RabbitMqCustomResource.
+ *
+ * Note that at least onCreate, onUpdate or onDelete must be specified.
+ */
 export interface RabbitMqCustomResourceProps {
   /**
    * The broker to send requests to.
@@ -155,6 +184,13 @@ export interface RabbitMqCustomResourceProps {
   readonly policy?: RabbitMqCustomResourcePolicy;
 }
 
+/**
+ * @experimental
+ *
+ * Defines a custom resource that is materialized using specific RabbitMQ Management HTTP API calls.
+ *
+ * Use this to interact with the Amazon MQ for RabbitMQ broker. You can specify exactly which calls are invoked for the 'CREATE', 'UPDATE' and 'DELETE' life cycle events.
+ */
 export class RabbitMqCustomResource
   extends Construct
   implements IConnectable, IGrantable {

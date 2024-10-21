@@ -94,15 +94,11 @@ export interface IRabbitMqBrokerDeployment extends IResource, IBrokerDeployment 
   metricRabbitMQIOReadAverageTime(props?: MetricOptions): Metric;
 
   metricRabbitMQIOWriteAverageTime(props?: MetricOptions): Metric;
-
-  // withConfiguration(id: string, options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration;
 }
 
 export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase implements IRabbitMqBrokerDeployment, IRabbitMqBroker {
 
   public readonly endpoints: RabbitMqBrokerEndpoints;
-
-  // private readonly engineVersion: RabbitMqBrokerEngineVersion;
 
   constructor(scope: Construct, id: string, props: RabbitMqBrokerDeploymentBaseProps) {
     super(scope, id, {
@@ -116,8 +112,6 @@ export abstract class RabbitMqBrokerDeploymentBase extends BrokerDeploymentBase 
       }],
       cloudwatchLogsExports: props.cloudwatchLogsExports,
     });
-
-    // this.engineVersion = props.version;
 
     this.endpoints = {
       amqp: {

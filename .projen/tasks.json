@@ -482,6 +482,69 @@
         }
       ]
     },
+    "integ:rabbitmq-broker-custom-resource:assert": {
+      "name": "integ:rabbitmq-broker-custom-resource:assert",
+      "description": "assert the snapshot of integration test 'rabbitmq-broker-custom-resource'",
+      "steps": [
+        {
+          "exec": "[ -d \"test/integ/rabbitmq-broker-custom-resource.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-custom-resource'. Run 'projen integ:rabbitmq-broker-custom-resource:deploy' to capture.\" && exit 1)"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out > /dev/null"
+        },
+        {
+          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-custom-resource.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out/"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:deploy": {
+      "name": "integ:rabbitmq-broker-custom-resource:deploy",
+      "description": "deploy integration test 'rabbitmq-broker-custom-resource' and capture snapshot",
+      "steps": [
+        {
+          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "rm -fr test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+        },
+        {
+          "exec": "mv test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-custom-resource:destroy"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:destroy": {
+      "name": "integ:rabbitmq-broker-custom-resource:destroy",
+      "description": "destroy integration test 'rabbitmq-broker-custom-resource'",
+      "steps": [
+        {
+          "exec": "cdk destroy --app test/integ/rabbitmq-broker-custom-resource.integ.snapshot '**' --no-version-reporting"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:snapshot": {
+      "name": "integ:rabbitmq-broker-custom-resource:snapshot",
+      "description": "update snapshot for integration test \"rabbitmq-broker-custom-resource\"",
+      "steps": [
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-custom-resource.integ.snapshot > /dev/null"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:watch": {
+      "name": "integ:rabbitmq-broker-custom-resource:watch",
+      "description": "watch integration test 'rabbitmq-broker-custom-resource' (without updating snapshots)",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+        }
+      ]
+    },
     "integ:rabbitmq-broker-instance:assert": {
       "name": "integ:rabbitmq-broker-instance:assert",
       "description": "assert the snapshot of integration test 'rabbitmq-broker-instance'",
@@ -560,6 +623,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-cluster:snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-custom-resource:snapshot"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:snapshot"
@@ -736,6 +802,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-cluster:assert"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-custom-resource:assert"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:assert"

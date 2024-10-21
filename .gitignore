@@ -87,6 +87,14 @@ test/integ/rabbitmq-broker-cluster.integ.snapshot/manifest.json
 test/integ/rabbitmq-broker-cluster.integ.snapshot/**/manifest.json
 test/integ/rabbitmq-broker-cluster.integ.snapshot/tree.json
 test/integ/rabbitmq-broker-cluster.integ.snapshot/**/tree.json
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/asset.*
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/**/asset.*
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/cdk.out
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/**/cdk.out
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/manifest.json
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/**/manifest.json
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/tree.json
+test/integ/rabbitmq-broker-custom-resource.integ.snapshot/**/tree.json
 test/integ/.tmp
 test/integ/rabbitmq-broker-instance.integ.snapshot/asset.*
 test/integ/rabbitmq-broker-instance.integ.snapshot/**/asset.*

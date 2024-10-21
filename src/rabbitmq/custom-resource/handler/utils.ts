@@ -3,6 +3,11 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
+/**
+ * This file was created mostly for replicating this file: https://github.com/aws/aws-cdk/blob/main/packages/%40aws-cdk/custom-resource-handlers/lib/custom-resources/aws-custom-resource-handler/utils.ts
+ * The reason for that is that the custom resource for interacting with RabbitMQ Management HTTP API has been intended to replicate the user experience of AwsCustomResource.
+ */
+
 /* eslint-disable import/no-extraneous-dependencies */
 import * as https from 'https';
 import * as AWSLambda from 'aws-lambda';
