@@ -80,7 +80,7 @@ declare const brokerUser: ISecret;
 
 const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBroker', {
   publiclyAccessible: false,
-  version: ActiveMqBrokerEngineVersion.V5_17_6,
+  version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   userManagement: ActiveMqBrokerUserManagement.simple({
     users: [{
@@ -88,7 +88,6 @@ const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBroker', {
       password: brokerUser.secretValueFromJson('password'),
     }],
   }),
-  autoMinorVersionUpgrade: true,
 });
 ```
 
@@ -116,7 +115,7 @@ declare const vpcSubnets: SubnetSelection;
 
 const brokerPair = new ActiveMqBrokerRedundantPair(stack, 'ActiveMqBrokerPair', {
   publiclyAccessible: false,
-  version: ActiveMqBrokerEngineVersion.V5_17_6,
+  version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
   userManagement: ActiveMqBrokerUserManagement.simple({
     users: [{
@@ -124,7 +123,6 @@ const brokerPair = new ActiveMqBrokerRedundantPair(stack, 'ActiveMqBrokerPair', 
       password: brokerUser.secretValueFromJson('password'),
     }],
   }),
-  autoMinorVersionUpgrade: true,
   vpc,
   vpcSubnets,
 });
@@ -230,7 +228,6 @@ const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
       password: brokerUser.secretValueFromJson('password'),
     }],
   }),
-  autoMinorVersionUpgrade: true,
   configuration: customConfiguration
 });
 ```
@@ -295,7 +292,7 @@ declare const serviceAccountSecret: ISecret;
 
 const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
   publiclyAccessible: false,
-  version: ActiveMqBrokerEngineVersion.V5_17_6,
+  version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   userManagement: ActiveMqBrokerUserManagement.ldap({
     hosts: ['ldap.example.com'],
@@ -308,7 +305,6 @@ const broker = new ActiveMqBrokerInstance(stack, 'ActiveMqBrokerInstance', {
     serviceAccountPassword: serviceAccountSecret.secretValueFromJson('password'),
     serviceAccountUsername: serviceAccountSecret.secretValueFromJson('username'),
   }),
-  autoMinorVersionUpgrade: true,
 });
 ```
 
@@ -393,13 +389,12 @@ declare const adminSecret: ISecret;
 
 const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBroker', {
   publiclyAccessible: false,
-  version: RabbitMqBrokerEngineVersion.V3_11_20,
+  version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   admin: {
     username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
     password: adminSecret.secretValueFromJson('password'),
    },
-  autoMinorVersionUpgrade: true,
 });
 ```
 
@@ -418,13 +413,12 @@ declare const adminSecret: ISecret;
 
 const broker = new RabbitMqBrokerCluster(stack, 'RabbitMqBroker', {
   publiclyAccessible: false,
-  version: RabbitMqBrokerEngineVersion.V3_11_20,
+  version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
   admin: {
     username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
     password: adminSecret.secretValueFromJson('password'),
    },
-  autoMinorVersionUpgrade: true,
 });
 ```
 
@@ -485,7 +479,7 @@ declare const adminSecret: ISecret;
 const customConfiguration = new RabbitMqBrokerConfiguration(stack, 'CustomConfiguration', {
   configurationName: 'ConfigurationName',
   description: 'ConfigurationDescription',
-  engineVersion: RabbitMqBrokerEngineVersion.V3_11_20,
+  engineVersion: RabbitMqBrokerEngineVersion.V3_13,
   definition: RabbitMqBrokerConfigurationDefinition.parameters({
     consumerTimeout: Duration.minutes(20),
   }),
@@ -493,13 +487,12 @@ const customConfiguration = new RabbitMqBrokerConfiguration(stack, 'CustomConfig
 
 const broker = new RabbitMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: false,
-  version: RabbitMqBrokerEngineVersion.V3_11_20,
+  version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   admin: {
     username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
     password: adminSecret.secretValueFromJson('password'),
    },
-  autoMinorVersionUpgrade: true,
   configuration: customConfiguration
 });
 ```

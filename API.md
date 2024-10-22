@@ -5277,9 +5277,9 @@ const activeMqBrokerDeploymentBaseProps: ActiveMqBrokerDeploymentBaseProps = { .
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -5294,19 +5294,6 @@ const activeMqBrokerDeploymentBaseProps: ActiveMqBrokerDeploymentBaseProps = { .
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.deploymentMode">deploymentMode</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentMode">BrokerDeploymentMode</a></code> | *No description.* |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -5335,6 +5322,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -5519,9 +5521,9 @@ const activeMqBrokerDeploymentProps: ActiveMqBrokerDeploymentProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -5535,19 +5537,6 @@ const activeMqBrokerDeploymentProps: ActiveMqBrokerDeploymentProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqCloudwatchLogsExports">ActiveMqCloudwatchLogsExports</a></code> | Sets the CloudWatch Logs exports for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -5576,6 +5565,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -5893,9 +5897,9 @@ const activeMqBrokerInstanceProps: ActiveMqBrokerInstanceProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -5910,19 +5914,6 @@ const activeMqBrokerInstanceProps: ActiveMqBrokerInstanceProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.storageType">storageType</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.StorageType">StorageType</a></code> | Sets the storage type of the Amazon MQ for ActiveMQ broker. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -5951,6 +5942,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstanceProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -6138,9 +6144,9 @@ const activeMqBrokerRedundantPairProps: ActiveMqBrokerRedundantPairProps = { ...
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -6154,19 +6160,6 @@ const activeMqBrokerRedundantPairProps: ActiveMqBrokerRedundantPairProps = { ...
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqCloudwatchLogsExports">ActiveMqCloudwatchLogsExports</a></code> | Sets the CloudWatch Logs exports for the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration">IActiveMqBrokerConfiguration</a></code> | Sets the configuration of the Amazon MQ for ActiveMQ broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.logsRetentionDays">logsRetentionDays</a></code> | <code>number</code> | Sets the number of days to retain logs for the Amazon MQ for ActiveMQ broker. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -6195,6 +6188,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPairProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -6950,9 +6958,9 @@ const brokerDeploymentBaseProps: BrokerDeploymentBaseProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -6971,19 +6979,6 @@ const brokerDeploymentBaseProps: BrokerDeploymentBaseProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.defaultPort">defaultPort</a></code> | <code>aws-cdk-lib.aws_ec2.Port</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.ldapServerMetadata">ldapServerMetadata</a></code> | <code>aws-cdk-lib.IResolvable \| aws-cdk-lib.aws_amazonmq.CfnBroker.LdapServerMetadataProperty</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.storageType">storageType</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.StorageType">StorageType</a></code> | *No description.* |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -7012,6 +7007,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBaseProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -7225,9 +7235,9 @@ const brokerDeploymentProps: BrokerDeploymentProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -7236,19 +7246,6 @@ const brokerDeploymentProps: BrokerDeploymentProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The Security Groups to apply for a non publicly accessible broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC in which create the communication endpoints for a private broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | vpcSubnets and vpc are optional. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -7277,6 +7274,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.BrokerDeploymentProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -8038,9 +8050,9 @@ const rabbitMqBrokerClusterProps: RabbitMqBrokerClusterProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -8053,19 +8065,6 @@ const rabbitMqBrokerClusterProps: RabbitMqBrokerClusterProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -8094,6 +8093,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -8383,9 +8397,9 @@ const rabbitMqBrokerDeploymentBaseProps: RabbitMqBrokerDeploymentBaseProps = { .
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -8399,19 +8413,6 @@ const rabbitMqBrokerDeploymentBaseProps: RabbitMqBrokerDeploymentBaseProps = { .
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.deploymentMode">deploymentMode</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentMode">BrokerDeploymentMode</a></code> | *No description.* |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -8440,6 +8441,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -8611,9 +8627,9 @@ const rabbitMqBrokerDeploymentProps: RabbitMqBrokerDeploymentProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -8626,19 +8642,6 @@ const rabbitMqBrokerDeploymentProps: RabbitMqBrokerDeploymentProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -8667,6 +8670,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -8867,9 +8885,9 @@ const rabbitMqBrokerInstanceProps: RabbitMqBrokerInstanceProps = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a minor version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.instanceType">instanceType</a></code> | <code>aws-cdk-lib.aws_ec2.InstanceType</code> | An instance type to use for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.publiclyAccessible">publiclyAccessible</a></code> | <code>boolean</code> | Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.autoMinorVersionUpgrade">autoMinorVersionUpgrade</a></code> | <code>boolean</code> | Determines whether the broker will undergo a patch version upgrade during the maintenance window. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.brokerName">brokerName</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.cloudwatchLogsRetention">cloudwatchLogsRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | Sets the retention days for the broker's CloudWatch LogGroups. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.cloudwatchLogsRetentionRole">cloudwatchLogsRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | *No description.* |
@@ -8882,19 +8900,6 @@ const rabbitMqBrokerInstanceProps: RabbitMqBrokerInstanceProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
-
----
-
-##### `autoMinorVersionUpgrade`<sup>Required</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.autoMinorVersionUpgrade"></a>
-
-```typescript
-public readonly autoMinorVersionUpgrade: boolean;
-```
-
-- *Type:* boolean
-- *Default:* false. No minor version upgrade happens.
-
-Determines whether the broker will undergo a minor version upgrade during the maintenance window.
 
 ---
 
@@ -8923,6 +8928,21 @@ public readonly publiclyAccessible: boolean;
 - *Type:* boolean
 
 Specifies whether the broker is open to public Internet or deployed with endpoints in own VPC.
+
+---
+
+##### `autoMinorVersionUpgrade`<sup>Optional</sup> <a name="autoMinorVersionUpgrade" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.autoMinorVersionUpgrade"></a>
+
+```typescript
+public readonly autoMinorVersionUpgrade: boolean;
+```
+
+- *Type:* boolean
+- *Default:* for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
+
+Determines whether the broker will undergo a patch version upgrade during the maintenance window.
+
+NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
 
 ---
 
@@ -9398,24 +9418,15 @@ ActiveMqBrokerEngineVersion.of(version: string)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_15_16">V5_15_16</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7">V5_16_7</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6">V5_17_6</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6">V5_17_6</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | it is recommended to use V5_18 instead. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_18">V5_18</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 
 ---
 
-##### `V5_15_16`<sup>Required</sup> <a name="V5_15_16" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_15_16"></a>
+##### ~~`V5_16_7`~~<sup>Required</sup> <a name="V5_16_7" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7"></a>
 
-```typescript
-public readonly V5_15_16: ActiveMqBrokerEngineVersion;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>
-
----
-
-##### `V5_16_7`<sup>Required</sup> <a name="V5_16_7" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7"></a>
+- *Deprecated:* use V5_18 instead
 
 ```typescript
 public readonly V5_16_7: ActiveMqBrokerEngineVersion;
@@ -9432,6 +9443,8 @@ public readonly V5_17_6: ActiveMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>
+
+it is recommended to use V5_18 instead.
 
 ---
 
@@ -9759,26 +9772,29 @@ RabbitMqBrokerEngineVersion.of(version: string)
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_10_20">V3_10_20</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_16">V3_11_16</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_20">V3_11_20</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_28">V3_11_28</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13">V3_12_13</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_13">V3_13</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_8_34">V3_8_34</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_9_27">V3_9_27</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 
 ---
 
-##### `V3_10_20`<sup>Required</sup> <a name="V3_10_20" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_10_20"></a>
+##### ~~`V3_11_16`~~<sup>Required</sup> <a name="V3_11_16" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_16"></a>
+
+- *Deprecated:* use V3_13 instead
 
 ```typescript
-public readonly V3_10_20: RabbitMqBrokerEngineVersion;
+public readonly V3_11_16: RabbitMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
 
 ---
 
-##### `V3_11_20`<sup>Required</sup> <a name="V3_11_20" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_20"></a>
+##### ~~`V3_11_20`~~<sup>Required</sup> <a name="V3_11_20" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_20"></a>
+
+- *Deprecated:* use V3_13 instead
 
 ```typescript
 public readonly V3_11_20: RabbitMqBrokerEngineVersion;
@@ -9788,7 +9804,21 @@ public readonly V3_11_20: RabbitMqBrokerEngineVersion;
 
 ---
 
-##### `V3_12_13`<sup>Required</sup> <a name="V3_12_13" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13"></a>
+##### ~~`V3_11_28`~~<sup>Required</sup> <a name="V3_11_28" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_28"></a>
+
+- *Deprecated:* use V3_13 instead
+
+```typescript
+public readonly V3_11_28: RabbitMqBrokerEngineVersion;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
+
+---
+
+##### ~~`V3_12_13`~~<sup>Required</sup> <a name="V3_12_13" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13"></a>
+
+- *Deprecated:* use V3_13 instead
 
 ```typescript
 public readonly V3_12_13: RabbitMqBrokerEngineVersion;
@@ -9802,26 +9832,6 @@ public readonly V3_12_13: RabbitMqBrokerEngineVersion;
 
 ```typescript
 public readonly V3_13: RabbitMqBrokerEngineVersion;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
-
----
-
-##### `V3_8_34`<sup>Required</sup> <a name="V3_8_34" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_8_34"></a>
-
-```typescript
-public readonly V3_8_34: RabbitMqBrokerEngineVersion;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
-
----
-
-##### `V3_9_27`<sup>Required</sup> <a name="V3_9_27" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_9_27"></a>
-
-```typescript
-public readonly V3_9_27: RabbitMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>

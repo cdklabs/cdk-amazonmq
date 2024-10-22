@@ -84,7 +84,6 @@ const broker = new ActiveMqBrokerRedundantPair(stack, 'Broker', {
       password: brokerUser.secretValueFromJson('password'),
     }],
   }),
-  autoMinorVersionUpgrade: true,
   vpc,
   vpcSubnets,
 });

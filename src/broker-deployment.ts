@@ -86,11 +86,13 @@ export interface BrokerDeploymentProps {
   readonly instanceType: InstanceType;
 
   /**
-   * Determines whether the broker will undergo a minor version upgrade during the maintenance window.
+   * Determines whether the broker will undergo a patch version upgrade during the maintenance window.
    *
-   * @default - false. No minor version upgrade happens.
+   * NOTE: Contrary to the name this  setting does not upgrade the minor versions, but patch versions (i.e. in the X.Y.Z notation - only the Z numbers are upgraded)
+   *
+   * @default - for versions with the patch version number the default is not to upgrade the patch versions; for versions withouth the patch version number patch versions are updated and this setting takes no effect.
    */
-  readonly autoMinorVersionUpgrade: boolean;
+  readonly autoMinorVersionUpgrade?: boolean;
   readonly maintenanceWindowStartTime?: MaintenanceWindowStartTime;
 
   /**

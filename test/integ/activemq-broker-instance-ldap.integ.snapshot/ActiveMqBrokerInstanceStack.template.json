@@ -17,14 +17,13 @@
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
     "AuthenticationStrategy": "LDAP",
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "ActiveMqBrokerInstanceStackBroker94B6AF23",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {
      "UseAwsOwnedKey": true
     },
     "EngineType": "ACTIVEMQ",
-    "EngineVersion": "5.17.6",
+    "EngineVersion": "5.18",
     "HostInstanceType": "mq.t3.micro",
     "LdapServerMetadata": {
      "Hosts": [
@@ -145,7 +144,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip"
+     "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip"
     },
     "Role": {
      "Fn::GetAtt": [

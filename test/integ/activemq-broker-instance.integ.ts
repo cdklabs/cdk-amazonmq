@@ -144,7 +144,6 @@ const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
       },
     ],
   }),
-  autoMinorVersionUpgrade: true,
   cloudwatchLogsExports: {
     general: true,
   },

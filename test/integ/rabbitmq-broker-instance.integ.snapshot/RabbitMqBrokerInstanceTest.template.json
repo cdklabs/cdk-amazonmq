@@ -16,7 +16,6 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "RabbitMqBrokerInstanceTestBroker1C6CA076",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {
@@ -209,7 +208,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35.zip"
+     "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -1300,7 +1299,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ff4ff03c6abd00de4c2549635321df9fd82dd4a1db4a1e5cb5e5f44be8581b48.zip"
+     "S3Key": "aeb980908dce45ca92a5a6340503c57aa3d4002c3b0e9d57e4f73386405632d2.zip"
     },
     "Environment": {
      "Variables": {
@@ -1423,7 +1422,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ff4cec894e6406c702dfa01142723bbdb8572ced798709aac14bf2f68899f6f7.zip"
+     "S3Key": "a6c8f69fba3d6f69adaca77b519ef8896946c0b288c2ac363a47c19b5165a0da.zip"
     },
     "Environment": {
      "Variables": {
