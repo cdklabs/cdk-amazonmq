@@ -3,7 +3,6 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-// TODO: singleton functions or singletons per vpc/vpcSubnets/brokers/creds/policies
 import { createHash } from 'crypto';
 import { CustomResource, Duration, Lazy, Reference, Stack } from 'aws-cdk-lib';
 import {
@@ -238,7 +237,6 @@ export class RabbitMqCustomResource
 
     const provider = new RabbitMqCustomResourceSingletonFunction(this, 'Provider', {
       uuid: this.renderUniqueId(props.broker, props.credentials, props.vpc, props.vpcSubnets, props.securityGroups),
-      lambdaPurpose: 'RMQ',
       vpc: props.vpc,
       vpcSubnets: props.vpcSubnets,
       securityGroups: securityGroups,
