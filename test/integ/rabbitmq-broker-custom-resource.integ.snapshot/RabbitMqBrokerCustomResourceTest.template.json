@@ -191,114 +191,12 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain"
   },
-  "CreateApp1UserProviderServiceRole0BD5D1C1": {
-   "Type": "AWS::IAM::Role",
-   "Properties": {
-    "AssumeRolePolicyDocument": {
-     "Statement": [
-      {
-       "Action": "sts:AssumeRole",
-       "Effect": "Allow",
-       "Principal": {
-        "Service": "lambda.amazonaws.com"
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "ManagedPolicyArns": [
-     {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
-     }
-    ]
-   }
-  },
-  "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD": {
-   "Type": "AWS::IAM::Policy",
-   "Properties": {
-    "PolicyDocument": {
-     "Statement": [
-      {
-       "Action": "secretsmanager:GetSecretValue",
-       "Effect": "Allow",
-       "Resource": {
-        "Ref": "App1Creds068A904D"
-       }
-      },
-      {
-       "Action": [
-        "secretsmanager:GetSecretValue",
-        "secretsmanager:DescribeSecret"
-       ],
-       "Effect": "Allow",
-       "Resource": {
-        "Ref": "BrokerCreds13028F98"
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "PolicyName": "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD",
-    "Roles": [
-     {
-      "Ref": "CreateApp1UserProviderServiceRole0BD5D1C1"
-     }
-    ]
-   }
-  },
-  "CreateApp1UserProvider4724C20B": {
-   "Type": "AWS::Lambda::Function",
-   "Properties": {
-    "Architectures": [
-     "arm64"
-    ],
-    "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-     },
-     "S3Key": "8a4f974d329ae323955f99ed58157c4c81dde6fbed8d7b8b04bf7eeb7e7e6402.zip"
-    },
-    "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts",
-    "Environment": {
-     "Variables": {
-      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
-     }
-    },
-    "Handler": "index.handler",
-    "LoggingConfig": {
-     "LogGroup": {
-      "Ref": "CreateApp1UserLogGroup68DA294A"
-     }
-    },
-    "Role": {
-     "Fn::GetAtt": [
-      "CreateApp1UserProviderServiceRole0BD5D1C1",
-      "Arn"
-     ]
-    },
-    "Runtime": "nodejs18.x",
-    "Timeout": 60
-   },
-   "DependsOn": [
-    "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD",
-    "CreateApp1UserProviderServiceRole0BD5D1C1"
-   ]
-  },
   "CreateApp1User40F69E7C": {
    "Type": "Custom::RabbitMqApiCall",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "CreateApp1UserProvider4724C20B",
+      "RMQf6ac920d370308422672bb3791698e09A16816DC",
       "Arn"
      ]
     },
@@ -375,15 +273,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
   },
-  "GrantApp1UserPermissionsLogGroupE39A96D9": {
-   "Type": "AWS::Logs::LogGroup",
-   "Properties": {
-    "RetentionInDays": 1
-   },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain"
-  },
-  "GrantApp1UserPermissionsProviderServiceRole251018BA": {
+  "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -412,15 +302,9 @@
       ]
      }
     ]
-   },
-   "DependsOn": [
-    "CreateApp1UserProvider4724C20B",
-    "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD",
-    "CreateApp1UserProviderServiceRole0BD5D1C1",
-    "CreateApp1User40F69E7C"
-   ]
+   }
   },
-  "GrantApp1UserPermissionsProviderServiceRoleDefaultPolicy29A9FD8E": {
+  "RMQf6ac920d370308422672bb3791698e09ServiceRoleDefaultPolicyA214CD1E": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -445,21 +329,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "GrantApp1UserPermissionsProviderServiceRoleDefaultPolicy29A9FD8E",
+    "PolicyName": "RMQf6ac920d370308422672bb3791698e09ServiceRoleDefaultPolicyA214CD1E",
     "Roles": [
      {
-      "Ref": "GrantApp1UserPermissionsProviderServiceRole251018BA"
+      "Ref": "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9"
      }
     ]
-   },
-   "DependsOn": [
-    "CreateApp1UserProvider4724C20B",
-    "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD",
-    "CreateApp1UserProviderServiceRole0BD5D1C1",
-    "CreateApp1User40F69E7C"
-   ]
+   }
   },
-  "GrantApp1UserPermissionsProvider01672347": {
+  "RMQf6ac920d370308422672bb3791698e09A16816DC": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Architectures": [
@@ -471,21 +349,16 @@
      },
      "S3Key": "8a4f974d329ae323955f99ed58157c4c81dde6fbed8d7b8b04bf7eeb7e7e6402.zip"
     },
-    "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts",
-    "Environment": {
-     "Variables": {
-      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
-     }
-    },
+    "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
     "Handler": "index.handler",
     "LoggingConfig": {
      "LogGroup": {
-      "Ref": "GrantApp1UserPermissionsLogGroupE39A96D9"
+      "Ref": "CreateApp1UserLogGroup68DA294A"
      }
     },
     "Role": {
      "Fn::GetAtt": [
-      "GrantApp1UserPermissionsProviderServiceRole251018BA",
+      "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9",
       "Arn"
      ]
     },
@@ -493,20 +366,24 @@
     "Timeout": 60
    },
    "DependsOn": [
-    "CreateApp1UserProvider4724C20B",
-    "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD",
-    "CreateApp1UserProviderServiceRole0BD5D1C1",
-    "CreateApp1User40F69E7C",
-    "GrantApp1UserPermissionsProviderServiceRoleDefaultPolicy29A9FD8E",
-    "GrantApp1UserPermissionsProviderServiceRole251018BA"
+    "RMQf6ac920d370308422672bb3791698e09ServiceRoleDefaultPolicyA214CD1E",
+    "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9"
    ]
+  },
+  "GrantApp1UserPermissionsLogGroupE39A96D9": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
   },
   "GrantApp1UserPermissions20450B06": {
    "Type": "Custom::RabbitMqApiCall",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "GrantApp1UserPermissionsProvider01672347",
+      "RMQf6ac920d370308422672bb3791698e09A16816DC",
       "Arn"
      ]
     },
@@ -571,9 +448,6 @@
     "BrokerCredsBrokerAdminCredsRotationSchedule67A73E04",
     "BrokerCredsPolicy9AA4FCB5",
     "BrokerCreds13028F98",
-    "CreateApp1UserProvider4724C20B",
-    "CreateApp1UserProviderServiceRoleDefaultPolicyA5009FDD",
-    "CreateApp1UserProviderServiceRole0BD5D1C1",
     "CreateApp1User40F69E7C"
    ],
    "UpdateReplacePolicy": "Delete",

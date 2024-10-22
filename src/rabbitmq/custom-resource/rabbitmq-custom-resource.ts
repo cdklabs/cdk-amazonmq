@@ -4,10 +4,12 @@ SPDX-License-Identifier: Apache-2.0
 */
 
 // TODO: singleton functions or singletons per vpc/vpcSubnets/brokers/creds/policies
+import { createHash } from 'crypto';
 import { CustomResource, Duration, Lazy, Reference, Stack } from 'aws-cdk-lib';
 import {
   Connections,
   IConnectable,
+  ISecurityGroup,
   IVpc,
   SecurityGroup,
   SubnetSelection,
@@ -18,13 +20,12 @@ import {
   IRole,
   PolicyStatement,
 } from 'aws-cdk-lib/aws-iam';
-import { Architecture } from 'aws-cdk-lib/aws-lambda';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Logging, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { IRabbitMqBroker } from '../rabbitmq-broker';
-import { RabbitMqApiCallFunction } from './handler/rabbit-mq-api-call-function';
+import { RabbitMqCustomResourceSingletonFunction } from './rabbitmq-custom-resource-singleton-function';
 
 /**
  * A RabbitMQ Management HTTP API call
@@ -235,7 +236,9 @@ export class RabbitMqCustomResource
       ]
       : undefined;
 
-    const provider = new RabbitMqApiCallFunction(this, 'Provider', {
+    const provider = new RabbitMqCustomResourceSingletonFunction(this, 'Provider', {
+      uuid: this.renderUniqueId(props.broker, props.credentials, props.vpc, props.vpcSubnets, props.securityGroups),
+      lambdaPurpose: 'RMQ',
       vpc: props.vpc,
       vpcSubnets: props.vpcSubnets,
       securityGroups: securityGroups,
@@ -243,7 +246,6 @@ export class RabbitMqCustomResource
       logGroup: props.logGroup,
       timeout: props.timeout || Duration.minutes(1),
       initialPolicy: props.policy?.statements,
-      architecture: Architecture.ARM_64,
     });
 
     const onUpdate = props.onUpdate && this.formatSdkCall(props.onUpdate);
@@ -298,5 +300,32 @@ export class RabbitMqCustomResource
     return Lazy.uncachedString({
       produce: () => Stack.of(this).toJsonString(obj),
     });
+  }
+
+  private renderUniqueId(
+    broker: IRabbitMqBroker,
+    creds: ISecret,
+    vpc?: IVpc,
+    subnets?: SubnetSelection,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    let hashContent = `${broker.endpoints.console.url}:${creds.secretArn}`;
+    if (vpc) {
+      hashContent += `:${vpc.vpcId}`;
+      if (subnets) {
+        hashContent += `:${vpc.selectSubnets(subnets).subnetIds.join(':')}`;
+      }
+      if (securityGroups) {
+        hashContent += `:${securityGroups
+          .map((sg) => sg.securityGroupId)
+          .join(':')}`;
+      }
+    }
+
+    // INFO: run this through the CDK team as in the S3 Bucket Deployment implementation there is no hashing, just verbatim value addition
+    // see: https://github.com/aws/aws-cdk/blob/318eae6c9eca456e0c34ed21855dad9d2bfa2a0f/packages/aws-cdk-lib/aws-s3-deployment/lib/bucket-deployment.ts#L556
+    const hash = createHash('md5').update(hashContent).digest('hex');
+
+    return hash;
   }
 }
