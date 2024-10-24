@@ -25,6 +25,7 @@ const project = new CdklabsConstructLibrary({
     '@aws-sdk/client-lambda',
     '@aws-sdk/client-secrets-manager',
     '@aws-sdk/client-ssm',
+    '@aws-sdk/util-arn-parser',
     '@types/aws-lambda',
     'esbuild',
     'mqtt',
@@ -44,7 +45,7 @@ const project = new CdklabsConstructLibrary({
   ],
 });
 
-project.bundler.addBundle('./src/rabbitmq/custom-resource/handler/index.js', {
+project.bundler.addBundle('src/rabbitmq/custom-resource/handler/index.ts', {
   target: 'node16',
   format: 'cjs',
   platform: 'node',
@@ -54,5 +55,7 @@ project.bundler.addBundle('./src/rabbitmq/custom-resource/handler/index.js', {
     '@aws-sdk/util-arn-parser',
   ],
 });
+
+project.eslint?.allowDevDeps('src/rabbitmq/custom-resource/handler/dynamic-references/secret.ts');
 
 project.synth();

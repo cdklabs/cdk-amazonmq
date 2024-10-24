@@ -96,19 +96,19 @@
     },
     "bundle:rabbitmq/custom-resource/handler/index": {
       "name": "bundle:rabbitmq/custom-resource/handler/index",
-      "description": "Create a JavaScript bundle from ./src/rabbitmq/custom-resource/handler/index.js",
+      "description": "Create a JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rabbitmq/custom-resource/handler/index.js --target=\"node16\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-ssm --external:@aws-sdk/util-arn-parser --format=cjs"
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-ssm --external:@aws-sdk/util-arn-parser --format=cjs"
         }
       ]
     },
     "bundle:rabbitmq/custom-resource/handler/index:watch": {
       "name": "bundle:rabbitmq/custom-resource/handler/index:watch",
-      "description": "Continuously update the JavaScript bundle from ./src/rabbitmq/custom-resource/handler/index.js",
+      "description": "Continuously update the JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle ./src/rabbitmq/custom-resource/handler/index.js --target=\"node16\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-ssm --external:@aws-sdk/util-arn-parser --format=cjs --watch"
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node16\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-ssm --external:@aws-sdk/util-arn-parser --format=cjs --watch"
         }
       ]
     },
@@ -885,13 +885,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@aws-sdk/util-arn-parser,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @aws-sdk/client-ssm @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt rabbitmq-client rhea ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
+          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @aws-sdk/client-ssm @aws-sdk/util-arn-parser @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt rabbitmq-client rhea ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
         },
         {
           "exec": "npx projen"

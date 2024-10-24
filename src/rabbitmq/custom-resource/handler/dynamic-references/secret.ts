@@ -3,6 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
+import { build } from '@aws-sdk/util-arn-parser';
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references-secretsmanager.html
 
 export interface SecretDynamicRefereceComponents {
@@ -11,16 +12,6 @@ export interface SecretDynamicRefereceComponents {
   readonly jsonKey?: string;
   readonly versionStage?: string;
   readonly versionId?: string;
-}
-
-function buildArn(components: {
-  partition: string;
-  service: string;
-  region: string;
-  accountId: string;
-  resource: string;
-}) {
-  return `arn:${components.partition}:${components.service}:${components.region}:${components.accountId}:${components.resource}`;
 }
 
 export class SecretsDynamicRefereceParser {
@@ -71,7 +62,7 @@ export class SecretsDynamicRefereceParser {
     }
 
     return {
-      secretId: buildArn({
+      secretId: build({
         partition: parts[3],
         service: parts[4],
         region: parts[5],

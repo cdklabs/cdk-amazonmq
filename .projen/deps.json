@@ -17,6 +17,10 @@
       "type": "build"
     },
     {
+      "name": "@aws-sdk/util-arn-parser",
+      "type": "build"
+    },
+    {
       "name": "@types/aws-lambda",
       "type": "build"
     },
