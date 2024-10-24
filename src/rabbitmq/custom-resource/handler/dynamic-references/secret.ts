@@ -5,14 +5,22 @@ SPDX-License-Identifier: Apache-2.0
 
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references-secretsmanager.html
 
-import { Arn, ArnFormat } from 'aws-cdk-lib';
-
 export interface SecretDynamicRefereceComponents {
   readonly secretId: string;
   readonly secretString?: 'SecretString';
   readonly jsonKey?: string;
   readonly versionStage?: string;
   readonly versionId?: string;
+}
+
+function buildArn(components: {
+  partition: string;
+  service: string;
+  region: string;
+  accountId: string;
+  resource: string;
+}) {
+  return `arn:${components.partition}:${components.service}:${components.region}:${components.accountId}:${components.resource}`;
 }
 
 export class SecretsDynamicRefereceParser {
@@ -63,14 +71,12 @@ export class SecretsDynamicRefereceParser {
     }
 
     return {
-      secretId: Arn.format({
+      secretId: buildArn({
         partition: parts[3],
         service: parts[4],
         region: parts[5],
-        account: parts[6],
-        resource: parts[7],
-        resourceName: parts[8],
-        arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+        accountId: parts[6],
+        resource: `${parts[7]}:${parts[8]}`,
       }),
       secretString: valueAtOrDefault(parts, 9),
       jsonKey: valueAtOrDefault(parts, 10),
@@ -81,17 +87,17 @@ export class SecretsDynamicRefereceParser {
 }
 
 // const drs = [
-//   "{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}",
-//   "{{resolve:secretsmanager:MySecret}}",
-//   "{{resolve:secretsmanager:MySecret::::}}",
-//   "{{resolve:secretsmanager:MySecret:SecretString:password}}",
-//   "{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}",
-//   "{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3:SecretString:password}}",
-//   "{{resolve:secretsmanager:MySecret:SecretString:password:AWSPREVIOUS}}"
+//   '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}',
+//   '{{resolve:secretsmanager:MySecret}}',
+//   '{{resolve:secretsmanager:MySecret::::}}',
+//   '{{resolve:secretsmanager:MySecret:SecretString:password}}',
+//   '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}',
+//   '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3:SecretString:password}}',
+//   '{{resolve:secretsmanager:MySecret:SecretString:password:AWSPREVIOUS}}',
 // ];
 // drs.forEach((dr) =>
 //   console.log(
 //     dr,
-//     JSON.stringify(SecretsDynamicRefereceParser.parse(dr), null, 2)
-//   )
+//     JSON.stringify(SecretsDynamicRefereceParser.parse(dr), null, 2),
+//   ),
 // );

@@ -54,7 +54,7 @@
           "spawn": "bundle:mq-esm/esm-deleter.on-event.lambda"
         },
         {
-          "spawn": "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda"
+          "spawn": "bundle:rabbitmq/custom-resource/handler/index"
         }
       ]
     },
@@ -94,21 +94,21 @@
         }
       ]
     },
-    "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda": {
-      "name": "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda",
-      "description": "Create a JavaScript bundle from src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts",
+    "bundle:rabbitmq/custom-resource/handler/index": {
+      "name": "bundle:rabbitmq/custom-resource/handler/index",
+      "description": "Create a JavaScript bundle from ./src/rabbitmq/custom-resource/handler/index.js",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "exec": "esbuild --bundle ./src/rabbitmq/custom-resource/handler/index.js --target=\"node16\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-ssm --external:@aws-sdk/util-arn-parser --format=cjs"
         }
       ]
     },
-    "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda:watch": {
-      "name": "bundle:rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda:watch",
-      "description": "Continuously update the JavaScript bundle from src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts",
+    "bundle:rabbitmq/custom-resource/handler/index:watch": {
+      "name": "bundle:rabbitmq/custom-resource/handler/index:watch",
+      "description": "Continuously update the JavaScript bundle from ./src/rabbitmq/custom-resource/handler/index.js",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "exec": "esbuild --bundle ./src/rabbitmq/custom-resource/handler/index.js --target=\"node16\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/client-secrets-manager --external:@aws-sdk/client-ssm --external:@aws-sdk/util-arn-parser --format=cjs --watch"
         }
       ]
     },

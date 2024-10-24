@@ -6,7 +6,6 @@ This custom resource lambda is heavily inspired on the AwsCustomResource lambda 
 */
 
 /* eslint-disable import/no-extraneous-dependencies */
-// TODO: deleting this Lambda takes ages during CFN deletion. Debug it.
 //       Get a look at this: https://repost.aws/knowledge-center/cloudformation-lambda-resource-delete
 
 import type * as AWSLambda from 'aws-lambda';

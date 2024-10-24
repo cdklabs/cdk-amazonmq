@@ -4,7 +4,14 @@ SPDX-License-Identifier: Apache-2.0
 */
 
 import { createHash } from 'crypto';
-import { CustomResource, Duration, Lazy, Reference, Stack } from 'aws-cdk-lib';
+import {
+  CustomResource,
+  Duration,
+  Lazy,
+  Reference,
+  Stack,
+  Token,
+} from 'aws-cdk-lib';
 import {
   Connections,
   IConnectable,
@@ -20,11 +27,22 @@ import {
   PolicyStatement,
 } from 'aws-cdk-lib/aws-iam';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
-import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
+import { ISecret, Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Logging, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { IRabbitMqBroker } from '../rabbitmq-broker';
 import { RabbitMqCustomResourceSingletonFunction } from './rabbitmq-custom-resource-singleton-function';
+import { RabbitMqBrokerDeploymentBase } from '../rabbitmq-broker-deployment';
+
+/**
+ * All http request methods
+ */
+export enum HttpMethods {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+}
 
 /**
  * A RabbitMQ Management HTTP API call
@@ -39,12 +57,12 @@ export interface RabbitMqApiCall {
    * The HTTP Method used when invoking the RabbitMQ Management HTTP API call.
    * @default GET
    */
-  readonly method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
+  readonly method?: HttpMethods;
 
   /**
    * The payload expected by the RabbitMQ Management HTTP API call.
    */
-  readonly payload?: { [key: string]: any};
+  readonly payload?: { [key: string]: any };
   /**
    * The physical resource id of the custom resource for this call.
    * Mandatory for onCreate call.
@@ -235,24 +253,38 @@ export class RabbitMqCustomResource
       ]
       : undefined;
 
-    const provider = new RabbitMqCustomResourceSingletonFunction(this, 'Provider', {
-      uuid: this.renderUniqueId(props.broker, props.credentials, props.vpc, props.vpcSubnets, props.securityGroups),
-      vpc: props.vpc,
-      vpcSubnets: props.vpcSubnets,
-      securityGroups: securityGroups,
-      ...(props.logRetention ? { logRetention: props.logRetention } : {}),
-      logGroup: props.logGroup,
-      timeout: props.timeout || Duration.minutes(1),
-      initialPolicy: props.policy?.statements,
-    });
+    const uuid = this.renderUniqueId(
+      props.broker,
+      props.credentials,
+      props.vpc,
+      props.vpcSubnets,
+      props.securityGroups,
+    );
+
+    console.log('uuid', uuid);
+
+    const provider = new RabbitMqCustomResourceSingletonFunction(
+      this,
+      'Provider',
+      {
+        uuid,
+        vpc: props.vpc,
+        vpcSubnets: props.vpcSubnets,
+        securityGroups: securityGroups,
+        ...(props.logRetention ? { logRetention: props.logRetention } : {}),
+        logGroup: props.logGroup,
+        timeout: props.timeout || Duration.minutes(1),
+        initialPolicy: props.policy?.statements,
+      },
+    );
 
     const onUpdate = props.onUpdate && this.formatSdkCall(props.onUpdate);
     const onCreate =
       (props.onCreate && this.formatSdkCall(props.onCreate)) || onUpdate;
     const onDelete = props.onDelete && this.formatSdkCall(props.onDelete);
 
-    this.resource = new CustomResource(this, 'Resource', {
-      resourceType: 'Custom::RabbitMqApiCall',
+    this.resource = new CustomResource(this, `Resource${uuid}`, {
+      resourceType: 'Custom::RMQAPI',
       serviceToken: provider.functionArn,
       pascalCaseProperties: true,
       properties: {
@@ -263,10 +295,6 @@ export class RabbitMqCustomResource
         delete: onDelete,
       },
     });
-
-    // TODO: check if this is even needed
-    this.resource.node.addDependency(props.broker);
-    this.resource.node.addDependency(props.credentials);
 
     this.connections = new Connections({
       securityGroups,
@@ -307,23 +335,37 @@ export class RabbitMqCustomResource
     subnets?: SubnetSelection,
     securityGroups?: ISecurityGroup[],
   ) {
-    let hashContent = `${broker.endpoints.console.url}:${creds.secretArn}`;
+    let hashContent = '';
+    if (broker instanceof RabbitMqBrokerDeploymentBase) {
+      if (!Token.isUnresolved(broker.name)) {
+        hashContent += broker.name;
+      } else {
+        hashContent += broker.node.path;
+      }
+    }
+    if (creds instanceof Secret) {
+      if (!Token.isUnresolved(creds.secretName)) {
+        hashContent += creds.secretName;
+      } else {
+        hashContent += creds.node.path;
+      }
+    }
+
     if (vpc) {
-      hashContent += `:${vpc.vpcId}`;
+      hashContent += `:${vpc.node.path}`;
       if (subnets) {
-        hashContent += `:${vpc.selectSubnets(subnets).subnetIds.join(':')}`;
+        hashContent += `:${vpc
+          .selectSubnets(subnets)
+          .subnets.map((s) => s.node.path)}`;
       }
       if (securityGroups) {
-        hashContent += `:${securityGroups
-          .map((sg) => sg.securityGroupId)
-          .join(':')}`;
+        hashContent += `:${securityGroups.map((sg) => sg.node.path).join(':')}`;
       }
     }
 
     // INFO: run this through the CDK team as in the S3 Bucket Deployment implementation there is no hashing, just verbatim value addition
     // see: https://github.com/aws/aws-cdk/blob/318eae6c9eca456e0c34ed21855dad9d2bfa2a0f/packages/aws-cdk-lib/aws-s3-deployment/lib/bucket-deployment.ts#L556
-    const hash = createHash('md5').update(hashContent).digest('hex');
 
-    return hash;
+    return createHash('md5').update(hashContent).digest('hex');
   }
 }

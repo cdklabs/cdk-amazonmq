@@ -183,7 +183,7 @@
     }
    }
   },
-  "CreateApp1UserLogGroup68DA294A": {
+  "RmqCustomResourceLogGroupDFBFB414": {
    "Type": "AWS::Logs::LogGroup",
    "Properties": {
     "RetentionInDays": 1
@@ -191,12 +191,12 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain"
   },
-  "CreateApp1User40F69E7C": {
-   "Type": "Custom::RabbitMqApiCall",
+  "CreateApp1UserResource0068973b6657a062161114641ce376c6CC328318": {
+   "Type": "Custom::RMQAPI",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "RMQf6ac920d370308422672bb3791698e09A16816DC",
+      "RMQ0068973b6657a062161114641ce376c68A53BE4A",
       "Arn"
      ]
     },
@@ -264,16 +264,10 @@
      ]
     }
    },
-   "DependsOn": [
-    "BrokerE1355FD6",
-    "BrokerCredsBrokerAdminCredsRotationSchedule67A73E04",
-    "BrokerCredsPolicy9AA4FCB5",
-    "BrokerCreds13028F98"
-   ],
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
   },
-  "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9": {
+  "RMQ0068973b6657a062161114641ce376c6ServiceRole33899B0B": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -304,7 +298,7 @@
     ]
    }
   },
-  "RMQf6ac920d370308422672bb3791698e09ServiceRoleDefaultPolicyA214CD1E": {
+  "RMQ0068973b6657a062161114641ce376c6ServiceRoleDefaultPolicy5DFF040E": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -329,15 +323,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "RMQf6ac920d370308422672bb3791698e09ServiceRoleDefaultPolicyA214CD1E",
+    "PolicyName": "RMQ0068973b6657a062161114641ce376c6ServiceRoleDefaultPolicy5DFF040E",
     "Roles": [
      {
-      "Ref": "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9"
+      "Ref": "RMQ0068973b6657a062161114641ce376c6ServiceRole33899B0B"
      }
     ]
    }
   },
-  "RMQf6ac920d370308422672bb3791698e09A16816DC": {
+  "RMQ0068973b6657a062161114641ce376c68A53BE4A": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Architectures": [
@@ -347,18 +341,18 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "8a4f974d329ae323955f99ed58157c4c81dde6fbed8d7b8b04bf7eeb7e7e6402.zip"
+     "S3Key": "cd08feb0b5e407490793753b5f50c213e54d71108fb4884df716b29ca005a076.zip"
     },
     "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
     "Handler": "index.handler",
     "LoggingConfig": {
      "LogGroup": {
-      "Ref": "CreateApp1UserLogGroup68DA294A"
+      "Ref": "RmqCustomResourceLogGroupDFBFB414"
      }
     },
     "Role": {
      "Fn::GetAtt": [
-      "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9",
+      "RMQ0068973b6657a062161114641ce376c6ServiceRole33899B0B",
       "Arn"
      ]
     },
@@ -366,24 +360,16 @@
     "Timeout": 60
    },
    "DependsOn": [
-    "RMQf6ac920d370308422672bb3791698e09ServiceRoleDefaultPolicyA214CD1E",
-    "RMQf6ac920d370308422672bb3791698e09ServiceRoleF70AC9E9"
+    "RMQ0068973b6657a062161114641ce376c6ServiceRoleDefaultPolicy5DFF040E",
+    "RMQ0068973b6657a062161114641ce376c6ServiceRole33899B0B"
    ]
   },
-  "GrantApp1UserPermissionsLogGroupE39A96D9": {
-   "Type": "AWS::Logs::LogGroup",
-   "Properties": {
-    "RetentionInDays": 1
-   },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain"
-  },
-  "GrantApp1UserPermissions20450B06": {
-   "Type": "Custom::RabbitMqApiCall",
+  "GrantApp1UserPermissionsResource0068973b6657a062161114641ce376c66529E49C": {
+   "Type": "Custom::RMQAPI",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "RMQf6ac920d370308422672bb3791698e09A16816DC",
+      "RMQ0068973b6657a062161114641ce376c68A53BE4A",
       "Arn"
      ]
     },
@@ -444,11 +430,7 @@
     }
    },
    "DependsOn": [
-    "BrokerE1355FD6",
-    "BrokerCredsBrokerAdminCredsRotationSchedule67A73E04",
-    "BrokerCredsPolicy9AA4FCB5",
-    "BrokerCreds13028F98",
-    "CreateApp1User40F69E7C"
+    "CreateApp1UserResource0068973b6657a062161114641ce376c6CC328318"
    ],
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"

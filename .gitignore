@@ -54,7 +54,6 @@ tsconfig.json
 /assets/
 !/src/mq-esm/esm-deleter.is-complete-function.ts
 !/src/mq-esm/esm-deleter.on-event-function.ts
-!/src/rabbitmq/custom-resource/handler/rabbit-mq-api-call-function.ts
 test/integ/activemq-broker-instance-ldap.integ.snapshot/asset.*
 test/integ/activemq-broker-instance-ldap.integ.snapshot/**/asset.*
 test/integ/activemq-broker-instance-ldap.integ.snapshot/cdk.out

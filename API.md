@@ -8207,7 +8207,7 @@ const rabbitMqApiCall: RabbitMqApiCall = { ... }
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.path">path</a></code> | <code>string</code> | The RabbitMQ Management HTTP API call path. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.logging">logging</a></code> | <code>aws-cdk-lib.custom_resources.Logging</code> | A property used to configure logging during lambda function execution. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.method">method</a></code> | <code>string</code> | The HTTP Method used when invoking the RabbitMQ Management HTTP API call. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.method">method</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods">HttpMethods</a></code> | The HTTP Method used when invoking the RabbitMQ Management HTTP API call. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.outputPaths">outputPaths</a></code> | <code>string[]</code> | Restrict the data returned by the custom resource to specific paths in the API response. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.payload">payload</a></code> | <code>{[ key: string ]: any}</code> | The payload expected by the RabbitMQ Management HTTP API call. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.physicalResourceId">physicalResourceId</a></code> | <code>aws-cdk-lib.custom_resources.PhysicalResourceId</code> | The physical resource id of the custom resource for this call. |
@@ -8250,10 +8250,10 @@ in the lambda handler. This includes:
 ##### `method`<sup>Optional</sup> <a name="method" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.method"></a>
 
 ```typescript
-public readonly method: string;
+public readonly method: HttpMethods;
 ```
 
-- *Type:* string
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.HttpMethods">HttpMethods</a>
 - *Default:* GET
 
 The HTTP Method used when invoking the RabbitMQ Management HTTP API call.
@@ -12100,6 +12100,41 @@ Amazon MQ for ActiveMQ's authentication strategy.
 
 
 ##### `SUNDAY` <a name="SUNDAY" id="@cdklabs/cdk-amazonmq.DayOfWeek.SUNDAY"></a>
+
+---
+
+
+### HttpMethods <a name="HttpMethods" id="@cdklabs/cdk-amazonmq.HttpMethods"></a>
+
+All http request methods.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.GET">GET</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.POST">POST</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.PUT">PUT</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.DELETE">DELETE</a></code> | *No description.* |
+
+---
+
+##### `GET` <a name="GET" id="@cdklabs/cdk-amazonmq.HttpMethods.GET"></a>
+
+---
+
+
+##### `POST` <a name="POST" id="@cdklabs/cdk-amazonmq.HttpMethods.POST"></a>
+
+---
+
+
+##### `PUT` <a name="PUT" id="@cdklabs/cdk-amazonmq.HttpMethods.PUT"></a>
+
+---
+
+
+##### `DELETE` <a name="DELETE" id="@cdklabs/cdk-amazonmq.HttpMethods.DELETE"></a>
 
 ---
 

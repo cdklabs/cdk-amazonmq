@@ -40,7 +40,6 @@ export class ActiveMqLdapValidation implements IValidation {
       // add URI parts (protocol and port) that will be added by the ActiveMQ.
       hosts.forEach((v) => {
         const url = new URL(`ldap://${v}:389`);
-        console.log('URL', url);
         if (
           url.hostname !== v ||
           !url.protocol.startsWith('ldap') ||
@@ -61,7 +60,6 @@ export class ActiveMqLdapValidation implements IValidation {
   public validate(): string[] {
     this.errors = [];
 
-    console.log('userBase', this.ActiveMqLdapAuthorization.userBase);
     this.validateDit(this.ActiveMqLdapAuthorization.roleBase, 'roleBase');
     this.validateDit(this.ActiveMqLdapAuthorization.userBase, 'userBase');
     this.validateDit(

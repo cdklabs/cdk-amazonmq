@@ -15,7 +15,7 @@ export class RabbitMqCustomResourceSingletonFunction extends lambda.SingletonFun
       runtime: new lambda.Runtime('nodejs18.x', lambda.RuntimeFamily.NODEJS),
       architecture: lambda.Architecture.ARM_64,
       handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../../assets/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../../assets/rabbitmq/custom-resource/handler/index')),
     });
   }
 }

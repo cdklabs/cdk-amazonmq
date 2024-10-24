@@ -18,6 +18,7 @@ import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import {
+  HttpMethods,
   RabbitMqBrokerEngineVersion,
   RabbitMqBrokerInstance,
   RabbitMqCustomResource,
@@ -64,12 +65,12 @@ const app1Creds = new Secret(stack, 'App1Creds', {
 const app1 = new RabbitMqCustomResource(stack, 'CreateApp1User', {
   broker,
   credentials: brokerAdminCreds,
-  logGroup: new LogGroup(stack, 'CreateApp1UserLogGroup', {
+  logGroup: new LogGroup(stack, 'RmqCustomResourceLogGroup', {
     retention: RetentionDays.ONE_DAY,
   }),
   onUpdate: {
     path: `/api/users/${app1Creds.secretValueFromJson('username')}`,
-    method: 'PUT',
+    method: HttpMethods.PUT,
     payload: {
       password: app1Creds.secretValueFromJson('password'),
       tags: '',
@@ -78,7 +79,7 @@ const app1 = new RabbitMqCustomResource(stack, 'CreateApp1User', {
   },
   onDelete: {
     path: `/api/users/${app1Creds.secretValueFromJson('username')}`,
-    method: 'DELETE',
+    method: HttpMethods.DELETE,
   },
   policy: RabbitMqCustomResourcePolicy.fromStatements([
     new PolicyStatement({
@@ -96,14 +97,11 @@ const app1Permissions = new RabbitMqCustomResource(
   {
     broker,
     credentials: brokerAdminCreds,
-    logGroup: new LogGroup(stack, 'GrantApp1UserPermissionsLogGroup', {
-      retention: RetentionDays.ONE_DAY,
-    }),
     onUpdate: {
       path: `/api/permissions/${vhostEncoded}/${app1Creds.secretValueFromJson(
         'username',
       )}`,
-      method: 'PUT',
+      method: HttpMethods.PUT,
       payload: {
         configure: '',
         write: '',
@@ -115,14 +113,8 @@ const app1Permissions = new RabbitMqCustomResource(
       path: `/api/permissions/${vhostEncoded}/${app1Creds.secretValueFromJson(
         'username',
       )}`,
-      method: 'DELETE',
+      method: HttpMethods.DELETE,
     },
-    policy: RabbitMqCustomResourcePolicy.fromStatements([
-      new PolicyStatement({
-        actions: ['secretsmanager:GetSecretValue'],
-        resources: [app1Creds.secretArn],
-      }),
-    ]),
   },
 );
 

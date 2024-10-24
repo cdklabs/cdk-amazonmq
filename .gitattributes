@@ -24,6 +24,5 @@
 /package.json linguist-generated
 /src/mq-esm/esm-deleter.is-complete-function.ts linguist-generated
 /src/mq-esm/esm-deleter.on-event-function.ts linguist-generated
-/src/rabbitmq/custom-resource/handler/rabbit-mq-api-call-function.ts linguist-generated
 /tsconfig.dev.json linguist-generated
 /yarn.lock linguist-generated
