@@ -130,19 +130,13 @@ export abstract class EventSourceBase implements IEventSource {
       }));
     }
 
-    // if (this.props.virtualHost) {
-    //   this.sourceAccessConfigurations.push({
-    //     type: SourceAccessConfigurationType.of('VIRTUAL_HOST'),
-    //     uri: this.props.virtualHost,
-    //   });
-    // }
-
     this.sourceAccessConfigurations.push({
       type: SourceAccessConfigurationType.BASIC_AUTH,
       uri: this.props.credentials.secretArn,
     });
 
-    const mapping = target.addEventSourceMapping(`RabbitMqEventSource:${Names.nodeUniqueId(this.props.broker.node)}`, {
+    // TODO: move ID generation outside as an abstract protected method
+    const mapping = target.addEventSourceMapping(`MqEventSource:${Names.nodeUniqueId(this.props.broker.node)}${this.props.queueName}`, {
       batchSize: this.props.batchSize,
       maxBatchingWindow: this.props.maxBatchingWindow,
       enabled: this.props.enabled,
@@ -160,7 +154,7 @@ export abstract class EventSourceBase implements IEventSource {
     //       completion and as a result, target's IAM Role is being deleted before ESM is able to assume it to delete the ENIs.
     //       This in turn causes a deletion failure that requires manual ENIs' deletion to recover.
     if (target.role) {
-      const provider = new Provider(mapping, `MqEsmDeleter:${Names.nodeUniqueId(mapping.node)}`, {
+      const provider = new Provider(mapping, `MqEsmDeleter:${Names.uniqueId(mapping)}`, {
         onEventHandler: new EsmDeleterOnEventFunction(mapping, 'onevent', {
           initialPolicy: [
             new PolicyStatement({

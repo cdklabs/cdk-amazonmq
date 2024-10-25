@@ -7,10 +7,11 @@ import { createHash } from 'crypto';
 import {
   CustomResource,
   Duration,
+  IResource,
   Lazy,
+  Names,
   Reference,
   Stack,
-  Token,
 } from 'aws-cdk-lib';
 import {
   Connections,
@@ -27,12 +28,11 @@ import {
   PolicyStatement,
 } from 'aws-cdk-lib/aws-iam';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
-import { ISecret, Secret } from 'aws-cdk-lib/aws-secretsmanager';
+import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Logging, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
 import { Construct } from 'constructs';
 import { IRabbitMqBroker } from '../rabbitmq-broker';
 import { RabbitMqCustomResourceSingletonFunction } from './rabbitmq-custom-resource-singleton-function';
-import { RabbitMqBrokerDeploymentBase } from '../rabbitmq-broker-deployment';
 
 /**
  * All http request methods
@@ -336,30 +336,18 @@ export class RabbitMqCustomResource
     securityGroups?: ISecurityGroup[],
   ) {
     let hashContent = '';
-    if (broker instanceof RabbitMqBrokerDeploymentBase) {
-      if (!Token.isUnresolved(broker.name)) {
-        hashContent += broker.name;
-      } else {
-        hashContent += broker.node.path;
-      }
-    }
-    if (creds instanceof Secret) {
-      if (!Token.isUnresolved(creds.secretName)) {
-        hashContent += creds.secretName;
-      } else {
-        hashContent += creds.node.path;
-      }
-    }
-
+    const resourceBroker = broker as unknown as IResource;
+    hashContent += Names.uniqueId(resourceBroker);
+    hashContent += Names.uniqueId(creds);
     if (vpc) {
-      hashContent += `:${vpc.node.path}`;
+      hashContent += Names.uniqueId(vpc);
       if (subnets) {
-        hashContent += `:${vpc
+        hashContent += vpc
           .selectSubnets(subnets)
-          .subnets.map((s) => s.node.path)}`;
+          .subnets.map((s) => Names.uniqueId(s)).join('');
       }
       if (securityGroups) {
-        hashContent += `:${securityGroups.map((sg) => sg.node.path).join(':')}`;
+        hashContent += securityGroups.map((sg) => Names.uniqueId(sg)).join('');
       }
     }
 

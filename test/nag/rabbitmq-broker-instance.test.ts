@@ -94,19 +94,19 @@ describe('RabbitMqBrokerInstance Best Practices', () => {
 
     NagSuppressions.addResourceSuppressionsByPath(
       stack,
-      '/Default/fn/RabbitMqEventSource:TestBroker/MqEsmDeleter:fnRabbitMqEventSourceTestBrokerA97659E6/framework-onEvent/Resource',
+      '/Default/fn/MqEventSource:TestBrokermyQueue/MqEsmDeleter:fnMqEventSourceTestBrokermyQueue9CD0AC00/framework-onEvent/Resource',
       [{ id: VALIDATION_FAILURE_ID, reason: 'We use primite functions for ids' }],
     );
 
     NagSuppressions.addResourceSuppressionsByPath(
       stack,
-      '/Default/fn/RabbitMqEventSource:TestBroker/MqEsmDeleter:fnRabbitMqEventSourceTestBrokerA97659E6/framework-isComplete/Resource',
+      '/Default/fn/MqEventSource:TestBrokermyQueue/MqEsmDeleter:fnMqEventSourceTestBrokermyQueue9CD0AC00/framework-isComplete/Resource',
       [{ id: VALIDATION_FAILURE_ID, reason: 'We use primite functions for ids' }],
     );
 
     NagSuppressions.addResourceSuppressionsByPath(
       stack,
-      '/Default/fn/RabbitMqEventSource:TestBroker/MqEsmDeleter:fnRabbitMqEventSourceTestBrokerA97659E6/framework-onTimeout/Resource',
+      '/Default/fn/MqEventSource:TestBrokermyQueue/MqEsmDeleter:fnMqEventSourceTestBrokermyQueue9CD0AC00/framework-onTimeout/Resource',
       [{ id: VALIDATION_FAILURE_ID, reason: 'We use primite functions for ids' }],
     );
 
