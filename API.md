@@ -9355,7 +9355,9 @@ ActiveMqBrokerConfigurationDefinition.data(data: string)
 
 ### ActiveMqBrokerEngineVersion <a name="ActiveMqBrokerEngineVersion" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion"></a>
 
-> [ : https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/activemq-version-management.html]( : https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/activemq-version-management.html)
+The Amazon ActiveMQ Broker Engine version.
+
+> [https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/activemq-version-management.html](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/activemq-version-management.html)
 
 #### Initializers <a name="Initializers" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.Initializer"></a>
 
@@ -9709,7 +9711,9 @@ RabbitMqBrokerConfigurationDefinition.parameters(parameters: RabbitMqBrokerConfi
 
 ### RabbitMqBrokerEngineVersion <a name="RabbitMqBrokerEngineVersion" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion"></a>
 
-> [ : https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-version-management.html]( : https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-version-management.html)
+The Amazon RabbitMQ Broker Engine version.
+
+> [https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-version-management.html](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-version-management.html)
 
 #### Initializers <a name="Initializers" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.Initializer"></a>
 
