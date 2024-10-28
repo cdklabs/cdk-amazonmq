@@ -1,5 +1,5 @@
 {
-  "version": "36.0.24",
+  "version": "36.3.0",
   "files": {
     "4e26bf2d0a26f2097fb2b261f22bb51e3f6b4b52635777b1e54edbd8e2d58c35": {
       "source": {
@@ -66,7 +66,7 @@
         }
       }
     },
-    "e3d8ce120b155ca5cfaf178d9e6c632992e97070d18a69e0a988e113c66b063a": {
+    "de39ad6bcebdd4b9b56e3be87b5d0864badf9faf396803158cd433e79f34b76b": {
       "source": {
         "path": "ActiveMqBrokerInstanceStack.template.json",
         "packaging": "file"
@@ -74,7 +74,7 @@
       "destinations": {
         "current_account-current_region": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "e3d8ce120b155ca5cfaf178d9e6c632992e97070d18a69e0a988e113c66b063a.json",
+          "objectKey": "de39ad6bcebdd4b9b56e3be87b5d0864badf9faf396803158cd433e79f34b76b.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

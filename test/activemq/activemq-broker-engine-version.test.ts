@@ -10,7 +10,6 @@ describe('ActiveMqBrokerEngineVersion', () => {
       { version: '5.18' },
       { version: '5.17.6' },
       { version: '5.16.7' },
-      { version: '5.15.16' },
     ];
     const actualEngineVersions = Object.values(ActiveMqBrokerEngineVersion);
 

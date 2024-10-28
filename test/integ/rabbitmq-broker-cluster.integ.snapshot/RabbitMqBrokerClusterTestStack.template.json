@@ -971,14 +971,13 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "my-super-broker",
     "DeploymentMode": "CLUSTER_MULTI_AZ",
     "EncryptionOptions": {
      "UseAwsOwnedKey": true
     },
     "EngineType": "RABBITMQ",
-    "EngineVersion": "3.10.20",
+    "EngineVersion": "3.13",
     "HostInstanceType": "mq.m5.large",
     "Logs": {
      "General": true
@@ -1340,7 +1339,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ff4ff03c6abd00de4c2549635321df9fd82dd4a1db4a1e5cb5e5f44be8581b48.zip"
+     "S3Key": "330e3ab013df8356c427b50c6fffb7a74917ee3d52bf0edf4efb403f3eadb0a8.zip"
     },
     "Environment": {
      "Variables": {

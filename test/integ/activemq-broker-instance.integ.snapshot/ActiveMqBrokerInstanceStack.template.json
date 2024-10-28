@@ -670,7 +670,6 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "ActiveMqBrokerInstanceStackBroker94B6AF23",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {
@@ -1011,7 +1010,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "d89164d551b5d031baa8e375a2a61f4146da6a9071072402671f75b10772321b.zip"
+     "S3Key": "40199427add18efb8254245ea29d07282105f9fdbd749eb3132cd3c74bacfa9e.zip"
     },
     "Environment": {
      "Variables": {

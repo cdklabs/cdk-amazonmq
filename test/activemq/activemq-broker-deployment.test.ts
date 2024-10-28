@@ -17,7 +17,7 @@ describe('ActiveMqBrokerDeployment', () => {
 
     const broker: IActiveMqBrokerDeployment = new ActiveMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: false,
-      version: ActiveMqBrokerEngineVersion.V5_15_16,
+      version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
         users: [{

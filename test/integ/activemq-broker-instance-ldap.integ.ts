@@ -33,7 +33,7 @@ const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
 
 const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: false,
-  version: ActiveMqBrokerEngineVersion.V5_17_6,
+  version: ActiveMqBrokerEngineVersion.V5_18,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
   userManagement: ActiveMqBrokerUserManagement.ldap({
     hosts: ['ldap.example.com'],
@@ -50,7 +50,6 @@ const broker = new ActiveMqBrokerInstance(stack, 'Broker', {
       'cn=admin,ou=users,dc=example,dc=com',
     ),
   }),
-  autoMinorVersionUpgrade: true,
   cloudwatchLogsExports: {
     general: true,
   },

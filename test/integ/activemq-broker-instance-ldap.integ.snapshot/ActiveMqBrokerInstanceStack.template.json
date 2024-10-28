@@ -17,14 +17,13 @@
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
     "AuthenticationStrategy": "LDAP",
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "ActiveMqBrokerInstanceStackBroker94B6AF23",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {
      "UseAwsOwnedKey": true
     },
     "EngineType": "ACTIVEMQ",
-    "EngineVersion": "5.17.6",
+    "EngineVersion": "5.18",
     "HostInstanceType": "mq.t3.micro",
     "LdapServerMetadata": {
      "Hosts": [

@@ -82,13 +82,12 @@ const brokerAdminCreds = new Secret(stack, 'BrokerCreds', {
 const cluster = new RabbitMqBrokerCluster(stack, 'Broker', {
   brokerName: 'my-super-broker',
   publiclyAccessible: false,
-  version: RabbitMqBrokerEngineVersion.V3_10_20,
+  version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
   admin: {
     username: brokerAdminCreds.secretValueFromJson('username').unsafeUnwrap(),
     password: brokerAdminCreds.secretValueFromJson('password'),
   },
-  autoMinorVersionUpgrade: true,
   vpc,
   vpcSubnets: brokerSubnets,
   cloudwatchLogsExports: {

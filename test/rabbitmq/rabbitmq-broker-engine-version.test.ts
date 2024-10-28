@@ -9,10 +9,9 @@ describe('RabbitMqBrokerEngineVersion', () => {
     const expectedEngineVersions = [
       { version: '3.13' },
       { version: '3.12.13' },
+      { version: '3.11.28' },
       { version: '3.11.20' },
-      { version: '3.10.20' },
-      { version: '3.9.27' },
-      { version: '3.8.34' },
+      { version: '3.11.16' },
     ];
     const actualEngineVersions = Object.values(RabbitMqBrokerEngineVersion);
 

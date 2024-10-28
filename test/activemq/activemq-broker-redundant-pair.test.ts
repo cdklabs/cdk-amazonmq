@@ -14,7 +14,7 @@ describe('ActiveMqBrokerRedundantPair', () => {
 
     const broker = new ActiveMqBrokerRedundantPair(stack, 'TestBroker', {
       publiclyAccessible: true,
-      version: ActiveMqBrokerEngineVersion.V5_15_16,
+      version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
         users: [{
@@ -39,7 +39,7 @@ describe('ActiveMqBrokerRedundantPair', () => {
       DeploymentMode: 'ACTIVE_STANDBY_MULTI_AZ',
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.15.16',
+      EngineVersion: '5.18',
       HostInstanceType: 'mq.m5.large',
       PubliclyAccessible: true,
       Users: [{
@@ -54,7 +54,7 @@ describe('ActiveMqBrokerRedundantPair', () => {
 
     const broker = new ActiveMqBrokerRedundantPair(stack, 'TestBroker', {
       publiclyAccessible: false,
-      version: ActiveMqBrokerEngineVersion.V5_15_16,
+      version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
         users: [{
@@ -79,7 +79,7 @@ describe('ActiveMqBrokerRedundantPair', () => {
       DeploymentMode: 'ACTIVE_STANDBY_MULTI_AZ',
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.15.16',
+      EngineVersion: '5.18',
       HostInstanceType: 'mq.m5.large',
       PubliclyAccessible: false,
       Users: [{
@@ -98,7 +98,7 @@ describe('ActiveMqBrokerRedundantPair', () => {
 
     const broker = new ActiveMqBrokerRedundantPair(stack, 'TestBroker', {
       publiclyAccessible: false,
-      version: ActiveMqBrokerEngineVersion.V5_15_16,
+      version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
         users: [{
@@ -149,7 +149,7 @@ describe('ActiveMqBrokerRedundantPair', () => {
       DeploymentMode: 'ACTIVE_STANDBY_MULTI_AZ',
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.15.16',
+      EngineVersion: '5.18',
       HostInstanceType: 'mq.m5.large',
       PubliclyAccessible: false,
       Users: [{

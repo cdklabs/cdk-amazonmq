@@ -34,7 +34,6 @@ const broker = new RabbitMqBrokerInstance(stack, 'Broker', {
     username: brokerAdminCreds.secretValueFromJson('username').unsafeUnwrap(),
     password: brokerAdminCreds.secretValueFromJson('password'),
   },
-  autoMinorVersionUpgrade: true,
   maintenanceWindowStartTime: {
     timeOfDay: '13:00',
     dayOfWeek: DayOfWeek.SUNDAY,
@@ -97,13 +96,5 @@ const subscriber = new NodejsFunction(stack, 'RabbitMqSubscriber', {
 
 broker.connections?.allowDefaultPortFrom(subscriber);
 brokerAdminCreds.grantRead(subscriber);
-
-// new CfnOutput(stack, 'ConfigurationId', {
-//   value: broker.configuration.id,
-// });
-
-// new CfnOutput(stack, 'ConfigurationRevision', {
-//   value: `${broker.configuration.revision}`,
-// });
 
 app.synth();

@@ -16,7 +16,6 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "RabbitMqBrokerInstanceTestBroker1C6CA076",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {
@@ -1300,7 +1299,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ff4ff03c6abd00de4c2549635321df9fd82dd4a1db4a1e5cb5e5f44be8581b48.zip"
+     "S3Key": "330e3ab013df8356c427b50c6fffb7a74917ee3d52bf0edf4efb403f3eadb0a8.zip"
     },
     "Environment": {
      "Variables": {
@@ -1423,7 +1422,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "ff4cec894e6406c702dfa01142723bbdb8572ced798709aac14bf2f68899f6f7.zip"
+     "S3Key": "c6fe4dbdd11121e0674e00b8773fedd76410565c81a1fbe580375cf8a3351b22.zip"
     },
     "Environment": {
      "Variables": {

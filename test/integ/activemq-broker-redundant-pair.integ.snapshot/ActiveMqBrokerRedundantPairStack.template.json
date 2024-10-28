@@ -411,7 +411,6 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "ActiveMqBrokerRedundantPairStackBrokerFDDD2B51",
     "DeploymentMode": "ACTIVE_STANDBY_MULTI_AZ",
     "EncryptionOptions": {
@@ -642,7 +641,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4513c9014706bbb1ae39dc416f3dcd16b91fa6b7113e61923a4bfa0cc63329ad.zip"
+     "S3Key": "ab334e35fa7e40d639657e198665326ea9220394f2384df5607091b5b045dce2.zip"
     },
     "Environment": {
      "Variables": {
@@ -1006,7 +1005,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "c36f15ec56f4e47f95faa205d5de4bee488a1701b87c56a938ddd802b945c7dd.zip"
+     "S3Key": "206b795610d520d549e053f08a64be493bc05abadfcc6fb5874c58f298ec9bd5.zip"
     },
     "Environment": {
      "Variables": {

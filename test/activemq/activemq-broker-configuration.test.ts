@@ -14,7 +14,7 @@ describe('ActiveMqBrokerConfiguration', () => {
     new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
       definition: ActiveMqBrokerConfigurationDefinition.data('Test Definition'),
-      engineVersion: ActiveMqBrokerEngineVersion.V5_15_16,
+      engineVersion: ActiveMqBrokerEngineVersion.V5_18,
     });
 
     const template = Template.fromStack(stack);
@@ -23,7 +23,7 @@ describe('ActiveMqBrokerConfiguration', () => {
       Data: { 'Fn::Base64': 'Test Definition' },
       Description: 'Test Description',
       EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.15.16',
+      EngineVersion: '5.18',
       Name: 'TestConfig',
     });
   });
@@ -34,12 +34,12 @@ describe('ActiveMqBrokerConfiguration', () => {
     const config = new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
       definition: ActiveMqBrokerConfigurationDefinition.data('Test Definition'),
-      engineVersion: ActiveMqBrokerEngineVersion.V5_15_16,
+      engineVersion: ActiveMqBrokerEngineVersion.V5_18,
     });
 
     const broker = new ActiveMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: true,
-      version: ActiveMqBrokerEngineVersion.V5_15_16,
+      version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
         users: [{
@@ -63,7 +63,7 @@ describe('ActiveMqBrokerConfiguration', () => {
       Data: { 'Fn::Base64': 'Test Definition' },
       Description: 'Test Description',
       EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.15.16',
+      EngineVersion: '5.18',
       Name: 'TestConfig',
     });
 
@@ -118,12 +118,12 @@ describe('ActiveMqBrokerConfiguration', () => {
     const config = new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
       description: 'Test Description',
       definition: ActiveMqBrokerConfigurationDefinition.data('Test Definition'),
-      engineVersion: ActiveMqBrokerEngineVersion.V5_15_16,
+      engineVersion: ActiveMqBrokerEngineVersion.V5_18,
     });
 
     const broker = new ActiveMqBrokerInstance(stack, 'TestBroker', {
       publiclyAccessible: true,
-      version: ActiveMqBrokerEngineVersion.V5_15_16,
+      version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
         users: [{
@@ -142,7 +142,7 @@ describe('ActiveMqBrokerConfiguration', () => {
       Data: { 'Fn::Base64': 'Test Definition' },
       Description: 'Test Description',
       EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.15.16',
+      EngineVersion: '5.18',
       Name: 'TestConfig',
     });
 
