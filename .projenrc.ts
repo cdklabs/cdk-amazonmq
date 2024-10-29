@@ -46,13 +46,10 @@ const project = new CdklabsConstructLibrary({
 });
 
 project.bundler.addBundle('src/rabbitmq/custom-resource/handler/index.ts', {
-  target: 'node16',
-  format: 'cjs',
+  target: 'node18',
   platform: 'node',
   externals: [
-    '@aws-sdk/client-secrets-manager',
-    '@aws-sdk/client-ssm',
-    '@aws-sdk/util-arn-parser',
+    '@aws-sdk/*',
   ],
 });
 

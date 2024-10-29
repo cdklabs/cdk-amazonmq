@@ -191,12 +191,12 @@
    "UpdateReplacePolicy": "Retain",
    "DeletionPolicy": "Retain"
   },
-  "CreateApp1UserResourced02f417817c644a37bf41feb60bbb41fE8B8D2AB": {
+  "CreateApp1UserResource99AE7FDC72BE1F763E314621": {
    "Type": "Custom::RMQAPI",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "RMQd02f417817c644a37bf41feb60bbb41fBEE10CCF",
+      "RMQ99AE7FDC72BE1F76D453C6BB",
       "Arn"
      ]
     },
@@ -267,7 +267,7 @@
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
   },
-  "RMQd02f417817c644a37bf41feb60bbb41fServiceRole288BEECF": {
+  "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A": {
    "Type": "AWS::IAM::Role",
    "Properties": {
     "AssumeRolePolicyDocument": {
@@ -298,7 +298,7 @@
     ]
    }
   },
-  "RMQd02f417817c644a37bf41feb60bbb41fServiceRoleDefaultPolicy99C60BA3": {
+  "RMQ99AE7FDC72BE1F76ServiceRoleDefaultPolicyFE8AB364": {
    "Type": "AWS::IAM::Policy",
    "Properties": {
     "PolicyDocument": {
@@ -323,15 +323,15 @@
      ],
      "Version": "2012-10-17"
     },
-    "PolicyName": "RMQd02f417817c644a37bf41feb60bbb41fServiceRoleDefaultPolicy99C60BA3",
+    "PolicyName": "RMQ99AE7FDC72BE1F76ServiceRoleDefaultPolicyFE8AB364",
     "Roles": [
      {
-      "Ref": "RMQd02f417817c644a37bf41feb60bbb41fServiceRole288BEECF"
+      "Ref": "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A"
      }
     ]
    }
   },
-  "RMQd02f417817c644a37bf41feb60bbb41fBEE10CCF": {
+  "RMQ99AE7FDC72BE1F76D453C6BB": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Architectures": [
@@ -341,7 +341,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "131099a0c827b04083e297e689826753132afb3e0cb3b3e5fbba5d1944d02392.zip"
+     "S3Key": "d45bf79c36d36bde5dca5a314c3d2d7c5dca878c01617d0c40303bc97b9c300c.zip"
     },
     "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
     "Handler": "index.handler",
@@ -352,7 +352,7 @@
     },
     "Role": {
      "Fn::GetAtt": [
-      "RMQd02f417817c644a37bf41feb60bbb41fServiceRole288BEECF",
+      "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A",
       "Arn"
      ]
     },
@@ -360,16 +360,16 @@
     "Timeout": 60
    },
    "DependsOn": [
-    "RMQd02f417817c644a37bf41feb60bbb41fServiceRoleDefaultPolicy99C60BA3",
-    "RMQd02f417817c644a37bf41feb60bbb41fServiceRole288BEECF"
+    "RMQ99AE7FDC72BE1F76ServiceRoleDefaultPolicyFE8AB364",
+    "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A"
    ]
   },
-  "GrantApp1UserPermissionsResourced02f417817c644a37bf41feb60bbb41fC2EEBBB6": {
+  "GrantApp1UserPermissionsResource99AE7FDC72BE1F767EE04728": {
    "Type": "Custom::RMQAPI",
    "Properties": {
     "ServiceToken": {
      "Fn::GetAtt": [
-      "RMQd02f417817c644a37bf41feb60bbb41fBEE10CCF",
+      "RMQ99AE7FDC72BE1F76D453C6BB",
       "Arn"
      ]
     },
@@ -430,7 +430,7 @@
     }
    },
    "DependsOn": [
-    "CreateApp1UserResourced02f417817c644a37bf41feb60bbb41fE8B8D2AB"
+    "CreateApp1UserResource99AE7FDC72BE1F763E314621"
    ],
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
@@ -536,7 +536,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b8448d8d9fc91d869036d127de4adf87de420c9815d0ab3475d6e9ecc2bb21ac.zip"
+     "S3Key": "76d968cc80c1e555f1524c85e92bcd34e8ef6907cb0038c72fdd97ac2bdc7cd9.zip"
     },
     "Environment": {
      "Variables": {

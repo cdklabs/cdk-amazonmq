@@ -34,6 +34,8 @@ import { Construct } from 'constructs';
 import { IRabbitMqBroker } from '../rabbitmq-broker';
 import { RabbitMqCustomResourceSingletonFunction } from './rabbitmq-custom-resource-singleton-function';
 
+const HASH_LEN = 16;
+
 /**
  * All http request methods
  */
@@ -354,6 +356,6 @@ export class RabbitMqCustomResource
     // INFO: run this through the CDK team as in the S3 Bucket Deployment implementation there is no hashing, just verbatim value addition
     // see: https://github.com/aws/aws-cdk/blob/318eae6c9eca456e0c34ed21855dad9d2bfa2a0f/packages/aws-cdk-lib/aws-s3-deployment/lib/bucket-deployment.ts#L556
 
-    return createHash('md5').update(hashContent).digest('hex');
+    return createHash('sha256').update(hashContent).digest('hex').slice(0, HASH_LEN).toUpperCase();;
   }
 }

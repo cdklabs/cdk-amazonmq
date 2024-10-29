@@ -43,10 +43,10 @@ const createSecret = async (secretId: string, token: string) => {
   } catch (e) {
     // filter duplicated lambda invoke.
     if (e instanceof ResourceNotFoundException) {
-      console.log(
-        'createSecret: secret already exist. considered as duplicated lambda invoke.',
-      );
     } else {
+      console.error(
+        'createSecret: secret already exists. Considered as duplicated lambda invoke.',
+      );
       throw Error(`createSecret: ${e}`);
     }
 
