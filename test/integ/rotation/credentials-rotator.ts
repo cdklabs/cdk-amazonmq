@@ -18,7 +18,11 @@ import {
 } from 'aws-lambda';
 import { send, HttpMethod } from './rabbitmq-management-sdk';
 
-type VersionStage = 'AWSCURRENT' | 'AWSPENDING' | 'AWSPREVIOUS';
+enum VersionStage {
+  AWSCURRENT = 'AWSCURRENT',
+  AWSPENDING = 'AWSPENDING',
+  AWSPREVIOUS = 'AWSPREVIOUS',
+}
 
 const client = new SecretsManagerClient({});
 
@@ -27,7 +31,7 @@ const createSecret = async (secretId: string, token: string) => {
   const { SecretString: CurrentSecretString } = await client.send(
     new GetSecretValueCommand({
       SecretId: secretId,
-      VersionStage: 'AWSCURRENT' as VersionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
+      VersionStage: 'AWSCURRENT' as VersionStage,
     }),
   );
 
@@ -36,17 +40,17 @@ const createSecret = async (secretId: string, token: string) => {
       new GetSecretValueCommand({
         SecretId: secretId,
         VersionId: token,
-        VersionStage: 'AWSPENDING' as VersionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
+        VersionStage: VersionStage.AWSPENDING,
       }),
     );
     console.log(`createSecret: Successfully retrieved secret for ${secretId}.`);
   } catch (e) {
     // filter duplicated lambda invoke.
     if (e instanceof ResourceNotFoundException) {
-    } else {
-      console.error(
-        'createSecret: secret already exists. Considered as duplicated lambda invoke.',
+      console.log(
+        'createSecret: secret already exist. considered as duplicated lambda invoke.',
       );
+    } else {
       throw Error(`createSecret: ${e}`);
     }
 
@@ -75,7 +79,7 @@ const createSecret = async (secretId: string, token: string) => {
         SecretId: secretId,
         ClientRequestToken: token,
         SecretString: JSON.stringify({ ...secret, password: newPassword }),
-        VersionStages: ['AWSPENDING'] as VersionStage[], // AWSCURRENT or AWSPENDING or AWSPREVIOUS.
+        VersionStages: [VersionStage.AWSPENDING],
       }),
     );
   }
@@ -85,12 +89,12 @@ const setSecret = async (
   secretId: string,
   token: string,
   brokerUrl: string,
-  adminCredsArn: string,
+  mgmntCredsArn?: string,
 ) => {
   const { SecretString: CurrentSecretString } = await client.send(
     new GetSecretValueCommand({
       SecretId: secretId,
-      VersionStage: 'AWSCURRENT' as VersionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
+      VersionStage: VersionStage.AWSCURRENT,
     }),
   );
 
@@ -105,32 +109,37 @@ const setSecret = async (
     password: string;
   };
 
-  const { SecretString: PendingSecretString } = await client.send(
+  const { SecretString: NewSecretString } = await client.send(
     new GetSecretValueCommand({
       SecretId: secretId,
       VersionId: token,
-      VersionStage: 'AWSPENDING' as VersionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
+      VersionStage: VersionStage.AWSPENDING,
     }),
   );
 
-  if (PendingSecretString === undefined) {
-    throw new Error('PendingSecretString');
+  if (NewSecretString === undefined) {
+    throw new Error('NewSecretString');
   }
 
-  const { password: newPassword } = JSON.parse(PendingSecretString) as {
+  const secret = JSON.parse(NewSecretString) as {
     username: string;
     password: string;
   };
 
-  const { username: adminUsername, password: adminPassword } =
-    adminCredsArn === secretId
-      ? { username: currentUsername, password: currentPassword }
-      : await getCurrentCredentials(adminCredsArn);
+  const { password: newPassword } = secret;
+
+  const { username: mgmntUsername, password: mgmntPassword } =
+    secretId === mgmntCredsArn || mgmntCredsArn === undefined
+      ? {
+        username: currentUsername,
+        password: currentPassword,
+      }
+      : await getCredentials(mgmntCredsArn, VersionStage.AWSCURRENT);
 
   const getOptions = {
     rabbitUrl: new URL(brokerUrl),
-    username: adminUsername,
-    password: adminPassword,
+    username: mgmntUsername,
+    password: mgmntPassword,
     method: 'GET' as HttpMethod,
     path: `/api/users/${currentUsername}`,
   };
@@ -145,8 +154,8 @@ const setSecret = async (
 
   const putOptions = {
     rabbitUrl: new URL(brokerUrl),
-    username: adminUsername,
-    password: adminPassword,
+    username: mgmntUsername,
+    password: mgmntPassword,
     method: 'PUT' as HttpMethod,
     path: `/api/users/${currentUsername}`,
     payload: { tags: payload.tags, password: newPassword },
@@ -159,35 +168,41 @@ const testSecret = async (
   secretId: string,
   token: string,
   brokerUrl: string,
-  adminCredsArn: string,
+  mgmntCredsArn?: string,
 ) => {
-
-  const { SecretString: PendingSecretString } = await client.send(
+  const { SecretString: NewSecretString } = await client.send(
     new GetSecretValueCommand({
       SecretId: secretId,
       VersionId: token,
-      VersionStage: 'AWSPENDING' as VersionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
+      VersionStage: VersionStage.AWSPENDING,
     }),
   );
 
-  if (PendingSecretString === undefined) {
-    throw new Error('PendingSecretString');
+  if (NewSecretString === undefined) {
+    throw new Error('NewSecretString');
   }
-
-  const { username, password } = JSON.parse(PendingSecretString) as {
+  const { username, password } = JSON.parse(NewSecretString) as {
     username: string;
     password: string;
   };
 
-  const { username: adminUsername, password: adminPassword } =
-    adminCredsArn === secretId
+  const { username: mgmntUsername, password: mgmntPassword } =
+    secretId === mgmntCredsArn || mgmntCredsArn === undefined
       ? { username, password }
-      : await getCurrentCredentials(adminCredsArn);
+      : await getCredentials(mgmntCredsArn, VersionStage.AWSCURRENT);
 
+
+  // INFO: In RabbitMQ only users with "management" tag are allowed to interact with the Management HTTP API.
+  //       With this - only these we are able to test for whether they can get information about themselves.
+  //       This means that to 'actually' test for changes of the non-"management" users there needs to be
+  //       other method here used.
+  //
+  //       This method is a basic method for identifying if we can get the info about a particular user with
+  //       the newly created password (only works with users with management permissions)
   const getOptions = {
     rabbitUrl: new URL(brokerUrl),
-    username: adminUsername,
-    password: adminPassword,
+    username: mgmntUsername,
+    password: mgmntPassword,
     method: 'GET' as HttpMethod,
     path: `/api/users/${username}`,
   };
@@ -198,9 +213,6 @@ const testSecret = async (
     tags: string;
   }>(getOptions);
 
-  // Tests if user exists, but doesn't test the user's password.
-  // This is sufficient for the admin, as if the GET method goes through it means that the password works.
-  // TODO: how to test the password?
   if (payload === undefined) {
     throw new Error('payload');
   }
@@ -210,7 +222,7 @@ const finishSecret = async (
   secretId: string,
   token: string,
   brokerUrl: string,
-  adminCredsArn: string,
+  mgmntCredsArn?: string,
 ) => {
   const metadata = await client.send(
     new DescribeSecretCommand({ SecretId: secretId }),
@@ -254,22 +266,25 @@ const finishSecret = async (
     `finishSecret: Successfully set AWSCURRENT stage to version ${token} for secret ${secretId}.`,
   );
 
-  const { username, password } = await getCurrentCredentials(secretId);
+  const { username, password } = await getCredentials(
+    secretId,
+    VersionStage.AWSCURRENT,
+  );
 
-  const { username: adminUsername, password: adminPassword } =
-    adminCredsArn === secretId
+  const { username: mgmntUsername, password: mgmntPassword } =
+    secretId === mgmntCredsArn || mgmntCredsArn === undefined
       ? { username, password }
-      : await getCurrentCredentials(adminCredsArn);
+      : await getCredentials(mgmntCredsArn, VersionStage.AWSCURRENT);
 
-  const deleteOptions = {
+  const deleteConnections = {
     rabbitUrl: new URL(brokerUrl),
-    username: adminUsername,
-    password: adminPassword,
+    username: mgmntUsername,
+    password: mgmntPassword,
     method: 'DELETE' as HttpMethod,
     path: `/api/connections/username/${username}`,
   };
 
-  await send(deleteOptions);
+  await send(deleteConnections);
 
   console.log(
     `finishSecret: Successfully invalidated all RabbitMQ connections for credentials in the secret ${secretId} of the version ${token}.`,
@@ -279,20 +294,10 @@ const finishSecret = async (
 export const handler: SecretsManagerRotationHandler = async (
   event: SecretsManagerRotationEvent,
 ) => {
-  const {
-    // AmazonMQ for RabbitMQ broker URL
-    BROKER_URL,
-    // Credentials of a RabbitMQ broker user with administrator permissions (to be able to update users)
-    // see: https://www.rabbitmq.com/docs/management#permissions
-    CREDENTIALS,
-  } = process.env;
+  const { BROKER_URL, MGMT_CREDENTIALS } = process.env;
 
   if (BROKER_URL === undefined) {
     throw new Error('BROKER_URL');
-  }
-
-  if (CREDENTIALS === undefined) {
-    throw new Error('CREDENTIALS');
   }
 
   // event initialize
@@ -332,7 +337,6 @@ export const handler: SecretsManagerRotationHandler = async (
     );
     return;
   }
-
   if (!versions[token].includes('AWSPENDING')) {
     console.error(
       `Secret version ${token} not set as AWSPENDING for rotation of secret ${secretId}.`,
@@ -351,17 +355,17 @@ export const handler: SecretsManagerRotationHandler = async (
       break;
     case 'setSecret':
       console.log('handler: setSecret started');
-      await setSecret(secretId, token, BROKER_URL, CREDENTIALS);
+      await setSecret(secretId, token, BROKER_URL, MGMT_CREDENTIALS);
       console.log('handler: setSecret completed');
       break;
     case 'testSecret':
       console.log('handler: testSecret started');
-      await testSecret(secretId, token, BROKER_URL, CREDENTIALS);
+      await testSecret(secretId, token, BROKER_URL, MGMT_CREDENTIALS);
       console.log('handler: testSecret completed');
       break;
     case 'finishSecret':
       console.log('handler: finishSecret started.');
-      await finishSecret(secretId, token, BROKER_URL, CREDENTIALS);
+      await finishSecret(secretId, token, BROKER_URL, MGMT_CREDENTIALS);
       console.log('handler: finishSecret completed. rotate secret done.');
       break;
     default:
@@ -369,11 +373,11 @@ export const handler: SecretsManagerRotationHandler = async (
   }
 };
 
-const getCurrentCredentials = async (secretId: string) => {
+const getCredentials = async (secretId: string, versionStage: VersionStage) => {
   const { SecretString } = await client.send(
     new GetSecretValueCommand({
       SecretId: secretId,
-      VersionStage: 'AWSCURRENT' as VersionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
+      VersionStage: versionStage, // AWSCURRENT or AWSPENDING or AWSPREVIOUS.'
     }),
   );
 

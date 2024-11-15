@@ -127,7 +127,7 @@ const rotationLambda = new NodejsFunction(stack, 'CredsRotator', {
   environment: {
     BROKER_URL: broker.endpoints.console.url,
     // secret ARN to credentials of a RMQ user with managmement permissions
-    CREDENTIALS: brokerAdminCreds.secretArn,
+    MGMT_CREDENTIALS: brokerAdminCreds.secretArn,
   },
   logGroup: new LogGroup(stack, 'CredsRotatorLogGroup', {
     retention: RetentionDays.ONE_DAY,

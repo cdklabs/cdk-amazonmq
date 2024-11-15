@@ -536,7 +536,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "76d968cc80c1e555f1524c85e92bcd34e8ef6907cb0038c72fdd97ac2bdc7cd9.zip"
+     "S3Key": "04fbeb00ed0cb9496c974c6404503f6f9633992bba0645935d0822eb7d0f2e22.zip"
     },
     "Environment": {
      "Variables": {
@@ -556,7 +556,7 @@
         ]
        ]
       },
-      "CREDENTIALS": {
+      "MGMT_CREDENTIALS": {
        "Ref": "BrokerCreds13028F98"
       }
      }
