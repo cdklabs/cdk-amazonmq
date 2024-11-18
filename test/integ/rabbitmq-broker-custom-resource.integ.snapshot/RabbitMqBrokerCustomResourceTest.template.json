@@ -334,9 +334,6 @@
   "RMQ99AE7FDC72BE1F76D453C6BB": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
-    "Architectures": [
-     "arm64"
-    ],
     "Code": {
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
@@ -536,7 +533,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "04fbeb00ed0cb9496c974c6404503f6f9633992bba0645935d0822eb7d0f2e22.zip"
+     "S3Key": "0d581779abb320fff20ee2c874108c8ba7910b739068d93da314fc283f2622b5.zip"
     },
     "Environment": {
      "Variables": {

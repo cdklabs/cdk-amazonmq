@@ -263,8 +263,6 @@ export class RabbitMqCustomResource
       props.securityGroups,
     );
 
-    console.log('uuid', uuid);
-
     const provider = new RabbitMqCustomResourceSingletonFunction(
       this,
       'Provider',

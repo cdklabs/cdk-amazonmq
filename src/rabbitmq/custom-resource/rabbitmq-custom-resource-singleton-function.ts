@@ -13,7 +13,6 @@ export class RabbitMqCustomResourceSingletonFunction extends lambda.SingletonFun
       ...props,
       lambdaPurpose: 'RMQ',
       runtime: new lambda.Runtime('nodejs18.x', lambda.RuntimeFamily.NODEJS),
-      architecture: lambda.Architecture.ARM_64,
       handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../../assets/rabbitmq/custom-resource/handler/index')),
     });
