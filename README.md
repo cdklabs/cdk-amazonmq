@@ -9,7 +9,7 @@ Features                                     | Stability
 Higher level constructs for ActiveMQ Brokers | ![Experimental](https://img.shields.io/badge/experimental-important.svg?style=for-the-badge)
 Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shields.io/badge/experimental-important.svg?style=for-the-badge)
 
-> **Experimental:** Higher level constructs in this module that are marked as experimental are
+> **Experimental:** Higher level constructs in this module are experimental and
 > under active development. They are subject to non-backward compatible changes or removal in any
 > future version. These are not subject to the [Semantic Versioning](https://semver.org/) model and
 > breaking changes will be announced in the release notes. This means that while you may use them,
