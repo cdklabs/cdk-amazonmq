@@ -665,3 +665,5 @@ const getNodesName = new RabbitMqCustomResource(this, "GetNodes", {
 getNodesName.getResponseField('0.name')
 
 ```
+
+In the example presented the response of the call to `/api/nodes` endpoint is an JSON array of objects. For the `RabbitMqBrokerInstance` there will be a single object, whereas for the `RabbitMqBrokerCluster` there will be three objects presenting information for each node. Arrays are flattened by using the index for a position of the object and that is why the name of the first (and in the example only) node will is retrieved by specifying the response field name `0.name`.  
