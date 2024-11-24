@@ -54,16 +54,3 @@ export class StringParameterDynamicRefereceParser {
     };
   }
 }
-
-// const drs = [
-//   "resolve:ssm:golden-ami:2}}",
-//   "{{resolve:ssm:golden-ami:2}}",
-//   "{{resolve:ssm-secure:IAMUserPassword}}",
-// ];
-
-// drs.forEach((dr) =>
-//   console.log(
-//     dr,
-//     JSON.stringify(StringParameterDynamicRefereceParser.parse(dr), null, 2)
-//   )
-// );

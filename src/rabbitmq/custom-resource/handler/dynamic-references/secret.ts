@@ -76,19 +76,3 @@ export class SecretsDynamicRefereceParser {
     };
   }
 }
-
-// const drs = [
-//   '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}',
-//   '{{resolve:secretsmanager:MySecret}}',
-//   '{{resolve:secretsmanager:MySecret::::}}',
-//   '{{resolve:secretsmanager:MySecret:SecretString:password}}',
-//   '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}',
-//   '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3:SecretString:password}}',
-//   '{{resolve:secretsmanager:MySecret:SecretString:password:AWSPREVIOUS}}',
-// ];
-// drs.forEach((dr) =>
-//   console.log(
-//     dr,
-//     JSON.stringify(SecretsDynamicRefereceParser.parse(dr), null, 2),
-//   ),
-// );
