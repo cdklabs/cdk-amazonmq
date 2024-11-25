@@ -3,17 +3,13 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-import path from 'path';
-import { App, Duration, Stack } from 'aws-cdk-lib';
+import { App, Stack } from 'aws-cdk-lib';
 import {
   InstanceClass,
   InstanceSize,
   InstanceType,
-  Port,
 } from 'aws-cdk-lib/aws-ec2';
 import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { Runtime } from 'aws-cdk-lib/aws-lambda';
-import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
@@ -118,38 +114,5 @@ const app1Permissions = new RabbitMqCustomResource(
 );
 
 app1Permissions.node.addDependency(app1);
-
-const rotationLambda = new NodejsFunction(stack, 'CredsRotator', {
-  entry: path.join(__dirname, './rotation/credentials-rotator.ts'),
-  timeout: Duration.seconds(30),
-  runtime: Runtime.NODEJS_LATEST,
-  environment: {
-    BROKER_URL: broker.endpoints.console.url,
-    // secret ARN to credentials of a RMQ user with managmement permissions
-    MGMT_CREDENTIALS: brokerAdminCreds.secretArn,
-  },
-  logGroup: new LogGroup(stack, 'CredsRotatorLogGroup', {
-    retention: RetentionDays.ONE_DAY,
-  }),
-});
-
-broker.connections?.allowFrom(
-  rotationLambda,
-  Port.tcp(broker.endpoints.console.port),
-);
-
-brokerAdminCreds.grantRead(rotationLambda);
-
-brokerAdminCreds.addRotationSchedule('BrokerAdminCredsRotationSchedule', {
-  rotationLambda,
-  automaticallyAfter: Duration.hours(4),
-  rotateImmediatelyOnUpdate: true,
-});
-
-app1Creds.addRotationSchedule('App1CredsRotationSchedule', {
-  rotationLambda,
-  automaticallyAfter: Duration.hours(4),
-  rotateImmediatelyOnUpdate: true,
-});
 
 app.synth();
