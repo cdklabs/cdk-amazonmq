@@ -10305,26 +10305,6 @@ public readonly V3_13: RabbitMqBrokerEngineVersion;
 
 ---
 
-##### `V3_8_34`<sup>Required</sup> <a name="V3_8_34" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_8_34"></a>
-
-```typescript
-public readonly V3_8_34: RabbitMqBrokerEngineVersion;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
-
----
-
-##### `V3_9_27`<sup>Required</sup> <a name="V3_9_27" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_9_27"></a>
-
-```typescript
-public readonly V3_9_27: RabbitMqBrokerEngineVersion;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
-
----
-
 ### RabbitMqCustomResourcePolicy <a name="RabbitMqCustomResourcePolicy" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy"></a>
 
 The IAM Policy that will be applied to the calls.
