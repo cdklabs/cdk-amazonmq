@@ -73,7 +73,6 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
-    "AutoMinorVersionUpgrade": true,
     "BrokerName": "RabbitMqBrokerCustomResourceTestBroker92857339",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {
@@ -120,7 +119,7 @@
      "ExcludePunctuation": true,
      "GenerateStringKey": "password",
      "PasswordLength": 24,
-     "SecretStringTemplate": "{\"username\":\"app14\"}"
+     "SecretStringTemplate": "{\"username\":\"app1\"}"
     }
    },
    "UpdateReplacePolicy": "Delete",
@@ -231,7 +230,7 @@
        {
         "Ref": "App1Creds068A904D"
        },
-       ":SecretString:password::}}\",\"tags\":\"\"},\"physicalResourceId\":{\"id\":\"app14-create\"}}"
+       ":SecretString:password::}}\",\"tags\":\"\"},\"physicalResourceId\":{\"id\":\"app1-create\"}}"
       ]
      ]
     },
@@ -247,7 +246,7 @@
        {
         "Ref": "App1Creds068A904D"
        },
-       ":SecretString:password::}}\",\"tags\":\"\"},\"physicalResourceId\":{\"id\":\"app14-create\"}}"
+       ":SecretString:password::}}\",\"tags\":\"\"},\"physicalResourceId\":{\"id\":\"app1-create\"}}"
       ]
      ]
     },
@@ -397,7 +396,7 @@
        {
         "Ref": "App1Creds068A904D"
        },
-       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"configure\":\"\",\"write\":\"\",\"read\":\".*\"},\"physicalResourceId\":{\"id\":\"app14-permissions\"}}"
+       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"configure\":\"\",\"write\":\"\",\"read\":\".*\"},\"physicalResourceId\":{\"id\":\"app1-permissions\"}}"
       ]
      ]
     },
@@ -409,7 +408,7 @@
        {
         "Ref": "App1Creds068A904D"
        },
-       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"configure\":\"\",\"write\":\"\",\"read\":\".*\"},\"physicalResourceId\":{\"id\":\"app14-permissions\"}}"
+       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"configure\":\"\",\"write\":\"\",\"read\":\".*\"},\"physicalResourceId\":{\"id\":\"app1-permissions\"}}"
       ]
      ]
     },

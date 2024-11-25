@@ -48,10 +48,9 @@ const broker = new RabbitMqBrokerInstance(stack, 'Broker', {
     username: brokerAdminCreds.secretValueFromJson('username').unsafeUnwrap(),
     password: brokerAdminCreds.secretValueFromJson('password'),
   },
-  autoMinorVersionUpgrade: true,
 });
 
-const username = 'app14';
+const username = 'app1';
 
 const app1Creds = new Secret(stack, 'App1Creds', {
   generateSecretString: {
