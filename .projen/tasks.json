@@ -52,6 +52,9 @@
         },
         {
           "spawn": "bundle:mq-esm/esm-deleter.on-event.lambda"
+        },
+        {
+          "spawn": "bundle:rabbitmq/custom-resource/handler/index"
         }
       ]
     },
@@ -88,6 +91,24 @@
       "steps": [
         {
           "exec": "esbuild --bundle src/mq-esm/esm-deleter.on-event.lambda.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/mq-esm/esm-deleter.on-event.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+        }
+      ]
+    },
+    "bundle:rabbitmq/custom-resource/handler/index": {
+      "name": "bundle:rabbitmq/custom-resource/handler/index",
+      "description": "Create a JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/*"
+        }
+      ]
+    },
+    "bundle:rabbitmq/custom-resource/handler/index:watch": {
+      "name": "bundle:rabbitmq/custom-resource/handler/index:watch",
+      "description": "Continuously update the JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
+      "steps": [
+        {
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -461,6 +482,69 @@
         }
       ]
     },
+    "integ:rabbitmq-broker-custom-resource:assert": {
+      "name": "integ:rabbitmq-broker-custom-resource:assert",
+      "description": "assert the snapshot of integration test 'rabbitmq-broker-custom-resource'",
+      "steps": [
+        {
+          "exec": "[ -d \"test/integ/rabbitmq-broker-custom-resource.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-custom-resource'. Run 'projen integ:rabbitmq-broker-custom-resource:deploy' to capture.\" && exit 1)"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out > /dev/null"
+        },
+        {
+          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-custom-resource.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out/"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:deploy": {
+      "name": "integ:rabbitmq-broker-custom-resource:deploy",
+      "description": "deploy integration test 'rabbitmq-broker-custom-resource' and capture snapshot",
+      "steps": [
+        {
+          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "rm -fr test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+        },
+        {
+          "exec": "mv test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-custom-resource:destroy"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:destroy": {
+      "name": "integ:rabbitmq-broker-custom-resource:destroy",
+      "description": "destroy integration test 'rabbitmq-broker-custom-resource'",
+      "steps": [
+        {
+          "exec": "cdk destroy --app test/integ/rabbitmq-broker-custom-resource.integ.snapshot '**' --no-version-reporting"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:snapshot": {
+      "name": "integ:rabbitmq-broker-custom-resource:snapshot",
+      "description": "update snapshot for integration test \"rabbitmq-broker-custom-resource\"",
+      "steps": [
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-custom-resource.integ.snapshot > /dev/null"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-custom-resource:watch": {
+      "name": "integ:rabbitmq-broker-custom-resource:watch",
+      "description": "watch integration test 'rabbitmq-broker-custom-resource' (without updating snapshots)",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+        }
+      ]
+    },
     "integ:rabbitmq-broker-instance:assert": {
       "name": "integ:rabbitmq-broker-instance:assert",
       "description": "assert the snapshot of integration test 'rabbitmq-broker-instance'",
@@ -539,6 +623,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-cluster:snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-custom-resource:snapshot"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:snapshot"
@@ -717,6 +804,9 @@
           "spawn": "integ:rabbitmq-broker-cluster:assert"
         },
         {
+          "spawn": "integ:rabbitmq-broker-custom-resource:assert"
+        },
+        {
           "spawn": "integ:rabbitmq-broker-instance:assert"
         },
         {
@@ -795,13 +885,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@aws-sdk/util-arn-parser,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-import-resolver-typescript,eslint-plugin-import,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt rabbitmq-client rhea ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
+          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @aws-sdk/client-ssm @aws-sdk/util-arn-parser @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt rabbitmq-client rhea ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
         },
         {
           "exec": "npx projen"

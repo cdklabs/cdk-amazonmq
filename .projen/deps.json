@@ -13,6 +13,14 @@
       "type": "build"
     },
     {
+      "name": "@aws-sdk/client-ssm",
+      "type": "build"
+    },
+    {
+      "name": "@aws-sdk/util-arn-parser",
+      "type": "build"
+    },
+    {
       "name": "@types/aws-lambda",
       "type": "build"
     },
@@ -141,7 +149,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.157.0",
+      "version": "^2.162.0",
       "type": "peer"
     },
     {

@@ -14,3 +14,4 @@ export * from './rabbitmq-broker-configuration';
 export * from './rabbitmq-broker-configuration-definition';
 
 export * from './lambda';
+export * from './custom-resource';

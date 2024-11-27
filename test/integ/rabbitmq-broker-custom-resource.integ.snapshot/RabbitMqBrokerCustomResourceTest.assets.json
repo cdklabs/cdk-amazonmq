@@ -1,0 +1,32 @@
+{
+  "version": "38.0.1",
+  "files": {
+    "401753df90db62ffd49ad746479622f8ef095ec408f0bb5f21b41ea52ac85963": {
+      "source": {
+        "path": "asset.401753df90db62ffd49ad746479622f8ef095ec408f0bb5f21b41ea52ac85963",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "401753df90db62ffd49ad746479622f8ef095ec408f0bb5f21b41ea52ac85963.zip",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "3effaad3f4e52807a05385096d4a81ee1f6e0a5969898987133a538955118db5": {
+      "source": {
+        "path": "RabbitMqBrokerCustomResourceTest.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "3effaad3f4e52807a05385096d4a81ee1f6e0a5969898987133a538955118db5.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

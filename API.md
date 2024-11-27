@@ -5147,6 +5147,159 @@ public readonly endpoints: RabbitMqBrokerEndpoints;
 ---
 
 
+### RabbitMqCustomResource <a name="RabbitMqCustomResource" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource"></a>
+
+- *Implements:* aws-cdk-lib.aws_ec2.IConnectable, aws-cdk-lib.aws_iam.IGrantable
+
+#### Initializers <a name="Initializers" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer"></a>
+
+```typescript
+import { RabbitMqCustomResource } from '@cdklabs/cdk-amazonmq'
+
+new RabbitMqCustomResource(scope: Construct, id: string, props: RabbitMqCustomResourceProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer.parameter.props">props</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps">RabbitMqCustomResourceProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps">RabbitMqCustomResourceProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseField">getResponseField</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseFieldReference">getResponseFieldReference</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `getResponseField` <a name="getResponseField" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseField"></a>
+
+```typescript
+public getResponseField(key: string): string
+```
+
+###### `key`<sup>Required</sup> <a name="key" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseField.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+##### `getResponseFieldReference` <a name="getResponseFieldReference" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseFieldReference"></a>
+
+```typescript
+public getResponseFieldReference(key: string): Reference
+```
+
+###### `key`<sup>Required</sup> <a name="key" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseFieldReference.parameter.key"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.isConstruct"></a>
+
+```typescript
+import { RabbitMqCustomResource } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqCustomResource.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | The network connections associated with this resource. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.property.grantPrincipal">grantPrincipal</a></code> | <code>aws-cdk-lib.aws_iam.IPrincipal</code> | The principal to grant permissions to. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `connections`<sup>Required</sup> <a name="connections" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+The network connections associated with this resource.
+
+---
+
+##### `grantPrincipal`<sup>Required</sup> <a name="grantPrincipal" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.property.grantPrincipal"></a>
+
+```typescript
+public readonly grantPrincipal: IPrincipal;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IPrincipal
+
+The principal to grant permissions to.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### ActiveMqBrokerConfigurationOptions <a name="ActiveMqBrokerConfigurationOptions" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfigurationOptions"></a>
@@ -8036,6 +8189,119 @@ The time zone.
 
 ---
 
+### RabbitMqApiCall <a name="RabbitMqApiCall" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall"></a>
+
+A RabbitMQ Management HTTP API call.
+
+#### Initializer <a name="Initializer" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.Initializer"></a>
+
+```typescript
+import { RabbitMqApiCall } from '@cdklabs/cdk-amazonmq'
+
+const rabbitMqApiCall: RabbitMqApiCall = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.path">path</a></code> | <code>string</code> | The RabbitMQ Management HTTP API call path. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.logging">logging</a></code> | <code>aws-cdk-lib.custom_resources.Logging</code> | A property used to configure logging during lambda function execution. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.method">method</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods">HttpMethods</a></code> | The HTTP Method used when invoking the RabbitMQ Management HTTP API call. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.outputPaths">outputPaths</a></code> | <code>string[]</code> | Restrict the data returned by the custom resource to specific paths in the API response. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.payload">payload</a></code> | <code>{[ key: string ]: any}</code> | The payload expected by the RabbitMQ Management HTTP API call. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.physicalResourceId">physicalResourceId</a></code> | <code>aws-cdk-lib.custom_resources.PhysicalResourceId</code> | The physical resource id of the custom resource for this call. |
+
+---
+
+##### `path`<sup>Required</sup> <a name="path" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.path"></a>
+
+```typescript
+public readonly path: string;
+```
+
+- *Type:* string
+
+The RabbitMQ Management HTTP API call path.
+
+---
+
+##### `logging`<sup>Optional</sup> <a name="logging" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.logging"></a>
+
+```typescript
+public readonly logging: Logging;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.Logging
+- *Default:* Logging.all()
+
+A property used to configure logging during lambda function execution.
+
+Note: The default Logging configuration is all. This configuration will enable logging on all logged data
+in the lambda handler. This includes:
+ - The event object that is received by the lambda handler
+ - The response received after making a API call
+ - The response object that the lambda handler will return
+ - SDK versioning information
+ - Caught and uncaught errors
+
+---
+
+##### `method`<sup>Optional</sup> <a name="method" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.method"></a>
+
+```typescript
+public readonly method: HttpMethods;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.HttpMethods">HttpMethods</a>
+- *Default:* GET
+
+The HTTP Method used when invoking the RabbitMQ Management HTTP API call.
+
+---
+
+##### `outputPaths`<sup>Optional</sup> <a name="outputPaths" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.outputPaths"></a>
+
+```typescript
+public readonly outputPaths: string[];
+```
+
+- *Type:* string[]
+
+Restrict the data returned by the custom resource to specific paths in the API response.
+
+Use this to limit the data returned by the custom resource if working with API calls that could potentially result in custom response objects exceeding the hard limit of 4096 bytes.
+
+---
+
+##### `payload`<sup>Optional</sup> <a name="payload" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.payload"></a>
+
+```typescript
+public readonly payload: {[ key: string ]: any};
+```
+
+- *Type:* {[ key: string ]: any}
+
+The payload expected by the RabbitMQ Management HTTP API call.
+
+---
+
+##### `physicalResourceId`<sup>Optional</sup> <a name="physicalResourceId" id="@cdklabs/cdk-amazonmq.RabbitMqApiCall.property.physicalResourceId"></a>
+
+```typescript
+public readonly physicalResourceId: PhysicalResourceId;
+```
+
+- *Type:* aws-cdk-lib.custom_resources.PhysicalResourceId
+- *Default:* no physical resource id
+
+The physical resource id of the custom resource for this call.
+
+Mandatory for onCreate call.
+In onUpdate, you can omit this to passthrough it from request.
+
+---
+
 ### RabbitMqBrokerClusterProps <a name="RabbitMqBrokerClusterProps" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps"></a>
 
 #### Initializer <a name="Initializer" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.Initializer"></a>
@@ -9121,6 +9387,203 @@ Export general logs to CloudWatch.
 
 ---
 
+### RabbitMqCustomResourceProps <a name="RabbitMqCustomResourceProps" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps"></a>
+
+Properties for RabbitMqCustomResource.
+
+Note that at least onCreate, onUpdate or onDelete must be specified.
+
+#### Initializer <a name="Initializer" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.Initializer"></a>
+
+```typescript
+import { RabbitMqCustomResourceProps } from '@cdklabs/cdk-amazonmq'
+
+const rabbitMqCustomResourceProps: RabbitMqCustomResourceProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.broker">broker</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a></code> | The broker to send requests to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.credentials">credentials</a></code> | <code>aws-cdk-lib.aws_secretsmanager.ISecret</code> | The secret containing the broker login credentials. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.LogGroup</code> | The logGroup to use for the function. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | LogGroup retention to use for the function. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.onCreate">onCreate</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall">RabbitMqApiCall</a></code> | The RabbitMQ Management HTTP API call to make when the resource is created. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.onDelete">onDelete</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall">RabbitMqApiCall</a></code> | The RabbitMQ Management HTTP API call to make when the resource is updated. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.onUpdate">onUpdate</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall">RabbitMqApiCall</a></code> | The RabbitMQ Management HTTP API call to make when the resource is updated. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.policy">policy</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy">RabbitMqCustomResourcePolicy</a></code> | The policies to attach to the function's role. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The execution role for the function. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.SecurityGroup[]</code> | The security groups to assign to the function. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The timeout for the custom resource. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The vpc to connect to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | The vpc subnets to connect to. |
+
+---
+
+##### `broker`<sup>Required</sup> <a name="broker" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.broker"></a>
+
+```typescript
+public readonly broker: IRabbitMqBroker;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>
+
+The broker to send requests to.
+
+---
+
+##### `credentials`<sup>Required</sup> <a name="credentials" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.credentials"></a>
+
+```typescript
+public readonly credentials: ISecret;
+```
+
+- *Type:* aws-cdk-lib.aws_secretsmanager.ISecret
+
+The secret containing the broker login credentials.
+
+---
+
+##### `logGroup`<sup>Optional</sup> <a name="logGroup" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: LogGroup;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.LogGroup
+
+The logGroup to use for the function.
+
+---
+
+##### ~~`logRetention`~~<sup>Optional</sup> <a name="logRetention" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.logRetention"></a>
+
+- *Deprecated:* use logGroup instead
+
+```typescript
+public readonly logRetention: RetentionDays;
+```
+
+- *Type:* aws-cdk-lib.aws_logs.RetentionDays
+- *Default:* RetentionDays.INFINITE
+
+LogGroup retention to use for the function.
+
+---
+
+##### `onCreate`<sup>Optional</sup> <a name="onCreate" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.onCreate"></a>
+
+```typescript
+public readonly onCreate: RabbitMqApiCall;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall">RabbitMqApiCall</a>
+- *Default:* the call when the resource is updated
+
+The RabbitMQ Management HTTP API call to make when the resource is created.
+
+---
+
+##### `onDelete`<sup>Optional</sup> <a name="onDelete" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.onDelete"></a>
+
+```typescript
+public readonly onDelete: RabbitMqApiCall;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall">RabbitMqApiCall</a>
+- *Default:* no call
+
+The RabbitMQ Management HTTP API call to make when the resource is updated.
+
+---
+
+##### `onUpdate`<sup>Optional</sup> <a name="onUpdate" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.onUpdate"></a>
+
+```typescript
+public readonly onUpdate: RabbitMqApiCall;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqApiCall">RabbitMqApiCall</a>
+- *Default:* no call
+
+The RabbitMQ Management HTTP API call to make when the resource is updated.
+
+---
+
+##### `policy`<sup>Optional</sup> <a name="policy" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.policy"></a>
+
+```typescript
+public readonly policy: RabbitMqCustomResourcePolicy;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy">RabbitMqCustomResourcePolicy</a>
+
+The policies to attach to the function's role.
+
+---
+
+##### `role`<sup>Optional</sup> <a name="role" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.role"></a>
+
+```typescript
+public readonly role: IRole;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.IRole
+
+The execution role for the function.
+
+---
+
+##### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.securityGroups"></a>
+
+```typescript
+public readonly securityGroups: SecurityGroup[];
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SecurityGroup[]
+
+The security groups to assign to the function.
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.timeout"></a>
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
+- *Default:* Duration.minutes(1)
+
+The timeout for the custom resource.
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.vpc"></a>
+
+```typescript
+public readonly vpc: IVpc;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.IVpc
+
+The vpc to connect to.
+
+---
+
+##### `vpcSubnets`<sup>Optional</sup> <a name="vpcSubnets" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourceProps.property.vpcSubnets"></a>
+
+```typescript
+public readonly vpcSubnets: SubnetSelection;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.SubnetSelection
+
+The vpc subnets to connect to.
+
+---
+
 ### RabbitMqEventSourceProps <a name="RabbitMqEventSourceProps" id="@cdklabs/cdk-amazonmq.RabbitMqEventSourceProps"></a>
 
 #### Initializer <a name="Initializer" id="@cdklabs/cdk-amazonmq.RabbitMqEventSourceProps.Initializer"></a>
@@ -9839,6 +10302,77 @@ public readonly V3_13: RabbitMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
+
+---
+
+### RabbitMqCustomResourcePolicy <a name="RabbitMqCustomResourcePolicy" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy"></a>
+
+The IAM Policy that will be applied to the calls.
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.fromStatements">fromStatements</a></code> | Explicit IAM Policy Statements. |
+
+---
+
+##### `fromStatements` <a name="fromStatements" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.fromStatements"></a>
+
+```typescript
+import { RabbitMqCustomResourcePolicy } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqCustomResourcePolicy.fromStatements(statements: PolicyStatement[])
+```
+
+Explicit IAM Policy Statements.
+
+###### `statements`<sup>Required</sup> <a name="statements" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.fromStatements.parameter.statements"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+the statements to propagate to the SDK calls.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.property.statements">statements</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | statements for explicit policy. |
+
+---
+
+##### `statements`<sup>Required</sup> <a name="statements" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.property.statements"></a>
+
+```typescript
+public readonly statements: PolicyStatement[];
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyStatement[]
+
+statements for explicit policy.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.property.ANY_RESOURCE">ANY_RESOURCE</a></code> | <code>string[]</code> | Use this constant to configure access to any resource. |
+
+---
+
+##### `ANY_RESOURCE`<sup>Required</sup> <a name="ANY_RESOURCE" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy.property.ANY_RESOURCE"></a>
+
+```typescript
+public readonly ANY_RESOURCE: string[];
+```
+
+- *Type:* string[]
+
+Use this constant to configure access to any resource.
 
 ---
 
@@ -11546,6 +12080,41 @@ Amazon MQ for ActiveMQ's authentication strategy.
 
 
 ##### `SUNDAY` <a name="SUNDAY" id="@cdklabs/cdk-amazonmq.DayOfWeek.SUNDAY"></a>
+
+---
+
+
+### HttpMethods <a name="HttpMethods" id="@cdklabs/cdk-amazonmq.HttpMethods"></a>
+
+All http request methods.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.GET">GET</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.POST">POST</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.PUT">PUT</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.HttpMethods.DELETE">DELETE</a></code> | *No description.* |
+
+---
+
+##### `GET` <a name="GET" id="@cdklabs/cdk-amazonmq.HttpMethods.GET"></a>
+
+---
+
+
+##### `POST` <a name="POST" id="@cdklabs/cdk-amazonmq.HttpMethods.POST"></a>
+
+---
+
+
+##### `PUT` <a name="PUT" id="@cdklabs/cdk-amazonmq.HttpMethods.PUT"></a>
+
+---
+
+
+##### `DELETE` <a name="DELETE" id="@cdklabs/cdk-amazonmq.HttpMethods.DELETE"></a>
 
 ---
 

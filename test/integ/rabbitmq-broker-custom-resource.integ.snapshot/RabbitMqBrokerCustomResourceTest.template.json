@@ -1,0 +1,355 @@
+{
+ "Resources": {
+  "BrokerCreds13028F98": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 24,
+     "SecretStringTemplate": "{\"username\":\"admin\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "BrokerE1355FD6": {
+   "Type": "AWS::AmazonMQ::Broker",
+   "Properties": {
+    "BrokerName": "RabbitMqBrokerCustomResourceTestBroker92857339",
+    "DeploymentMode": "SINGLE_INSTANCE",
+    "EncryptionOptions": {
+     "UseAwsOwnedKey": true
+    },
+    "EngineType": "RABBITMQ",
+    "EngineVersion": "3.13",
+    "HostInstanceType": "mq.t3.micro",
+    "PubliclyAccessible": true,
+    "Users": [
+     {
+      "Password": {
+       "Fn::Join": [
+        "",
+        [
+         "{{resolve:secretsmanager:",
+         {
+          "Ref": "BrokerCreds13028F98"
+         },
+         ":SecretString:password::}}"
+        ]
+       ]
+      },
+      "Username": {
+       "Fn::Join": [
+        "",
+        [
+         "{{resolve:secretsmanager:",
+         {
+          "Ref": "BrokerCreds13028F98"
+         },
+         ":SecretString:username::}}"
+        ]
+       ]
+      }
+     }
+    ]
+   }
+  },
+  "App1Creds068A904D": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludePunctuation": true,
+     "GenerateStringKey": "password",
+     "PasswordLength": 24,
+     "SecretStringTemplate": "{\"username\":\"app1\"}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "RmqCustomResourceLogGroupDFBFB414": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "RetentionInDays": 1
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
+  },
+  "CreateApp1UserResource99AE7FDC72BE1F763E314621": {
+   "Type": "Custom::RMQAPI",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "RMQ99AE7FDC72BE1F76D453C6BB",
+      "Arn"
+     ]
+    },
+    "Url": {
+     "Fn::Join": [
+      "",
+      [
+       "https://",
+       {
+        "Ref": "BrokerE1355FD6"
+       },
+       ".mq.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".amazonaws.com"
+      ]
+     ]
+    },
+    "Credentials": {
+     "Ref": "BrokerCreds13028F98"
+    },
+    "Create": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"path\":\"/api/users/{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"password\":\"{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:password::}}\",\"tags\":\"\"},\"physicalResourceId\":{\"id\":\"app1-create\"}}"
+      ]
+     ]
+    },
+    "Update": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"path\":\"/api/users/{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"password\":\"{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:password::}}\",\"tags\":\"\"},\"physicalResourceId\":{\"id\":\"app1-create\"}}"
+      ]
+     ]
+    },
+    "Delete": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"path\":\"/api/users/{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:username::}}\",\"method\":\"DELETE\"}"
+      ]
+     ]
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  },
+  "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "RMQ99AE7FDC72BE1F76ServiceRoleDefaultPolicyFE8AB364": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "secretsmanager:GetSecretValue",
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "App1Creds068A904D"
+       }
+      },
+      {
+       "Action": [
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:DescribeSecret"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Ref": "BrokerCreds13028F98"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RMQ99AE7FDC72BE1F76ServiceRoleDefaultPolicyFE8AB364",
+    "Roles": [
+     {
+      "Ref": "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A"
+     }
+    ]
+   }
+  },
+  "RMQ99AE7FDC72BE1F76D453C6BB": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "401753df90db62ffd49ad746479622f8ef095ec408f0bb5f21b41ea52ac85963.zip"
+    },
+    "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
+    "Handler": "index.handler",
+    "LoggingConfig": {
+     "LogGroup": {
+      "Ref": "RmqCustomResourceLogGroupDFBFB414"
+     }
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Timeout": 60
+   },
+   "DependsOn": [
+    "RMQ99AE7FDC72BE1F76ServiceRoleDefaultPolicyFE8AB364",
+    "RMQ99AE7FDC72BE1F76ServiceRoleE298F77A"
+   ]
+  },
+  "GrantApp1UserPermissionsResource99AE7FDC72BE1F767EE04728": {
+   "Type": "Custom::RMQAPI",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "RMQ99AE7FDC72BE1F76D453C6BB",
+      "Arn"
+     ]
+    },
+    "Url": {
+     "Fn::Join": [
+      "",
+      [
+       "https://",
+       {
+        "Ref": "BrokerE1355FD6"
+       },
+       ".mq.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".amazonaws.com"
+      ]
+     ]
+    },
+    "Credentials": {
+     "Ref": "BrokerCreds13028F98"
+    },
+    "Create": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"path\":\"/api/permissions/%2F/{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"configure\":\"\",\"write\":\"\",\"read\":\".*\"},\"physicalResourceId\":{\"id\":\"app1-permissions\"}}"
+      ]
+     ]
+    },
+    "Update": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"path\":\"/api/permissions/%2F/{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:username::}}\",\"method\":\"PUT\",\"payload\":{\"configure\":\"\",\"write\":\"\",\"read\":\".*\"},\"physicalResourceId\":{\"id\":\"app1-permissions\"}}"
+      ]
+     ]
+    },
+    "Delete": {
+     "Fn::Join": [
+      "",
+      [
+       "{\"path\":\"/api/permissions/%2F/{{resolve:secretsmanager:",
+       {
+        "Ref": "App1Creds068A904D"
+       },
+       ":SecretString:username::}}\",\"method\":\"DELETE\"}"
+      ]
+     ]
+    }
+   },
+   "DependsOn": [
+    "CreateApp1UserResource99AE7FDC72BE1F763E314621"
+   ],
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete"
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}
