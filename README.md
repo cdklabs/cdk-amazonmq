@@ -1,4 +1,4 @@
-# AWS::AmazonMQ L2 Construct Library
+# AWS::AmazonMQ L2+ Construct Library
 
 <!--BEGIN STABILITY BANNER-->
 

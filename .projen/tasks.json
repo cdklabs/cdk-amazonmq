@@ -99,7 +99,7 @@
       "description": "Create a JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/*"
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
         }
       ]
     },
@@ -108,7 +108,7 @@
       "description": "Continuously update the JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --external:@aws-sdk/* --watch"
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
         }
       ]
     },
