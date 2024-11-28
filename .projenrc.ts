@@ -51,6 +51,7 @@ project.bundler.addBundle('src/rabbitmq/custom-resource/handler/index.ts', {
   externals: [
     '@aws-sdk/*',
   ],
+  tsconfigPath: 'tsconfig.dev.json',
 });
 
 project.eslint?.allowDevDeps('src/rabbitmq/custom-resource/handler/dynamic-references/secret.ts');
