@@ -12,18 +12,18 @@ SPDX-License-Identifier: Apache-2.0
  * This is achieved by replacing the dynamic references with the actual values (encoded
  */
 
-export * from './secret';
-export * from './string-parameter';
-export * from './dynamic-reference-extractor';
+export * from "./secret";
+export * from "./string-parameter";
+export * from "./dynamic-reference-extractor";
 
 import {
   GetSecretValueCommand,
   SecretsManagerClient,
-} from '@aws-sdk/client-secrets-manager';
-import { GetParameterCommand, SSMClient } from '@aws-sdk/client-ssm';
-import { DynamicReferenceExtractor } from './dynamic-reference-extractor';
-import { SecretDynamicRefereceComponents } from './secret';
-import { StringParameterDynamicRefereceComponents } from './string-parameter';
+} from "@aws-sdk/client-secrets-manager";
+import { GetParameterCommand, SSMClient } from "@aws-sdk/client-ssm";
+import { DynamicReferenceExtractor } from "./dynamic-reference-extractor";
+import { SecretDynamicRefereceComponents } from "./secret";
+import { StringParameterDynamicRefereceComponents } from "./string-parameter";
 
 const smClient = new SecretsManagerClient({});
 const ssmClient = new SSMClient({});
@@ -45,11 +45,11 @@ export async function replaceDynamicReferences(text?: string) {
 
 async function processParameters(
   parameters:
-  | {
-    reference: string;
-    components: StringParameterDynamicRefereceComponents;
-  }[]
-  | undefined,
+    | {
+        reference: string;
+        components: StringParameterDynamicRefereceComponents;
+      }[]
+    | undefined,
   resultText: string,
 ) {
   if (parameters) {
@@ -77,8 +77,8 @@ async function processParameters(
 
 async function processSecrets(
   secrets:
-  | { reference: string; components: SecretDynamicRefereceComponents }[]
-  | undefined,
+    | { reference: string; components: SecretDynamicRefereceComponents }[]
+    | undefined,
   resultText: string,
 ) {
   if (secrets) {

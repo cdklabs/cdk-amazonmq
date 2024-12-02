@@ -223,7 +223,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "d45bf79c36d36bde5dca5a314c3d2d7c5dca878c01617d0c40303bc97b9c300c.zip"
+     "S3Key": "ff2976f1a9f9a131f804cc6a47099774636d29db60c4e646ca0a364cba67d881.zip"
     },
     "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
     "Handler": "index.handler",

@@ -2,7 +2,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { SecretValue } from 'aws-cdk-lib';
+import { SecretValue } from "aws-cdk-lib";
 
 export interface ActiveMqLdapAuthorization {
   /**
@@ -13,12 +13,12 @@ export interface ActiveMqLdapAuthorization {
   /**
    * The distinguished name of the node in the directory information tree (DIT) to search for roles or groups. For example, ou=group, ou=corp, dc=corp, dc=example, dc=com.
    */
-  readonly roleBase : string;
+  readonly roleBase: string;
 
   /**
    * The group name attribute in a role entry whose value is the name of that role. For example, you can specify cn for a group entry's common name. If authentication succeeds, then the user is assigned the the value of the cn attribute for each role entry that they are a member of.
    */
-  readonly roleName? : string;
+  readonly roleName?: string;
 
   /**
    * The directory search scope for the role. If set to true, scope is to search the entire subtree.

@@ -3,12 +3,12 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-import { build } from '@aws-sdk/util-arn-parser';
+import { build } from "@aws-sdk/util-arn-parser";
 // see: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/dynamic-references-secretsmanager.html
 
 export interface SecretDynamicRefereceComponents {
   readonly secretId: string;
-  readonly secretString?: 'SecretString';
+  readonly secretString?: "SecretString";
   readonly jsonKey?: string;
   readonly versionStage?: string;
   readonly versionId?: string;
@@ -39,17 +39,17 @@ export class SecretsDynamicRefereceParser {
     const referenceContents = matches[matches.length === 2 ? 1 : 2];
 
     const arnBased = referenceContents.startsWith(
-      'resolve:secretsmanager:arn:',
+      "resolve:secretsmanager:arn:",
     );
 
-    const parts = referenceContents.split(':');
+    const parts = referenceContents.split(":");
 
     const valueAtOrDefault = <T>(
       arr: string[],
       idx: number,
       defaultValue?: T,
     ): T | undefined =>
-      arr.length > idx && arr[idx] !== '' ? (arr[idx] as T) : defaultValue;
+      arr.length > idx && arr[idx] !== "" ? (arr[idx] as T) : defaultValue;
 
     if (!arnBased) {
       return {

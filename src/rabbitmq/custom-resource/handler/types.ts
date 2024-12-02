@@ -6,7 +6,7 @@ SPDX-License-Identifier: Apache-2.0
 /**
  * Supported HTTP Methods for RabbitMQ Management API calls.
  */
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
 export interface RabbitApiCall {
   /**

@@ -11,18 +11,18 @@ import {
   Names,
   Resource,
   Stack,
-} from 'aws-cdk-lib';
-import { CfnConfiguration } from 'aws-cdk-lib/aws-amazonmq';
+} from "aws-cdk-lib";
+import { CfnConfiguration } from "aws-cdk-lib/aws-amazonmq";
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
   AwsSdkCall,
   PhysicalResourceId,
-} from 'aws-cdk-lib/custom-resources';
-import { Construct } from 'constructs';
-import { ActiveMqAuthenticationStrategy } from './activemq/activemq-authentication-strategy';
-import { BrokerEngine, IBrokerDeployment } from './broker-deployment';
-import { ConfigurationAssociation } from './configuration-association';
+} from "aws-cdk-lib/custom-resources";
+import { Construct } from "constructs";
+import { ActiveMqAuthenticationStrategy } from "./activemq/activemq-authentication-strategy";
+import { BrokerEngine, IBrokerDeployment } from "./broker-deployment";
+import { ConfigurationAssociation } from "./configuration-association";
 
 export interface ConfigurationProps {
   readonly configurationName?: string;
@@ -47,7 +47,8 @@ export interface BrokerConfigurationAttributes {
 
 export abstract class BrokerConfiguration
   extends Resource
-  implements IBrokerConfiguration {
+  implements IBrokerConfiguration
+{
   /***
    * @internal
    */
@@ -72,11 +73,11 @@ export abstract class BrokerConfiguration
         this.arn = arn
           ? arn
           : Stack.of(this).formatArn({
-            service: 'mq',
-            resource: 'configuration',
-            resourceName: id,
-            arnFormat: ArnFormat.COLON_RESOURCE_NAME,
-          });
+              service: "mq",
+              resource: "configuration",
+              resourceName: id,
+              arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+            });
         this.id = id
           ? id
           : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!;
@@ -106,12 +107,13 @@ export abstract class BrokerConfiguration
         Lazy.string({
           produce: () =>
             Names.uniqueResourceName(this, {
-              maxLength: 150, allowedSpecialCharacters: '-._~',
+              maxLength: 150,
+              allowedSpecialCharacters: "-._~",
             }),
         }),
     });
 
-    const resource = new CfnConfiguration(this, 'Resource', {
+    const resource = new CfnConfiguration(this, "Resource", {
       name: this.physicalName,
       description: props.description,
       data: Fn.base64(props.data),
@@ -124,8 +126,8 @@ export abstract class BrokerConfiguration
 
     this.id = this.getResourceNameAttribute(resource.ref);
     this.arn = this.getResourceArnAttribute(resource.attrArn, {
-      service: 'mq',
-      resource: 'configuration',
+      service: "mq",
+      resource: "configuration",
       resourceName: this.physicalName,
       arnFormat: ArnFormat.COLON_RESOURCE_NAME,
     });
@@ -176,7 +178,7 @@ export abstract class BrokerConfiguration
     this.configureEngineVersion(broker._engineVersion);
     this.configureAuthenticationStrategy(broker._authenticationStrategy);
 
-    return new ConfigurationAssociation(this, 'Configuration', {
+    return new ConfigurationAssociation(this, "Configuration", {
       broker,
       configuration: this,
     });
@@ -187,17 +189,17 @@ export abstract class BrokerConfiguration
    */
   protected _createRevisor(data: string, description?: string) {
     const call: AwsSdkCall = {
-      service: 'mq',
-      action: 'UpdateConfiguration',
+      service: "mq",
+      action: "UpdateConfiguration",
       parameters: {
         ConfigurationId: this.id,
         Data: Fn.base64(data),
         Description: description,
       },
-      physicalResourceId: PhysicalResourceId.fromResponse('Id'),
+      physicalResourceId: PhysicalResourceId.fromResponse("Id"),
     };
 
-    const revisor = new AwsCustomResource(this, 'Revisor', {
+    const revisor = new AwsCustomResource(this, "Revisor", {
       onCreate: call,
       policy: AwsCustomResourcePolicy.fromSdkCalls({
         resources: [this.arn],
