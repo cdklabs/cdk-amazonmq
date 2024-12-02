@@ -6,11 +6,11 @@ SPDX-License-Identifier: Apache-2.0
 import {
   SecretDynamicRefereceComponents,
   SecretsDynamicRefereceParser,
-} from './secret';
+} from "./secret";
 import {
   StringParameterDynamicRefereceComponents,
   StringParameterDynamicRefereceParser,
-} from './string-parameter';
+} from "./string-parameter";
 
 export class DynamicReferenceExtractor {
   private static get regex() {
@@ -20,31 +20,31 @@ export class DynamicReferenceExtractor {
   public static extract(text: string): [
     (
       | {
-        reference: string;
-        components: SecretDynamicRefereceComponents;
-      }[]
+          reference: string;
+          components: SecretDynamicRefereceComponents;
+        }[]
       | undefined
     ),
     (
       | {
-        reference: string;
-        components: StringParameterDynamicRefereceComponents;
-      }[]
+          reference: string;
+          components: StringParameterDynamicRefereceComponents;
+        }[]
       | undefined
-    )
+    ),
   ] {
     let secrets:
-    | {
-      reference: string;
-      components: SecretDynamicRefereceComponents;
-    }[]
-    | undefined;
+      | {
+          reference: string;
+          components: SecretDynamicRefereceComponents;
+        }[]
+      | undefined;
     let parameters:
-    | {
-      reference: string;
-      components: StringParameterDynamicRefereceComponents;
-    }[]
-    | undefined;
+      | {
+          reference: string;
+          components: StringParameterDynamicRefereceComponents;
+        }[]
+      | undefined;
 
     const matches = text.matchAll(DynamicReferenceExtractor.regex);
 

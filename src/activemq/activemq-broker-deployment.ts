@@ -2,24 +2,24 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { IResource } from 'aws-cdk-lib';
-import { Metric, MetricOptions } from 'aws-cdk-lib/aws-cloudwatch';
-import { Construct } from 'constructs';
+import { IResource } from "aws-cdk-lib";
+import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
+import { Construct } from "constructs";
 // import { ActiveMqAuthenticationStrategy } from './activemq-authentication-strategy';
 import {
   ActiveMqBrokerConfiguration,
   IActiveMqBrokerConfiguration,
-} from './activemq-broker-configuration';
-import { ActiveMqBrokerEngineVersion } from './activemq-broker-engine-version';
+} from "./activemq-broker-configuration";
+import { ActiveMqBrokerEngineVersion } from "./activemq-broker-engine-version";
 import {
   BrokerDeploymentBase,
   BrokerEngine,
   BrokerDeploymentProps,
   IBrokerDeployment,
-} from '../broker-deployment';
-import { BrokerDeploymentMode } from '../broker-deployment-mode';
-import { IActiveMqBrokerUserManagement } from './usermanagement/activemq-broker-user-management';
-import { ActiveMqLdapValidation } from './validators/ldap-metadata-validator';
+} from "../broker-deployment";
+import { BrokerDeploymentMode } from "../broker-deployment-mode";
+import { IActiveMqBrokerUserManagement } from "./usermanagement/activemq-broker-user-management";
+import { ActiveMqLdapValidation } from "./validators/ldap-metadata-validator";
 
 export interface ActiveMqCloudwatchLogsExports {
   /**
@@ -73,7 +73,7 @@ export interface ActiveMqBrokerDeploymentBaseProps
 
 export interface IActiveMqBrokerDeployment
   extends IResource,
-  IBrokerDeployment {
+    IBrokerDeployment {
   metricAmqpMaximumConnections(props?: MetricOptions): Metric;
 
   metricBurstBalance(props?: MetricOptions): Metric;
@@ -157,8 +157,8 @@ export interface IActiveMqBrokerDeployment
 
 export abstract class ActiveMqBrokerDeploymentBase
   extends BrokerDeploymentBase
-  implements IActiveMqBrokerDeployment {
-
+  implements IActiveMqBrokerDeployment
+{
   // private readonly engineVersion: ActiveMqBrokerEngineVersion;
   // private readonly authenticationStrategy?: ActiveMqAuthenticationStrategy;
 
@@ -183,7 +183,6 @@ export abstract class ActiveMqBrokerDeploymentBase
     // this.engineVersion = props.version;
 
     if (renderedUserManagement.ldapServerMetadata) {
-
       // this.authenticationStrategy = ActiveMqAuthenticationStrategy.LDAP;
 
       // validate ldap server metadata if present
@@ -196,7 +195,7 @@ export abstract class ActiveMqBrokerDeploymentBase
 
     this._configuration =
       props.configuration ??
-      ActiveMqBrokerConfiguration.fromAttributes(this, 'Configuration', {
+      ActiveMqBrokerConfiguration.fromAttributes(this, "Configuration", {
         id: this._resource.attrConfigurationId,
         revision: this._resource.attrConfigurationRevision,
       });
@@ -215,160 +214,160 @@ export abstract class ActiveMqBrokerDeploymentBase
   // }
 
   public metricAmqpMaximumConnections(props?: MetricOptions): Metric {
-    return this.metric('AmqpMaximumConnections', props);
+    return this.metric("AmqpMaximumConnections", props);
   }
 
   public metricBurstBalance(props?: MetricOptions): Metric {
-    return this.metric('BurstBalance', props);
+    return this.metric("BurstBalance", props);
   }
 
   public metricCpuCreditBalance(props?: MetricOptions): Metric {
-    return this.metric('CpuCreditBalance', props);
+    return this.metric("CpuCreditBalance", props);
   }
 
   public metricCpuUtilization(props?: MetricOptions): Metric {
-    return this.metric('CpuUtilization', props);
+    return this.metric("CpuUtilization", props);
   }
 
   public metricCurrentConnectionsCount(props?: MetricOptions): Metric {
-    return this.metric('CurrentConnectionsCount', props);
+    return this.metric("CurrentConnectionsCount", props);
   }
 
   public metricEstablishedConnectionsCount(props?: MetricOptions): Metric {
-    return this.metric('EstablishedConnectionsCount', props);
+    return this.metric("EstablishedConnectionsCount", props);
   }
 
   public metricHeapUsage(props?: MetricOptions): Metric {
-    return this.metric('HeapUsage', props);
+    return this.metric("HeapUsage", props);
   }
 
   public metricInactiveDurableTopicSubscribersCount(
     props?: MetricOptions,
   ): Metric {
-    return this.metric('InactiveDurableTopicSubscribersCount', props);
+    return this.metric("InactiveDurableTopicSubscribersCount", props);
   }
 
   public metricJobSchedulerStorePercentUsage(props?: MetricOptions): Metric {
-    return this.metric('JobSchedulerStorePercentUsage', props);
+    return this.metric("JobSchedulerStorePercentUsage", props);
   }
 
   public metricJournalFilesForFastRecovery(props?: MetricOptions): Metric {
-    return this.metric('JobSchedulerStorePercentUsage', props);
+    return this.metric("JobSchedulerStorePercentUsage", props);
   }
 
   public metricJournalFilesForFullRecovery(props?: MetricOptions): Metric {
-    return this.metric('JournalFilesForFullRecovery', props);
+    return this.metric("JournalFilesForFullRecovery", props);
   }
 
   public metricMqttMaximumConnections(props?: MetricOptions): Metric {
-    return this.metric('MqttMaximumConnections', props);
+    return this.metric("MqttMaximumConnections", props);
   }
 
   public metricNetworkConnectorConnectionCount(props?: MetricOptions): Metric {
-    return this.metric('NetworkConnectorConnectionCount', props);
+    return this.metric("NetworkConnectorConnectionCount", props);
   }
 
   public metricNetworkIn(props?: MetricOptions): Metric {
-    return this.metric('NetworkIn', props);
+    return this.metric("NetworkIn", props);
   }
 
   public metricNetworkOut(props?: MetricOptions): Metric {
-    return this.metric('NetworkOut', props);
+    return this.metric("NetworkOut", props);
   }
 
   public metricOpenTransactionCount(props?: MetricOptions): Metric {
-    return this.metric('OpenTransactionCount', props);
+    return this.metric("OpenTransactionCount", props);
   }
 
   public metricOpenwireMaximumConnections(props?: MetricOptions): Metric {
-    return this.metric('OpenwireMaximumConnections', props);
+    return this.metric("OpenwireMaximumConnections", props);
   }
 
   public metricStompMaximumConnections(props?: MetricOptions): Metric {
-    return this.metric('StompMaximumConnections', props);
+    return this.metric("StompMaximumConnections", props);
   }
 
   public metricStorePercentUsage(props?: MetricOptions): Metric {
-    return this.metric('StorePercentUsage', props);
+    return this.metric("StorePercentUsage", props);
   }
 
   public metricTempPercentUsage(props?: MetricOptions): Metric {
-    return this.metric('TempPercentUsage', props);
+    return this.metric("TempPercentUsage", props);
   }
 
   public metricTotalConsumerCount(props?: MetricOptions): Metric {
-    return this.metric('TotalConsumerCount', props);
+    return this.metric("TotalConsumerCount", props);
   }
 
   public metricTotalMessageCount(props?: MetricOptions): Metric {
-    return this.metric('TotalMessageCount', props);
+    return this.metric("TotalMessageCount", props);
   }
 
   public metricTotalProducerCount(props?: MetricOptions): Metric {
-    return this.metric('TotalProducerCount', props);
+    return this.metric("TotalProducerCount", props);
   }
 
   public metricVolumeReadOps(props?: MetricOptions): Metric {
-    return this.metric('VolumeReadOps', props);
+    return this.metric("VolumeReadOps", props);
   }
 
   public metricVolumeWriteOps(props?: MetricOptions): Metric {
-    return this.metric('VolumeWriteOps', props);
+    return this.metric("VolumeWriteOps", props);
   }
 
   public metricWsMaximumConnections(props?: MetricOptions): Metric {
-    return this.metric('WsMaximumConnections', props);
+    return this.metric("WsMaximumConnections", props);
   }
 
   public metricConsumerCount(props?: MetricOptions): Metric {
-    return this.metric('ConsumerCount', props);
+    return this.metric("ConsumerCount", props);
   }
 
   public metricEnqueueCount(props?: MetricOptions): Metric {
-    return this.metric('EnqueueCount', props);
+    return this.metric("EnqueueCount", props);
   }
 
   public metricEnqueueTime(props?: MetricOptions): Metric {
-    return this.metric('EnqueueTime', props);
+    return this.metric("EnqueueTime", props);
   }
 
   public metricExpiredCount(props?: MetricOptions): Metric {
-    return this.metric('ExpiredCount', props);
+    return this.metric("ExpiredCount", props);
   }
 
   public metricDispatchCount(props?: MetricOptions): Metric {
-    return this.metric('DispatchCount', props);
+    return this.metric("DispatchCount", props);
   }
 
   public metricDequeueCount(props?: MetricOptions): Metric {
-    return this.metric('DequeueCount', props);
+    return this.metric("DequeueCount", props);
   }
 
   public metricInFlightCount(props?: MetricOptions): Metric {
-    return this.metric('InFlightCount', props);
+    return this.metric("InFlightCount", props);
   }
 
   public metricReceiveCount(props?: MetricOptions): Metric {
-    return this.metric('ReceiveCount', props);
+    return this.metric("ReceiveCount", props);
   }
 
   public metricMemoryUsage(props?: MetricOptions): Metric {
-    return this.metric('MemoryUsage', props);
+    return this.metric("MemoryUsage", props);
   }
 
   public metricProducerCount(props?: MetricOptions): Metric {
-    return this.metric('ProducerCount', props);
+    return this.metric("ProducerCount", props);
   }
 
   public metricQueueSize(props?: MetricOptions): Metric {
-    return this.metric('QueueSize', props);
+    return this.metric("QueueSize", props);
   }
 
   public metricTotalEnqueueCount(props?: MetricOptions): Metric {
-    return this.metric('TotalEnqueueCount', props);
+    return this.metric("TotalEnqueueCount", props);
   }
 
   public metricTotalDequeueCount(props?: MetricOptions): Metric {
-    return this.metric('TotalDequeueCount', props);
+    return this.metric("TotalDequeueCount", props);
   }
 }

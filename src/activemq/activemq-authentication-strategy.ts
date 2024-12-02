@@ -8,7 +8,7 @@ SPDX-License-Identifier: Apache-2.0
  */
 export enum ActiveMqAuthenticationStrategy {
   // Simple Authentication, an in-built mechanism of ActiveMQ
-  SIMPLE = 'SIMPLE',
+  SIMPLE = "SIMPLE",
   // LDAP integration based authentication
-  LDAP = 'LDAP'
+  LDAP = "LDAP",
 }

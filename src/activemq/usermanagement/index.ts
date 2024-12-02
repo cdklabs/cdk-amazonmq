@@ -2,6 +2,6 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-export * from './activemq-user';
-export * from './activemq-authoriztion';
-export * from './activemq-broker-user-management';
+export * from "./activemq-user";
+export * from "./activemq-authoriztion";
+export * from "./activemq-broker-user-management";

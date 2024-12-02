@@ -2,7 +2,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Duration } from 'aws-cdk-lib';
+import { Duration } from "aws-cdk-lib";
 
 /// TODO: think if it should be parameters or maybe properties?
 export interface RabbitMqBrokerConfigurationParameters {

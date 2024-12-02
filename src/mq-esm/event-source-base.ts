@@ -2,14 +2,26 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Aws, CustomResource, Duration, Names, withResolved } from 'aws-cdk-lib';
-import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
-import { CfnEventSourceMapping, IEventSource, IFunction, SourceAccessConfiguration, SourceAccessConfigurationType } from 'aws-cdk-lib/aws-lambda';
-import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
-import { Provider } from 'aws-cdk-lib/custom-resources';
-import { EsmDeleterIsCompleteFunction } from './esm-deleter.is-complete-function';
-import { EsmDeleterOnEventFunction } from './esm-deleter.on-event-function';
-import { IBrokerDeployment } from '../broker-deployment';
+import {
+  Aws,
+  CustomResource,
+  Duration,
+  Names,
+  withResolved,
+} from "aws-cdk-lib";
+import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import {
+  CfnEventSourceMapping,
+  IEventSource,
+  IFunction,
+  SourceAccessConfiguration,
+  SourceAccessConfigurationType,
+} from "aws-cdk-lib/aws-lambda";
+import { ISecret } from "aws-cdk-lib/aws-secretsmanager";
+import { Provider } from "aws-cdk-lib/custom-resources";
+import { EsmDeleterIsCompleteFunction } from "./esm-deleter.is-complete-function";
+import { EsmDeleterOnEventFunction } from "./esm-deleter.on-event-function";
+import { IBrokerDeployment } from "../broker-deployment";
 
 export interface EventSourceProps {
   /**
@@ -42,7 +54,6 @@ export interface EventSourceProps {
    */
   readonly enabled?: boolean;
 
-
   /**
    * A secret with credentials of the user to use when receiving messages.
    *
@@ -66,7 +77,6 @@ export interface EventSourceProps {
 }
 
 export interface EventSourceBaseProps extends EventSourceProps {
-
   /**
    * The Amazon MQ broker deployment to receive messages from.
    */
@@ -86,48 +96,62 @@ export abstract class EventSourceBase implements IEventSource {
    *
    * @param props properties of the RabbitMQ event source
    */
-  constructor(protected readonly props: EventSourceBaseProps, protected readonly mqType: string) {
-    this.props.batchSize !== undefined && withResolved(this.props.batchSize, batchSize => {
-      if (batchSize < 1 || batchSize > 10000) {
-        throw new Error(`Maximum batch size must be between 1 and 10000 inclusive (given ${this.props.batchSize})`);
-      }
-    });
+  constructor(
+    protected readonly props: EventSourceBaseProps,
+    protected readonly mqType: string,
+  ) {
+    this.props.batchSize !== undefined &&
+      withResolved(this.props.batchSize, (batchSize) => {
+        if (batchSize < 1 || batchSize > 10000) {
+          throw new Error(
+            `Maximum batch size must be between 1 and 10000 inclusive (given ${this.props.batchSize})`,
+          );
+        }
+      });
   }
 
   bind(target: IFunction): void {
-
     if (this.props.addPermissions === undefined || this.props.addPermissions) {
       this.props.credentials.grantRead(target);
 
-      target.node.addMetadata('function-mq-permissions', 'Additional permissions following https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions');
+      target.node.addMetadata(
+        "function-mq-permissions",
+        "Additional permissions following https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions",
+      );
 
       if (!target.isBoundToVpc) {
         // INFO: if the target is VPC bound then CDK attaches
         //       managed policy AWSLambdaVPCAccessExecutionRole
         //       which contains the necessary permissions.
-        target.addToRolePolicy(new PolicyStatement({
-          effect: Effect.ALLOW,
-          actions: [
-            'ec2:CreateNetworkInterface',
-            'ec2:DeleteNetworkInterface',
-            'ec2:DescribeNetworkInterfaces',
-            'ec2:DescribeSubnets',
-          ],
-          resources: ['*'],
-        }));
+        target.addToRolePolicy(
+          new PolicyStatement({
+            effect: Effect.ALLOW,
+            actions: [
+              "ec2:CreateNetworkInterface",
+              "ec2:DeleteNetworkInterface",
+              "ec2:DescribeNetworkInterfaces",
+              "ec2:DescribeSubnets",
+            ],
+            resources: ["*"],
+          }),
+        );
       }
 
-      target.addToRolePolicy(new PolicyStatement({
-        effect: Effect.ALLOW,
-        actions: ['mq:DescribeBroker'],
-        resources: [this.props.broker.arn],
-      }));
+      target.addToRolePolicy(
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ["mq:DescribeBroker"],
+          resources: [this.props.broker.arn],
+        }),
+      );
 
-      target.addToRolePolicy(new PolicyStatement({
-        effect: Effect.ALLOW,
-        actions: ['ec2:DescribeVpcs', 'ec2:DescribeSecurityGroups'],
-        resources: ['*'],
-      }));
+      target.addToRolePolicy(
+        new PolicyStatement({
+          effect: Effect.ALLOW,
+          actions: ["ec2:DescribeVpcs", "ec2:DescribeSecurityGroups"],
+          resources: ["*"],
+        }),
+      );
     }
 
     this.sourceAccessConfigurations.push({
@@ -136,58 +160,71 @@ export abstract class EventSourceBase implements IEventSource {
     });
 
     // TODO: move ID generation outside as an abstract protected method
-    const mapping = target.addEventSourceMapping(`MqEventSource:${Names.nodeUniqueId(this.props.broker.node)}${this.props.queueName}`, {
-      batchSize: this.props.batchSize,
-      maxBatchingWindow: this.props.maxBatchingWindow,
-      enabled: this.props.enabled,
-      eventSourceArn: this.props.broker.arn,
-      sourceAccessConfigurations: this.sourceAccessConfigurations,
-    });
+    const mapping = target.addEventSourceMapping(
+      `MqEventSource:${Names.nodeUniqueId(this.props.broker.node)}${this.props.queueName}`,
+      {
+        batchSize: this.props.batchSize,
+        maxBatchingWindow: this.props.maxBatchingWindow,
+        enabled: this.props.enabled,
+        eventSourceArn: this.props.broker.arn,
+        sourceAccessConfigurations: this.sourceAccessConfigurations,
+      },
+    );
 
     const esMapping = mapping.node.defaultChild as CfnEventSourceMapping;
 
     // INFO: even though the property allows an array of items
     //       there can be no more than one queue
-    esMapping.addPropertyOverride('Queues', [this.props.queueName]);
+    esMapping.addPropertyOverride("Queues", [this.props.queueName]);
 
     // INFO: This is a (hopefully) temporary workaround due to the fact that ESM notifies CFN too early its deletion
     //       completion and as a result, target's IAM Role is being deleted before ESM is able to assume it to delete the ENIs.
     //       This in turn causes a deletion failure that requires manual ENIs' deletion to recover.
     if (target.role) {
-      const provider = new Provider(mapping, `MqEsmDeleter:${Names.uniqueId(mapping)}`, {
-        onEventHandler: new EsmDeleterOnEventFunction(mapping, 'onevent', {
-          initialPolicy: [
-            new PolicyStatement({
-              actions: [
-                'lambda:DeleteEventSourceMapping',
+      const provider = new Provider(
+        mapping,
+        `MqEsmDeleter:${Names.uniqueId(mapping)}`,
+        {
+          onEventHandler: new EsmDeleterOnEventFunction(mapping, "onevent", {
+            initialPolicy: [
+              new PolicyStatement({
+                actions: ["lambda:DeleteEventSourceMapping"],
+                effect: Effect.ALLOW,
+                resources: [
+                  `arn:${Aws.PARTITION}:lambda:${Aws.REGION}:${Aws.ACCOUNT_ID}:event-source-mapping:${mapping.eventSourceMappingId}`,
+                ],
+              }),
+            ],
+          }),
+          isCompleteHandler: new EsmDeleterIsCompleteFunction(
+            mapping,
+            "iscomplete",
+            {
+              initialPolicy: [
+                new PolicyStatement({
+                  actions: ["ec2:DescribeNetworkInterfaces"],
+                  effect: Effect.ALLOW,
+                  resources: ["*"],
+                }),
               ],
-              effect: Effect.ALLOW,
-              resources: [`arn:${Aws.PARTITION}:lambda:${Aws.REGION}:${Aws.ACCOUNT_ID}:event-source-mapping:${mapping.eventSourceMappingId}`],
-            }),
-          ],
-        }),
-        isCompleteHandler: new EsmDeleterIsCompleteFunction(mapping, 'iscomplete', {
-          initialPolicy: [
-            new PolicyStatement({
-              actions: [
-                'ec2:DescribeNetworkInterfaces',
-              ],
-              effect: Effect.ALLOW,
-              resources: ['*'],
-            }),
-          ],
-        }),
-        queryInterval: Duration.minutes(1),
-      });
-
-      const cr = new CustomResource(mapping, `MqEsmDeleterCR:${Names.nodeUniqueId(mapping.node)}`, {
-        serviceToken: provider.serviceToken,
-        properties: {
-          MqType: this.mqType,
-          EsmId: mapping.eventSourceMappingId,
-          AccountId: Aws.ACCOUNT_ID,
+            },
+          ),
+          queryInterval: Duration.minutes(1),
         },
-      });
+      );
+
+      const cr = new CustomResource(
+        mapping,
+        `MqEsmDeleterCR:${Names.nodeUniqueId(mapping.node)}`,
+        {
+          serviceToken: provider.serviceToken,
+          properties: {
+            MqType: this.mqType,
+            EsmId: mapping.eventSourceMappingId,
+            AccountId: Aws.ACCOUNT_ID,
+          },
+        },
+      );
 
       // INFO: the Amazon MQ service uses this role to provision/deprovision the ESM.
       //       we need it to remain until the ESM is deleted.

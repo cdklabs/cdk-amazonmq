@@ -2,7 +2,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { RabbitMqBrokerEndpoints } from './rabbitmq-broker-endpoints';
+import { RabbitMqBrokerEndpoints } from "./rabbitmq-broker-endpoints";
 
 export interface IRabbitMqBroker {
   readonly endpoints: RabbitMqBrokerEndpoints;

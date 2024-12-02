@@ -2,9 +2,9 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { IResolvable, IResource, Lazy, Names, Resource } from 'aws-cdk-lib';
-import { CfnBroker } from 'aws-cdk-lib/aws-amazonmq';
-import { Metric, MetricOptions } from 'aws-cdk-lib/aws-cloudwatch';
+import { IResolvable, IResource, Lazy, Names, Resource } from "aws-cdk-lib";
+import { CfnBroker } from "aws-cdk-lib/aws-amazonmq";
+import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
 import {
   ISecurityGroup,
   InstanceType,
@@ -13,16 +13,16 @@ import {
   Connections,
   Port,
   SecurityGroup,
-} from 'aws-cdk-lib/aws-ec2';
-import { IRole } from 'aws-cdk-lib/aws-iam';
-import { IKey } from 'aws-cdk-lib/aws-kms';
-import { LogRetention, RetentionDays } from 'aws-cdk-lib/aws-logs';
-import { Construct } from 'constructs';
-import { BrokerCloudwatchLogsExports } from './broker-cloudwatch-logs-exports';
-import { BrokerDeploymentMode } from './broker-deployment-mode';
-import { IBrokerConfiguration } from './configuration';
-import { MaintenanceWindowStartTime } from './maintenance-window-start-time';
-import { StorageType } from './storage-type';
+} from "aws-cdk-lib/aws-ec2";
+import { IRole } from "aws-cdk-lib/aws-iam";
+import { IKey } from "aws-cdk-lib/aws-kms";
+import { LogRetention, RetentionDays } from "aws-cdk-lib/aws-logs";
+import { Construct } from "constructs";
+import { BrokerCloudwatchLogsExports } from "./broker-cloudwatch-logs-exports";
+import { BrokerDeploymentMode } from "./broker-deployment-mode";
+import { IBrokerConfiguration } from "./configuration";
+import { MaintenanceWindowStartTime } from "./maintenance-window-start-time";
+import { StorageType } from "./storage-type";
 
 export interface IBrokerDeployment extends IResource {
   readonly arn: string;
@@ -105,8 +105,8 @@ export interface BrokerDeploymentProps {
 }
 
 export enum BrokerEngine {
-  RABBITMQ = 'RABBITMQ',
-  ACTIVEMQ = 'ACTIVEMQ',
+  RABBITMQ = "RABBITMQ",
+  ACTIVEMQ = "ACTIVEMQ",
 }
 
 export interface BrokerDeploymentBaseProps extends BrokerDeploymentProps {
@@ -120,13 +120,14 @@ export interface BrokerDeploymentBaseProps extends BrokerDeploymentProps {
   readonly cloudwatchLogsExports?: BrokerCloudwatchLogsExports;
   readonly users: CfnBroker.UserProperty[];
   readonly ldapServerMetadata?:
-  | IResolvable
-  | CfnBroker.LdapServerMetadataProperty;
+    | IResolvable
+    | CfnBroker.LdapServerMetadataProperty;
 }
 
 export abstract class BrokerDeploymentBase
   extends Resource
-  implements IBrokerDeployment {
+  implements IBrokerDeployment
+{
   public readonly arn: string;
 
   public readonly id: string;
@@ -147,8 +148,8 @@ export abstract class BrokerDeploymentBase
 
   /** @internal */
   protected _configurationIdProperty:
-  | CfnBroker.ConfigurationIdProperty
-  | undefined;
+    | CfnBroker.ConfigurationIdProperty
+    | undefined;
 
   /** @internal */
   protected _configuration: IBrokerConfiguration | undefined;
@@ -169,7 +170,8 @@ export abstract class BrokerDeploymentBase
         Lazy.string({
           produce: () =>
             Names.uniqueResourceName(this, {
-              maxLength: 50, allowedSpecialCharacters: '-_',
+              maxLength: 50,
+              allowedSpecialCharacters: "-_",
             }),
         }),
     });
@@ -180,20 +182,20 @@ export abstract class BrokerDeploymentBase
     this._conns =
       props.vpcSubnets && props.vpc
         ? new Connections({
-          defaultPort: props.defaultPort,
-          securityGroups: props.securityGroups ?? [
-            new SecurityGroup(this, 'AMQ_SG', {
-              description: `Automatic security group for broker ${Names.uniqueId(
-                this,
-              )}`,
-              vpc: props.vpc,
-              allowAllOutbound: false,
-            }),
-          ],
-        })
+            defaultPort: props.defaultPort,
+            securityGroups: props.securityGroups ?? [
+              new SecurityGroup(this, "AMQ_SG", {
+                description: `Automatic security group for broker ${Names.uniqueId(
+                  this,
+                )}`,
+                vpc: props.vpc,
+                allowAllOutbound: false,
+              }),
+            ],
+          })
         : undefined;
 
-    this._resource = new CfnBroker(this, 'Resource', {
+    this._resource = new CfnBroker(this, "Resource", {
       brokerName: this.physicalName,
       configuration: Lazy.any({
         produce: () =>
@@ -236,14 +238,14 @@ export abstract class BrokerDeploymentBase
     this.cloudwatchLogsExports =
       props.engine === BrokerEngine.RABBITMQ &&
       props.cloudwatchLogsExports &&
-      'general' in props.cloudwatchLogsExports
+      "general" in props.cloudwatchLogsExports
         ? {
-          general: true,
-          channel: true,
-          connection: true,
-          mirroring:
+            general: true,
+            channel: true,
+            connection: true,
+            mirroring:
               props.deploymentMode === BrokerDeploymentMode.CLUSTER_MULTI_AZ,
-        }
+          }
         : props.cloudwatchLogsExports;
 
     this.cloudwatchLogsRetention = props.cloudwatchLogsRetention;
@@ -260,7 +262,7 @@ export abstract class BrokerDeploymentBase
     configuration: CfnBroker.ConfigurationIdProperty,
   ) {
     if (this._configurationIdProperty) {
-      throw new Error('Configuration already set');
+      throw new Error("Configuration already set");
     }
 
     this._configurationIdProperty = configuration;
@@ -268,7 +270,7 @@ export abstract class BrokerDeploymentBase
 
   public metric(metricName: string, options?: MetricOptions): Metric {
     return new Metric({
-      namespace: 'AWS/AmazonMQ',
+      namespace: "AWS/AmazonMQ",
       metricName,
       dimensionsMap: {
         Broker: this.id,
@@ -285,11 +287,11 @@ export abstract class BrokerDeploymentBase
     ];
     if (logExports !== undefined && retention !== undefined) {
       const availableValues = [
-        'general',
-        'audit',
-        'channel',
-        'connection',
-        'mirroring',
+        "general",
+        "audit",
+        "channel",
+        "connection",
+        "mirroring",
       ];
       Object.entries(logExports)
         .filter(

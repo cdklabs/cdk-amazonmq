@@ -8,13 +8,13 @@ SPDX-License-Identifier: Apache-2.0
  */
 
 /* eslint-disable import/no-extraneous-dependencies */
-import * as https from 'https';
+import * as https from "https";
 
 import {
   GetSecretValueCommand,
   SecretsManagerClient,
-} from '@aws-sdk/client-secrets-manager';
-import { HttpMethod, RabbitApiCall } from './types';
+} from "@aws-sdk/client-secrets-manager";
+import { HttpMethod, RabbitApiCall } from "./types";
 
 const smClient = new SecretsManagerClient({});
 
@@ -32,7 +32,7 @@ export const request = async (options: RabbitMqRequestOptions) => {
   const { credentials } = options;
 
   if (credentials === undefined) {
-    throw new Error('CREDENTIALS');
+    throw new Error("CREDENTIALS");
   }
 
   const { SecretString } = await smClient.send(
@@ -42,7 +42,7 @@ export const request = async (options: RabbitMqRequestOptions) => {
   );
 
   if (SecretString === undefined) {
-    throw new Error('SecretString');
+    throw new Error("SecretString");
   }
 
   // WARN: in order to interact with the RabbitMQ Management HTTP API we need to work with a plaintext password
@@ -59,7 +59,7 @@ export const request = async (options: RabbitMqRequestOptions) => {
     username: username,
     password: password,
     path: options.path,
-    method: options.method ?? 'GET',
+    method: options.method ?? "GET",
     payload: options.payload,
   };
 
@@ -84,7 +84,7 @@ export type RabbitApiResponse<TResponse> = {
 };
 
 type RabbitApiRequest = <TResponse = { [key: string]: any }>(
-  input: RabbitApiRequestInput
+  input: RabbitApiRequestInput,
 ) => Promise<RabbitApiResponse<TResponse>>;
 
 /**
@@ -98,13 +98,17 @@ function validateOptions(options: RabbitMqRequestOptions) {
 
   // A test for the url if it is an Amazon MQ for RabbitMQ Console URL.
   if (!urlPattern.test(options.url)) {
-    throw new Error(`Only an Amazon MQ for RabbitMQ Console URL is allowed. Received: ${options.url}`);
+    throw new Error(
+      `Only an Amazon MQ for RabbitMQ Console URL is allowed. Received: ${options.url}`,
+    );
   }
 
   // A rudimentary test verifying if the API call starts with /api (as there are no other paths allowed for the RabbitMQ Management HTTP API).
   // This limits the paths able to be used
-  if (!options.path.startsWith('/api')) {
-    throw new Error(`There is no RabbitMQ Management HTTP API call that does not start with '/api'. Received ${options.url}`);
+  if (!options.path.startsWith("/api")) {
+    throw new Error(
+      `There is no RabbitMQ Management HTTP API call that does not start with '/api'. Received ${options.url}`,
+    );
   }
 }
 
@@ -125,28 +129,28 @@ const httpsRequest: RabbitApiRequest = <TResponse = {}>(
     path,
     method,
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${Buffer.from(`${username}:${password}`).toString(
-        'base64',
+      "Content-Type": "application/json",
+      Authorization: `Basic ${Buffer.from(`${username}:${password}`).toString(
+        "base64",
       )}`,
     },
   };
 
   return new Promise<RabbitApiResponse<TResponse>>((resolve, reject) => {
     const req = https.request({ ...options }, (res) => {
-      res.setEncoding('utf8');
-      let rawData = '';
-      res.on('data', (chunk) => {
+      res.setEncoding("utf8");
+      let rawData = "";
+      res.on("data", (chunk) => {
         rawData += chunk;
       });
-      res.on('end', () => {
+      res.on("end", () => {
         try {
           if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
             resolve({
               headers: res.headers as { [key: string]: string },
               statusCode: res.statusCode,
               payload:
-                rawData !== '' ? (JSON.parse(rawData) as TResponse) : undefined,
+                rawData !== "" ? (JSON.parse(rawData) as TResponse) : undefined,
             });
           } else {
             reject(
@@ -161,7 +165,7 @@ const httpsRequest: RabbitApiRequest = <TResponse = {}>(
       });
     });
 
-    req.on('error', (e) => {
+    req.on("error", (e) => {
       reject(e);
     });
 

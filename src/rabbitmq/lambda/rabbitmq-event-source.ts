@@ -2,9 +2,15 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { IEventSource, SourceAccessConfigurationType } from 'aws-cdk-lib/aws-lambda';
-import { EventSourceBase, EventSourceProps } from '../../mq-esm/event-source-base';
-import { IRabbitMqBrokerDeployment } from '../rabbitmq-broker-deployment';
+import {
+  IEventSource,
+  SourceAccessConfigurationType,
+} from "aws-cdk-lib/aws-lambda";
+import {
+  EventSourceBase,
+  EventSourceProps,
+} from "../../mq-esm/event-source-base";
+import { IRabbitMqBrokerDeployment } from "../rabbitmq-broker-deployment";
 
 export interface RabbitMqEventSourceProps extends EventSourceProps {
   /**
@@ -24,7 +30,10 @@ export interface RabbitMqEventSourceProps extends EventSourceProps {
  * Represents an AWS Lambda Event Source Mapping for RabbitMQ. This event source will add additional permissions to
  * the AWS Lambda function's IAM Role following https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions
  */
-export class RabbitMqEventSource extends EventSourceBase implements IEventSource {
+export class RabbitMqEventSource
+  extends EventSourceBase
+  implements IEventSource
+{
   /**
    * Instantiates an AWS Lambda Event Source Mapping for RabbitMQ. This event source will add additional permissions to
    * the AWS Lambda function's IAM Role following https://docs.aws.amazon.com/lambda/latest/dg/with-mq.html#events-mq-permissions
@@ -32,14 +41,13 @@ export class RabbitMqEventSource extends EventSourceBase implements IEventSource
    * @param props properties of the RabbitMQ event source
    */
   constructor(props: RabbitMqEventSourceProps) {
-    super(props, 'armq');
+    super(props, "armq");
 
     if (props.virtualHost) {
       this.addToSourceAccessConfigurations({
-        type: SourceAccessConfigurationType.of('VIRTUAL_HOST'),
+        type: SourceAccessConfigurationType.of("VIRTUAL_HOST"),
         uri: props.virtualHost,
       });
     }
-
   }
 }

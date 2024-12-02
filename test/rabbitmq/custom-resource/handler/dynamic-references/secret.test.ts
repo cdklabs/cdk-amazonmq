@@ -1,64 +1,67 @@
 import {
   SecretDynamicRefereceComponents,
   SecretsDynamicRefereceParser,
-} from '../../../../../src/rabbitmq/custom-resource/handler/dynamic-references/secret';
+} from "../../../../../src/rabbitmq/custom-resource/handler/dynamic-references/secret";
 
-describe('SecretsDynamicReferenceParser', () => {
+describe("SecretsDynamicReferenceParser", () => {
   it.each([
     {
       secret:
-        '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}',
+        "{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}",
       expected: {
-        secretId: 'arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3',
+        secretId:
+          "arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3",
       } as SecretDynamicRefereceComponents,
     },
     {
-      secret: '{{resolve:secretsmanager:MySecret}}',
+      secret: "{{resolve:secretsmanager:MySecret}}",
       expected: {
-        secretId: 'MySecret',
+        secretId: "MySecret",
       } as SecretDynamicRefereceComponents,
     },
     {
-      secret: '{{resolve:secretsmanager:MySecret::::}}',
+      secret: "{{resolve:secretsmanager:MySecret::::}}",
       expected: {
-        secretId: 'MySecret',
+        secretId: "MySecret",
       } as SecretDynamicRefereceComponents,
     },
     {
-      secret: '{{resolve:secretsmanager:MySecret:SecretString:password}}',
+      secret: "{{resolve:secretsmanager:MySecret:SecretString:password}}",
       expected: {
-        secretId: 'MySecret',
-        jsonKey: 'password',
-        secretString: 'SecretString',
-      } as SecretDynamicRefereceComponents,
-    },
-    {
-      secret:
-        '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}',
-      expected: {
-        secretId: 'arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3',
+        secretId: "MySecret",
+        jsonKey: "password",
+        secretString: "SecretString",
       } as SecretDynamicRefereceComponents,
     },
     {
       secret:
-        '{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3:SecretString:password}}',
+        "{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3}}",
       expected: {
-        secretId: 'arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3',
-        jsonKey: 'password',
-        secretString: 'SecretString',
+        secretId:
+          "arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3",
       } as SecretDynamicRefereceComponents,
     },
     {
       secret:
-        '{{resolve:secretsmanager:MySecret:SecretString:password:AWSPREVIOUS}}',
+        "{{resolve:secretsmanager:arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3:SecretString:password}}",
       expected: {
-        secretId: 'MySecret',
-        jsonKey: 'password',
-        secretString: 'SecretString',
-        versionStage: 'AWSPREVIOUS',
+        secretId:
+          "arn:aws:secretsmanager:us-west-2:123456789012:secret:MySecret-a1b2c3",
+        jsonKey: "password",
+        secretString: "SecretString",
       } as SecretDynamicRefereceComponents,
     },
-  ])('should parse secrets', ({ secret, expected }) => {
+    {
+      secret:
+        "{{resolve:secretsmanager:MySecret:SecretString:password:AWSPREVIOUS}}",
+      expected: {
+        secretId: "MySecret",
+        jsonKey: "password",
+        secretString: "SecretString",
+        versionStage: "AWSPREVIOUS",
+      } as SecretDynamicRefereceComponents,
+    },
+  ])("should parse secrets", ({ secret, expected }) => {
     const actual = SecretsDynamicRefereceParser.parse(secret);
     expect(actual).toEqual(expected);
   });

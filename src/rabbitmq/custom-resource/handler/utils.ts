@@ -9,13 +9,13 @@ SPDX-License-Identifier: Apache-2.0
  */
 
 /* eslint-disable import/no-extraneous-dependencies */
-import * as https from 'https';
-import * as AWSLambda from 'aws-lambda';
+import * as https from "https";
+import * as AWSLambda from "aws-lambda";
 
 /**
  * Serialized form of the physical resource id for use in the operation parameters
  */
-export const PHYSICAL_RESOURCE_ID_REFERENCE = 'PHYSICAL:RESOURCEID:';
+export const PHYSICAL_RESOURCE_ID_REFERENCE = "PHYSICAL:RESOURCEID:";
 
 export function decodeCall(call: string | undefined): any {
   if (!call) {
@@ -48,10 +48,10 @@ export function respond(
     hostname: parsedUrl.hostname,
     path: `${parsedUrl.pathname}${parsedUrl.search}`,
     port: parsedUrl.port || 443,
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'content-type': '',
-      'content-length': Buffer.byteLength(responseBody, 'utf8'),
+      "content-type": "",
+      "content-length": Buffer.byteLength(responseBody, "utf8"),
     },
   };
 
@@ -59,17 +59,17 @@ export function respond(
     try {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const request = https.request(requestOptions, (response) => {
-        response.setEncoding('utf8');
+        response.setEncoding("utf8");
         const responseData: string[] = [];
-        response.on('data', (chunk) => responseData.push(chunk));
-        response.on('end', () => {
-          resolve(responseData.join(''));
+        response.on("data", (chunk) => responseData.push(chunk));
+        response.on("end", () => {
+          resolve(responseData.join(""));
         });
-        response.on('error', (e) => {
+        response.on("error", (e) => {
           reject(e);
         });
       });
-      request.on('error', (e: any) => {
+      request.on("error", (e: any) => {
         reject(e);
       });
       request.write(responseBody);
@@ -117,11 +117,11 @@ export function flattenObj(ob: { [key: string]: any }) {
     // We check the type of the i using
     // typeof() function and recursively
     // call the function again
-    if (typeof ob[i] === 'object') {
+    if (typeof ob[i] === "object") {
       const temp = flattenObj(ob[i]);
       for (const j in temp) {
         // Store temp in result
-        result[i + '.' + j] = temp[j];
+        result[i + "." + j] = temp[j];
       }
       // eslint-disable-next-line brace-style
     }

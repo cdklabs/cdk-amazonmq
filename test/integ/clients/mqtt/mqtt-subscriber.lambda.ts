@@ -6,8 +6,8 @@ SPDX-License-Identifier: Apache-2.0
 import {
   GetSecretValueCommand,
   SecretsManagerClient,
-} from '@aws-sdk/client-secrets-manager';
-import mqtt from 'mqtt';
+} from "@aws-sdk/client-secrets-manager";
+import mqtt from "mqtt";
 
 const client = new SecretsManagerClient({});
 
@@ -15,15 +15,15 @@ export const handler = async () => {
   const { MQTT_ENDPOINTS, CREDENTIALS, TOPIC_NAME } = process.env;
 
   if (MQTT_ENDPOINTS === undefined) {
-    throw new Error('MQTT_ENDPOINTS');
+    throw new Error("MQTT_ENDPOINTS");
   }
 
   if (CREDENTIALS === undefined) {
-    throw new Error('CREDENTIALS');
+    throw new Error("CREDENTIALS");
   }
 
   if (TOPIC_NAME === undefined) {
-    throw new Error('TOPIC_NAME');
+    throw new Error("TOPIC_NAME");
   }
 
   const { SecretString } = await client.send(
@@ -33,7 +33,7 @@ export const handler = async () => {
   );
 
   if (SecretString === undefined) {
-    throw new Error('SecretString');
+    throw new Error("SecretString");
   }
 
   const { username, password } = JSON.parse(SecretString) as {
@@ -41,14 +41,14 @@ export const handler = async () => {
     password: string;
   };
 
-  const endpoints = MQTT_ENDPOINTS.split(',');
+  const endpoints = MQTT_ENDPOINTS.split(",");
 
   for (
     let currentEndpoint = 0;
     currentEndpoint < endpoints.length;
     currentEndpoint++
   ) {
-    const endpoint = endpoints[currentEndpoint].replace('+ssl', 's');
+    const endpoint = endpoints[currentEndpoint].replace("+ssl", "s");
     let mqttClient: mqtt.MqttClient;
     try {
       mqttClient = await mqtt.connectAsync(endpoint, {
@@ -64,10 +64,10 @@ export const handler = async () => {
     }
 
     await mqttClient.subscribeAsync(TOPIC_NAME);
-    await new Promise(resolve => {
-      mqttClient.on('message', (topic, message) => {
+    await new Promise((resolve) => {
+      mqttClient.on("message", (topic, message) => {
         // message is Buffer
-        console.log('received', message.toString());
+        console.log("received", message.toString());
         resolve(undefined);
       });
     });

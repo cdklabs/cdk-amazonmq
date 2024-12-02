@@ -2,134 +2,154 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { ArnFormat, SecretValue, Stack } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
-import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
-import { ActiveMqBrokerConfiguration, ActiveMqBrokerConfigurationDefinition, ActiveMqBrokerEngineVersion, ActiveMqBrokerInstance, ActiveMqBrokerUserManagement } from '../../src';
-describe('ActiveMqBrokerConfiguration', () => {
-
-  test('Configuration Renders Properly', () => {
+import { ArnFormat, SecretValue, Stack } from "aws-cdk-lib";
+import { Template } from "aws-cdk-lib/assertions";
+import { InstanceClass, InstanceSize, InstanceType } from "aws-cdk-lib/aws-ec2";
+import {
+  ActiveMqBrokerConfiguration,
+  ActiveMqBrokerConfigurationDefinition,
+  ActiveMqBrokerEngineVersion,
+  ActiveMqBrokerInstance,
+  ActiveMqBrokerUserManagement,
+} from "../../src";
+describe("ActiveMqBrokerConfiguration", () => {
+  test("Configuration Renders Properly", () => {
     const stack = new Stack();
 
-    new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
-      description: 'Test Description',
-      definition: ActiveMqBrokerConfigurationDefinition.data('Test Definition'),
+    new ActiveMqBrokerConfiguration(stack, "TestConfig", {
+      description: "Test Description",
+      definition: ActiveMqBrokerConfigurationDefinition.data("Test Definition"),
       engineVersion: ActiveMqBrokerEngineVersion.V5_18,
     });
 
     const template = Template.fromStack(stack);
 
-    template.hasResourceProperties('AWS::AmazonMQ::Configuration', {
-      Data: { 'Fn::Base64': 'Test Definition' },
-      Description: 'Test Description',
-      EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.18',
-      Name: 'TestConfig',
+    template.hasResourceProperties("AWS::AmazonMQ::Configuration", {
+      Data: { "Fn::Base64": "Test Definition" },
+      Description: "Test Description",
+      EngineType: "ACTIVEMQ",
+      EngineVersion: "5.18",
+      Name: "TestConfig",
     });
   });
 
-  test('Configuration Revision Renders Properly', () => {
+  test("Configuration Revision Renders Properly", () => {
     const stack = new Stack();
 
-    const config = new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
-      description: 'Test Description',
-      definition: ActiveMqBrokerConfigurationDefinition.data('Test Definition'),
+    const config = new ActiveMqBrokerConfiguration(stack, "TestConfig", {
+      description: "Test Description",
+      definition: ActiveMqBrokerConfigurationDefinition.data("Test Definition"),
       engineVersion: ActiveMqBrokerEngineVersion.V5_18,
     });
 
-    const broker = new ActiveMqBrokerInstance(stack, 'TestBroker', {
+    const broker = new ActiveMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: true,
       version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
-        users: [{
-          username: 'username',
-          password: SecretValue.unsafePlainText('password'),
-        }],
+        users: [
+          {
+            username: "username",
+            password: SecretValue.unsafePlainText("password"),
+          },
+        ],
       }),
       autoMinorVersionUpgrade: false,
     });
 
     const newConfig = config.createRevision({
-      description: 'New Description',
-      definition: ActiveMqBrokerConfigurationDefinition.data('New Definition'),
+      description: "New Description",
+      definition: ActiveMqBrokerConfigurationDefinition.data("New Definition"),
     });
 
     newConfig.associateWith(broker);
 
     const template = Template.fromStack(stack);
 
-    template.hasResourceProperties('AWS::AmazonMQ::Configuration', {
-      Data: { 'Fn::Base64': 'Test Definition' },
-      Description: 'Test Description',
-      EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.18',
-      Name: 'TestConfig',
+    template.hasResourceProperties("AWS::AmazonMQ::Configuration", {
+      Data: { "Fn::Base64": "Test Definition" },
+      Description: "Test Description",
+      EngineType: "ACTIVEMQ",
+      EngineVersion: "5.18",
+      Name: "TestConfig",
     });
 
-    template.hasResourceProperties('AWS::Lambda::Function', {
-      Role: { 'Fn::GetAtt': ['AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2', 'Arn'] },
+    template.hasResourceProperties("AWS::Lambda::Function", {
+      Role: {
+        "Fn::GetAtt": [
+          "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          "Arn",
+        ],
+      },
       Runtime: {
-        'Fn::FindInMap': [
-          'LatestNodeRuntimeMap',
+        "Fn::FindInMap": [
+          "LatestNodeRuntimeMap",
           {
-            Ref: 'AWS::Region',
+            Ref: "AWS::Region",
           },
-          'value',
+          "value",
         ],
       },
       Timeout: 120,
     });
 
-    template.hasResourceProperties('Custom::AWS', {
+    template.hasResourceProperties("Custom::AWS", {
       Create: {
-        'Fn::Join': [
-          '',
+        "Fn::Join": [
+          "",
           [
             '{"service":"mq","action":"UpdateConfiguration","parameters":{"ConfigurationId":"',
             {
-              Ref: 'TestConfig3F668CF6',
+              Ref: "TestConfig3F668CF6",
             },
             '","Data":"',
             {
-              'Fn::Base64': 'New Definition',
+              "Fn::Base64": "New Definition",
             },
             '","Description":"New Description"},"physicalResourceId":{"responsePath":"Id"}}',
           ],
         ],
       },
       InstallLatestAwsSdk: true,
-      ServiceToken: { 'Fn::GetAtt': ['AWS679f53fac002430cb0da5b7982bd22872D164C4C', 'Arn'] },
-    });
-
-    template.hasResourceProperties('AWS::AmazonMQ::ConfigurationAssociation', {
-      Broker: { Ref: 'TestBrokerBD4D5330' },
-      Configuration: {
-        Id: { 'Fn::GetAtt': ['TestConfigRevisor0AB7F620', 'Id'] },
-        Revision: { 'Fn::GetAtt': ['TestConfigRevisor0AB7F620', 'LatestRevision.Revision'] },
+      ServiceToken: {
+        "Fn::GetAtt": ["AWS679f53fac002430cb0da5b7982bd22872D164C4C", "Arn"],
       },
     });
 
+    template.hasResourceProperties("AWS::AmazonMQ::ConfigurationAssociation", {
+      Broker: { Ref: "TestBrokerBD4D5330" },
+      Configuration: {
+        Id: { "Fn::GetAtt": ["TestConfigRevisor0AB7F620", "Id"] },
+        Revision: {
+          "Fn::GetAtt": [
+            "TestConfigRevisor0AB7F620",
+            "LatestRevision.Revision",
+          ],
+        },
+      },
+    });
   });
 
-  test('Configuration Renders Properly', () => {
+  test("Configuration Renders Properly", () => {
     const stack = new Stack();
 
-    const config = new ActiveMqBrokerConfiguration(stack, 'TestConfig', {
-      description: 'Test Description',
-      definition: ActiveMqBrokerConfigurationDefinition.data('Test Definition'),
+    const config = new ActiveMqBrokerConfiguration(stack, "TestConfig", {
+      description: "Test Description",
+      definition: ActiveMqBrokerConfigurationDefinition.data("Test Definition"),
       engineVersion: ActiveMqBrokerEngineVersion.V5_18,
     });
 
-    const broker = new ActiveMqBrokerInstance(stack, 'TestBroker', {
+    const broker = new ActiveMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: true,
       version: ActiveMqBrokerEngineVersion.V5_18,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       userManagement: ActiveMqBrokerUserManagement.simple({
-        users: [{
-          username: 'username',
-          password: SecretValue.unsafePlainText('password'),
-        }],
+        users: [
+          {
+            username: "username",
+            password: SecretValue.unsafePlainText("password"),
+          },
+        ],
       }),
       autoMinorVersionUpgrade: false,
     });
@@ -138,73 +158,83 @@ describe('ActiveMqBrokerConfiguration', () => {
 
     const template = Template.fromStack(stack);
 
-    template.hasResourceProperties('AWS::AmazonMQ::Configuration', {
-      Data: { 'Fn::Base64': 'Test Definition' },
-      Description: 'Test Description',
-      EngineType: 'ACTIVEMQ',
-      EngineVersion: '5.18',
-      Name: 'TestConfig',
+    template.hasResourceProperties("AWS::AmazonMQ::Configuration", {
+      Data: { "Fn::Base64": "Test Definition" },
+      Description: "Test Description",
+      EngineType: "ACTIVEMQ",
+      EngineVersion: "5.18",
+      Name: "TestConfig",
     });
 
-    template.hasResourceProperties('AWS::AmazonMQ::ConfigurationAssociation', {
-      Broker: { Ref: 'TestBrokerBD4D5330' },
+    template.hasResourceProperties("AWS::AmazonMQ::ConfigurationAssociation", {
+      Broker: { Ref: "TestBrokerBD4D5330" },
       Configuration: {
-        Id: { Ref: 'TestConfig3F668CF6' },
-        Revision: { 'Fn::GetAtt': ['TestConfig3F668CF6', 'Revision'] },
+        Id: { Ref: "TestConfig3F668CF6" },
+        Revision: { "Fn::GetAtt": ["TestConfig3F668CF6", "Revision"] },
       },
     });
   });
 
-  test('Importing by id does not introduce any resource', () => {
+  test("Importing by id does not introduce any resource", () => {
     const stack = new Stack();
 
-    const id = 'c-1234-1234-12341234-1234-12341234';
+    const id = "c-1234-1234-12341234-1234-12341234";
 
     const expectedArn = stack.formatArn({
-      service: 'mq',
-      resource: 'configuration',
+      service: "mq",
+      resource: "configuration",
       resourceName: id,
       arnFormat: ArnFormat.COLON_RESOURCE_NAME,
     });
 
-    const config = ActiveMqBrokerConfiguration.fromAttributes(stack, 'TestImportedConfig', {
-      id,
-      revision: 1,
-    });
+    const config = ActiveMqBrokerConfiguration.fromAttributes(
+      stack,
+      "TestImportedConfig",
+      {
+        id,
+        revision: 1,
+      },
+    );
 
     const template = Template.fromStack(stack);
 
-    template.resourceCountIs('AWS::AmazonMQ::Configuration', 0);
+    template.resourceCountIs("AWS::AmazonMQ::Configuration", 0);
     expect(config.arn).toEqual(expectedArn);
   });
 
-  test('Importing by ARN does not introduce any resource', () => {
+  test("Importing by ARN does not introduce any resource", () => {
     const stack = new Stack();
 
-    const expectedId = 'c-1234-1234-12341234-1234-12341234';
+    const expectedId = "c-1234-1234-12341234-1234-12341234";
     const arn = stack.formatArn({
-      service: 'mq',
-      resource: 'configuration',
+      service: "mq",
+      resource: "configuration",
       resourceName: expectedId,
       arnFormat: ArnFormat.COLON_RESOURCE_NAME,
     });
 
-    const config = ActiveMqBrokerConfiguration.fromAttributes(stack, 'TestImportedConfig', {
-      arn,
-      revision: 1,
-    });
+    const config = ActiveMqBrokerConfiguration.fromAttributes(
+      stack,
+      "TestImportedConfig",
+      {
+        arn,
+        revision: 1,
+      },
+    );
 
     const template = Template.fromStack(stack);
 
-    template.resourceCountIs('AWS::AmazonMQ::Configuration', 0);
+    template.resourceCountIs("AWS::AmazonMQ::Configuration", 0);
     expect(config.id).toEqual(expectedId);
   });
 
-  test('Importing not providing props throws an error', () => {
+  test("Importing not providing props throws an error", () => {
     const stack = new Stack();
 
     expect(() => {
-      ActiveMqBrokerConfiguration.fromAttributes(stack, 'TestImportedConfig', { revision: -1 });
-    }).toThrow('Either id or arn must be provided');
+      ActiveMqBrokerConfiguration.fromAttributes(stack, "TestImportedConfig", {
+        revision: -1,
+      });
+    }).toThrow("Either id or arn must be provided");
   });
 });

@@ -3,13 +3,13 @@
 import {
   DeleteEventSourceMappingCommand,
   LambdaClient,
-} from '@aws-sdk/client-lambda';
+} from "@aws-sdk/client-lambda";
 import {
   CloudFormationCustomResourceEvent,
   CloudFormationCustomResourceDeleteEvent,
   CloudFormationCustomResourceUpdateEvent,
   CloudFormationCustomResourceCreateEvent,
-} from 'aws-lambda';
+} from "aws-lambda";
 
 const lambdaClient = new LambdaClient();
 
@@ -20,17 +20,17 @@ interface Response {
 export async function handler(event: CloudFormationCustomResourceEvent) {
   let response: Promise<Response>;
   switch (event.RequestType) {
-    case 'Create':
+    case "Create":
       response = onCreate(event);
       break;
-    case 'Delete':
+    case "Delete":
       response = onDelete(event);
       break;
-    case 'Update':
+    case "Update":
       response = onUpdate(event);
       break;
     default:
-      throw new Error('Unknown Request Type of CloudFormation');
+      throw new Error("Unknown Request Type of CloudFormation");
   }
   return response;
 }
@@ -39,7 +39,7 @@ async function onCreate(
   event: CloudFormationCustomResourceCreateEvent,
 ): Promise<Response> {
   return {
-    PhysicalResourceId: 'abcdef-' + event.RequestId,
+    PhysicalResourceId: "abcdef-" + event.RequestId,
   };
 }
 
@@ -49,7 +49,7 @@ async function onDelete(
   const { EsmId } = event.ResourceProperties;
 
   if (EsmId === undefined) {
-    throw new Error('EsmId');
+    throw new Error("EsmId");
   }
 
   // TODO: add error handling here. It might be that someone just deleted it earlier manually
@@ -60,7 +60,7 @@ async function onDelete(
   );
 
   return {
-    PhysicalResourceId: event.PhysicalResourceId || '',
+    PhysicalResourceId: event.PhysicalResourceId || "",
   };
 }
 
@@ -68,6 +68,6 @@ async function onUpdate(
   event: CloudFormationCustomResourceUpdateEvent,
 ): Promise<Response> {
   return {
-    PhysicalResourceId: event.PhysicalResourceId || '',
+    PhysicalResourceId: event.PhysicalResourceId || "",
   };
 }

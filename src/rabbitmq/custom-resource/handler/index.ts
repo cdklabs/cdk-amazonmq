@@ -8,23 +8,22 @@ This custom resource lambda is heavily inspired on the AwsCustomResource lambda 
 /* eslint-disable import/no-extraneous-dependencies */
 //       Get a look at this: https://repost.aws/knowledge-center/cloudformation-lambda-resource-delete
 
-import type * as AWSLambda from 'aws-lambda';
-import { replaceDynamicReferences } from './dynamic-references';
-import { request } from './rabbitmq-management-api';
-import type { RabbitApiCall } from './types';
+import type * as AWSLambda from "aws-lambda";
+import { replaceDynamicReferences } from "./dynamic-references";
+import { request } from "./rabbitmq-management-api";
+import type { RabbitApiCall } from "./types";
 import {
   respond,
   decodeCall,
   flattenObj,
   filterKeys,
   startsWithOneOf,
-} from './utils';
+} from "./utils";
 
 export async function handler(
   event: AWSLambda.CloudFormationCustomResourceEvent,
   context: AWSLambda.Context,
 ) {
-
   try {
     event.ResourceProperties[event.RequestType] =
       await replaceDynamicReferences(
@@ -43,15 +42,15 @@ export async function handler(
 
     let physicalResourceId: string;
     switch (event.RequestType) {
-      case 'Create':
+      case "Create":
         physicalResourceId =
           event.ResourceProperties.Create?.physicalResourceId?.id ??
           event.ResourceProperties.Update?.physicalResourceId?.id ??
           event.ResourceProperties.Delete?.physicalResourceId?.id ??
           event.LogicalResourceId;
         break;
-      case 'Update':
-      case 'Delete':
+      case "Update":
+      case "Delete":
         physicalResourceId =
           event.ResourceProperties[event.RequestType]?.physicalResourceId?.id ??
           event.PhysicalResourceId;
@@ -86,12 +85,12 @@ export async function handler(
         }
       }
     }
-    await respond(event, 'SUCCESS', 'OK', physicalResourceId, data);
+    await respond(event, "SUCCESS", "OK", physicalResourceId, data);
   } catch (e: any) {
     await respond(
       event,
-      'FAILED',
-      e.message || 'Internal Error',
+      "FAILED",
+      e.message || "Internal Error",
       context.logStreamName,
       {},
     );
