@@ -935,7 +935,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "cc3114789a2169a27590b14542ccfec97a0f543028a311e72dc31eabe0735d54.zip",
+          "S3Key": "16af7fe9ee2f9788767782a879d7207ff650acb154318c776b000d71e6a718da.zip",
         },
         "Description": "src/mq-esm/esm-deleter.is-complete.lambda.ts",
         "Environment": {

@@ -2,9 +2,9 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { URL } from 'url';
-import { CfnBroker } from 'aws-cdk-lib/aws-amazonmq';
-import { IValidation } from 'constructs';
+import { URL } from "url";
+import { CfnBroker } from "aws-cdk-lib/aws-amazonmq";
+import { IValidation } from "constructs";
 
 export interface ActiveMqLdapAuthorizationProps {
   readonly config: CfnBroker.LdapServerMetadataProperty;
@@ -42,8 +42,8 @@ export class ActiveMqLdapValidation implements IValidation {
         const url = new URL(`ldap://${v}:389`);
         if (
           url.hostname !== v ||
-          !url.protocol.startsWith('ldap') ||
-          url.port !== '389'
+          !url.protocol.startsWith("ldap") ||
+          url.port !== "389"
         ) {
           this.errors.push(
             `Invalid host: '${hosts}'. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html`,
@@ -52,7 +52,7 @@ export class ActiveMqLdapValidation implements IValidation {
       });
     } catch (e) {
       this.errors.push(
-        'Invalid host. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html',
+        "Invalid host. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html",
       );
     }
   }
@@ -60,11 +60,11 @@ export class ActiveMqLdapValidation implements IValidation {
   public validate(): string[] {
     this.errors = [];
 
-    this.validateDit(this.ActiveMqLdapAuthorization.roleBase, 'roleBase');
-    this.validateDit(this.ActiveMqLdapAuthorization.userBase, 'userBase');
+    this.validateDit(this.ActiveMqLdapAuthorization.roleBase, "roleBase");
+    this.validateDit(this.ActiveMqLdapAuthorization.userBase, "userBase");
     this.validateDit(
       this.ActiveMqLdapAuthorization.serviceAccountUsername,
-      'serviceAccountUsername',
+      "serviceAccountUsername",
     );
 
     this.validateHosts(this.ActiveMqLdapAuthorization.hosts);

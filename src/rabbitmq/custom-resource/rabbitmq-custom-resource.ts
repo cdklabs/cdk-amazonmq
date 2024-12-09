@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-import { createHash } from 'crypto';
+import { createHash } from "crypto";
 import {
   CustomResource,
   Duration,
@@ -12,7 +12,7 @@ import {
   Names,
   Reference,
   Stack,
-} from 'aws-cdk-lib';
+} from "aws-cdk-lib";
 import {
   Connections,
   IConnectable,
@@ -20,19 +20,19 @@ import {
   IVpc,
   SecurityGroup,
   SubnetSelection,
-} from 'aws-cdk-lib/aws-ec2';
+} from "aws-cdk-lib/aws-ec2";
 import {
   IGrantable,
   IPrincipal,
   IRole,
   PolicyStatement,
-} from 'aws-cdk-lib/aws-iam';
-import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
-import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
-import { Logging, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
-import { Construct } from 'constructs';
-import { IRabbitMqBroker } from '../rabbitmq-broker';
-import { RabbitMqCustomResourceSingletonFunction } from './rabbitmq-custom-resource-singleton-function';
+} from "aws-cdk-lib/aws-iam";
+import { LogGroup, RetentionDays } from "aws-cdk-lib/aws-logs";
+import { ISecret } from "aws-cdk-lib/aws-secretsmanager";
+import { Logging, PhysicalResourceId } from "aws-cdk-lib/custom-resources";
+import { Construct } from "constructs";
+import { IRabbitMqBroker } from "../rabbitmq-broker";
+import { RabbitMqCustomResourceSingletonFunction } from "./rabbitmq-custom-resource-singleton-function";
 
 const HASH_LEN = 16;
 
@@ -40,10 +40,10 @@ const HASH_LEN = 16;
  * All http request methods
  */
 export enum HttpMethods {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
+  GET = "GET",
+  POST = "POST",
+  PUT = "PUT",
+  DELETE = "DELETE",
 }
 
 /**
@@ -103,7 +103,7 @@ export class RabbitMqCustomResourcePolicy {
   /**
    * Use this constant to configure access to any resource.
    */
-  public static readonly ANY_RESOURCE = ['*'];
+  public static readonly ANY_RESOURCE = ["*"];
 
   /**
    * Explicit IAM Policy Statements.
@@ -213,7 +213,8 @@ export interface RabbitMqCustomResourceProps {
  */
 export class RabbitMqCustomResource
   extends Construct
-  implements IConnectable, IGrantable {
+  implements IConnectable, IGrantable
+{
   public readonly connections: Connections;
 
   public readonly grantPrincipal: IPrincipal;
@@ -229,7 +230,7 @@ export class RabbitMqCustomResource
 
     if (!props.onCreate && !props.onUpdate && !props.onDelete) {
       throw new Error(
-        'At least `onCreate`, `onUpdate` or `onDelete` must be specified.',
+        "At least `onCreate`, `onUpdate` or `onDelete` must be specified.",
       );
     }
 
@@ -251,8 +252,8 @@ export class RabbitMqCustomResource
 
     let securityGroups = props.vpc
       ? props.securityGroups || [
-        new SecurityGroup(this, 'ProviderSG', { vpc: props.vpc }),
-      ]
+          new SecurityGroup(this, "ProviderSG", { vpc: props.vpc }),
+        ]
       : undefined;
 
     const uuid = this.renderUniqueId(
@@ -265,7 +266,7 @@ export class RabbitMqCustomResource
 
     const provider = new RabbitMqCustomResourceSingletonFunction(
       this,
-      'Provider',
+      "Provider",
       {
         uuid,
         vpc: props.vpc,
@@ -284,7 +285,7 @@ export class RabbitMqCustomResource
     const onDelete = props.onDelete && this.formatSdkCall(props.onDelete);
 
     this.resource = new CustomResource(this, `Resource${uuid}`, {
-      resourceType: 'Custom::RMQAPI',
+      resourceType: "Custom::RMQAPI",
       serviceToken: provider.functionArn,
       pascalCaseProperties: true,
       properties: {
@@ -335,7 +336,7 @@ export class RabbitMqCustomResource
     subnets?: SubnetSelection,
     securityGroups?: ISecurityGroup[],
   ) {
-    let hashContent = '';
+    let hashContent = "";
     const resourceBroker = broker as unknown as IResource;
     hashContent += Names.uniqueId(resourceBroker);
     hashContent += Names.uniqueId(creds);
@@ -344,16 +345,21 @@ export class RabbitMqCustomResource
       if (subnets) {
         hashContent += vpc
           .selectSubnets(subnets)
-          .subnets.map((s) => Names.uniqueId(s)).join('');
+          .subnets.map((s) => Names.uniqueId(s))
+          .join("");
       }
       if (securityGroups) {
-        hashContent += securityGroups.map((sg) => Names.uniqueId(sg)).join('');
+        hashContent += securityGroups.map((sg) => Names.uniqueId(sg)).join("");
       }
     }
 
     // INFO: run this through the CDK team as in the S3 Bucket Deployment implementation there is no hashing, just verbatim value addition
     // see: https://github.com/aws/aws-cdk/blob/318eae6c9eca456e0c34ed21855dad9d2bfa2a0f/packages/aws-cdk-lib/aws-s3-deployment/lib/bucket-deployment.ts#L556
 
-    return createHash('sha256').update(hashContent).digest('hex').slice(0, HASH_LEN).toUpperCase();;
+    return createHash("sha256")
+      .update(hashContent)
+      .digest("hex")
+      .slice(0, HASH_LEN)
+      .toUpperCase();
   }
 }

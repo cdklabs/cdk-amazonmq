@@ -2,8 +2,8 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { TimeZone } from 'aws-cdk-lib';
-import { DayOfWeek } from './day-of-week';
+import { TimeZone } from "aws-cdk-lib";
+import { DayOfWeek } from "./day-of-week";
 
 /**
  * Start time of the weekly, 2-hours time window to apply pending updates or patches to the broker.

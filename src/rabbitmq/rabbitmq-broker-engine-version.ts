@@ -8,19 +8,19 @@ SPDX-License-Identifier: Apache-2.0
  * @see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-version-management.html
  */
 export class RabbitMqBrokerEngineVersion {
-  public static readonly V3_13 = new RabbitMqBrokerEngineVersion('3.13');
+  public static readonly V3_13 = new RabbitMqBrokerEngineVersion("3.13");
 
   /** @deprecated use V3_13 instead */
-  public static readonly V3_12_13 = new RabbitMqBrokerEngineVersion('3.12.13');
+  public static readonly V3_12_13 = new RabbitMqBrokerEngineVersion("3.12.13");
 
   /** @deprecated use V3_13 instead */
-  public static readonly V3_11_28 = new RabbitMqBrokerEngineVersion('3.11.28');
+  public static readonly V3_11_28 = new RabbitMqBrokerEngineVersion("3.11.28");
 
   /** @deprecated use V3_13 instead */
-  public static readonly V3_11_20 = new RabbitMqBrokerEngineVersion('3.11.20');
+  public static readonly V3_11_20 = new RabbitMqBrokerEngineVersion("3.11.20");
 
   /** @deprecated use V3_13 instead */
-  public static readonly V3_11_16 = new RabbitMqBrokerEngineVersion('3.11.16');
+  public static readonly V3_11_16 = new RabbitMqBrokerEngineVersion("3.11.16");
 
   public static of(version: string): RabbitMqBrokerEngineVersion {
     return new RabbitMqBrokerEngineVersion(version);

@@ -6,7 +6,7 @@ export enum StorageType {
   /** Amazon Elastic Block Store.
    * NOTE: Available only for single-instance ActiveMQ brokers
    */
-  EBS = 'EBS',
+  EBS = "EBS",
   // Amazon Elastic File System
-  EFS = 'EFS',
+  EFS = "EFS",
 }
