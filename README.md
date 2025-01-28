@@ -41,7 +41,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
   - [Monitoring RabbitMQ Brokers](#monitoring-rabbitmq-brokers)
   - [RabbitMQ Broker Integration with AWS Lambda](#rabbitmq-broker-integration-with-aws-lambda)
   - [Using Management HTTP API through `RabbitMqCustomResource`](#using-management-http-api-through-rabbitmqcustomresource)
-  - [Additional RabbitMQ Broker Examples](#additional-rabbitmq-broker-examples)
+  - [External Examples](#external-examples)
 
 ## Introduction
 
@@ -669,9 +669,9 @@ getNodesName.getResponseField('0.name')
 
 In the example presented the response of the call to `/api/nodes` endpoint is an JSON array of objects. For the `RabbitMqBrokerInstance` there will be a single object, whereas for the `RabbitMqBrokerCluster` there will be three objects presenting information for each node. Arrays are flattened by using the index for a position of the object and that is why the name of the first (and in the example only) node will is retrieved by specifying the response field name `0.name`.  
 
-### Additional RabbitMQ Broker Examples
+### External Examples
 
 This section includes additional examples and use cases for working with RabbitMQ Brokers using the AWS::AmazonMQ L2+ Construct Library.
 
 - **[AWS CDK Example for RabbitMQ Lambda Integration](https://github.com/aws-samples/aws-cdk-examples/tree/main/typescript/amazon-mq-rabbitmq-lambda)**:
-  A practical example from the **aws-samples/aws-cdk-examples** repository, demonstrating how to integrate RabbitMQ Brokers with AWS Lambda using the AWS::AmazonMQ L2+ CDK construct. This example also integrates with AWS Secrets Manager for secure credential management and sets up a CloudWatch Log Group for logging.
+  A practical example from the **aws-samples/aws-cdk-examples** repository, demonstrating how to integrate RabbitMQ Brokers with AWS Lambda using this library. This example also integrates with AWS Secrets Manager for secure credential management and sets up a CloudWatch Log Group for logging.
