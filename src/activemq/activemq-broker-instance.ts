@@ -25,6 +25,10 @@ export interface ActiveMqBrokerInstanceProps
 
 /**
  * A representation of a single-instance broker comprised of one broker in one Availability Zone.
+ * 
+ * Additional optimizations: 
+ * - When subnet selection returns more then 1 subnets. A first one is picked. Warning is annotated
+ * 
  *
  * see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/single-broker-deployment.html
  */
