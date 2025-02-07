@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { SecretValue, Stack } from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Template,Match } from "aws-cdk-lib/assertions";
 import {
   InstanceClass,
   InstanceSize,
@@ -206,6 +206,7 @@ describe("RabbitMqBrokerInstance", () => {
     expect(broker.connections).toBeDefined();
 
     template.resourceCountIs("AWS::EC2::VPC", 1);
+		template.resourceCountIs("AWS::EC2::Subnet", 4);
 
     template.hasResourceProperties("AWS::EC2::VPC", {
       CidrBlock: "10.0.0.0/16",
@@ -241,6 +242,11 @@ describe("RabbitMqBrokerInstance", () => {
       EngineVersion: "3.12.13",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: false,
+			SubnetIds: Match.arrayEquals([
+				{
+					Ref: Match.stringLikeRegexp(".*") // matches second subnet reference
+				}
+			]),
       Users: [
         {
           Password: "password",
