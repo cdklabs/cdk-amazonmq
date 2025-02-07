@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { Aws, Fn, Token, Annotations} from "aws-cdk-lib";
-import { ISubnet, SubnetSelection } from "aws-cdk-lib/aws-ec2";
+import { ISubnet } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
@@ -75,7 +75,7 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
 					
 					if(azSubnet.length >= 2){
 						// take only first two
-						subnetSelection = { subnets: [azSubnet[0], azSubnet[1]]} as SubnetSelection;
+						subnetSelection = { subnets: [azSubnet[0], azSubnet[1]]};
 
 						// display warning if other were rejected
 						if(azSubnet.length > 2)
@@ -96,7 +96,7 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
   
     super(scope, id, {
       ...props,
-      vpcSubnets: subnetSelection, // take only first two
+      vpcSubnets: subnetSelection,
       deploymentMode: BrokerDeploymentMode.ACTIVE_STANDBY_MULTI_AZ,
     });
 

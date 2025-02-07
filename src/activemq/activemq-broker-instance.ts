@@ -12,7 +12,6 @@ import {
 import { ActiveMqBrokerEndpoints } from "./activemq-broker-endpoints";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
 import { StorageType } from "../storage-type";
-import { SubnetSelection } from "aws-cdk-lib/aws-ec2";
 
 export interface ActiveMqBrokerInstanceProps
   extends ActiveMqBrokerDeploymentProps {
@@ -55,7 +54,7 @@ export class ActiveMqBrokerInstance
   ) {
 
 
-		let subnetSelection = props.vpcSubnets
+		let subnetSelection = props.vpcSubnets;
 
 		// check if subnet selection has been specified 
 		if(props.vpcSubnets){
@@ -64,7 +63,7 @@ export class ActiveMqBrokerInstance
 			// if selection is valid for a vpc
 			if(subnets){
 				// single instance allows only one subnet take the first one
-				subnetSelection = { subnets: [subnets.subnets[0]]} as SubnetSelection;
+				subnetSelection = { subnets: [subnets.subnets[0]]} ;
 
 				if(subnets.subnets.length > 1)
 					// Annotate the fact of taking first one when more then one were selected

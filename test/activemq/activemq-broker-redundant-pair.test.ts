@@ -182,7 +182,7 @@ describe("ActiveMqBrokerRedundantPair", () => {
     });
   });
 
-	test("ActiveMQ Private Redundant Pair Broker Deployment with network components provided. First two subnets from different AZ selected", () => {
+	test("ActiveMQ Private Redundant Pair Broker Deployment with network components provided. Selection returns 3 subnets spread across 2 AZ. First two subnets from different AZ selected", () => {
     const stack = new Stack();
 
     const vpc = new Vpc(stack, "TestVpc",{

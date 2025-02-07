@@ -241,7 +241,7 @@ describe("ActiveMqBrokerInstance", () => {
     });
   });
 
-	test("ActiveMQ Private Single Instance Broker Deployment with network components provided. Selection returns 2 subnets", () => {
+	test("ActiveMQ Private Single Instance Broker Deployment with network components provided. Selection returns 2 subnets. First one is picked up", () => {
     const stack = new Stack();
 
     const vpc = new Vpc(stack, "TestVpc",{

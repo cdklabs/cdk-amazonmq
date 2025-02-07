@@ -165,4 +165,88 @@ describe("RabbitMqBrokerInstance", () => {
       ],
     });
   });
+
+	test("RabbitMQ Private Single Instance Broker Deployment with network components provided. Selection returns 2 subnets. First one is picked up", () => {
+    const stack = new Stack();
+
+		const vpc = new Vpc(stack, "TestVpc",{
+			subnetConfiguration: [
+				{
+					cidrMask: 28,
+					name: "Private_1",
+					subnetType: SubnetType.PRIVATE_ISOLATED,
+				},
+				{
+					cidrMask: 28,
+					name: "Private_2",
+					subnetType: SubnetType.PRIVATE_ISOLATED,
+				},
+			]
+		});
+    const vpcSubnets: SubnetSelection = {
+      subnetType: SubnetType.PRIVATE_ISOLATED,
+    };
+
+    const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
+      publiclyAccessible: false,
+      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
+      admin: {
+        username: "username",
+        password: SecretValue.unsafePlainText("password"),
+      },
+      autoMinorVersionUpgrade: false,
+      vpc,
+      vpcSubnets,
+    });
+
+    const template = Template.fromStack(stack);
+
+    // INFO: if weprovide the vpc/vpcSubnets - we have security group generated
+    expect(broker.connections).toBeDefined();
+
+    template.resourceCountIs("AWS::EC2::VPC", 1);
+
+    template.hasResourceProperties("AWS::EC2::VPC", {
+      CidrBlock: "10.0.0.0/16",
+      EnableDnsHostnames: true,
+      EnableDnsSupport: true,
+      InstanceTenancy: "default",
+    });
+
+    template.resourceCountIs("AWS::EC2::SecurityGroup", 1);
+
+    template.hasResourceProperties("AWS::EC2::SecurityGroup", {
+      GroupDescription: "Automatic security group for broker TestBroker",
+      SecurityGroupEgress: [
+        {
+          CidrIp: "255.255.255.255/32",
+          Description: "Disallow all traffic",
+          FromPort: 252,
+          IpProtocol: "icmp",
+          ToPort: 86,
+        },
+      ],
+      VpcId: {
+        Ref: "TestVpcE77CE678",
+      },
+    });
+
+    template.hasResourceProperties("AWS::AmazonMQ::Broker", {
+      AutoMinorVersionUpgrade: false,
+      BrokerName: "TestBroker",
+      DeploymentMode: "SINGLE_INSTANCE",
+      EncryptionOptions: { UseAwsOwnedKey: true },
+      EngineType: "RABBITMQ",
+      EngineVersion: "3.12.13",
+      HostInstanceType: "mq.m5.large",
+      PubliclyAccessible: false,
+      Users: [
+        {
+          Password: "password",
+          Username: "username",
+        },
+      ],
+    });
+  });
 });
