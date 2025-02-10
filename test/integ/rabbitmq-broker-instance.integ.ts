@@ -4,11 +4,7 @@ SPDX-License-Identifier: Apache-2.0
 */
 import path from "path";
 import { App, Stack, TimeZone, Duration } from "aws-cdk-lib";
-import {
-  InstanceClass,
-  InstanceSize,
-  InstanceType,
-} from "aws-cdk-lib/aws-ec2";
+import { InstanceClass, InstanceSize, InstanceType } from "aws-cdk-lib/aws-ec2";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
@@ -25,8 +21,6 @@ const app = new App({
 });
 
 const stack = new Stack(app, "RabbitMqBrokerInstanceTest");
-
-
 
 const brokerAdminCreds = new Secret(stack, "BrokerCreds", {
   generateSecretString: {
