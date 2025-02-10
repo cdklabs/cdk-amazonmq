@@ -230,6 +230,69 @@
         }
       ]
     },
+    "integ:activemq-broker-instance-imported:assert": {
+      "name": "integ:activemq-broker-instance-imported:assert",
+      "description": "assert the snapshot of integration test 'activemq-broker-instance-imported'",
+      "steps": [
+        {
+          "exec": "[ -d \"test/integ/activemq-broker-instance-imported.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'activemq-broker-instance-imported'. Run 'projen integ:activemq-broker-instance-imported:deploy' to capture.\" && exit 1)"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/activemq-broker-instance-imported.integ/assert.cdk.out > /dev/null"
+        },
+        {
+          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/activemq-broker-instance-imported.integ.snapshot/ test/integ/.tmp/activemq-broker-instance-imported.integ/assert.cdk.out/"
+        }
+      ]
+    },
+    "integ:activemq-broker-instance-imported:deploy": {
+      "name": "integ:activemq-broker-instance-imported:deploy",
+      "description": "deploy integration test 'activemq-broker-instance-imported' and capture snapshot",
+      "steps": [
+        {
+          "exec": "rm -fr test/integ/.tmp/activemq-broker-instance-imported.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/activemq-broker-instance-imported.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "rm -fr test/integ/activemq-broker-instance-imported.integ.snapshot"
+        },
+        {
+          "exec": "mv test/integ/.tmp/activemq-broker-instance-imported.integ/deploy.cdk.out test/integ/activemq-broker-instance-imported.integ.snapshot"
+        },
+        {
+          "spawn": "integ:activemq-broker-instance-imported:destroy"
+        }
+      ]
+    },
+    "integ:activemq-broker-instance-imported:destroy": {
+      "name": "integ:activemq-broker-instance-imported:destroy",
+      "description": "destroy integration test 'activemq-broker-instance-imported'",
+      "steps": [
+        {
+          "exec": "cdk destroy --app test/integ/activemq-broker-instance-imported.integ.snapshot '**' --no-version-reporting"
+        }
+      ]
+    },
+    "integ:activemq-broker-instance-imported:snapshot": {
+      "name": "integ:activemq-broker-instance-imported:snapshot",
+      "description": "update snapshot for integration test \"activemq-broker-instance-imported\"",
+      "steps": [
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/activemq-broker-instance-imported.integ.snapshot > /dev/null"
+        }
+      ]
+    },
+    "integ:activemq-broker-instance-imported:watch": {
+      "name": "integ:activemq-broker-instance-imported:watch",
+      "description": "watch integration test 'activemq-broker-instance-imported' (without updating snapshots)",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/activemq-broker-instance-imported.integ/deploy.cdk.out"
+        }
+      ]
+    },
     "integ:activemq-broker-instance-ldap:assert": {
       "name": "integ:activemq-broker-instance-ldap:assert",
       "description": "assert the snapshot of integration test 'activemq-broker-instance-ldap'",
@@ -545,6 +608,69 @@
         }
       ]
     },
+    "integ:rabbitmq-broker-instance-imported:assert": {
+      "name": "integ:rabbitmq-broker-instance-imported:assert",
+      "description": "assert the snapshot of integration test 'rabbitmq-broker-instance-imported'",
+      "steps": [
+        {
+          "exec": "[ -d \"test/integ/rabbitmq-broker-instance-imported.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-instance-imported'. Run 'projen integ:rabbitmq-broker-instance-imported:deploy' to capture.\" && exit 1)"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-instance-imported.integ/assert.cdk.out > /dev/null"
+        },
+        {
+          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-instance-imported.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-instance-imported.integ/assert.cdk.out/"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-imported:deploy": {
+      "name": "integ:rabbitmq-broker-instance-imported:deploy",
+      "description": "deploy integration test 'rabbitmq-broker-instance-imported' and capture snapshot",
+      "steps": [
+        {
+          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-instance-imported.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-instance-imported.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "rm -fr test/integ/rabbitmq-broker-instance-imported.integ.snapshot"
+        },
+        {
+          "exec": "mv test/integ/.tmp/rabbitmq-broker-instance-imported.integ/deploy.cdk.out test/integ/rabbitmq-broker-instance-imported.integ.snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-instance-imported:destroy"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-imported:destroy": {
+      "name": "integ:rabbitmq-broker-instance-imported:destroy",
+      "description": "destroy integration test 'rabbitmq-broker-instance-imported'",
+      "steps": [
+        {
+          "exec": "cdk destroy --app test/integ/rabbitmq-broker-instance-imported.integ.snapshot '**' --no-version-reporting"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-imported:snapshot": {
+      "name": "integ:rabbitmq-broker-instance-imported:snapshot",
+      "description": "update snapshot for integration test \"rabbitmq-broker-instance-imported\"",
+      "steps": [
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-instance-imported.integ.snapshot > /dev/null"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-imported:watch": {
+      "name": "integ:rabbitmq-broker-instance-imported:watch",
+      "description": "watch integration test 'rabbitmq-broker-instance-imported' (without updating snapshots)",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-imported.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-instance-imported.integ/deploy.cdk.out"
+        }
+      ]
+    },
     "integ:rabbitmq-broker-instance:assert": {
       "name": "integ:rabbitmq-broker-instance:assert",
       "description": "assert the snapshot of integration test 'rabbitmq-broker-instance'",
@@ -613,6 +739,9 @@
       "description": "update snapshot for all integration tests",
       "steps": [
         {
+          "spawn": "integ:activemq-broker-instance-imported:snapshot"
+        },
+        {
           "spawn": "integ:activemq-broker-instance-ldap:snapshot"
         },
         {
@@ -626,6 +755,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-custom-resource:snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-instance-imported:snapshot"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:snapshot"
@@ -792,6 +924,9 @@
           "spawn": "eslint"
         },
         {
+          "spawn": "integ:activemq-broker-instance-imported:assert"
+        },
+        {
           "spawn": "integ:activemq-broker-instance-ldap:assert"
         },
         {
@@ -805,6 +940,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-custom-resource:assert"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-instance-imported:assert"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:assert"

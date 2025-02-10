@@ -25,11 +25,13 @@ tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
 !/assets/
+test/integ/activemq-broker-instance-imported.integ.snapshot
 test/integ/activemq-broker-instance-ldap.integ.snapshot
 test/integ/activemq-broker-instance.integ.snapshot
 test/integ/activemq-broker-redundant-pair.integ.snapshot
 test/integ/rabbitmq-broker-cluster.integ.snapshot
 test/integ/rabbitmq-broker-custom-resource.integ.snapshot
+test/integ/rabbitmq-broker-instance-imported.integ.snapshot
 test/integ/.tmp
 test/integ/rabbitmq-broker-instance.integ.snapshot
 /.gitattributes
