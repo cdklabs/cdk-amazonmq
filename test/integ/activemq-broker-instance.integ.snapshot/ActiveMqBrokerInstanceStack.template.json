@@ -28,7 +28,7 @@
     ]
    }
   },
-  "BrokerVpcPrivateSubnet1SubnetA5340936": {
+  "BrokerVpcPrivate1Subnet1Subnet7158A964": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
     "AvailabilityZone": {
@@ -44,7 +44,7 @@
     "Tags": [
      {
       "Key": "aws-cdk:subnet-name",
-      "Value": "Private"
+      "Value": "Private_1"
      },
      {
       "Key": "aws-cdk:subnet-type",
@@ -52,7 +52,7 @@
      },
      {
       "Key": "Name",
-      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/PrivateSubnet1"
+      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/Private_1Subnet1"
      }
     ],
     "VpcId": {
@@ -60,13 +60,13 @@
     }
    }
   },
-  "BrokerVpcPrivateSubnet1RouteTable6A753C97": {
+  "BrokerVpcPrivate1Subnet1RouteTable5D19F033": {
    "Type": "AWS::EC2::RouteTable",
    "Properties": {
     "Tags": [
      {
       "Key": "Name",
-      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/PrivateSubnet1"
+      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/Private_1Subnet1"
      }
     ],
     "VpcId": {
@@ -74,14 +74,71 @@
     }
    }
   },
-  "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6": {
+  "BrokerVpcPrivate1Subnet1RouteTableAssociationAEC08737": {
    "Type": "AWS::EC2::SubnetRouteTableAssociation",
    "Properties": {
     "RouteTableId": {
-     "Ref": "BrokerVpcPrivateSubnet1RouteTable6A753C97"
+     "Ref": "BrokerVpcPrivate1Subnet1RouteTable5D19F033"
     },
     "SubnetId": {
-     "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+     "Ref": "BrokerVpcPrivate1Subnet1Subnet7158A964"
+    }
+   }
+  },
+  "BrokerVpcPrivate2Subnet1SubnetFD109ADD": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": {
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAZs": ""
+      }
+     ]
+    },
+    "CidrBlock": "10.0.0.16/28",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private_2"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Isolated"
+     },
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/Private_2Subnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "BrokerVpcPrivate2Subnet1RouteTableAB32DF47": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ActiveMqBrokerInstanceStack/BrokerVpc/Private_2Subnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "BrokerVpc3A93CA16"
+    }
+   }
+  },
+  "BrokerVpcPrivate2Subnet1RouteTableAssociationC9E45483": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "BrokerVpcPrivate2Subnet1RouteTableAB32DF47"
+    },
+    "SubnetId": {
+     "Ref": "BrokerVpcPrivate2Subnet1SubnetFD109ADD"
     }
    }
   },
@@ -111,7 +168,7 @@
     },
     "SubnetIds": [
      {
-      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+      "Ref": "BrokerVpcPrivate1Subnet1Subnet7158A964"
      }
     ],
     "VpcEndpointType": "Interface",
@@ -146,7 +203,7 @@
     },
     "SubnetIds": [
      {
-      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+      "Ref": "BrokerVpcPrivate1Subnet1Subnet7158A964"
      }
     ],
     "VpcEndpointType": "Interface",
@@ -181,7 +238,7 @@
     },
     "SubnetIds": [
      {
-      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+      "Ref": "BrokerVpcPrivate1Subnet1Subnet7158A964"
      }
     ],
     "VpcEndpointType": "Interface",
@@ -693,7 +750,7 @@
     "StorageType": "EBS",
     "SubnetIds": [
      {
-      "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+      "Ref": "BrokerVpcPrivate1Subnet1Subnet7158A964"
      }
     ],
     "Users": [
@@ -971,7 +1028,8 @@
     ]
    },
    "DependsOn": [
-    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6"
+    "BrokerVpcPrivate1Subnet1RouteTableAssociationAEC08737",
+    "BrokerVpcPrivate2Subnet1RouteTableAssociationC9E45483"
    ]
   },
   "ActiveMqPublisherServiceRoleDefaultPolicy889A39CF": {
@@ -1000,7 +1058,8 @@
     ]
    },
    "DependsOn": [
-    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6"
+    "BrokerVpcPrivate1Subnet1RouteTableAssociationAEC08737",
+    "BrokerVpcPrivate2Subnet1RouteTableAssociationC9E45483"
    ]
   },
   "ActiveMqPublisher4C16FD10": {
@@ -1051,7 +1110,10 @@
      ],
      "SubnetIds": [
       {
-       "Ref": "BrokerVpcPrivateSubnet1SubnetA5340936"
+       "Ref": "BrokerVpcPrivate1Subnet1Subnet7158A964"
+      },
+      {
+       "Ref": "BrokerVpcPrivate2Subnet1SubnetFD109ADD"
       }
      ]
     }
@@ -1059,7 +1121,8 @@
    "DependsOn": [
     "ActiveMqPublisherServiceRoleDefaultPolicy889A39CF",
     "ActiveMqPublisherServiceRole0B69BA1E",
-    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6"
+    "BrokerVpcPrivate1Subnet1RouteTableAssociationAEC08737",
+    "BrokerVpcPrivate2Subnet1RouteTableAssociationC9E45483"
    ]
   },
   "ActiveMqPublisherLogRetentionB0C60380": {
@@ -1085,7 +1148,8 @@
     "RetentionInDays": 1
    },
    "DependsOn": [
-    "BrokerVpcPrivateSubnet1RouteTableAssociationE30FB4E6"
+    "BrokerVpcPrivate1Subnet1RouteTableAssociationAEC08737",
+    "BrokerVpcPrivate2Subnet1RouteTableAssociationC9E45483"
    ]
   },
   "ActiveMqListenerServiceRole0927629B": {

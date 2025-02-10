@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { SecretValue, Stack } from "aws-cdk-lib";
-import { Template,Match } from "aws-cdk-lib/assertions";
+import { Template, Match } from "aws-cdk-lib/assertions";
 import {
   InstanceClass,
   InstanceSize,
@@ -241,23 +241,23 @@ describe("ActiveMqBrokerInstance", () => {
     });
   });
 
-	test("ActiveMQ Private Single Instance Broker Deployment with network components provided. Selection returns 2 subnets. First one is picked up", () => {
+  test("ActiveMQ Private Single Instance Broker Deployment with network components provided. Selection returns 2 subnets. First one is picked up", () => {
     const stack = new Stack();
 
-    const vpc = new Vpc(stack, "TestVpc",{
-			subnetConfiguration: [
-				{
-					cidrMask: 28,
-					name: "Private_1",
-					subnetType: SubnetType.PRIVATE_ISOLATED,
-				},
-				{
-					cidrMask: 28,
-					name: "Private_2",
-					subnetType: SubnetType.PRIVATE_ISOLATED,
-				},
-			]
-		});
+    const vpc = new Vpc(stack, "TestVpc", {
+      subnetConfiguration: [
+        {
+          cidrMask: 28,
+          name: "Private_1",
+          subnetType: SubnetType.PRIVATE_ISOLATED,
+        },
+        {
+          cidrMask: 28,
+          name: "Private_2",
+          subnetType: SubnetType.PRIVATE_ISOLATED,
+        },
+      ],
+    });
 
     const vpcSubnets: SubnetSelection = {
       subnetType: SubnetType.PRIVATE_ISOLATED,
@@ -286,7 +286,7 @@ describe("ActiveMqBrokerInstance", () => {
     expect(broker.connections).toBeDefined();
 
     template.resourceCountIs("AWS::EC2::VPC", 1);
-		template.resourceCountIs("AWS::EC2::Subnet", 4);
+    template.resourceCountIs("AWS::EC2::Subnet", 4);
 
     template.hasResourceProperties("AWS::EC2::VPC", {
       CidrBlock: "10.0.0.0/16",
@@ -322,12 +322,11 @@ describe("ActiveMqBrokerInstance", () => {
       EngineVersion: "5.18",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: false,
-			SubnetIds: Match.arrayEquals([
-		
-				{
-					Ref: Match.stringLikeRegexp(".*") // matches second subnet reference
-				}
-			]),
+      SubnetIds: Match.arrayEquals([
+        {
+          Ref: Match.stringLikeRegexp(".*"), // matches second subnet reference
+        },
+      ]),
       Users: [
         {
           Password: "password",

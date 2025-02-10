@@ -79,7 +79,7 @@ const vpc = new Vpc(stack, "BrokerVpc", {
       name: "Private_1",
       subnetType: SubnetType.PRIVATE_ISOLATED,
     },
-		{
+    {
       cidrMask: 28,
       name: "Private_2",
       subnetType: SubnetType.PRIVATE_ISOLATED,

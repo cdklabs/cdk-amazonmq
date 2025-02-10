@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { SecretValue, Stack } from "aws-cdk-lib";
-import { Template,Match } from "aws-cdk-lib/assertions";
+import { Template, Match } from "aws-cdk-lib/assertions";
 import {
   InstanceClass,
   InstanceSize,
@@ -182,28 +182,29 @@ describe("ActiveMqBrokerRedundantPair", () => {
     });
   });
 
-	test("ActiveMQ Private Redundant Pair Broker Deployment with network components provided. Selection returns 3 subnets spread across 2 AZ. First two subnets from different AZ selected", () => {
+  test("ActiveMQ Private Redundant Pair Broker Deployment with network components provided. Selection returns 3 subnets spread across 2 AZ. First two subnets from different AZ selected", () => {
     const stack = new Stack();
 
-    const vpc = new Vpc(stack, "TestVpc",{
-			maxAzs: 2,
-			subnetConfiguration: [
-			{
-				cidrMask: 28,
-				name: "Private_1",
-				subnetType: SubnetType.PRIVATE_ISOLATED,
-			},
-			{
-				cidrMask: 28,
-				name: "Private_2",
-				subnetType: SubnetType.PRIVATE_ISOLATED,
-			},
-			{
-				cidrMask: 28,
-				name: "Private_3",
-				subnetType: SubnetType.PRIVATE_ISOLATED,	
-			},
-		]});
+    const vpc = new Vpc(stack, "TestVpc", {
+      maxAzs: 2,
+      subnetConfiguration: [
+        {
+          cidrMask: 28,
+          name: "Private_1",
+          subnetType: SubnetType.PRIVATE_ISOLATED,
+        },
+        {
+          cidrMask: 28,
+          name: "Private_2",
+          subnetType: SubnetType.PRIVATE_ISOLATED,
+        },
+        {
+          cidrMask: 28,
+          name: "Private_3",
+          subnetType: SubnetType.PRIVATE_ISOLATED,
+        },
+      ],
+    });
     const vpcSubnets: SubnetSelection = {
       subnetType: SubnetType.PRIVATE_ISOLATED,
     };
@@ -231,7 +232,7 @@ describe("ActiveMqBrokerRedundantPair", () => {
     expect(broker.connections).toBeDefined();
 
     template.resourceCountIs("AWS::EC2::VPC", 1);
-		template.resourceCountIs("AWS::EC2::Subnet", 6);
+    template.resourceCountIs("AWS::EC2::Subnet", 6);
 
     template.hasResourceProperties("AWS::EC2::VPC", {
       CidrBlock: "10.0.0.0/16",
@@ -267,14 +268,14 @@ describe("ActiveMqBrokerRedundantPair", () => {
       EngineVersion: "5.18",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: false,
-			SubnetIds: Match.arrayEquals([
-							{
-								Ref: Match.stringLikeRegexp(".*") // matches first subnet reference
-							},
-							{
-								Ref: Match.stringLikeRegexp(".*") // matches second subnet reference
-							}
-						]),
+      SubnetIds: Match.arrayEquals([
+        {
+          Ref: Match.stringLikeRegexp(".*"), // matches first subnet reference
+        },
+        {
+          Ref: Match.stringLikeRegexp(".*"), // matches second subnet reference
+        },
+      ]),
       Users: [
         {
           Password: "password",
