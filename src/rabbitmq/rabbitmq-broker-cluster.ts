@@ -4,13 +4,19 @@ SPDX-License-Identifier: Apache-2.0
 */
 import { Annotations } from "aws-cdk-lib";
 import { ISubnet } from "aws-cdk-lib/aws-ec2";
+import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IRabbitMqBroker } from "./rabbitmq-broker";
 import {
+  IRabbitMqBrokerDeployment,
   RabbitMqBrokerDeploymentBase,
   RabbitMqBrokerDeploymentProps,
 } from "./rabbitmq-broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
+
+export interface IRabbitMqBrokerCluster
+  extends IRabbitMqBroker,
+    IRabbitMqBrokerDeployment {}
 
 export interface RabbitMqBrokerClusterProps
   extends RabbitMqBrokerDeploymentProps {}
@@ -20,8 +26,41 @@ export interface RabbitMqBrokerClusterProps
  */
 export class RabbitMqBrokerCluster
   extends RabbitMqBrokerDeploymentBase
-  implements IRabbitMqBroker
+  implements IRabbitMqBrokerCluster
 {
+  public static fromRabbitMqBrokerClusterArn(
+    scope: Construct,
+    id: string,
+    arn: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentAttributes(
+      scope,
+      id,
+      arn,
+      undefined,
+      undefined,
+      securityGroups,
+    ) as IRabbitMqBrokerCluster;
+  }
+
+  public static fromRabbitMqBrokerClusterNameAndId(
+    scope: Construct,
+    logicalId: string,
+    name: string,
+    id: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentAttributes(
+      scope,
+      logicalId,
+      undefined,
+      name,
+      id,
+      securityGroups,
+    ) as IRabbitMqBrokerCluster;
+  }
+
   constructor(scope: Construct, id: string, props: RabbitMqBrokerClusterProps) {
     let subnetSelection = props.vpcSubnets;
 

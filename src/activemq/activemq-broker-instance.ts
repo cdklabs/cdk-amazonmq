@@ -3,15 +3,21 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
+import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
   ActiveMqBrokerDeploymentBase,
   ActiveMqBrokerDeploymentProps,
+  IActiveMqBrokerDeployment,
 } from "./activemq-broker-deployment";
 import { ActiveMqBrokerEndpoints } from "./activemq-broker-endpoints";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
 import { StorageType } from "../storage-type";
+
+export interface IActiveMqBrokerInstance
+  extends IActiveMqBrokerDeployment,
+    IActiveMqBroker {}
 
 export interface ActiveMqBrokerInstanceProps
   extends ActiveMqBrokerDeploymentProps {
@@ -33,8 +39,57 @@ export interface ActiveMqBrokerInstanceProps
  */
 export class ActiveMqBrokerInstance
   extends ActiveMqBrokerDeploymentBase
-  implements IActiveMqBroker
+  implements IActiveMqBrokerInstance
 {
+  public static fromActiveMqBrokerInstanceArn(
+    scope: Construct,
+    logicalId: string,
+    arn?: string,
+    securityGroups?: ISecurityGroup[],
+  ): IActiveMqBrokerInstance {
+    return ActiveMqBrokerInstance._assignEndpoints(
+      ActiveMqBrokerInstance._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        arn,
+        undefined,
+        undefined,
+        securityGroups,
+      ),
+    );
+  }
+  public static fromActiveMqBrokerInstanceNameAndId(
+    scope: Construct,
+    logicalId: string,
+    name: string,
+    id: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return ActiveMqBrokerInstance._assignEndpoints(
+      ActiveMqBrokerInstance._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        undefined,
+        name,
+        id,
+        securityGroups,
+      ),
+    ) as IActiveMqBrokerInstance;
+  }
+
+  /**
+   *
+   * @internal
+   */
+  private static _assignEndpoints(
+    imported: IActiveMqBrokerDeployment,
+  ): IActiveMqBrokerInstance {
+    return Object.assign(
+      imported,
+      ActiveMqBrokerInstance._buildActiveMqBroker(imported),
+    );
+  }
+
   /**
    * Gets the IP address of the ENI of the Amazon MQ for ActiveMQ broker.
    *

@@ -4,13 +4,21 @@ SPDX-License-Identifier: Apache-2.0
 */
 import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
 import { ISubnet } from "aws-cdk-lib/aws-ec2";
+import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
   ActiveMqBrokerDeploymentBase,
   ActiveMqBrokerDeploymentProps,
+  IActiveMqBrokerDeployment,
 } from "./activemq-broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
+
+export interface IActiveMqBrokerRedundantPair
+  extends IActiveMqBrokerDeployment {
+  readonly first: IActiveMqBroker;
+  readonly second: IActiveMqBroker;
+}
 
 export interface ActiveMqBrokerRedundantPairProps
   extends ActiveMqBrokerDeploymentProps {}
@@ -24,7 +32,60 @@ export interface ActiveMqBrokerRedundantPairProps
  *
  * see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/active-standby-broker-deployment.html
  */
-export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
+export class ActiveMqBrokerRedundantPair
+  extends ActiveMqBrokerDeploymentBase
+  implements IActiveMqBrokerRedundantPair
+{
+  public static fromActiveMqBrokerRedundantPairArn(
+    scope: Construct,
+    logicalId: string,
+    arn?: string,
+    securityGroups?: ISecurityGroup[],
+  ): IActiveMqBrokerRedundantPair {
+    return ActiveMqBrokerRedundantPair._assignEndpoints(
+      ActiveMqBrokerRedundantPair._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        arn,
+        undefined,
+        undefined,
+        securityGroups,
+      ),
+    );
+  }
+
+  public static fromActiveMqBrokerRedundantPairNameAndId(
+    scope: Construct,
+    logicalId: string,
+    name: string,
+    id: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return ActiveMqBrokerRedundantPair._assignEndpoints(
+      ActiveMqBrokerRedundantPair._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        undefined,
+        name,
+        id,
+        securityGroups,
+      ),
+    ) as IActiveMqBrokerRedundantPair;
+  }
+
+  /**
+   *
+   * @internal
+   */
+  private static _assignEndpoints(
+    imported: IActiveMqBrokerDeployment,
+  ): IActiveMqBrokerRedundantPair {
+    return Object.assign(imported, {
+      first: ActiveMqBrokerRedundantPair._buildActiveMqBroker(imported, "-1"),
+      second: ActiveMqBrokerRedundantPair._buildActiveMqBroker(imported, "-2"),
+    } as IActiveMqBrokerRedundantPair);
+  }
+
   /**
    * The first broker of the redundant pair for the deployment.
    */

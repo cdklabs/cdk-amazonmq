@@ -2,8 +2,9 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { IResource } from "aws-cdk-lib";
+import { Arn, ArnFormat, Aws, IResource, Resource, Stack } from "aws-cdk-lib";
 import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
+import { Connections, ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 // import { ActiveMqAuthenticationStrategy } from './activemq-authentication-strategy';
 import {
@@ -18,6 +19,7 @@ import {
   IBrokerDeployment,
 } from "../broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
+import { IActiveMqBroker } from "./activemq-broker";
 import { IActiveMqBrokerUserManagement } from "./usermanagement/activemq-broker-user-management";
 import { ActiveMqLdapValidation } from "./validators/ldap-metadata-validator";
 
@@ -159,8 +161,269 @@ export abstract class ActiveMqBrokerDeploymentBase
   extends BrokerDeploymentBase
   implements IActiveMqBrokerDeployment
 {
-  // private readonly engineVersion: ActiveMqBrokerEngineVersion;
-  // private readonly authenticationStrategy?: ActiveMqAuthenticationStrategy;
+  /**
+   *
+   * @internal
+   */
+  protected static _buildActiveMqBroker(
+    imported: IActiveMqBrokerDeployment,
+    suffix: string = "",
+  ): IActiveMqBroker {
+    return {
+      endpoints: {
+        amqp: {
+          url: `amqp+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:5671`,
+          port: 5671,
+        },
+        stomp: {
+          url: `stomp+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:61614`,
+          port: 61614,
+        },
+        openWire: {
+          url: `ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:61617`,
+          port: 61617,
+        },
+        mqtt: {
+          url: `mqtt+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:8883`,
+          port: 8883,
+        },
+        wss: {
+          url: `wss://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:61619`,
+          port: 61619,
+        },
+        console: {
+          url: `https://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:8162`,
+          port: 8162,
+        },
+      },
+    } as IActiveMqBroker;
+  }
+  /**
+   *
+   * @internal
+   */
+  protected static _fromActiveMqBrokerDeploymentAttributes(
+    scope: Construct,
+    logicalId: string,
+    arn?: string,
+    name?: string,
+    id?: string,
+    securityGroups?: ISecurityGroup[],
+  ): IActiveMqBrokerDeployment {
+    if (name === undefined && arn === undefined) {
+      throw new Error("Either 'name' or 'arn' needs to be defined");
+    }
+
+    class Import extends Resource implements IActiveMqBrokerDeployment {
+      public readonly id: string;
+      public readonly arn: string;
+      public readonly name: string;
+
+      connections: Connections | undefined = securityGroups
+        ? new Connections({ securityGroups })
+        : undefined;
+      _authenticationStrategy?: string | undefined;
+      _engineVersion: string = "UNKNOWN";
+
+      constructor() {
+        super(scope, logicalId);
+        this.arn = arn
+          ? arn
+          : Stack.of(this).formatArn({
+              service: "mq",
+              resource: "broker",
+              resourceName: `${name}:${id}`,
+              arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+            });
+
+        this.name = name
+          ? name
+          : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!.split(
+              ":",
+            )[0];
+        this.id = id
+          ? id
+          : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!.split(
+              ":",
+            )[1];
+      }
+
+      public metric(metricName: string, options?: MetricOptions): Metric {
+        return new Metric({
+          namespace: "AWS/AmazonMQ",
+          metricName,
+          dimensionsMap: {
+            Broker: this.id,
+          },
+          ...options,
+        });
+      }
+
+      public metricAmqpMaximumConnections(props?: MetricOptions): Metric {
+        return this.metric("AmqpMaximumConnections", props);
+      }
+
+      public metricBurstBalance(props?: MetricOptions): Metric {
+        return this.metric("BurstBalance", props);
+      }
+
+      public metricCpuCreditBalance(props?: MetricOptions): Metric {
+        return this.metric("CpuCreditBalance", props);
+      }
+
+      public metricCpuUtilization(props?: MetricOptions): Metric {
+        return this.metric("CpuUtilization", props);
+      }
+
+      public metricCurrentConnectionsCount(props?: MetricOptions): Metric {
+        return this.metric("CurrentConnectionsCount", props);
+      }
+
+      public metricEstablishedConnectionsCount(props?: MetricOptions): Metric {
+        return this.metric("EstablishedConnectionsCount", props);
+      }
+
+      public metricHeapUsage(props?: MetricOptions): Metric {
+        return this.metric("HeapUsage", props);
+      }
+
+      public metricInactiveDurableTopicSubscribersCount(
+        props?: MetricOptions,
+      ): Metric {
+        return this.metric("InactiveDurableTopicSubscribersCount", props);
+      }
+
+      public metricJobSchedulerStorePercentUsage(
+        props?: MetricOptions,
+      ): Metric {
+        return this.metric("JobSchedulerStorePercentUsage", props);
+      }
+
+      public metricJournalFilesForFastRecovery(props?: MetricOptions): Metric {
+        return this.metric("JobSchedulerStorePercentUsage", props);
+      }
+
+      public metricJournalFilesForFullRecovery(props?: MetricOptions): Metric {
+        return this.metric("JournalFilesForFullRecovery", props);
+      }
+
+      public metricMqttMaximumConnections(props?: MetricOptions): Metric {
+        return this.metric("MqttMaximumConnections", props);
+      }
+
+      public metricNetworkConnectorConnectionCount(
+        props?: MetricOptions,
+      ): Metric {
+        return this.metric("NetworkConnectorConnectionCount", props);
+      }
+
+      public metricNetworkIn(props?: MetricOptions): Metric {
+        return this.metric("NetworkIn", props);
+      }
+
+      public metricNetworkOut(props?: MetricOptions): Metric {
+        return this.metric("NetworkOut", props);
+      }
+
+      public metricOpenTransactionCount(props?: MetricOptions): Metric {
+        return this.metric("OpenTransactionCount", props);
+      }
+
+      public metricOpenwireMaximumConnections(props?: MetricOptions): Metric {
+        return this.metric("OpenwireMaximumConnections", props);
+      }
+
+      public metricStompMaximumConnections(props?: MetricOptions): Metric {
+        return this.metric("StompMaximumConnections", props);
+      }
+
+      public metricStorePercentUsage(props?: MetricOptions): Metric {
+        return this.metric("StorePercentUsage", props);
+      }
+
+      public metricTempPercentUsage(props?: MetricOptions): Metric {
+        return this.metric("TempPercentUsage", props);
+      }
+
+      public metricTotalConsumerCount(props?: MetricOptions): Metric {
+        return this.metric("TotalConsumerCount", props);
+      }
+
+      public metricTotalMessageCount(props?: MetricOptions): Metric {
+        return this.metric("TotalMessageCount", props);
+      }
+
+      public metricTotalProducerCount(props?: MetricOptions): Metric {
+        return this.metric("TotalProducerCount", props);
+      }
+
+      public metricVolumeReadOps(props?: MetricOptions): Metric {
+        return this.metric("VolumeReadOps", props);
+      }
+
+      public metricVolumeWriteOps(props?: MetricOptions): Metric {
+        return this.metric("VolumeWriteOps", props);
+      }
+
+      public metricWsMaximumConnections(props?: MetricOptions): Metric {
+        return this.metric("WsMaximumConnections", props);
+      }
+
+      public metricConsumerCount(props?: MetricOptions): Metric {
+        return this.metric("ConsumerCount", props);
+      }
+
+      public metricEnqueueCount(props?: MetricOptions): Metric {
+        return this.metric("EnqueueCount", props);
+      }
+
+      public metricEnqueueTime(props?: MetricOptions): Metric {
+        return this.metric("EnqueueTime", props);
+      }
+
+      public metricExpiredCount(props?: MetricOptions): Metric {
+        return this.metric("ExpiredCount", props);
+      }
+
+      public metricDispatchCount(props?: MetricOptions): Metric {
+        return this.metric("DispatchCount", props);
+      }
+
+      public metricDequeueCount(props?: MetricOptions): Metric {
+        return this.metric("DequeueCount", props);
+      }
+
+      public metricInFlightCount(props?: MetricOptions): Metric {
+        return this.metric("InFlightCount", props);
+      }
+
+      public metricReceiveCount(props?: MetricOptions): Metric {
+        return this.metric("ReceiveCount", props);
+      }
+
+      public metricMemoryUsage(props?: MetricOptions): Metric {
+        return this.metric("MemoryUsage", props);
+      }
+
+      public metricProducerCount(props?: MetricOptions): Metric {
+        return this.metric("ProducerCount", props);
+      }
+
+      public metricQueueSize(props?: MetricOptions): Metric {
+        return this.metric("QueueSize", props);
+      }
+
+      public metricTotalEnqueueCount(props?: MetricOptions): Metric {
+        return this.metric("TotalEnqueueCount", props);
+      }
+
+      public metricTotalDequeueCount(props?: MetricOptions): Metric {
+        return this.metric("TotalDequeueCount", props);
+      }
+    }
+
+    return new Import();
+  }
 
   public get configuration() {
     return this._configuration as IActiveMqBrokerConfiguration;

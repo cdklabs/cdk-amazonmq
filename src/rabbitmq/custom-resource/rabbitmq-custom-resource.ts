@@ -337,7 +337,7 @@ export class RabbitMqCustomResource
     securityGroups?: ISecurityGroup[],
   ) {
     let hashContent = "";
-    const resourceBroker = broker as unknown as IResource;
+    const resourceBroker = broker as IResource;
     hashContent += Names.uniqueId(resourceBroker);
     hashContent += Names.uniqueId(creds);
     if (vpc) {

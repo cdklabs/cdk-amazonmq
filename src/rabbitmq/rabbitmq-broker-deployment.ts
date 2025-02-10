@@ -2,9 +2,18 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Aws, Fn, IResource, Token } from "aws-cdk-lib";
+import {
+  Arn,
+  ArnFormat,
+  Aws,
+  Fn,
+  IResource,
+  Resource,
+  Stack,
+  Token,
+} from "aws-cdk-lib";
 import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
-import { Port } from "aws-cdk-lib/aws-ec2";
+import { Connections, ISecurityGroup, Port } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { Admin } from "./admin";
 import { IRabbitMqBroker } from "./rabbitmq-broker";
@@ -110,6 +119,159 @@ export abstract class RabbitMqBrokerDeploymentBase
   extends BrokerDeploymentBase
   implements IRabbitMqBrokerDeployment, IRabbitMqBroker
 {
+  /**
+   *
+   * @internal
+   */
+  protected static _fromRabbitMqBrokerDeploymentAttributes(
+    scope: Construct,
+    logicalId: string,
+    arn?: string,
+    name?: string,
+    id?: string,
+    securityGroups?: ISecurityGroup[],
+  ): IRabbitMqBrokerDeployment {
+    if (name === undefined && arn === undefined) {
+      throw new Error("Either 'name' or 'arn' needs to be defined");
+    }
+
+    class Import extends Resource implements IRabbitMqBrokerDeployment {
+      public readonly id: string;
+      public readonly arn: string;
+      public readonly name: string;
+      public readonly endpoints: RabbitMqBrokerEndpoints;
+
+      connections: Connections | undefined = securityGroups
+        ? new Connections({ securityGroups })
+        : undefined;
+      _authenticationStrategy?: string | undefined;
+      _engineVersion: string = "UNKNOWN";
+
+      constructor() {
+        super(scope, logicalId);
+        this.arn = arn
+          ? arn
+          : Stack.of(this).formatArn({
+              service: "mq",
+              resource: "broker",
+              resourceName: `${name}:${id}`,
+              arnFormat: ArnFormat.COLON_RESOURCE_NAME,
+            });
+
+        this.name = name
+          ? name
+          : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!.split(
+              ":",
+            )[0];
+        this.id = id
+          ? id
+          : Arn.split(arn!, ArnFormat.COLON_RESOURCE_NAME).resourceName!.split(
+              ":",
+            )[1];
+
+        this.endpoints = {
+          amqp: {
+            url: `amqps://${this.id}.mq.${Aws.REGION}.amazonaws.com:5671`,
+            port: 5671,
+          },
+          console: {
+            url: `https://${this.id}.mq.${Aws.REGION}.amazonaws.com`,
+            port: 443,
+          },
+        };
+      }
+
+      public metric(metricName: string, options?: MetricOptions): Metric {
+        return new Metric({
+          namespace: "AWS/AmazonMQ",
+          metricName,
+          dimensionsMap: {
+            Broker: this.id,
+          },
+          ...options,
+        });
+      }
+
+      public metricExchangeCount(props?: MetricOptions): Metric {
+        return this.metric("ExchangeCount", props);
+      }
+
+      public metricQueueCount(props?: MetricOptions): Metric {
+        return this.metric("QueueCount", props);
+      }
+
+      public metricConnectionCount(props?: MetricOptions): Metric {
+        return this.metric("ConnectionCount", props);
+      }
+
+      public metricChannelCount(props?: MetricOptions): Metric {
+        return this.metric("ChannelCount", props);
+      }
+
+      public metricConsumerCount(props?: MetricOptions): Metric {
+        return this.metric("ConsumerCount", props);
+      }
+
+      public metricMessageCount(props?: MetricOptions): Metric {
+        return this.metric("MessageCount", props);
+      }
+
+      public metricMessageReadyCount(props?: MetricOptions): Metric {
+        return this.metric("MessageReadyCount", props);
+      }
+
+      public metricMessageUnacknowledgedCount(props?: MetricOptions): Metric {
+        return this.metric("MessageUnacknowledgedCount", props);
+      }
+
+      public metricPublishRate(props?: MetricOptions): Metric {
+        return this.metric("PublishRate", props);
+      }
+
+      public metricConfirmRate(props?: MetricOptions): Metric {
+        return this.metric("ConfirmRate", props);
+      }
+
+      public metricAckRate(props?: MetricOptions): Metric {
+        return this.metric("AckRate", props);
+      }
+
+      public metricSystemCpuUtilization(props?: MetricOptions): Metric {
+        return this.metric("SystemCpuUtilization", props);
+      }
+
+      public metricRabbitMQMemLimit(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQMemLimit", props);
+      }
+
+      public metricRabbitMQMemUsed(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQMemUsed", props);
+      }
+
+      public metricRabbitMQDiskFreeLimit(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQDiskFreeLimit", props);
+      }
+
+      public metricRabbitMQDiskFree(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQDiskFree", props);
+      }
+
+      public metricRabbitMQFdUsed(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQFdUsed", props);
+      }
+
+      public metricRabbitMQIOReadAverageTime(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQIOReadAverageTime", props);
+      }
+
+      public metricRabbitMQIOWriteAverageTime(props?: MetricOptions): Metric {
+        return this.metric("RabbitMQIOWriteAverageTime", props);
+      }
+    }
+
+    return new Import();
+  }
+
   public readonly endpoints: RabbitMqBrokerEndpoints;
 
   constructor(
