@@ -123,114 +123,6 @@
     "RabbitMqBrokerVpcingressSubnet1RouteTableAssociation7D747D68"
    ]
   },
-  "RabbitMqBrokerVpcingressSubnet2Subnet329D1BF6": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.1.0/24",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "ingress"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Public"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/ingressSubnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcingressSubnet2RouteTableC62BC681": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/ingressSubnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcingressSubnet2RouteTableAssociation2B8C7A1A": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcingressSubnet2RouteTableC62BC681"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcingressSubnet2Subnet329D1BF6"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcingressSubnet2DefaultRouteD414101F": {
-   "Type": "AWS::EC2::Route",
-   "Properties": {
-    "DestinationCidrBlock": "0.0.0.0/0",
-    "GatewayId": {
-     "Ref": "RabbitMqBrokerVpcIGW73325482"
-    },
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcingressSubnet2RouteTableC62BC681"
-    }
-   },
-   "DependsOn": [
-    "RabbitMqBrokerVpcVPCGW3C770553"
-   ]
-  },
-  "RabbitMqBrokerVpcingressSubnet2EIPE694CD68": {
-   "Type": "AWS::EC2::EIP",
-   "Properties": {
-    "Domain": "vpc",
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/ingressSubnet2"
-     }
-    ]
-   }
-  },
-  "RabbitMqBrokerVpcingressSubnet2NATGatewayCC533030": {
-   "Type": "AWS::EC2::NatGateway",
-   "Properties": {
-    "AllocationId": {
-     "Fn::GetAtt": [
-      "RabbitMqBrokerVpcingressSubnet2EIPE694CD68",
-      "AllocationId"
-     ]
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcingressSubnet2Subnet329D1BF6"
-    },
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/ingressSubnet2"
-     }
-    ]
-   },
-   "DependsOn": [
-    "RabbitMqBrokerVpcingressSubnet2DefaultRouteD414101F",
-    "RabbitMqBrokerVpcingressSubnet2RouteTableAssociation2B8C7A1A"
-   ]
-  },
   "RabbitMqBrokerVpcapplicationSubnet1Subnet7C1EC0E5": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
@@ -242,7 +134,7 @@
       }
      ]
     },
-    "CidrBlock": "10.0.2.0/24",
+    "CidrBlock": "10.0.1.0/24",
     "MapPublicIpOnLaunch": false,
     "Tags": [
      {
@@ -300,75 +192,6 @@
     }
    }
   },
-  "RabbitMqBrokerVpcapplicationSubnet2SubnetD0E6F89F": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.3.0/24",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "application"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Private"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/applicationSubnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcapplicationSubnet2RouteTable47013A6D": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/applicationSubnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcapplicationSubnet2RouteTableAssociation9197B416": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcapplicationSubnet2RouteTable47013A6D"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcapplicationSubnet2SubnetD0E6F89F"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcapplicationSubnet2DefaultRoute8B38C826": {
-   "Type": "AWS::EC2::Route",
-   "Properties": {
-    "DestinationCidrBlock": "0.0.0.0/0",
-    "NatGatewayId": {
-     "Ref": "RabbitMqBrokerVpcingressSubnet2NATGatewayCC533030"
-    },
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcapplicationSubnet2RouteTable47013A6D"
-    }
-   }
-  },
   "RabbitMqBrokerVpcbroker1Subnet1Subnet96F3B252": {
    "Type": "AWS::EC2::Subnet",
    "Properties": {
@@ -380,7 +203,7 @@
       }
      ]
     },
-    "CidrBlock": "10.0.4.0/28",
+    "CidrBlock": "10.0.2.0/28",
     "MapPublicIpOnLaunch": false,
     "Tags": [
      {
@@ -423,291 +246,6 @@
     },
     "SubnetId": {
      "Ref": "RabbitMqBrokerVpcbroker1Subnet1Subnet96F3B252"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker1Subnet2SubnetB5BEFA10": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.4.16/28",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "broker_1"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Isolated"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_1Subnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker1Subnet2RouteTable98D1EFBF": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_1Subnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker1Subnet2RouteTableAssociation57B17487": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcbroker1Subnet2RouteTable98D1EFBF"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcbroker1Subnet2SubnetB5BEFA10"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker2Subnet1SubnetDDBBB475": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      0,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.4.32/28",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "broker_2"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Isolated"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_2Subnet1"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker2Subnet1RouteTable3D2F443E": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_2Subnet1"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker2Subnet1RouteTableAssociation4C402688": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcbroker2Subnet1RouteTable3D2F443E"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcbroker2Subnet1SubnetDDBBB475"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker2Subnet2SubnetF31AA5CD": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.4.48/28",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "broker_2"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Isolated"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_2Subnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker2Subnet2RouteTableA86E8DE0": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_2Subnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker2Subnet2RouteTableAssociationA91FC524": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcbroker2Subnet2RouteTableA86E8DE0"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcbroker2Subnet2SubnetF31AA5CD"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker3Subnet1Subnet02D69E16": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      0,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.4.64/28",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "broker_3"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Isolated"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_3Subnet1"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker3Subnet1RouteTable4F26F06F": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_3Subnet1"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker3Subnet1RouteTableAssociation26707D1F": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcbroker3Subnet1RouteTable4F26F06F"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcbroker3Subnet1Subnet02D69E16"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker3Subnet2Subnet93AD936F": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "AvailabilityZone": {
-     "Fn::Select": [
-      1,
-      {
-       "Fn::GetAZs": ""
-      }
-     ]
-    },
-    "CidrBlock": "10.0.4.80/28",
-    "MapPublicIpOnLaunch": false,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "broker_3"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Isolated"
-     },
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_3Subnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker3Subnet2RouteTable32F269D1": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "RabbitMqBrokerClusterTestStack/RabbitMqBrokerVpc/broker_3Subnet2"
-     }
-    ],
-    "VpcId": {
-     "Ref": "RabbitMqBrokerVpc836818D0"
-    }
-   }
-  },
-  "RabbitMqBrokerVpcbroker3Subnet2RouteTableAssociation64F28418": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "RabbitMqBrokerVpcbroker3Subnet2RouteTable32F269D1"
-    },
-    "SubnetId": {
-     "Ref": "RabbitMqBrokerVpcbroker3Subnet2Subnet93AD936F"
     }
    }
   },
@@ -760,9 +298,6 @@
     "SubnetIds": [
      {
       "Ref": "RabbitMqBrokerVpcbroker1Subnet1Subnet96F3B252"
-     },
-     {
-      "Ref": "RabbitMqBrokerVpcbroker1Subnet2SubnetB5BEFA10"
      }
     ],
     "VpcEndpointType": "Interface",
@@ -798,9 +333,6 @@
     "SubnetIds": [
      {
       "Ref": "RabbitMqBrokerVpcbroker1Subnet1Subnet96F3B252"
-     },
-     {
-      "Ref": "RabbitMqBrokerVpcbroker1Subnet2SubnetB5BEFA10"
      }
     ],
     "VpcEndpointType": "Interface",
@@ -836,9 +368,6 @@
     "SubnetIds": [
      {
       "Ref": "RabbitMqBrokerVpcbroker1Subnet1Subnet96F3B252"
-     },
-     {
-      "Ref": "RabbitMqBrokerVpcbroker1Subnet2SubnetB5BEFA10"
      }
     ],
     "VpcEndpointType": "Interface",
@@ -1222,9 +751,6 @@
     "SubnetIds": [
      {
       "Ref": "RabbitMqBrokerVpcbroker1Subnet1Subnet96F3B252"
-     },
-     {
-      "Ref": "RabbitMqBrokerVpcbroker1Subnet2SubnetB5BEFA10"
      }
     ],
     "Users": [
@@ -1523,9 +1049,7 @@
    },
    "DependsOn": [
     "RabbitMqBrokerVpcapplicationSubnet1DefaultRoute89E3F2C3",
-    "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD",
-    "RabbitMqBrokerVpcapplicationSubnet2DefaultRoute8B38C826",
-    "RabbitMqBrokerVpcapplicationSubnet2RouteTableAssociation9197B416"
+    "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD"
    ]
   },
   "RabbitMqPublisherServiceRoleDefaultPolicy65CB21E8": {
@@ -1555,9 +1079,7 @@
    },
    "DependsOn": [
     "RabbitMqBrokerVpcapplicationSubnet1DefaultRoute89E3F2C3",
-    "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD",
-    "RabbitMqBrokerVpcapplicationSubnet2DefaultRoute8B38C826",
-    "RabbitMqBrokerVpcapplicationSubnet2RouteTableAssociation9197B416"
+    "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD"
    ]
   },
   "RabbitMqPublisher81E5A65A": {
@@ -1609,9 +1131,6 @@
      "SubnetIds": [
       {
        "Ref": "RabbitMqBrokerVpcapplicationSubnet1Subnet7C1EC0E5"
-      },
-      {
-       "Ref": "RabbitMqBrokerVpcapplicationSubnet2SubnetD0E6F89F"
       }
      ]
     }
@@ -1619,8 +1138,6 @@
    "DependsOn": [
     "RabbitMqBrokerVpcapplicationSubnet1DefaultRoute89E3F2C3",
     "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD",
-    "RabbitMqBrokerVpcapplicationSubnet2DefaultRoute8B38C826",
-    "RabbitMqBrokerVpcapplicationSubnet2RouteTableAssociation9197B416",
     "RabbitMqPublisherServiceRoleDefaultPolicy65CB21E8",
     "RabbitMqPublisherServiceRole5985FC25"
    ]
@@ -1649,9 +1166,7 @@
    },
    "DependsOn": [
     "RabbitMqBrokerVpcapplicationSubnet1DefaultRoute89E3F2C3",
-    "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD",
-    "RabbitMqBrokerVpcapplicationSubnet2DefaultRoute8B38C826",
-    "RabbitMqBrokerVpcapplicationSubnet2RouteTableAssociation9197B416"
+    "RabbitMqBrokerVpcapplicationSubnet1RouteTableAssociationA8F308BD"
    ]
   },
   "RabbitMqListenerServiceRoleB38C3DDE": {

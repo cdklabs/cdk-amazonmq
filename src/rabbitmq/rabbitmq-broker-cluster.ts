@@ -32,42 +32,21 @@ export class RabbitMqBrokerCluster
       let subnets = props.vpc?.selectSubnets(props.vpcSubnets);
 
       if (subnets) {
-        if (subnets?.subnets.length < 3) {
+        if (subnets?.subnets.length < 1) {
           Annotations.of(scope).addError(
-            `Need exactly 2 subnets. '${JSON.stringify(props.vpcSubnets)}', please use a different selection.`,
+            `Need at leasts 1 subnet. '${JSON.stringify(props.vpcSubnets)}', please use a different selection.`,
           );
         }
 
-        if (subnets?.subnets.length >= 2) {
-          const azSubnet: ISubnet[] = [];
-          const usedAzs = new Set<string>();
+        // Get subnets from different AZ
+        const selected = subnets?.subnets.reduce<ISubnet[]>((acc, curr) => {
+          if (!acc.find((a) => a.availabilityZone === curr.availabilityZone)) {
+            acc.push(curr);
+          }
+          return acc;
+        }, []);
 
-          // find first three entries that has different az from subnets.availabilityZones
-          subnets.subnets.find((subnet, index) => {
-            const candidates = subnets.subnets.filter(
-              (p) => p.availabilityZone != subnet.availabilityZone,
-            );
-
-            if (
-              candidates.length > 1 &&
-              usedAzs.has(candidates[0].availabilityZone) === false
-            ) {
-              azSubnet.push(subnets.subnets[index]);
-              azSubnet.push(candidates[0]);
-              usedAzs.add(subnets.subnets[index].availabilityZone);
-              usedAzs.add(candidates[0].availabilityZone);
-
-              // we assume that there no subnet limitations for RabbitMQ thus we take all that belong to different AZ
-            } else {
-              Annotations.of(scope).addWarning(
-                `CLUSTER_MULTI_AZ deployment requires that each subnet will be in different AZ. Rejecting ${subnet.subnetId}. Taking first one from the selection`,
-              );
-            }
-            return false;
-          });
-
-          subnetSelection = { subnets: azSubnet };
-        }
+        subnetSelection = { subnets: selected };
       }
     }
 
