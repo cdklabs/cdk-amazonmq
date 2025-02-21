@@ -52,16 +52,6 @@ const vpc = new Vpc(stack, "RabbitMqBrokerVpc", {
       name: "broker_1",
       subnetType: SubnetType.PRIVATE_ISOLATED,
     },
-    // {
-    //   cidrMask: 28,
-    //   name: "broker_2",
-    //   subnetType: SubnetType.PRIVATE_ISOLATED,
-    // },
-    // {
-    //   cidrMask: 28,
-    //   name: "broker_3",
-    //   subnetType: SubnetType.PRIVATE_ISOLATED,
-    // },
   ],
 });
 

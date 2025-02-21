@@ -43,6 +43,11 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
     let subnetSelection = props.vpcSubnets;
 
     /* START - Validate subnets and select two with different AZ if more then 2 where found */
+    // This flag is used to determine if a annotation needs to be done
+    const annotations = {
+      warnings: new Array<string>(),
+      errors: new Array<string>(),
+    };
 
     // check if subnet selection has been specified
     if (props.vpcSubnets) {
@@ -50,7 +55,7 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
 
       if (subnets) {
         if (subnets?.subnets.length < 2) {
-          Annotations.of(scope).addError(
+          annotations.errors.push(
             `Need exactly 2 subnets. '${JSON.stringify(props.vpcSubnets)}', please use a different selection.`,
           );
         }
@@ -79,11 +84,11 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
 
             // display warning if other were rejected
             if (azSubnet.length > 2)
-              Annotations.of(scope).addWarning(
+              annotations.warnings.push(
                 `Need exactly 2 subnets from different AZ found more. Selecting only two from different AZs: ${azSubnet[0].subnetId}, ${azSubnet[1].subnetId}`,
               );
           } else {
-            Annotations.of(scope).addWarning(
+            annotations.warnings.push(
               `Requirement for exactly 2 subnets from different AZ is not be meet with '${JSON.stringify(props.vpcSubnets)}'`,
             );
           }
@@ -98,6 +103,19 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
       vpcSubnets: subnetSelection,
       deploymentMode: BrokerDeploymentMode.ACTIVE_STANDBY_MULTI_AZ,
     });
+
+    // Provide Annotation to the resource.
+    if (annotations.warnings.length > 0) {
+      annotations.warnings.forEach((msg) =>
+        Annotations.of(scope).addWarning(msg),
+      );
+    }
+
+    if (annotations.errors.length > 0) {
+      annotations.errors.forEach((msg) =>
+        Annotations.of(scope).addWarning(msg),
+      );
+    }
 
     this.first = {
       endpoints: {

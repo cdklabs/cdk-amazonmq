@@ -30,6 +30,10 @@ export class RabbitMqBrokerInstance
     props: RabbitMqBrokerInstanceProps,
   ) {
     let subnetSelection = props.vpcSubnets;
+
+    // This flag is used to determine if a annotation needs to be done
+    const annotationWarnings = [];
+
     // check if subnet selection has been specified
     if (props.vpcSubnets) {
       const subnets = props.vpc?.selectSubnets(props.vpcSubnets);
@@ -41,7 +45,7 @@ export class RabbitMqBrokerInstance
 
         if (subnets.subnets.length > 1)
           // Annotate the fact of taking first one when more then one were selected
-          Annotations.of(scope).addWarning(
+          annotationWarnings.push(
             `Exactly 1 subnet in [SINGLE_INSTANCE] deployment mode is needed. vpcSubnets selection returned ${subnets.subnets.length}. Taking first one from the selection`,
           );
       }
@@ -52,5 +56,12 @@ export class RabbitMqBrokerInstance
       vpcSubnets: subnetSelection,
       deploymentMode: BrokerDeploymentMode.SINGLE_INSTANCE,
     });
+
+    // Provide Annotation to the resource.
+    if (annotationWarnings.length > 0) {
+      annotationWarnings.forEach((msg) =>
+        Annotations.of(scope).addWarning(msg),
+      );
+    }
   }
 }
