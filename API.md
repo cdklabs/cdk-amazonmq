@@ -1057,6 +1057,10 @@ public readonly configuration: IActiveMqBrokerConfiguration;
 
 A representation of a single-instance broker comprised of one broker in one Availability Zone.
 
+Additional optimizations:
+- When subnet selection returns more then 1 subnets. A first one is picked. Warning is annotated
+
+
 see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/single-broker-deployment.html
 
 #### Initializers <a name="Initializers" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.Initializer"></a>
@@ -1858,6 +1862,10 @@ Gets the IP address of the ENI of the Amazon MQ for ActiveMQ broker.
 ### ActiveMqBrokerRedundantPair <a name="ActiveMqBrokerRedundantPair" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair"></a>
 
 A representation of an active/standby broker that is comprised of two brokers in two different Availability Zones.
+
+Additional optimizations:
+- When subnet selection returns more then 2 subnets. Construct picks first two that do belong to different AZ. Warning is annotated. If subnet selection does not meet AZ criteria an error is thrown.
+
 
 see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/active-standby-broker-deployment.html
 
@@ -4635,7 +4643,9 @@ public readonly endpoints: RabbitMqBrokerEndpoints;
 
 - *Implements:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>
 
-A representation of a single-instance broker comprised of one broker in one Availability Zone behind a Network Load Balancer (NLB).
+A representation of a single-instance broker comprised of one broker in one Availability Zone behind a Network Load Balancer (NLB)  Additional optimizations: - When subnet selection returns more then 1 subnets.
+
+A first one is picked. Warning is annotated
 
 #### Initializers <a name="Initializers" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.Initializer"></a>
 

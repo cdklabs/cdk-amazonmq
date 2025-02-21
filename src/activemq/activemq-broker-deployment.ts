@@ -180,11 +180,7 @@ export abstract class ActiveMqBrokerDeploymentBase
       engine: BrokerEngine.ACTIVEMQ,
     });
 
-    // this.engineVersion = props.version;
-
     if (renderedUserManagement.ldapServerMetadata) {
-      // this.authenticationStrategy = ActiveMqAuthenticationStrategy.LDAP;
-
       // validate ldap server metadata if present
       this.node.addValidation(
         new ActiveMqLdapValidation({
