@@ -31,7 +31,7 @@ export class RabbitMqBrokerCluster
     /* START - Validate subnets and select two with different AZ if more then 2 where found */
 
     // check if subnet selection has been specified
-    if (props.vpcSubnets) {
+    if (props.vpcSubnets && props.vpc) {
       let subnets = props.vpc?.selectSubnets(props.vpcSubnets);
 
       if (subnets) {

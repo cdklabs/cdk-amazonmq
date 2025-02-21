@@ -58,7 +58,7 @@ export class ActiveMqBrokerInstance
     const annotationWarnings = [];
 
     // check if subnet selection has been specified
-    if (props.vpcSubnets) {
+    if (props.vpcSubnets && props.vpc) {
       const subnets = props.vpc?.selectSubnets(props.vpcSubnets);
 
       // if selection is valid for a vpc
