@@ -671,7 +671,7 @@ In the example presented the response of the call to `/api/nodes` endpoint is an
 
 ### External Examples
 
-This section includes additional examples and use cases for working with RabbitMQ Brokers using the AWS::AmazonMQ L2+ Construct Library.
+This section includes additional examples and use cases for working with RabbitMQ Brokers using this library.
 
 - **[AWS CDK Example for RabbitMQ Lambda Integration](https://github.com/aws-samples/aws-cdk-examples/tree/main/typescript/amazon-mq-rabbitmq-lambda)**:
   A practical example from the **aws-samples/aws-cdk-examples** repository, demonstrating how to integrate RabbitMQ Brokers with AWS Lambda using this library. This example also integrates with AWS Secrets Manager for secure credential management and sets up a CloudWatch Log Group for logging.
