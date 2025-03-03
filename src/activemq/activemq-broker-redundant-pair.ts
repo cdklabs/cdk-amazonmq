@@ -2,7 +2,8 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Aws, Fn, Token } from "aws-cdk-lib";
+import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
+import { ISubnet } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
@@ -16,6 +17,10 @@ export interface ActiveMqBrokerRedundantPairProps
 
 /**
  * A representation of an active/standby broker that is comprised of two brokers in two different Availability Zones.
+ *
+ * Additional optimizations:
+ * - When subnet selection returns more then 2 subnets. Construct picks first two that do belong to different AZ. Warning is annotated. If subnet selection does not meet AZ criteria an error is thrown.
+ *
  *
  * see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/active-standby-broker-deployment.html
  */
@@ -35,10 +40,80 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
     id: string,
     props: ActiveMqBrokerRedundantPairProps,
   ) {
+    let subnetSelection = props.vpcSubnets;
+
+    /* START - Validate subnets and select two with different AZ if more then 2 where found */
+    // This flag is used to determine if a annotation needs to be done
+    const annotations = {
+      warnings: new Array<string>(),
+      errors: new Array<string>(),
+    };
+
+    // check if subnet selection has been specified
+    if (props.vpcSubnets && props.vpc) {
+      let subnets = props.vpc?.selectSubnets(props.vpcSubnets);
+
+      if (subnets) {
+        if (subnets?.subnets.length < 2) {
+          annotations.errors.push(
+            `Need exactly 2 subnets. '${JSON.stringify(props.vpcSubnets)}', please use a different selection.`,
+          );
+        }
+
+        if (subnets?.subnets.length >= 2) {
+          const azSubnet: ISubnet[] = [];
+
+          // find first two entries that has different az from subnets.availabilityZones
+          subnets.subnets.find((subnet, index) => {
+            const candidates = subnets.subnets.filter(
+              (p) => p.availabilityZone != subnet.availabilityZone,
+            );
+
+            if (candidates.length > 0) {
+              azSubnet.push(subnets.subnets[index]);
+              azSubnet.push(candidates[0]);
+              return true;
+            }
+
+            return false;
+          });
+
+          if (azSubnet.length >= 2) {
+            // take only first two
+            subnetSelection = { subnets: [azSubnet[0], azSubnet[1]] };
+
+            // display warning if other were rejected
+            if (azSubnet.length > 2)
+              annotations.warnings.push(
+                `Need exactly 2 subnets from different AZ found more. Selecting only two from different AZs: ${azSubnet[0].subnetId}, ${azSubnet[1].subnetId}`,
+              );
+          } else {
+            annotations.warnings.push(
+              `Requirement for exactly 2 subnets from different AZ is not be meet with '${JSON.stringify(props.vpcSubnets)}'`,
+            );
+          }
+        }
+      }
+    }
+
+    /* END - Validate subnets and select two with different AZ if more then 2 where found */
+
     super(scope, id, {
       ...props,
+      vpcSubnets: subnetSelection,
       deploymentMode: BrokerDeploymentMode.ACTIVE_STANDBY_MULTI_AZ,
     });
+
+    // Provide Annotation to the resource.
+    if (annotations.warnings.length > 0) {
+      annotations.warnings.forEach((msg) =>
+        Annotations.of(this).addWarning(msg),
+      );
+    }
+
+    if (annotations.errors.length > 0) {
+      annotations.errors.forEach((msg) => Annotations.of(this).addWarning(msg));
+    }
 
     this.first = {
       endpoints: {

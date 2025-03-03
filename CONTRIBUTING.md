@@ -54,11 +54,9 @@ GitHub provides additional document on [forking a repository](https://help.githu
 
 ### Step 3: Setup
 
-`cdk-appflow` provides both a local or DevContainer Option for development.
-
 #### Option 1: Local
 
-The following tools need to be installed on your system prior to building `cdk-appflow` locally:
+The following tools need to be installed on your system prior to building `cdk-amazonmq` locally:
 
 - [Node.js >= 14.15.0](https://nodejs.org/download/release/latest-v14.x/)
   - We recommend using a version in [Active LTS](https://nodejs.org/en/about/releases/)

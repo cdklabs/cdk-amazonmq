@@ -3,7 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import path from "path";
-import { App, Duration, Stack, TimeZone } from "aws-cdk-lib";
+import { App, Stack, TimeZone, Duration } from "aws-cdk-lib";
 import { InstanceClass, InstanceSize, InstanceType } from "aws-cdk-lib/aws-ec2";
 import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
