@@ -2,8 +2,8 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Template, Match } from "aws-cdk-lib/assertions";
 import { Aws, SecretValue, Stack } from "aws-cdk-lib";
+import { Template, Match } from "aws-cdk-lib/assertions";
 import {
   InstanceClass,
   InstanceSize,

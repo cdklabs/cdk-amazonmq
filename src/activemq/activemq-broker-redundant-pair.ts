@@ -3,8 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
-import { ISubnet } from "aws-cdk-lib/aws-ec2";
-import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
+import { ISubnet, ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
