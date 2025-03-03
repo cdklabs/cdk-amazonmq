@@ -83,7 +83,7 @@ export class ActiveMqBrokerInstance
     // Provide Annotation to the resource.
     if (annotationWarnings.length > 0) {
       annotationWarnings.forEach((msg) =>
-        Annotations.of(scope).addWarning(msg),
+        Annotations.of(this).addWarning(msg),
       );
     }
 

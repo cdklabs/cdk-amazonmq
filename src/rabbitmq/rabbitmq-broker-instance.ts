@@ -59,9 +59,7 @@ export class RabbitMqBrokerInstance
 
     // Provide Annotation to the resource.
     if (annotationWarnings.length > 0) {
-      annotationWarnings.forEach((msg) =>
-        Annotations.of(scope).addWarning(msg),
-      );
+      annotationWarnings.forEach((msg) => Annotations.of(this).addWarning(msg));
     }
   }
 }

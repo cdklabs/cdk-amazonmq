@@ -107,14 +107,12 @@ export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
     // Provide Annotation to the resource.
     if (annotations.warnings.length > 0) {
       annotations.warnings.forEach((msg) =>
-        Annotations.of(scope).addWarning(msg),
+        Annotations.of(this).addWarning(msg),
       );
     }
 
     if (annotations.errors.length > 0) {
-      annotations.errors.forEach((msg) =>
-        Annotations.of(scope).addWarning(msg),
-      );
+      annotations.errors.forEach((msg) => Annotations.of(this).addWarning(msg));
     }
 
     this.first = {

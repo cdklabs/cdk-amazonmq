@@ -62,7 +62,7 @@ export class RabbitMqBrokerCluster
 
     // Provide Annotation to the resource.
     if (annotationErrors.length > 0) {
-      annotationErrors.forEach((msg) => Annotations.of(scope).addError(msg));
+      annotationErrors.forEach((msg) => Annotations.of(this).addError(msg));
     }
   }
 }
