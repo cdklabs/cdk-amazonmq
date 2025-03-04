@@ -131,8 +131,10 @@ export abstract class RabbitMqBrokerDeploymentBase
     id?: string,
     securityGroups?: ISecurityGroup[],
   ): IRabbitMqBrokerDeployment {
-    if (name === undefined && arn === undefined) {
-      throw new Error("Either 'name' or 'arn' needs to be defined");
+    if ((name === undefined || id === undefined) && arn === undefined) {
+      throw new Error(
+        "Either the pair 'name' and 'id', or 'arn' needs to be defined",
+      );
     }
 
     class Import extends Resource implements IRabbitMqBrokerDeployment {
