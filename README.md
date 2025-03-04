@@ -27,6 +27,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
   - [ActiveMQ Broker Deployments](#activemq-broker-deployments)
   - [ActiveMQ Broker Endpoints](#activemq-broker-endpoints)
   - [Allowing Connections to ActiveMQ Brokers](#allowing-connections-to-activemq-brokers)
+  - [Importing Existing ActiveMq Brokers](#importing-exisitng-activemq-brokers)
   - [ActiveMQ Broker Configurations](#activemq-broker-configurations)
   - [ActiveMQ Broker User Management](#activemq-broker-user-management)
     - [ActiveMQ Broker Simple Authentication](#activemq-broker-simple-authentication)
@@ -36,6 +37,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
 - [RabbitMQ Brokers](#rabbitmq-brokers)
   - [RabbitMQ Broker Deployments](#rabbitmq-broker-deployments)
   - [RabbitMQ Broker Endpoints](#rabbitmq-broker-endpoints)
+  - [Importing Existing RabbitMq Brokers](#importing-exisitng-rabbitmq-brokers)
   - [Allowing Connections to a RabbitMQ Broker](#allowing-connections-to-a-rabbitmq-broker)
   - [RabbitMQ Broker Configurations](#rabbitmq-broker-configurations)
   - [Monitoring RabbitMQ Brokers](#monitoring-rabbitmq-brokers)
@@ -191,6 +193,42 @@ deployment.connections?.allowFrom(Peer.ipv4('1.2.3.4/8'), Port.tcp(broker.endpoi
 Mind that `connections` will be defined only if VPC and subnets are specified. For an instance of `ActiveMqBrokerRedundantPair` one would access the broker endpoints under either `first` or `second` property.
 
 ***Security:*** It is a security best practice *[to block unnecessary protocols with VPC security groups](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/using-amazon-mq-securely.html#amazon-mq-vpc-security-groups)*.
+
+### Importing exisitng ActiveMQ Brokers
+
+To import an existing `ActiveMqBrokerInstance` use `.fromActiveMqBrokerInstanceArn()` or `.fromActiveMqBrokerInstanceNameAndId()` methods.
+
+```typescript
+import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+
+const broker = ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(
+  this,
+  "Imported",
+  "arn:aws:mq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012"
+);
+```
+
+If you want to use `.connections` you can additionally pass `securityGroups`:
+
+```typescript
+import { SecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+
+const sgs = [
+  SecurityGroup.fromSecurityGroupId(this, "ImportedSG", "sg-123123123123"),
+];
+
+const broker = ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId(
+  this,
+  "Imported",
+  "TestBroker",
+  "b-123456789012-123456789012",
+  sgs,
+);
+
+```
+
+Similarly, `ActiveMqBrokerRedundantPair` can be imported using `.fromActiveMqRedundantPairArn()` and `.fromActiveMqRedundantPairNameAndId()` methods.
 
 ### ActiveMQ Broker Configurations
 
@@ -459,6 +497,41 @@ deployment.connections?.allowFrom(Peer.ipv4('1.2.3.4/8'), Port.tcp(broker.endpoi
 ```
 
 Mind that `connections` will be defined only if VPC and subnets are specified.
+
+### Importing exisitng RabbitMQ Brokers
+
+To import an existing `RabbitMqBrokerInstance` use `.fromRabbitMqBrokerInstanceArn()` or `.fromRabbitMqBrokerInstanceNameAndId()` methods.
+
+```typescript
+import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+
+const broker = RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(
+  this,
+  "Imported",
+  "arn:aws:mq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012"
+);
+```
+
+If you want to use `.connections` you can additionally pass `securityGroups`:
+
+```typescript
+import { SecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+
+const sgs = [
+  SecurityGroup.fromSecurityGroupId(this, "ImportedSG", "sg-123123123123"),
+];
+
+const broker = RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(
+  this,
+  "Imported",
+  "TestBroker",
+  "b-123456789012-123456789012",
+  sgs,
+);
+```
+
+Similarly, `RabbitMqBrokerCluster` can be imported using `.fromRabbitMqClusterArn()` and `.fromRabbitMqClusterNameAndId()` methods.
 
 ### RabbitMQ Broker Configurations
 
