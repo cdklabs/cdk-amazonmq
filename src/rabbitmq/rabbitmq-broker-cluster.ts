@@ -27,15 +27,24 @@ export class RabbitMqBrokerCluster
   extends RabbitMqBrokerDeploymentBase
   implements IRabbitMqBrokerCluster
 {
+  /**
+   * Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing AcitveMQ Broker Cluster that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the RabbitMQ Broker Cluster
+   */
   public static fromRabbitMqBrokerClusterArn(
     scope: Construct,
-    id: string,
+    logicalId: string,
     arn: string,
     securityGroups?: ISecurityGroup[],
   ) {
     return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentAttributes(
       scope,
-      id,
+      logicalId,
       arn,
       undefined,
       undefined,
@@ -43,6 +52,16 @@ export class RabbitMqBrokerCluster
     ) as IRabbitMqBrokerCluster;
   }
 
+  /**
+   * Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by name and id.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param name the name of the existing RabbitMQ Broker Cluster to be imported
+   * @param id the ID of the existing RabbitMQ Broker Cluster to be imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the RabbitMQ Broker Cluster
+   */
   public static fromRabbitMqBrokerClusterNameAndId(
     scope: Construct,
     logicalId: string,

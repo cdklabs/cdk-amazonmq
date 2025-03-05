@@ -35,6 +35,15 @@ export class ActiveMqBrokerRedundantPair
   extends ActiveMqBrokerDeploymentBase
   implements IActiveMqBrokerRedundantPair
 {
+  /**
+   * Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing ActiveMQ Broker Redundant Pair that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Redundant Pair
+   */
   public static fromActiveMqBrokerRedundantPairArn(
     scope: Construct,
     logicalId: string,
@@ -53,6 +62,16 @@ export class ActiveMqBrokerRedundantPair
     );
   }
 
+  /**
+   * Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by its name and id.
+   *
+   * @param scope
+   * @param logicalId
+   * @param name the name of the existing ActiveMQ Broker Redundant Pair to be imported
+   * @param id the ID of the existing ActiveMQ Broker Redundant Pair to be imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Redundant Pair
+   */
   public static fromActiveMqBrokerRedundantPairNameAndId(
     scope: Construct,
     logicalId: string,

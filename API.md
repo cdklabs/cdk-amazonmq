@@ -1669,8 +1669,8 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn">fromActiveMqBrokerInstanceArn</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId">fromActiveMqBrokerInstanceNameAndId</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn">fromActiveMqBrokerInstanceArn</a></code> | Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId">fromActiveMqBrokerInstanceNameAndId</a></code> | Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by its name and id. |
 
 ---
 
@@ -1732,6 +1732,8 @@ import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
 ```
 
+Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by ARN.
+
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.scope"></a>
 
 - *Type:* constructs.Construct
@@ -1742,17 +1744,23 @@ ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(scope: Construct, logicalId
 
 - *Type:* string
 
+the construct's logical ID.
+
 ---
 
 ###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.arn"></a>
 
 - *Type:* string
 
+the ARN of the existing ActiveMQ Broker Instance that is imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
 
 ---
 
@@ -1763,6 +1771,8 @@ import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 
 ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
 ```
+
+Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by its name and id.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.scope"></a>
 
@@ -1780,17 +1790,23 @@ ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId(scope: Construct, log
 
 - *Type:* string
 
+the name of the existing ActiveMQ Broker Instance to be imported.
+
 ---
 
 ###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.id"></a>
 
 - *Type:* string
 
+the ID of the existing ActiveMQ Broker Instance to be imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+(optional) pass security groups for working with network connections.
 
 ---
 
@@ -2549,8 +2565,8 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn">fromActiveMqBrokerRedundantPairArn</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId">fromActiveMqBrokerRedundantPairNameAndId</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn">fromActiveMqBrokerRedundantPairArn</a></code> | Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId">fromActiveMqBrokerRedundantPairNameAndId</a></code> | Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by its name and id. |
 
 ---
 
@@ -2612,6 +2628,8 @@ import { ActiveMqBrokerRedundantPair } from '@cdklabs/cdk-amazonmq'
 ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
 ```
 
+Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by ARN.
+
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.scope"></a>
 
 - *Type:* constructs.Construct
@@ -2622,17 +2640,23 @@ ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(scope: Construct,
 
 - *Type:* string
 
+the construct's logical ID.
+
 ---
 
 ###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.arn"></a>
 
 - *Type:* string
 
+the ARN of the existing ActiveMQ Broker Redundant Pair that is imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
 
 ---
 
@@ -2643,6 +2667,8 @@ import { ActiveMqBrokerRedundantPair } from '@cdklabs/cdk-amazonmq'
 
 ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
 ```
+
+Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by its name and id.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.scope"></a>
 
@@ -2660,17 +2686,23 @@ ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId(scope: Cons
 
 - *Type:* string
 
+the name of the existing ActiveMQ Broker Redundant Pair to be imported.
+
 ---
 
 ###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.id"></a>
 
 - *Type:* string
 
+the ID of the existing ActiveMQ Broker Redundant Pair to be imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+(optional) pass security groups for working with network connections.
 
 ---
 
@@ -3832,8 +3864,8 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn">fromRabbitMqBrokerClusterArn</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId">fromRabbitMqBrokerClusterNameAndId</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn">fromRabbitMqBrokerClusterArn</a></code> | Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId">fromRabbitMqBrokerClusterNameAndId</a></code> | Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by name and id. |
 
 ---
 
@@ -3892,8 +3924,10 @@ Check whether the given construct is a Resource.
 ```typescript
 import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
 
-RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, id: string, arn: string, securityGroups?: ISecurityGroup[])
+RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
 ```
+
+Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by ARN.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.scope"></a>
 
@@ -3901,9 +3935,11 @@ RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, id: string,
 
 ---
 
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.id"></a>
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.logicalId"></a>
 
 - *Type:* string
+
+the construct's logical ID.
 
 ---
 
@@ -3911,11 +3947,15 @@ RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, id: string,
 
 - *Type:* string
 
+the ARN of the existing AcitveMQ Broker Cluster that is imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
 
 ---
 
@@ -3927,6 +3967,8 @@ import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
 RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
 ```
 
+Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by name and id.
+
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.scope"></a>
 
 - *Type:* constructs.Construct
@@ -3937,11 +3979,15 @@ RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(scope: Construct, logic
 
 - *Type:* string
 
+the construct's logical ID.
+
 ---
 
 ###### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.name"></a>
 
 - *Type:* string
+
+the name of the existing RabbitMQ Broker Cluster to be imported.
 
 ---
 
@@ -3949,11 +3995,15 @@ RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(scope: Construct, logic
 
 - *Type:* string
 
+the ID of the existing RabbitMQ Broker Cluster to be imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
 
 ---
 
@@ -5211,8 +5261,8 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn">fromRabbitMqBrokerInstanceArn</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId">fromRabbitMqBrokerInstanceNameAndId</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn">fromRabbitMqBrokerInstanceArn</a></code> | Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId">fromRabbitMqBrokerInstanceNameAndId</a></code> | Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id. |
 
 ---
 
@@ -5271,8 +5321,10 @@ Check whether the given construct is a Resource.
 ```typescript
 import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 
-RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, id: string, arn: string, securityGroups?: ISecurityGroup[])
+RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
 ```
+
+Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.scope"></a>
 
@@ -5280,9 +5332,11 @@ RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, id: strin
 
 ---
 
-###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.id"></a>
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.logicalId"></a>
 
 - *Type:* string
+
+the construct's logical ID.
 
 ---
 
@@ -5290,11 +5344,15 @@ RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, id: strin
 
 - *Type:* string
 
+the ARN of the existing RabbitMQ Broker Instance that is imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
 
 ---
 
@@ -5305,6 +5363,8 @@ import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 
 RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
 ```
+
+Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.scope"></a>
 
@@ -5322,17 +5382,23 @@ RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(scope: Construct, log
 
 - *Type:* string
 
+the name of the existing RabbitMQ Broker Instance to be imported.
+
 ---
 
 ###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.id"></a>
 
 - *Type:* string
 
+the ID of the existing RabbitMQ Broker Instance to be imported.
+
 ---
 
 ###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.securityGroups"></a>
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+(optional) pass security groups for working with network connections.
 
 ---
 

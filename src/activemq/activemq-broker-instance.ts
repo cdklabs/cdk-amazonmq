@@ -41,6 +41,15 @@ export class ActiveMqBrokerInstance
   extends ActiveMqBrokerDeploymentBase
   implements IActiveMqBrokerInstance
 {
+  /**
+   * Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing ActiveMQ Broker Instance that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Instance
+   */
   public static fromActiveMqBrokerInstanceArn(
     scope: Construct,
     logicalId: string,
@@ -58,6 +67,17 @@ export class ActiveMqBrokerInstance
       ),
     );
   }
+
+  /**
+   * Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by its name and id.
+   *
+   * @param scope
+   * @param logicalId
+   * @param name the name of the existing ActiveMQ Broker Instance to be imported
+   * @param id the ID of the existing ActiveMQ Broker Instance to be imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Instance
+   */
   public static fromActiveMqBrokerInstanceNameAndId(
     scope: Construct,
     logicalId: string,

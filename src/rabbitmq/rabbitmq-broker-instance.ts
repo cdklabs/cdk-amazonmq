@@ -30,15 +30,24 @@ export class RabbitMqBrokerInstance
   extends RabbitMqBrokerDeploymentBase
   implements IRabbitMqBrokerInstance
 {
+  /**
+   * Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing RabbitMQ Broker Instance that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the RabbitMQ Broker Instance
+   */
   public static fromRabbitMqBrokerInstanceArn(
     scope: Construct,
-    id: string,
+    logicalId: string,
     arn: string,
     securityGroups?: ISecurityGroup[],
   ) {
     return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentAttributes(
       scope,
-      id,
+      logicalId,
       arn,
       undefined,
       undefined,
@@ -46,6 +55,16 @@ export class RabbitMqBrokerInstance
     ) as IRabbitMqBrokerInstance;
   }
 
+  /**
+   * Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id.
+   *
+   * @param scope
+   * @param logicalId
+   * @param name the name of the existing RabbitMQ Broker Instance to be imported
+   * @param id the ID of the existing RabbitMQ Broker Instance to be imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @returns a representation of the RabbitMQ Broker Instance
+   */
   public static fromRabbitMqBrokerInstanceNameAndId(
     scope: Construct,
     logicalId: string,
