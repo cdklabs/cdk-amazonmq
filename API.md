@@ -1729,7 +1729,7 @@ Check whether the given construct is a Resource.
 ```typescript
 import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 
-ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(scope: Construct, logicalId: string, arn?: string, securityGroups?: ISecurityGroup[])
+ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
 ```
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.scope"></a>
@@ -1744,7 +1744,7 @@ ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(scope: Construct, logicalId
 
 ---
 
-###### `arn`<sup>Optional</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.arn"></a>
+###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.arn"></a>
 
 - *Type:* string
 
@@ -2609,7 +2609,7 @@ Check whether the given construct is a Resource.
 ```typescript
 import { ActiveMqBrokerRedundantPair } from '@cdklabs/cdk-amazonmq'
 
-ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(scope: Construct, logicalId: string, arn?: string, securityGroups?: ISecurityGroup[])
+ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
 ```
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.scope"></a>
@@ -2624,7 +2624,7 @@ ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(scope: Construct,
 
 ---
 
-###### `arn`<sup>Optional</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.arn"></a>
+###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.arn"></a>
 
 - *Type:* string
 

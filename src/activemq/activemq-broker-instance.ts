@@ -44,7 +44,7 @@ export class ActiveMqBrokerInstance
   public static fromActiveMqBrokerInstanceArn(
     scope: Construct,
     logicalId: string,
-    arn?: string,
+    arn: string,
     securityGroups?: ISecurityGroup[],
   ): IActiveMqBrokerInstance {
     return ActiveMqBrokerInstance._assignEndpoints(

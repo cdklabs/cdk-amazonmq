@@ -38,7 +38,7 @@ export class ActiveMqBrokerRedundantPair
   public static fromActiveMqBrokerRedundantPairArn(
     scope: Construct,
     logicalId: string,
-    arn?: string,
+    arn: string,
     securityGroups?: ISecurityGroup[],
   ): IActiveMqBrokerRedundantPair {
     return ActiveMqBrokerRedundantPair._assignEndpoints(
