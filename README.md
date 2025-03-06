@@ -42,7 +42,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
   - [RabbitMQ Broker Configurations](#rabbitmq-broker-configurations)
   - [Monitoring RabbitMQ Brokers](#monitoring-rabbitmq-brokers)
   - [RabbitMQ Broker Integration with AWS Lambda](#rabbitmq-broker-integration-with-aws-lambda)
-  - [Using Management HTTP API through `RabbitMqCustomResource`](#using-management-http-api-through-rabbitmqcustomresource)
+  - [Using RabbitMQ Management HTTP API](#using-rabbitmq-management-http-api)
   - [External Examples](#external-examples)
 
 ## Introduction
@@ -664,7 +664,7 @@ deployment.connections?.allowDefaultPortInternally();
 
 ```
 
-### Using Management HTTP API through `RabbitMqCustomResource`
+### Using RabbitMQ Management HTTP API
 
 This library allows for interacting with Amazon MQ for RabbitMQ brokers with the use of RabbitMQ Management HTTP API through the use of `RabbitMqCustomResource`. This resource follows the user experience of [`AwsCustomResource`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.custom_resources.AwsCustomResource.html) and is underpinned by a [`SingletonFunction`](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.SingletonFunction.html). The custom resource creates such singleton function per a combination of `broker`, `credentials`, `vpc`, `vpcSubnets`, and `securityGroups`. This allows for limiting the number of resources, but limits the scope per permissions (through taking into consideration `broker` and `credentials`) and connectivity (through `vpc`, `vpcSubnets`, and `securityGroups`).
 
