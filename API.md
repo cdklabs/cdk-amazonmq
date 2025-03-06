@@ -1053,7 +1053,7 @@ public readonly configuration: IActiveMqBrokerConfiguration;
 
 ### ActiveMqBrokerInstance <a name="ActiveMqBrokerInstance" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance"></a>
 
-- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
+- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance">IActiveMqBrokerInstance</a>
 
 A representation of a single-instance broker comprised of one broker in one Availability Zone.
 
@@ -1669,6 +1669,8 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn">fromActiveMqBrokerInstanceArn</a></code> | Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId">fromActiveMqBrokerInstanceNameAndId</a></code> | Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by its name and id. |
 
 ---
 
@@ -1719,6 +1721,92 @@ Check whether the given construct is a Resource.
 ###### `construct`<sup>Required</sup> <a name="construct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isResource.parameter.construct"></a>
 
 - *Type:* constructs.IConstruct
+
+---
+
+##### `fromActiveMqBrokerInstanceArn` <a name="fromActiveMqBrokerInstanceArn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn"></a>
+
+```typescript
+import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
+
+ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.logicalId"></a>
+
+- *Type:* string
+
+the construct's logical ID.
+
+---
+
+###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.arn"></a>
+
+- *Type:* string
+
+the ARN of the existing ActiveMQ Broker Instance that is imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
+
+---
+
+##### `fromActiveMqBrokerInstanceNameAndId` <a name="fromActiveMqBrokerInstanceNameAndId" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId"></a>
+
+```typescript
+import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
+
+ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by its name and id.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.logicalId"></a>
+
+- *Type:* string
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.name"></a>
+
+- *Type:* string
+
+the name of the existing ActiveMQ Broker Instance to be imported.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.id"></a>
+
+- *Type:* string
+
+the ID of the existing ActiveMQ Broker Instance to be imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.fromActiveMqBrokerInstanceNameAndId.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+(optional) pass security groups for working with network connections.
 
 ---
 
@@ -1860,6 +1948,8 @@ Gets the IP address of the ENI of the Amazon MQ for ActiveMQ broker.
 
 
 ### ActiveMqBrokerRedundantPair <a name="ActiveMqBrokerRedundantPair" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair"></a>
+
+- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair">IActiveMqBrokerRedundantPair</a>
 
 A representation of an active/standby broker that is comprised of two brokers in two different Availability Zones.
 
@@ -2475,6 +2565,8 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn">fromActiveMqBrokerRedundantPairArn</a></code> | Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId">fromActiveMqBrokerRedundantPairNameAndId</a></code> | Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by its name and id. |
 
 ---
 
@@ -2525,6 +2617,92 @@ Check whether the given construct is a Resource.
 ###### `construct`<sup>Required</sup> <a name="construct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isResource.parameter.construct"></a>
 
 - *Type:* constructs.IConstruct
+
+---
+
+##### `fromActiveMqBrokerRedundantPairArn` <a name="fromActiveMqBrokerRedundantPairArn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn"></a>
+
+```typescript
+import { ActiveMqBrokerRedundantPair } from '@cdklabs/cdk-amazonmq'
+
+ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.logicalId"></a>
+
+- *Type:* string
+
+the construct's logical ID.
+
+---
+
+###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.arn"></a>
+
+- *Type:* string
+
+the ARN of the existing ActiveMQ Broker Redundant Pair that is imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
+
+---
+
+##### `fromActiveMqBrokerRedundantPairNameAndId` <a name="fromActiveMqBrokerRedundantPairNameAndId" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId"></a>
+
+```typescript
+import { ActiveMqBrokerRedundantPair } from '@cdklabs/cdk-amazonmq'
+
+ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by its name and id.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.logicalId"></a>
+
+- *Type:* string
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.name"></a>
+
+- *Type:* string
+
+the name of the existing ActiveMQ Broker Redundant Pair to be imported.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.id"></a>
+
+- *Type:* string
+
+the ID of the existing ActiveMQ Broker Redundant Pair to be imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+(optional) pass security groups for working with network connections.
 
 ---
 
@@ -3336,7 +3514,7 @@ The stack in which this resource is defined.
 
 ### RabbitMqBrokerCluster <a name="RabbitMqBrokerCluster" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster"></a>
 
-- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>
+- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster">IRabbitMqBrokerCluster</a>
 
 A representation of a RabbitMQ cluster deployment is a logical grouping of three RabbitMQ broker nodes behind a Network Load Balancer, each sharing users, queues, and a distributed state across multiple Availability Zones (AZ).
 
@@ -3686,6 +3864,8 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn">fromRabbitMqBrokerClusterArn</a></code> | Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId">fromRabbitMqBrokerClusterNameAndId</a></code> | Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by name and id. |
 
 ---
 
@@ -3736,6 +3916,94 @@ Check whether the given construct is a Resource.
 ###### `construct`<sup>Required</sup> <a name="construct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isResource.parameter.construct"></a>
 
 - *Type:* constructs.IConstruct
+
+---
+
+##### `fromRabbitMqBrokerClusterArn` <a name="fromRabbitMqBrokerClusterArn" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn"></a>
+
+```typescript
+import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.logicalId"></a>
+
+- *Type:* string
+
+the construct's logical ID.
+
+---
+
+###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.arn"></a>
+
+- *Type:* string
+
+the ARN of the existing AcitveMQ Broker Cluster that is imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
+
+---
+
+##### `fromRabbitMqBrokerClusterNameAndId` <a name="fromRabbitMqBrokerClusterNameAndId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId"></a>
+
+```typescript
+import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by name and id.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.logicalId"></a>
+
+- *Type:* string
+
+the construct's logical ID.
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.name"></a>
+
+- *Type:* string
+
+the name of the existing RabbitMQ Broker Cluster to be imported.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.id"></a>
+
+- *Type:* string
+
+the ID of the existing RabbitMQ Broker Cluster to be imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
 
 ---
 
@@ -4641,7 +4909,7 @@ public readonly endpoints: RabbitMqBrokerEndpoints;
 
 ### RabbitMqBrokerInstance <a name="RabbitMqBrokerInstance" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance"></a>
 
-- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>
+- *Implements:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance">IRabbitMqBrokerInstance</a>
 
 A representation of a single-instance broker comprised of one broker in one Availability Zone behind a Network Load Balancer (NLB)  Additional optimizations: - When subnet selection returns more then 1 subnets.
 
@@ -4993,6 +5261,8 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn">fromRabbitMqBrokerInstanceArn</a></code> | Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId">fromRabbitMqBrokerInstanceNameAndId</a></code> | Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id. |
 
 ---
 
@@ -5043,6 +5313,92 @@ Check whether the given construct is a Resource.
 ###### `construct`<sup>Required</sup> <a name="construct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isResource.parameter.construct"></a>
 
 - *Type:* constructs.IConstruct
+
+---
+
+##### `fromRabbitMqBrokerInstanceArn` <a name="fromRabbitMqBrokerInstanceArn" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn"></a>
+
+```typescript
+import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.logicalId"></a>
+
+- *Type:* string
+
+the construct's logical ID.
+
+---
+
+###### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.arn"></a>
+
+- *Type:* string
+
+the ARN of the existing RabbitMQ Broker Instance that is imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+optionally pass security groups for working with network connections.
+
+---
+
+##### `fromRabbitMqBrokerInstanceNameAndId` <a name="fromRabbitMqBrokerInstanceNameAndId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId"></a>
+
+```typescript
+import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
+```
+
+Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id.
+
+###### `scope`<sup>Required</sup> <a name="scope" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+###### `logicalId`<sup>Required</sup> <a name="logicalId" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.logicalId"></a>
+
+- *Type:* string
+
+---
+
+###### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.name"></a>
+
+- *Type:* string
+
+the name of the existing RabbitMQ Broker Instance to be imported.
+
+---
+
+###### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.id"></a>
+
+- *Type:* string
+
+the ID of the existing RabbitMQ Broker Instance to be imported.
+
+---
+
+###### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.securityGroups"></a>
+
+- *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
+
+(optional) pass security groups for working with network connections.
 
 ---
 
@@ -10446,7 +10802,7 @@ Called by `lambda.addEventSource` to allow the event source to bind to this func
 
 ### IActiveMqBroker <a name="IActiveMqBroker" id="@cdklabs/cdk-amazonmq.IActiveMqBroker"></a>
 
-- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance">IActiveMqBrokerInstance</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
@@ -10611,7 +10967,7 @@ public readonly revision: number;
 
 - *Extends:* aws-cdk-lib.IResource, <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>
 
-- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase">ActiveMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair">ActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase">ActiveMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair">ActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance">IActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair">IActiveMqBrokerRedundantPair</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
@@ -11224,6 +11580,262 @@ public readonly connections: Connections;
 
 ---
 
+### IActiveMqBrokerInstance <a name="IActiveMqBrokerInstance" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance"></a>
+
+- *Extends:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
+
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance">IActiveMqBrokerInstance</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEndpoints">ActiveMqBrokerEndpoints</a></code> | A set of endpoints for the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.ipAddress">ipAddress</a></code> | <code>string</code> | The IP address of the broker. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `connections`<sup>Optional</sup> <a name="connections" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+---
+
+##### `endpoints`<sup>Required</sup> <a name="endpoints" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.endpoints"></a>
+
+```typescript
+public readonly endpoints: ActiveMqBrokerEndpoints;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEndpoints">ActiveMqBrokerEndpoints</a>
+
+A set of endpoints for the broker.
+
+---
+
+##### `ipAddress`<sup>Required</sup> <a name="ipAddress" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.ipAddress"></a>
+
+```typescript
+public readonly ipAddress: string;
+```
+
+- *Type:* string
+
+The IP address of the broker.
+
+---
+
+### IActiveMqBrokerRedundantPair <a name="IActiveMqBrokerRedundantPair" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair"></a>
+
+- *Extends:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>
+
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair">ActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair">IActiveMqBrokerRedundantPair</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.first">first</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.second">second</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `connections`<sup>Optional</sup> <a name="connections" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+---
+
+##### `first`<sup>Required</sup> <a name="first" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.first"></a>
+
+```typescript
+public readonly first: IActiveMqBroker;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
+
+---
+
+##### `second`<sup>Required</sup> <a name="second" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.second"></a>
+
+```typescript
+public readonly second: IActiveMqBroker;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBroker">IActiveMqBroker</a>
+
+---
+
 ### IActiveMqBrokerUserManagement <a name="IActiveMqBrokerUserManagement" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerUserManagement"></a>
 
 - *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerUserManagement">IActiveMqBrokerUserManagement</a>
@@ -11340,7 +11952,7 @@ public readonly revision: number;
 
 - *Extends:* aws-cdk-lib.IResource
 
-- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase">ActiveMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair">ActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase">BrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase">ActiveMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair">ActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase">BrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance">IActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair">IActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster">IRabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance">IRabbitMqBrokerInstance</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
@@ -11467,14 +12079,62 @@ public readonly connections: Connections;
 
 ### IRabbitMqBroker <a name="IRabbitMqBroker" id="@cdklabs/cdk-amazonmq.IRabbitMqBroker"></a>
 
-- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>
+- *Extends:* aws-cdk-lib.IResource
+
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster">IRabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance">IRabbitMqBrokerInstance</a>
 
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
 
 ---
 
@@ -11485,6 +12145,121 @@ public readonly endpoints: RabbitMqBrokerEndpoints;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a>
+
+---
+
+### IRabbitMqBrokerCluster <a name="IRabbitMqBrokerCluster" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster"></a>
+
+- *Extends:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>
+
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster">IRabbitMqBrokerCluster</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `endpoints`<sup>Required</sup> <a name="endpoints" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.endpoints"></a>
+
+```typescript
+public readonly endpoints: RabbitMqBrokerEndpoints;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a>
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `connections`<sup>Optional</sup> <a name="connections" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
 
 ---
 
@@ -11617,7 +12392,7 @@ public readonly revision: number;
 
 - *Extends:* aws-cdk-lib.IResource, <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>
 
-- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster">IRabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance">IRabbitMqBrokerInstance</a>
 
 #### Methods <a name="Methods" id="Methods"></a>
 
@@ -11967,6 +12742,121 @@ public readonly connections: Connections;
 ```
 
 - *Type:* aws-cdk-lib.aws_ec2.Connections
+
+---
+
+### IRabbitMqBrokerInstance <a name="IRabbitMqBrokerInstance" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance"></a>
+
+- *Extends:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker">IRabbitMqBroker</a>
+
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance">IRabbitMqBrokerInstance</a>
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.arn">arn</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.name">name</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `env`<sup>Required</sup> <a name="env" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.env"></a>
+
+```typescript
+public readonly env: ResourceEnvironment;
+```
+
+- *Type:* aws-cdk-lib.ResourceEnvironment
+
+The environment this resource belongs to.
+
+For resources that are created and managed by the CDK
+(generally, those created by creating new class instances like Role, Bucket, etc.),
+this is always the same as the environment of the stack they belong to;
+however, for imported resources
+(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
+that might be different than the stack they were imported into.
+
+---
+
+##### `stack`<sup>Required</sup> <a name="stack" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.stack"></a>
+
+```typescript
+public readonly stack: Stack;
+```
+
+- *Type:* aws-cdk-lib.Stack
+
+The stack in which this resource is defined.
+
+---
+
+##### `arn`<sup>Required</sup> <a name="arn" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.arn"></a>
+
+```typescript
+public readonly arn: string;
+```
+
+- *Type:* string
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.id"></a>
+
+```typescript
+public readonly id: string;
+```
+
+- *Type:* string
+
+---
+
+##### `name`<sup>Required</sup> <a name="name" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `connections`<sup>Optional</sup> <a name="connections" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.connections"></a>
+
+```typescript
+public readonly connections: Connections;
+```
+
+- *Type:* aws-cdk-lib.aws_ec2.Connections
+
+---
+
+##### `endpoints`<sup>Required</sup> <a name="endpoints" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.endpoints"></a>
+
+```typescript
+public readonly endpoints: RabbitMqBrokerEndpoints;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a>
 
 ---
 

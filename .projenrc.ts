@@ -33,7 +33,6 @@ const project = new CdklabsConstructLibrary({
     "rabbitmq-client",
     "rhea",
   ],
-  jsiiVersion: "~5.4.30",
   keywords: ["aws", "Amazon MQ", "ActiveMQ", "RabbitMQ", "AWS CDK"],
   gitignore: [".vscode", "**/.DS_Store"],
 });
