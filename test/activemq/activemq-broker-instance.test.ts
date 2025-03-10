@@ -378,6 +378,22 @@ describe("ActiveMqBrokerInstance", () => {
     expect(broker.endpoints.console.port).toEqual(8162);
   });
 
+  test("ActiveMq Single Instance Broker import by incorrect ARN", () => {
+    const stack = new Stack();
+
+    const incorrectARN = "XXXXXX";
+
+    expect(() =>
+      ActiveMqBrokerInstance.fromActiveMqBrokerInstanceArn(
+        stack,
+        "Imported",
+        incorrectARN,
+      ),
+    ).toThrow(
+      `ARNs must start with "arn:" and have at least 6 components: ${incorrectARN}`,
+    );
+  });
+
   test("ActiveMq Single Instance Broker import by ARN with SGs", () => {
     const stack = new Stack();
 

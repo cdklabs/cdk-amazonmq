@@ -293,6 +293,22 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.connections).toBeUndefined();
   });
 
+  test("RabbitMQ Private Cluster Broker import by incorrect ARN", () => {
+    const stack = new Stack();
+
+    const incorrectARN = "XXXXXX";
+
+    expect(() =>
+      RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(
+        stack,
+        "Imported",
+        incorrectARN,
+      ),
+    ).toThrow(
+      `ARNs must start with "arn:" and have at least 6 components: ${incorrectARN}`,
+    );
+  });
+
   test("RabbitMQ Private Cluster Broker import by ARN with SGs", () => {
     const stack = new Stack();
 

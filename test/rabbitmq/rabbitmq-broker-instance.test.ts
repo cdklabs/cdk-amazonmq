@@ -281,6 +281,22 @@ describe("RabbitMqBrokerInstance", () => {
     );
   });
 
+  test("RabbitMQ Private Single Instance Broker import by incorrect ARN", () => {
+    const stack = new Stack();
+
+    const incorrectARN = "XXXXXX";
+
+    expect(() =>
+      RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(
+        stack,
+        "Imported",
+        incorrectARN,
+      ),
+    ).toThrow(
+      `ARNs must start with "arn:" and have at least 6 components: ${incorrectARN}`,
+    );
+  });
+
   test("RabbitMQ Private Single Instance Broker import by ARN with SGs", () => {
     const stack = new Stack();
 

@@ -354,6 +354,22 @@ describe("ActiveMqBrokerRedundantPair", () => {
     expect(broker.connections).toBeUndefined();
   });
 
+  test("ActiveMq Broker Redundant Pair import by incorrect ARN", () => {
+    const stack = new Stack();
+
+    const incorrectARN = "XXXXXX";
+
+    expect(() =>
+      ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(
+        stack,
+        "Imported",
+        incorrectARN,
+      ),
+    ).toThrow(
+      `ARNs must start with "arn:" and have at least 6 components: ${incorrectARN}`,
+    );
+  });
+
   test("ActiveMq Broker Redundant Pair import by ARN with SGs", () => {
     const stack = new Stack();
 
