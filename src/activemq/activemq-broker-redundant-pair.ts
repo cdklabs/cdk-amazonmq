@@ -3,14 +3,21 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
-import { ISubnet } from "aws-cdk-lib/aws-ec2";
+import { ISubnet, ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
   ActiveMqBrokerDeploymentBase,
   ActiveMqBrokerDeploymentProps,
+  IActiveMqBrokerDeployment,
 } from "./activemq-broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
+
+export interface IActiveMqBrokerRedundantPair
+  extends IActiveMqBrokerDeployment {
+  readonly first: IActiveMqBroker;
+  readonly second: IActiveMqBroker;
+}
 
 export interface ActiveMqBrokerRedundantPairProps
   extends ActiveMqBrokerDeploymentProps {}
@@ -24,7 +31,79 @@ export interface ActiveMqBrokerRedundantPairProps
  *
  * see: https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/active-standby-broker-deployment.html
  */
-export class ActiveMqBrokerRedundantPair extends ActiveMqBrokerDeploymentBase {
+export class ActiveMqBrokerRedundantPair
+  extends ActiveMqBrokerDeploymentBase
+  implements IActiveMqBrokerRedundantPair
+{
+  /**
+   * Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing ActiveMQ Broker Redundant Pair that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Redundant Pair
+   */
+  public static fromActiveMqBrokerRedundantPairArn(
+    scope: Construct,
+    logicalId: string,
+    arn: string,
+    securityGroups?: ISecurityGroup[],
+  ): IActiveMqBrokerRedundantPair {
+    return ActiveMqBrokerRedundantPair._assignEndpoints(
+      ActiveMqBrokerRedundantPair._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        arn,
+        undefined,
+        undefined,
+        securityGroups,
+      ),
+    );
+  }
+
+  /**
+   * Reference an existing ActiveMQ Broker Redundant Pair, defined outside of the CDK code, by its name and id.
+   *
+   * @param scope
+   * @param logicalId
+   * @param name the name of the existing ActiveMQ Broker Redundant Pair to be imported
+   * @param id the ID of the existing ActiveMQ Broker Redundant Pair to be imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Redundant Pair
+   */
+  public static fromActiveMqBrokerRedundantPairNameAndId(
+    scope: Construct,
+    logicalId: string,
+    name: string,
+    id: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return ActiveMqBrokerRedundantPair._assignEndpoints(
+      ActiveMqBrokerRedundantPair._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        undefined,
+        name,
+        id,
+        securityGroups,
+      ),
+    ) as IActiveMqBrokerRedundantPair;
+  }
+
+  /**
+   *
+   * @internal
+   */
+  private static _assignEndpoints(
+    imported: IActiveMqBrokerDeployment,
+  ): IActiveMqBrokerRedundantPair {
+    return Object.assign(imported, {
+      first: ActiveMqBrokerRedundantPair._buildActiveMqBroker(imported, "-1"),
+      second: ActiveMqBrokerRedundantPair._buildActiveMqBroker(imported, "-2"),
+    } as IActiveMqBrokerRedundantPair);
+  }
+
   /**
    * The first broker of the redundant pair for the deployment.
    */

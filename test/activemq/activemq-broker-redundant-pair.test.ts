@@ -2,12 +2,13 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { SecretValue, Stack } from "aws-cdk-lib";
+import { Aws, SecretValue, Stack } from "aws-cdk-lib";
 import { Template, Match } from "aws-cdk-lib/assertions";
 import {
   InstanceClass,
   InstanceSize,
   InstanceType,
+  SecurityGroup,
   SubnetSelection,
   SubnetType,
   Vpc,
@@ -283,5 +284,304 @@ describe("ActiveMqBrokerRedundantPair", () => {
         },
       ],
     });
+  });
+
+  test("ActiveMq Broker Redundant Pair import by ARN", () => {
+    const stack = new Stack();
+
+    const broker =
+      ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(
+        stack,
+        "Imported",
+        "arn:aws:mq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+      );
+
+    expect(broker.arn).toEqual(
+      "arn:aws:mq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.connections).toBeUndefined();
+    expect(broker.first.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.first.endpoints.amqp.port).toEqual(5671);
+    expect(broker.first.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.first.endpoints.stomp.port).toEqual(61614);
+    expect(broker.first.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.first.endpoints.openWire.port).toEqual(61617);
+    expect(broker.first.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.first.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.first.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.first.endpoints.wss.port).toEqual(61619);
+    expect(broker.first.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.first.endpoints.console.port).toEqual(8162);
+
+    expect(broker.second.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.second.endpoints.amqp.port).toEqual(5671);
+    expect(broker.second.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.second.endpoints.stomp.port).toEqual(61614);
+    expect(broker.second.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.second.endpoints.openWire.port).toEqual(61617);
+    expect(broker.second.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.second.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.second.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.second.endpoints.wss.port).toEqual(61619);
+    expect(broker.second.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.second.endpoints.console.port).toEqual(8162);
+    expect(broker.connections).toBeUndefined();
+  });
+
+  test("ActiveMq Broker Redundant Pair import by incorrect ARN", () => {
+    const stack = new Stack();
+
+    const incorrectARN = "XXXXXX";
+
+    expect(() =>
+      ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(
+        stack,
+        "Imported",
+        incorrectARN,
+      ),
+    ).toThrow(
+      `ARNs must start with "arn:" and have at least 6 components: ${incorrectARN}`,
+    );
+  });
+
+  test("ActiveMq Broker Redundant Pair import by ARN with SGs", () => {
+    const stack = new Stack();
+
+    const sgs = [
+      SecurityGroup.fromSecurityGroupId(stack, "ImportedSG", "sg-123123123123"),
+    ];
+
+    const broker =
+      ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairArn(
+        stack,
+        "Imported",
+        "arn:aws:mq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+        sgs,
+      );
+
+    expect(broker.arn).toEqual(
+      "arn:aws:mq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.connections).toBeDefined();
+    expect(broker.first.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.first.endpoints.amqp.port).toEqual(5671);
+    expect(broker.first.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.first.endpoints.stomp.port).toEqual(61614);
+    expect(broker.first.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.first.endpoints.openWire.port).toEqual(61617);
+    expect(broker.first.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.first.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.first.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.first.endpoints.wss.port).toEqual(61619);
+    expect(broker.first.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.first.endpoints.console.port).toEqual(8162);
+
+    expect(broker.second.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.second.endpoints.amqp.port).toEqual(5671);
+    expect(broker.second.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.second.endpoints.stomp.port).toEqual(61614);
+    expect(broker.second.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.second.endpoints.openWire.port).toEqual(61617);
+    expect(broker.second.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.second.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.second.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.second.endpoints.wss.port).toEqual(61619);
+    expect(broker.second.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.second.endpoints.console.port).toEqual(8162);
+    expect(broker.connections?.securityGroups).toEqual(sgs);
+  });
+
+  test("ActiveMq Broker Redundant Pair import by name and id", () => {
+    const stack = new Stack();
+
+    const broker =
+      ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId(
+        stack,
+        "Imported",
+        "TestBroker",
+        "b-123456789012-123456789012",
+      );
+
+    expect(broker.arn).toMatch(
+      /^arn\:.+\:mq\:.+\:.+\:broker\:TestBroker\:b-123456789012-123456789012$/,
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.first.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.first.endpoints.amqp.port).toEqual(5671);
+    expect(broker.first.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.first.endpoints.stomp.port).toEqual(61614);
+    expect(broker.first.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.first.endpoints.openWire.port).toEqual(61617);
+    expect(broker.first.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.first.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.first.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.first.endpoints.wss.port).toEqual(61619);
+    expect(broker.first.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.first.endpoints.console.port).toEqual(8162);
+
+    expect(broker.second.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.second.endpoints.amqp.port).toEqual(5671);
+    expect(broker.second.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.second.endpoints.stomp.port).toEqual(61614);
+    expect(broker.second.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.second.endpoints.openWire.port).toEqual(61617);
+    expect(broker.second.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.second.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.second.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.second.endpoints.wss.port).toEqual(61619);
+    expect(broker.second.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.second.endpoints.console.port).toEqual(8162);
+    expect(broker.connections).toBeUndefined();
+  });
+
+  test("ActiveMq Broker Redundant Pair import by name, id and sgs", () => {
+    const stack = new Stack();
+
+    const sgs = [
+      SecurityGroup.fromSecurityGroupId(stack, "ImportedSG", "sg-123123123123"),
+    ];
+
+    const broker =
+      ActiveMqBrokerRedundantPair.fromActiveMqBrokerRedundantPairNameAndId(
+        stack,
+        "Imported",
+        "TestBroker",
+        "b-123456789012-123456789012",
+        sgs,
+      );
+
+    expect(broker.arn).toMatch(
+      /^arn\:.+\:mq\:.+\:.+\:broker\:TestBroker\:b-123456789012-123456789012$/,
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.connections).toBeDefined();
+    expect(broker.first.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.first.endpoints.amqp.port).toEqual(5671);
+    expect(broker.first.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.first.endpoints.stomp.port).toEqual(61614);
+    expect(broker.first.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.first.endpoints.openWire.port).toEqual(61617);
+    expect(broker.first.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.first.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.first.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.first.endpoints.wss.port).toEqual(61619);
+    expect(broker.first.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-1.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.first.endpoints.console.port).toEqual(8162);
+
+    expect(broker.second.endpoints.amqp.url).toEqual(
+      `amqp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:5671`,
+    );
+    expect(broker.second.endpoints.amqp.port).toEqual(5671);
+    expect(broker.second.endpoints.stomp.url).toEqual(
+      `stomp+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61614`,
+    );
+    expect(broker.second.endpoints.stomp.port).toEqual(61614);
+    expect(broker.second.endpoints.openWire.url).toEqual(
+      `ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61617`,
+    );
+    expect(broker.second.endpoints.openWire.port).toEqual(61617);
+    expect(broker.second.endpoints.mqtt.url).toEqual(
+      `mqtt+ssl://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8883`,
+    );
+    expect(broker.second.endpoints.mqtt.port).toEqual(8883);
+    expect(broker.second.endpoints.wss.url).toEqual(
+      `wss://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:61619`,
+    );
+    expect(broker.second.endpoints.wss.port).toEqual(61619);
+    expect(broker.second.endpoints.console.url).toEqual(
+      `https://b-123456789012-123456789012-2.mq.${Aws.REGION}.amazonaws.com:8162`,
+    );
+    expect(broker.second.endpoints.console.port).toEqual(8162);
+    expect(broker.connections?.securityGroups).toEqual(sgs);
   });
 });

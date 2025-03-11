@@ -3,15 +3,21 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
+import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
 import {
   ActiveMqBrokerDeploymentBase,
   ActiveMqBrokerDeploymentProps,
+  IActiveMqBrokerDeployment,
 } from "./activemq-broker-deployment";
 import { ActiveMqBrokerEndpoints } from "./activemq-broker-endpoints";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
 import { StorageType } from "../storage-type";
+
+export interface IActiveMqBrokerInstance
+  extends IActiveMqBrokerDeployment,
+    IActiveMqBroker {}
 
 export interface ActiveMqBrokerInstanceProps
   extends ActiveMqBrokerDeploymentProps {
@@ -33,8 +39,77 @@ export interface ActiveMqBrokerInstanceProps
  */
 export class ActiveMqBrokerInstance
   extends ActiveMqBrokerDeploymentBase
-  implements IActiveMqBroker
+  implements IActiveMqBrokerInstance
 {
+  /**
+   * Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing ActiveMQ Broker Instance that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Instance
+   */
+  public static fromActiveMqBrokerInstanceArn(
+    scope: Construct,
+    logicalId: string,
+    arn: string,
+    securityGroups?: ISecurityGroup[],
+  ): IActiveMqBrokerInstance {
+    return ActiveMqBrokerInstance._assignEndpoints(
+      ActiveMqBrokerInstance._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        arn,
+        undefined,
+        undefined,
+        securityGroups,
+      ),
+    );
+  }
+
+  /**
+   * Reference an existing ActiveMQ Broker Instance, defined outside of the CDK code, by its name and id.
+   *
+   * @param scope
+   * @param logicalId
+   * @param name the name of the existing ActiveMQ Broker Instance to be imported
+   * @param id the ID of the existing ActiveMQ Broker Instance to be imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @returns a representation of the ActiveMQ Broker Instance
+   */
+  public static fromActiveMqBrokerInstanceNameAndId(
+    scope: Construct,
+    logicalId: string,
+    name: string,
+    id: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return ActiveMqBrokerInstance._assignEndpoints(
+      ActiveMqBrokerInstance._fromActiveMqBrokerDeploymentAttributes(
+        scope,
+        logicalId,
+        undefined,
+        name,
+        id,
+        securityGroups,
+      ),
+    ) as IActiveMqBrokerInstance;
+  }
+
+  /**
+   *
+   * @internal
+   */
+  private static _assignEndpoints(
+    imported: IActiveMqBrokerDeployment,
+  ): IActiveMqBrokerInstance {
+    return Object.assign(
+      imported,
+      ActiveMqBrokerInstance._buildActiveMqBroker(imported),
+    );
+  }
+
   /**
    * Gets the IP address of the ENI of the Amazon MQ for ActiveMQ broker.
    *

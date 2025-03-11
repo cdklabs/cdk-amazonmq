@@ -3,13 +3,19 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { Annotations } from "aws-cdk-lib";
+import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IRabbitMqBroker } from "./rabbitmq-broker";
 import {
+  IRabbitMqBrokerDeployment,
   RabbitMqBrokerDeploymentBase,
   RabbitMqBrokerDeploymentProps,
 } from "./rabbitmq-broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
+
+export interface IRabbitMqBrokerInstance
+  extends IRabbitMqBrokerDeployment,
+    IRabbitMqBroker {}
 
 export interface RabbitMqBrokerInstanceProps
   extends RabbitMqBrokerDeploymentProps {}
@@ -22,8 +28,60 @@ export interface RabbitMqBrokerInstanceProps
  */
 export class RabbitMqBrokerInstance
   extends RabbitMqBrokerDeploymentBase
-  implements IRabbitMqBroker
+  implements IRabbitMqBrokerInstance
 {
+  /**
+   * Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN.
+   *
+   * @param scope
+   * @param logicalId the construct's logical ID
+   * @param arn the ARN of the existing RabbitMQ Broker Instance that is imported
+   * @param securityGroups optionally pass security groups for working with network connections
+   * @returns a representation of the RabbitMQ Broker Instance
+   */
+  public static fromRabbitMqBrokerInstanceArn(
+    scope: Construct,
+    logicalId: string,
+    arn: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentAttributes(
+      scope,
+      logicalId,
+      arn,
+      undefined,
+      undefined,
+      securityGroups,
+    ) as IRabbitMqBrokerInstance;
+  }
+
+  /**
+   * Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id.
+   *
+   * @param scope
+   * @param logicalId
+   * @param name the name of the existing RabbitMQ Broker Instance to be imported
+   * @param id the ID of the existing RabbitMQ Broker Instance to be imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @returns a representation of the RabbitMQ Broker Instance
+   */
+  public static fromRabbitMqBrokerInstanceNameAndId(
+    scope: Construct,
+    logicalId: string,
+    name: string,
+    id: string,
+    securityGroups?: ISecurityGroup[],
+  ) {
+    return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentAttributes(
+      scope,
+      logicalId,
+      undefined,
+      name,
+      id,
+      securityGroups,
+    ) as IRabbitMqBrokerInstance;
+  }
+
   constructor(
     scope: Construct,
     id: string,
