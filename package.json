@@ -94,7 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^7",
     "@typescript-eslint/parser": "^7",
     "aws-cdk": "^2",
-    "aws-cdk-lib": "2.162.0",
+    "aws-cdk-lib": "2.184.0",
     "cdk-nag": "^2.34.6",
     "cdklabs-projen-project-types": "^0.1.202",
     "commit-and-tag-version": "^12",
