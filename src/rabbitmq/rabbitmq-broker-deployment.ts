@@ -130,6 +130,7 @@ export abstract class RabbitMqBrokerDeploymentBase
     name?: string,
     id?: string,
     securityGroups?: ISecurityGroup[],
+    urlSuffix?: string,
   ): IRabbitMqBrokerDeployment {
     if ((name === undefined || id === undefined) && arn === undefined) {
       throw new Error(
@@ -173,11 +174,11 @@ export abstract class RabbitMqBrokerDeploymentBase
 
         this.endpoints = {
           amqp: {
-            url: `amqps://${this.id}.mq.${Aws.REGION}.amazonaws.com:5671`,
+            url: `amqps://${this.id}.mq.${Aws.REGION}.${urlSuffix ?? Aws.URL_SUFFIX}:5671`,
             port: 5671,
           },
           console: {
-            url: `https://${this.id}.mq.${Aws.REGION}.amazonaws.com`,
+            url: `https://${this.id}.mq.${Aws.REGION}.${urlSuffix ?? Aws.URL_SUFFIX}`,
             port: 443,
           },
         };
@@ -306,7 +307,7 @@ export abstract class RabbitMqBrokerDeploymentBase
         ),
       },
       console: {
-        url: `https://${this.id}.mq.${Aws.REGION}.amazonaws.com`,
+        url: `https:${Fn.select(1, Fn.split(":", Fn.select(0, this._resource.attrAmqpEndpoints)))}`,
         port: 443,
       },
     };

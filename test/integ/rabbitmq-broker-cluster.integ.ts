@@ -3,12 +3,13 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import path from "path";
-import { App, Stack, Duration } from "aws-cdk-lib";
+import { App, Stack, Duration, CfnOutput } from "aws-cdk-lib";
 import {
   InstanceClass,
   InstanceSize,
   InstanceType,
   InterfaceVpcEndpointAwsService,
+  IpProtocol,
   Port,
   SecurityGroup,
   SubnetSelection,
@@ -19,6 +20,7 @@ import { Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
+import * as regionInformation from "aws-cdk-lib/region-info";
 import {
   RabbitMqBrokerCluster,
   RabbitMqBrokerEngineVersion,
@@ -35,6 +37,7 @@ const queueName = "user-events";
 
 const vpc = new Vpc(stack, "RabbitMqBrokerVpc", {
   maxAzs: 1,
+  ipProtocol: IpProtocol.DUAL_STACK,
   subnetConfiguration: [
     {
       cidrMask: 24,
@@ -176,12 +179,18 @@ cluster.connections?.allowTo(smVPCe, Port.tcp(443));
 cluster.connections?.allowTo(stsVPCe, Port.tcp(443));
 cluster.connections?.allowTo(lambdaVPCe, Port.tcp(443));
 
-// new CfnOutput(stack, 'ConfigurationId', {
-//   value: cluster.configuration.id,
-// });
+const regionInfo = regionInformation.RegionInfo.get(stack.region);
 
-// new CfnOutput(stack, 'ConfigurationRevision', {
-//   value: `${cluster.configuration.revision}`,
-// });
+new CfnOutput(stack, "Region", {
+  value: regionInfo.domainSuffix ?? stack.urlSuffix,
+});
+
+new CfnOutput(stack, "ConsoleUrl", {
+  value: cluster.endpoints.console.url,
+});
+
+new CfnOutput(stack, "AmqpUrl", {
+  value: `${cluster.endpoints.amqp.url}`,
+});
 
 app.synth();

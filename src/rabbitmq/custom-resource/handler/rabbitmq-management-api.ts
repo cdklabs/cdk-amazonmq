@@ -94,7 +94,8 @@ type RabbitApiRequest = <TResponse = { [key: string]: any }>(
 function validateOptions(options: RabbitMqRequestOptions) {
   // RegEx pattern that meets the structure of an Amazon MQ for RabbitMQ auto-generated Console URL.
   // This is the same for public and private brokers.
-  const urlPattern = /^https:\/\/[a-z0-9-]+\.mq\.[a-z0-9-]+\.amazonaws\.com$/;
+  const urlPattern =
+    /^https:\/\/[a-z0-9-]+\.mq\.[a-z0-9-]+\.(amazonaws\.com|on\.aws)$/;
 
   // A test for the url if it is an Amazon MQ for RabbitMQ Console URL.
   if (!urlPattern.test(options.url)) {

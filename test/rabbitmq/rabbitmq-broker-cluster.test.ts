@@ -284,11 +284,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:5671`,
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+      `https://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}`,
     );
     expect(broker.connections).toBeUndefined();
   });
@@ -330,11 +330,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.connections).toBeDefined();
     expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:5671`,
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+      `https://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}`,
     );
     expect(broker.connections?.securityGroups).toEqual(sgs);
   });
@@ -355,11 +355,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:5671`,
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+      `https://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}`,
     );
     expect(broker.connections).toBeUndefined();
   });
@@ -386,11 +386,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.connections).toBeDefined();
     expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:5671`,
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+      `https://b-123456789012-123456789012.mq.${Aws.REGION}.${Aws.URL_SUFFIX}`,
     );
     expect(broker.connections?.securityGroups).toEqual(sgs);
   });
