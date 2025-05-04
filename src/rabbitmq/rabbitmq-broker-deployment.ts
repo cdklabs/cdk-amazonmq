@@ -123,7 +123,7 @@ export abstract class RabbitMqBrokerDeploymentBase
    *
    * @internal
    */
-  protected static _fromRabbitMqBrokerDeploymentAttributes(
+  protected static _fromRabbitMqBrokerDeploymentBase(
     scope: Construct,
     logicalId: string,
     arn?: string,
