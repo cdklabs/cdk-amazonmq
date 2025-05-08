@@ -38,6 +38,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
   - [RabbitMQ Broker Deployments](#rabbitmq-broker-deployments)
   - [RabbitMQ Broker Endpoints](#rabbitmq-broker-endpoints)
   - [Importing Existing RabbitMq Brokers](#importing-exisitng-rabbitmq-brokers)
+    - [Importing Dual-Stack RabbitMQ Brokers](#importing-dual-stack-rabbitmq-brokers)
   - [Allowing Connections to a RabbitMQ Broker](#allowing-connections-to-a-rabbitmq-broker)
   - [RabbitMQ Broker Configurations](#rabbitmq-broker-configurations)
   - [Monitoring RabbitMQ Brokers](#monitoring-rabbitmq-brokers)
@@ -532,6 +533,10 @@ const broker = RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(
 ```
 
 Similarly, `RabbitMqBrokerCluster` can be imported using `.fromRabbitMqClusterArn()` and `.fromRabbitMqClusterNameAndId()` methods.
+
+#### Importing dual-stack RabbitMQ Brokers
+
+From April 2025 Amazon MQ for RabbitMQ supports [using dual-stack endpoints for brokers](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/amazon-mq-release-notes.html). With this change the URL domain suffixes are changed and cannot be correctly assigned with the use of the [`AWS::URLSuffix` pseudo-parameter](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-urlsuffix). That is why the `.fromXXX` methods contain additional `urlSuffix` method parameter that can be used to specify the URL domain suffix for a dual-stack broker. The method parameter falls back to the `AWS::URLSuffix` pseudo-parameter and works *only* with the IPv4 brokers.
 
 ### RabbitMQ Broker Configurations
 
