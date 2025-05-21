@@ -132,6 +132,7 @@ export abstract class RabbitMqBrokerDeploymentBase
       public readonly arn: string;
       public readonly name: string;
       public readonly endpoints: RabbitMqBrokerEndpoints;
+      private readonly urlSuffix: string | undefined;
 
       connections: Connections | undefined = securityGroups
         ? new Connections({ securityGroups })
@@ -161,13 +162,30 @@ export abstract class RabbitMqBrokerDeploymentBase
               ":",
             )[1];
 
+        const self = this;
+        this.urlSuffix = urlSuffix;
+
         this.endpoints = {
           amqp: {
-            url: `amqps://${this.id}.mq.${Aws.REGION}.${urlSuffix ?? Aws.URL_SUFFIX}:5671`,
+            get url() {
+              if (self.urlSuffix !== undefined) {
+                return `amqps://${self.id}.mq.${Aws.REGION}.${self.urlSuffix}:5671`;
+              }
+              throw new Error(
+                "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified",
+              );
+            },
             port: 5671,
           },
           console: {
-            url: `https://${this.id}.mq.${Aws.REGION}.${urlSuffix ?? Aws.URL_SUFFIX}`,
+            get url() {
+              if (self.urlSuffix !== undefined) {
+                return `https://${self.id}.mq.${Aws.REGION}.${self.urlSuffix}`;
+              }
+              throw new Error(
+                "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified",
+              );
+            },
             port: 443,
           },
         };
