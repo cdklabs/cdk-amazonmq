@@ -2,7 +2,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Arn, ArnFormat, Aws, IResource, Resource, Stack } from "aws-cdk-lib";
+import { Arn, ArnFormat, Aws, Resource, Stack } from "aws-cdk-lib";
 import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
 import { Connections, ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
@@ -73,9 +73,7 @@ export interface ActiveMqBrokerDeploymentBaseProps
   readonly deploymentMode: BrokerDeploymentMode;
 }
 
-export interface IActiveMqBrokerDeployment
-  extends IResource,
-    IBrokerDeployment {
+export interface IActiveMqBrokerDeployment extends IBrokerDeployment {
   metricAmqpMaximumConnections(props?: MetricOptions): Metric;
 
   metricBurstBalance(props?: MetricOptions): Metric;

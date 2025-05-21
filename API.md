@@ -10965,7 +10965,7 @@ public readonly revision: number;
 
 ### IActiveMqBrokerDeployment <a name="IActiveMqBrokerDeployment" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment"></a>
 
-- *Extends:* aws-cdk-lib.IResource, <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>
+- *Extends:* <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>
 
 - *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase">ActiveMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance">ActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair">ActiveMqBrokerRedundantPair</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment">IActiveMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance">IActiveMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair">IActiveMqBrokerRedundantPair</a>
 
@@ -12390,7 +12390,7 @@ public readonly revision: number;
 
 ### IRabbitMqBrokerDeployment <a name="IRabbitMqBrokerDeployment" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment"></a>
 
-- *Extends:* aws-cdk-lib.IResource, <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>
+- *Extends:* <a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment">IBrokerDeployment</a>
 
 - *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster">RabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase">RabbitMqBrokerDeploymentBase</a>, <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance">RabbitMqBrokerInstance</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster">IRabbitMqBrokerCluster</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment">IRabbitMqBrokerDeployment</a>, <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance">IRabbitMqBrokerInstance</a>
 
