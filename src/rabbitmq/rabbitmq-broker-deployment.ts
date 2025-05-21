@@ -2,16 +2,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import {
-  Arn,
-  ArnFormat,
-  Aws,
-  Fn,
-  IResource,
-  Resource,
-  Stack,
-  Token,
-} from "aws-cdk-lib";
+import { Arn, ArnFormat, Aws, Fn, Resource, Stack, Token } from "aws-cdk-lib";
 import { Metric, MetricOptions } from "aws-cdk-lib/aws-cloudwatch";
 import { Connections, ISecurityGroup, Port } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
@@ -67,9 +58,7 @@ export interface RabbitMqBrokerDeploymentBaseProps
   readonly deploymentMode: BrokerDeploymentMode;
 }
 
-export interface IRabbitMqBrokerDeployment
-  extends IResource,
-    IBrokerDeployment {
+export interface IRabbitMqBrokerDeployment extends IBrokerDeployment {
   metricExchangeCount(props?: MetricOptions): Metric;
 
   metricQueueCount(props?: MetricOptions): Metric;
