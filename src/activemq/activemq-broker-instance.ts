@@ -207,7 +207,7 @@ export class ActiveMqBrokerInstance
         ),
       },
       console: {
-        url: `https://${this.id}.mq.${Aws.REGION}.amazonaws.com:8162`,
+        url: `https://${this.id}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:8162`,
         port: 8162,
       },
     };

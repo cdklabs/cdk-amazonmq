@@ -3924,7 +3924,7 @@ Check whether the given construct is a Resource.
 ```typescript
 import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
 
-RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
+RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[], urlSuffix?: string)
 ```
 
 Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by ARN.
@@ -3947,7 +3947,7 @@ the construct's logical ID.
 
 - *Type:* string
 
-the ARN of the existing AcitveMQ Broker Cluster that is imported.
+the ARN of the existing RabbitMQ Broker Cluster that is imported.
 
 ---
 
@@ -3955,7 +3955,15 @@ the ARN of the existing AcitveMQ Broker Cluster that is imported.
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
 
-optionally pass security groups for working with network connections.
+(optional) pass security groups for working with network connections.
+
+---
+
+###### `urlSuffix`<sup>Optional</sup> <a name="urlSuffix" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn.parameter.urlSuffix"></a>
+
+- *Type:* string
+
+(optional) pass urlSuffix for the broker endpoints.
 
 ---
 
@@ -3964,7 +3972,7 @@ optionally pass security groups for working with network connections.
 ```typescript
 import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
 
-RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
+RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[], urlSuffix?: string)
 ```
 
 Reference an existing RabbitMQ Broker Cluster, defined outside of the CDK code, by name and id.
@@ -4004,6 +4012,14 @@ the ID of the existing RabbitMQ Broker Cluster to be imported.
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
 
 optionally pass security groups for working with network connections.
+
+---
+
+###### `urlSuffix`<sup>Optional</sup> <a name="urlSuffix" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId.parameter.urlSuffix"></a>
+
+- *Type:* string
+
+(optional) pass urlSuffix for the broker endpoints.
 
 ---
 
@@ -5321,7 +5337,7 @@ Check whether the given construct is a Resource.
 ```typescript
 import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 
-RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[])
+RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn(scope: Construct, logicalId: string, arn: string, securityGroups?: ISecurityGroup[], urlSuffix?: string)
 ```
 
 Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by ARN.
@@ -5352,7 +5368,15 @@ the ARN of the existing RabbitMQ Broker Instance that is imported.
 
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
 
-optionally pass security groups for working with network connections.
+(optional) pass security groups for working with network connections.
+
+---
+
+###### `urlSuffix`<sup>Optional</sup> <a name="urlSuffix" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceArn.parameter.urlSuffix"></a>
+
+- *Type:* string
+
+(optional) pass urlSuffix for the broker endpoints.
 
 ---
 
@@ -5361,7 +5385,7 @@ optionally pass security groups for working with network connections.
 ```typescript
 import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
 
-RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[])
+RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(scope: Construct, logicalId: string, name: string, id: string, securityGroups?: ISecurityGroup[], urlSuffix?: string)
 ```
 
 Reference an existing RabbitMQ Broker Instance, defined outside of the CDK code, by its name and id.
@@ -5399,6 +5423,14 @@ the ID of the existing RabbitMQ Broker Instance to be imported.
 - *Type:* aws-cdk-lib.aws_ec2.ISecurityGroup[]
 
 (optional) pass security groups for working with network connections.
+
+---
+
+###### `urlSuffix`<sup>Optional</sup> <a name="urlSuffix" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId.parameter.urlSuffix"></a>
+
+- *Type:* string
+
+(optional) pass urlSuffix for the broker endpoints.
 
 ---
 

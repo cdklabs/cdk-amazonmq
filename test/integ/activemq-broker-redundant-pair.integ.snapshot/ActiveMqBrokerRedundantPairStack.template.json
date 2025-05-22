@@ -1246,7 +1246,11 @@
       {
        "Ref": "AWS::Region"
       },
-      ".amazonaws.com:8162"
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      ":8162"
      ]
     ]
    }
@@ -1313,7 +1317,11 @@
       {
        "Ref": "AWS::Region"
       },
-      ".amazonaws.com:8162"
+      ".",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      ":8162"
      ]
     ]
    }

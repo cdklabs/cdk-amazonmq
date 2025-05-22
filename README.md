@@ -38,6 +38,7 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
   - [RabbitMQ Broker Deployments](#rabbitmq-broker-deployments)
   - [RabbitMQ Broker Endpoints](#rabbitmq-broker-endpoints)
   - [Importing Existing RabbitMq Brokers](#importing-exisitng-rabbitmq-brokers)
+    - [Importing Dual-Stack RabbitMQ Brokers](#importing-dual-stack-rabbitmq-brokers)
   - [Allowing Connections to a RabbitMQ Broker](#allowing-connections-to-a-rabbitmq-broker)
   - [RabbitMQ Broker Configurations](#rabbitmq-broker-configurations)
   - [Monitoring RabbitMQ Brokers](#monitoring-rabbitmq-brokers)
@@ -532,6 +533,65 @@ const broker = RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(
 ```
 
 Similarly, `RabbitMqBrokerCluster` can be imported using `.fromRabbitMqClusterArn()` and `.fromRabbitMqClusterNameAndId()` methods.
+
+#### Importing dual-stack RabbitMQ Brokers
+
+From April 2025 Amazon MQ for RabbitMQ supports [using dual-stack endpoints for brokers](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/amazon-mq-release-notes.html). With this change the URL domain suffixes are changed and the use of the [`AWS::URLSuffix` pseudo-parameter](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-urlsuffix) works correctly only for the IPv4 brokers. That is why the `.fromXXX` methods contain additional `urlSuffix` method parameter that can be used to specify the URL domain suffix. If the parameter is not provided - the usage of `endpoints.amqp.url` and `endpoints.console.url` will throw an error.
+
+The example below presents a situation in which accessing the AMQPS URL will throw an error.
+
+```typescript
+import { CfnOutput } from 'aws-cdk-lib';
+import { SecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+
+const sgs = [
+  SecurityGroup.fromSecurityGroupId(this, "ImportedSG", "sg-123123123123"),
+];
+
+const broker = RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(
+  this,
+  "Imported",
+  "TestBroker",
+  "b-123456789012-123456789012",
+  sgs,
+);
+
+...
+
+new CfnOutput(this, 'AmqpUrl', {
+  value: broker.endpoints.amqp.url // <- throws 
+});
+```
+
+In the below example, as the `urlSuffix` parameter is passed - the `url` property is accessible.
+
+```typescript
+import { CfnOutput } from 'aws-cdk-lib';
+import { SecurityGroup } from 'aws-cdk-lib/aws-ec2';
+import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+
+const sgs = [
+  SecurityGroup.fromSecurityGroupId(this, "ImportedSG", "sg-123123123123"),
+];
+
+declare const urlSuffix: string;
+
+const broker = RabbitMqBrokerInstance.fromRabbitMqBrokerInstanceNameAndId(
+  this,
+  "Imported",
+  "TestBroker",
+  "b-123456789012-123456789012",
+  sgs,
+  urlSuffix
+);
+
+...
+
+new CfnOutput(this, 'AmqpUrl', {
+  value: broker.endpoints.amqp.url // <- does not throw
+});
+```
 
 ### RabbitMQ Broker Configurations
 

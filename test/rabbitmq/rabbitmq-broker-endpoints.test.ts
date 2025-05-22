@@ -89,11 +89,25 @@ describe("RabbitMqBrokerEndpoints", () => {
         "Fn::Join": [
           "",
           [
-            "https://",
-            { Ref: "TestBrokerBD4D5330" },
-            ".mq.",
-            { Ref: "AWS::Region" },
-            ".amazonaws.com",
+            "https:",
+            {
+              "Fn::Select": [
+                1,
+                {
+                  "Fn::Split": [
+                    ":",
+                    {
+                      "Fn::Select": [
+                        0,
+                        {
+                          "Fn::GetAtt": ["TestBrokerBD4D5330", "AmqpEndpoints"],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
           ],
         ],
       },

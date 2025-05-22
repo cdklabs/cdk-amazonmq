@@ -92,17 +92,6 @@ type RabbitApiRequest = <TResponse = { [key: string]: any }>(
  * @param options
  */
 function validateOptions(options: RabbitMqRequestOptions) {
-  // RegEx pattern that meets the structure of an Amazon MQ for RabbitMQ auto-generated Console URL.
-  // This is the same for public and private brokers.
-  const urlPattern = /^https:\/\/[a-z0-9-]+\.mq\.[a-z0-9-]+\.amazonaws\.com$/;
-
-  // A test for the url if it is an Amazon MQ for RabbitMQ Console URL.
-  if (!urlPattern.test(options.url)) {
-    throw new Error(
-      `Only an Amazon MQ for RabbitMQ Console URL is allowed. Received: ${options.url}`,
-    );
-  }
-
   // A rudimentary test verifying if the API call starts with /api (as there are no other paths allowed for the RabbitMQ Management HTTP API).
   // This limits the paths able to be used
   if (!options.path.startsWith("/api")) {

@@ -36,7 +36,8 @@ export class RabbitMqBrokerInstance
    * @param scope
    * @param logicalId the construct's logical ID
    * @param arn the ARN of the existing RabbitMQ Broker Instance that is imported
-   * @param securityGroups optionally pass security groups for working with network connections
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @param urlSuffix (optional) pass urlSuffix for the broker endpoints
    * @returns a representation of the RabbitMQ Broker Instance
    */
   public static fromRabbitMqBrokerInstanceArn(
@@ -44,14 +45,16 @@ export class RabbitMqBrokerInstance
     logicalId: string,
     arn: string,
     securityGroups?: ISecurityGroup[],
+    urlSuffix?: string,
   ) {
-    return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentAttributes(
+    return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentBase(
       scope,
       logicalId,
       arn,
       undefined,
       undefined,
       securityGroups,
+      urlSuffix,
     ) as IRabbitMqBrokerInstance;
   }
 
@@ -63,6 +66,7 @@ export class RabbitMqBrokerInstance
    * @param name the name of the existing RabbitMQ Broker Instance to be imported
    * @param id the ID of the existing RabbitMQ Broker Instance to be imported
    * @param securityGroups (optional) pass security groups for working with network connections
+   * @param urlSuffix (optional) pass urlSuffix for the broker endpoints
    * @returns a representation of the RabbitMQ Broker Instance
    */
   public static fromRabbitMqBrokerInstanceNameAndId(
@@ -71,14 +75,16 @@ export class RabbitMqBrokerInstance
     name: string,
     id: string,
     securityGroups?: ISecurityGroup[],
+    urlSuffix?: string,
   ) {
-    return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentAttributes(
+    return RabbitMqBrokerInstance._fromRabbitMqBrokerDeploymentBase(
       scope,
       logicalId,
       undefined,
       name,
       id,
       securityGroups,
+      urlSuffix,
     ) as IRabbitMqBrokerInstance;
   }
 

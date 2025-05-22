@@ -32,8 +32,9 @@ export class RabbitMqBrokerCluster
    *
    * @param scope
    * @param logicalId the construct's logical ID
-   * @param arn the ARN of the existing AcitveMQ Broker Cluster that is imported
-   * @param securityGroups optionally pass security groups for working with network connections
+   * @param arn the ARN of the existing RabbitMQ Broker Cluster that is imported
+   * @param securityGroups (optional) pass security groups for working with network connections
+   * @param urlSuffix (optional) pass urlSuffix for the broker endpoints
    * @returns a representation of the RabbitMQ Broker Cluster
    */
   public static fromRabbitMqBrokerClusterArn(
@@ -41,14 +42,16 @@ export class RabbitMqBrokerCluster
     logicalId: string,
     arn: string,
     securityGroups?: ISecurityGroup[],
+    urlSuffix?: string,
   ) {
-    return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentAttributes(
+    return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentBase(
       scope,
       logicalId,
       arn,
       undefined,
       undefined,
       securityGroups,
+      urlSuffix,
     ) as IRabbitMqBrokerCluster;
   }
 
@@ -60,6 +63,7 @@ export class RabbitMqBrokerCluster
    * @param name the name of the existing RabbitMQ Broker Cluster to be imported
    * @param id the ID of the existing RabbitMQ Broker Cluster to be imported
    * @param securityGroups optionally pass security groups for working with network connections
+   * @param urlSuffix (optional) pass urlSuffix for the broker endpoints
    * @returns a representation of the RabbitMQ Broker Cluster
    */
   public static fromRabbitMqBrokerClusterNameAndId(
@@ -68,14 +72,16 @@ export class RabbitMqBrokerCluster
     name: string,
     id: string,
     securityGroups?: ISecurityGroup[],
+    urlSuffix?: string,
   ) {
-    return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentAttributes(
+    return RabbitMqBrokerCluster._fromRabbitMqBrokerDeploymentBase(
       scope,
       logicalId,
       undefined,
       name,
       id,
       securityGroups,
+      urlSuffix,
     ) as IRabbitMqBrokerCluster;
   }
 
