@@ -172,7 +172,7 @@ export abstract class RabbitMqBrokerDeploymentBase
                 return `amqps://${self.id}.mq.${Aws.REGION}.${self.urlSuffix}:5671`;
               }
               throw new Error(
-                "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified",
+                "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
               );
             },
             port: 5671,
@@ -183,7 +183,7 @@ export abstract class RabbitMqBrokerDeploymentBase
                 return `https://${self.id}.mq.${Aws.REGION}.${self.urlSuffix}`;
               }
               throw new Error(
-                "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified",
+                "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
               );
             },
             port: 443,

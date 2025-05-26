@@ -284,11 +284,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(() => broker.endpoints.amqp.url).toThrow(
-      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(() => broker.endpoints.console.url).toThrow(
-      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.connections).toBeUndefined();
   });
@@ -357,11 +357,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.connections).toBeDefined();
     expect(() => broker.endpoints.amqp.url).toThrow(
-      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(() => broker.endpoints.console.url).toThrow(
-      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.connections?.securityGroups).toEqual(sgs);
   });
@@ -414,11 +414,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(() => broker.endpoints.amqp.url).toThrow(
-      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(() => broker.endpoints.console.url).toThrow(
-      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.connections).toBeUndefined();
   });
@@ -473,11 +473,11 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.connections).toBeDefined();
     expect(() => broker.endpoints.amqp.url).toThrow(
-      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
     expect(() => broker.endpoints.console.url).toThrow(
-      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified",
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.connections?.securityGroups).toEqual(sgs);
   });
