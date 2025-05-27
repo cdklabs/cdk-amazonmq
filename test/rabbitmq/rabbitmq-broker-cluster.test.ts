@@ -283,13 +283,40 @@ describe("RabbitMqBrokerCluster", () => {
     );
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
-    expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+    expect(() => broker.endpoints.amqp.url).toThrow(
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
-    expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+    expect(() => broker.endpoints.console.url).toThrow(
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
+    expect(broker.connections).toBeUndefined();
+  });
+
+  test("RabbitMQ Private Cluster Broker import by ARN", () => {
+    const stack = new Stack();
+
+    const broker = RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(
+      stack,
+      "Imported",
+      "arn:aws:rabbitmq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+      undefined,
+      Aws.URL_SUFFIX,
+    );
+
+    expect(broker.arn).toEqual(
+      "arn:aws:rabbitmq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.endpoints.amqp.url).toMatch(
+      /amqps:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}:5671/,
+    );
+    expect(broker.endpoints.amqp.port).toEqual(5671);
+    expect(broker.endpoints.console.url).toMatch(
+      /https:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}/,
+    );
+    expect(broker.endpoints.console.port).toEqual(443);
     expect(broker.connections).toBeUndefined();
   });
 
@@ -329,13 +356,45 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.connections).toBeDefined();
-    expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+    expect(() => broker.endpoints.amqp.url).toThrow(
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
-    expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+    expect(() => broker.endpoints.console.url).toThrow(
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
+    expect(broker.connections?.securityGroups).toEqual(sgs);
+  });
+
+  test("RabbitMQ Private Cluster Broker import by ARN with SGs and urlSuffix", () => {
+    const stack = new Stack();
+
+    const sgs = [
+      SecurityGroup.fromSecurityGroupId(stack, "ImportedSG", "sg-123123123123"),
+    ];
+
+    const broker = RabbitMqBrokerCluster.fromRabbitMqBrokerClusterArn(
+      stack,
+      "Imported",
+      "arn:aws:rabbitmq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+      sgs,
+      Aws.URL_SUFFIX,
+    );
+
+    expect(broker.arn).toEqual(
+      "arn:aws:rabbitmq:us-east-2:123456789012:broker:TestBroker:b-123456789012-123456789012",
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.connections).toBeDefined();
+    expect(broker.endpoints.amqp.url).toMatch(
+      /amqps:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}:5671/,
+    );
+    expect(broker.endpoints.amqp.port).toEqual(5671);
+    expect(broker.endpoints.console.url).toMatch(
+      /https:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}/,
+    );
+    expect(broker.endpoints.console.port).toEqual(443);
     expect(broker.connections?.securityGroups).toEqual(sgs);
   });
 
@@ -354,13 +413,41 @@ describe("RabbitMqBrokerCluster", () => {
     );
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
-    expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+    expect(() => broker.endpoints.amqp.url).toThrow(
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
-    expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+    expect(() => broker.endpoints.console.url).toThrow(
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
+    expect(broker.connections).toBeUndefined();
+  });
+
+  test("RabbitMQ Private Cluster Broker import by name and id, urlSuffix", () => {
+    const stack = new Stack();
+
+    const broker = RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(
+      stack,
+      "Imported",
+      "TestBroker",
+      "b-123456789012-123456789012",
+      undefined,
+      Aws.URL_SUFFIX,
+    );
+
+    expect(broker.arn).toMatch(
+      /^arn\:.+\:mq\:.+\:.+\:broker\:TestBroker\:b-123456789012-123456789012$/,
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.endpoints.amqp.url).toMatch(
+      /amqps:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}:5671/,
+    );
+    expect(broker.endpoints.amqp.port).toEqual(5671);
+    expect(broker.endpoints.console.url).toMatch(
+      /https:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}/,
+    );
+    expect(broker.endpoints.console.port).toEqual(443);
     expect(broker.connections).toBeUndefined();
   });
 
@@ -385,13 +472,46 @@ describe("RabbitMqBrokerCluster", () => {
     expect(broker.name).toEqual("TestBroker");
     expect(broker.id).toEqual("b-123456789012-123456789012");
     expect(broker.connections).toBeDefined();
-    expect(broker.endpoints.amqp.url).toEqual(
-      `amqps://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com:5671`,
+    expect(() => broker.endpoints.amqp.url).toThrow(
+      "To use the endpoints.amqp.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
     expect(broker.endpoints.amqp.port).toEqual(5671);
-    expect(broker.endpoints.console.url).toEqual(
-      `https://b-123456789012-123456789012.mq.${Aws.REGION}.amazonaws.com`,
+    expect(() => broker.endpoints.console.url).toThrow(
+      "To use the endpoints.console.url property of an imported broker urlSuffix needs to be specified on intialization",
     );
+    expect(broker.connections?.securityGroups).toEqual(sgs);
+  });
+
+  test("RabbitMQ Private Cluster Broker import by name, id and sgs and urlSuffix", () => {
+    const stack = new Stack();
+
+    const sgs = [
+      SecurityGroup.fromSecurityGroupId(stack, "ImportedSG", "sg-123123123123"),
+    ];
+
+    const broker = RabbitMqBrokerCluster.fromRabbitMqBrokerClusterNameAndId(
+      stack,
+      "Imported",
+      "TestBroker",
+      "b-123456789012-123456789012",
+      sgs,
+      Aws.URL_SUFFIX,
+    );
+
+    expect(broker.arn).toMatch(
+      /^arn\:.+\:mq\:.+\:.+\:broker\:TestBroker\:b-123456789012-123456789012$/,
+    );
+    expect(broker.name).toEqual("TestBroker");
+    expect(broker.id).toEqual("b-123456789012-123456789012");
+    expect(broker.connections).toBeDefined();
+    expect(broker.endpoints.amqp.url).toMatch(
+      /amqps:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}:5671/,
+    );
+    expect(broker.endpoints.amqp.port).toEqual(5671);
+    expect(broker.endpoints.console.url).toMatch(
+      /https:\/\/b-123456789012-123456789012\.mq\.\$\{Token\[AWS\.Region\.\d+\]\}\.\$\{Token\[AWS\.URLSuffix\.\d+\]\}/,
+    );
+    expect(broker.endpoints.console.port).toEqual(443);
     expect(broker.connections?.securityGroups).toEqual(sgs);
   });
 });

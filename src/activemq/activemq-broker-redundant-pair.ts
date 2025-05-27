@@ -242,7 +242,7 @@ export class ActiveMqBrokerRedundantPair
           ),
         },
         console: {
-          url: `https://${this.id}-1.mq.${Aws.REGION}.amazonaws.com:8162`,
+          url: `https://${this.id}-1.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:8162`,
           port: 8162,
         },
       },
@@ -297,7 +297,7 @@ export class ActiveMqBrokerRedundantPair
           ),
         },
         console: {
-          url: `https://${this.id}-2.mq.${Aws.REGION}.amazonaws.com:8162`,
+          url: `https://${this.id}-2.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:8162`,
           port: 8162,
         },
       },

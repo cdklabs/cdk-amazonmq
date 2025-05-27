@@ -170,27 +170,27 @@ export abstract class ActiveMqBrokerDeploymentBase
     return {
       endpoints: {
         amqp: {
-          url: `amqp+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:5671`,
+          url: `amqp+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:5671`,
           port: 5671,
         },
         stomp: {
-          url: `stomp+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:61614`,
+          url: `stomp+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:61614`,
           port: 61614,
         },
         openWire: {
-          url: `ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:61617`,
+          url: `ssl://${imported.id}${suffix}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:61617`,
           port: 61617,
         },
         mqtt: {
-          url: `mqtt+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:8883`,
+          url: `mqtt+ssl://${imported.id}${suffix}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:8883`,
           port: 8883,
         },
         wss: {
-          url: `wss://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:61619`,
+          url: `wss://${imported.id}${suffix}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:61619`,
           port: 61619,
         },
         console: {
-          url: `https://${imported.id}${suffix}.mq.${Aws.REGION}.amazonaws.com:8162`,
+          url: `https://${imported.id}${suffix}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:8162`,
           port: 8162,
         },
       },

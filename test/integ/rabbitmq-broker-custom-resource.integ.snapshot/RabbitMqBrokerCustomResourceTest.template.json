@@ -89,15 +89,28 @@
      "Fn::Join": [
       "",
       [
-       "https://",
+       "https:",
        {
-        "Ref": "BrokerE1355FD6"
-       },
-       ".mq.",
-       {
-        "Ref": "AWS::Region"
-       },
-       ".amazonaws.com"
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::GetAtt": [
+               "BrokerE1355FD6",
+               "AmqpEndpoints"
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
       ]
      ]
     },
@@ -223,7 +236,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "388a09c048d565d328c154e16d41487da3d87c50af198a313b831d03267fdf9f.zip"
+     "S3Key": "e886b66c66b381df0e7244313604bf6ce94dd9235e8bedf27cd52f99c0830b41.zip"
     },
     "Description": "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
     "Handler": "index.handler",
@@ -259,15 +272,28 @@
      "Fn::Join": [
       "",
       [
-       "https://",
+       "https:",
        {
-        "Ref": "BrokerE1355FD6"
-       },
-       ".mq.",
-       {
-        "Ref": "AWS::Region"
-       },
-       ".amazonaws.com"
+        "Fn::Select": [
+         1,
+         {
+          "Fn::Split": [
+           ":",
+           {
+            "Fn::Select": [
+             0,
+             {
+              "Fn::GetAtt": [
+               "BrokerE1355FD6",
+               "AmqpEndpoints"
+              ]
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
       ]
      ]
     },
