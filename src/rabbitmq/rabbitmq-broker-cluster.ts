@@ -106,10 +106,11 @@ export class RabbitMqBrokerCluster
           return acc;
         }, []);
 
-        if (selected.length < 1)
+        if (selected.length < 1) {
           annotationErrors.push(
             `Need at leasts 1 subnet. '${JSON.stringify(props.vpcSubnets)}', please use a different selection.`,
           );
+        }
 
         subnetSelection = { subnets: selected };
       }

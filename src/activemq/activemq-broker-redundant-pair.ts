@@ -162,10 +162,11 @@ export class ActiveMqBrokerRedundantPair
             subnetSelection = { subnets: [azSubnet[0], azSubnet[1]] };
 
             // display warning if other were rejected
-            if (azSubnet.length > 2)
+            if (azSubnet.length > 2) {
               annotations.warnings.push(
                 `Need exactly 2 subnets from different AZ found more. Selecting only two from different AZs: ${azSubnet[0].subnetId}, ${azSubnet[1].subnetId}`,
               );
+            }
           } else {
             annotations.warnings.push(
               `Requirement for exactly 2 subnets from different AZ is not be meet with '${JSON.stringify(props.vpcSubnets)}'`,

@@ -141,11 +141,12 @@ export class ActiveMqBrokerInstance
         // single instance allows only one subnet take the first one
         subnetSelection = { subnets: [subnets.subnets[0]] };
 
-        if (subnets.subnets.length > 1)
+        if (subnets.subnets.length > 1) {
           // Annotate the fact of taking first one when more then one were selected
           annotationWarnings.push(
             `Exactly 1 subnet in [SINGLE_INSTANCE] deployment mode is needed. vpcSubnets selection returned ${subnets.subnets.length}. Taking first one from the selection`,
           );
+        }
       }
     }
 
