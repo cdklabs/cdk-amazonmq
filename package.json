@@ -114,7 +114,7 @@
     "jsii-rosetta": "^5.6.1",
     "mqtt": "^5.10.2",
     "prettier": "^3.4.1",
-    "projen": "^0.92.8",
+    "projen": "^0.92.9",
     "rabbitmq-client": "^4.6.0",
     "rhea": "^3.0.3",
     "ts-jest": "^29.2.5",
