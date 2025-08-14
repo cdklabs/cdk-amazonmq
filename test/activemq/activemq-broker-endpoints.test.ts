@@ -286,17 +286,9 @@ describe("ActiveMqBrokerEndpoints", () => {
 
     template.hasOutput("Url", {
       Value: {
-        "Fn::Join": [
-          "",
-          [
-            "https://",
-            { Ref: "TestBrokerBD4D5330" },
-            ".mq.",
-            { Ref: "AWS::Region" },
-            ".",
-            { Ref: "AWS::URLSuffix" },
-            ":8162",
-          ],
+        "Fn::Select": [
+          0,
+          { "Fn::GetAtt": ["TestBrokerBD4D5330", "ConsoleURLs"] },
         ],
       },
     });

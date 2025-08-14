@@ -130,15 +130,7 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Handler": "index.handler",
-    "Runtime": {
-     "Fn::FindInMap": [
-      "LatestNodeRuntimeMap",
-      {
-       "Ref": "AWS::Region"
-      },
-      "value"
-     ]
-    },
+    "Runtime": "nodejs22.x",
     "Timeout": 900,
     "Code": {
      "S3Bucket": {
@@ -259,7 +251,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs18.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "RabbitListenerServiceRoleDefaultPolicy64BEE7A0",
@@ -410,7 +402,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs18.x"
+    "Runtime": "nodejs20.x"
    },
    "DependsOn": [
     "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueoneventServiceRoleDefaultPolicy2734EAF0",
@@ -491,7 +483,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs18.x"
+    "Runtime": "nodejs20.x"
    },
    "DependsOn": [
     "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueiscompleteServiceRoleDefaultPolicy23EA76FF",
@@ -561,6 +553,16 @@
        ]
       },
       {
+       "Action": "lambda:GetFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueoneventE4E77FF5",
+         "Arn"
+        ]
+       }
+      },
+      {
        "Action": "lambda:InvokeFunction",
        "Effect": "Allow",
        "Resource": [
@@ -587,6 +589,16 @@
        ]
       },
       {
+       "Action": "lambda:GetFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueiscomplete5825929D",
+         "Arn"
+        ]
+       }
+      },
+      {
        "Action": "states:StartExecution",
        "Effect": "Allow",
        "Resource": {
@@ -611,7 +623,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4dc48ffba382f93077a1e6824599bbd4ceb6f91eb3d9442eca3b85bdb1a20b1e.zip"
+     "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip"
     },
     "Description": "AWS CDK resource provider framework - onEvent (ActiveMqBrokerInstanceStack/RabbitListener/MqEventSource:ActiveMqBrokerInstanceStackBroker94B6AF23myQueue/MqEsmDeleter:ActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B",
     "Environment": {
@@ -634,21 +646,17 @@
      }
     },
     "Handler": "framework.onEvent",
+    "LoggingConfig": {
+     "ApplicationLogLevel": "FATAL",
+     "LogFormat": "JSON"
+    },
     "Role": {
      "Fn::GetAtt": [
       "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801frameworkonEventServiceRole11EBF4EA",
       "Arn"
      ]
     },
-    "Runtime": {
-     "Fn::FindInMap": [
-      "LatestNodeRuntimeMap",
-      {
-       "Ref": "AWS::Region"
-      },
-      "value"
-     ]
-    },
+    "Runtime": "nodejs22.x",
     "Timeout": 900
    },
    "DependsOn": [
@@ -719,6 +727,16 @@
        ]
       },
       {
+       "Action": "lambda:GetFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueoneventE4E77FF5",
+         "Arn"
+        ]
+       }
+      },
+      {
        "Action": "lambda:InvokeFunction",
        "Effect": "Allow",
        "Resource": [
@@ -743,6 +761,16 @@
          ]
         }
        ]
+      },
+      {
+       "Action": "lambda:GetFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueiscomplete5825929D",
+         "Arn"
+        ]
+       }
       }
      ],
      "Version": "2012-10-17"
@@ -762,7 +790,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4dc48ffba382f93077a1e6824599bbd4ceb6f91eb3d9442eca3b85bdb1a20b1e.zip"
+     "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip"
     },
     "Description": "AWS CDK resource provider framework - isComplete (ActiveMqBrokerInstanceStack/RabbitListener/MqEventSource:ActiveMqBrokerInstanceStackBroker94B6AF23myQueue/MqEsmDeleter:ActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker",
     "Environment": {
@@ -782,21 +810,17 @@
      }
     },
     "Handler": "framework.isComplete",
+    "LoggingConfig": {
+     "ApplicationLogLevel": "FATAL",
+     "LogFormat": "JSON"
+    },
     "Role": {
      "Fn::GetAtt": [
       "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801frameworkisCompleteServiceRole0A416A0D",
       "Arn"
      ]
     },
-    "Runtime": {
-     "Fn::FindInMap": [
-      "LatestNodeRuntimeMap",
-      {
-       "Ref": "AWS::Region"
-      },
-      "value"
-     ]
-    },
+    "Runtime": "nodejs22.x",
     "Timeout": 900
    },
    "DependsOn": [
@@ -867,6 +891,16 @@
        ]
       },
       {
+       "Action": "lambda:GetFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueoneventE4E77FF5",
+         "Arn"
+        ]
+       }
+      },
+      {
        "Action": "lambda:InvokeFunction",
        "Effect": "Allow",
        "Resource": [
@@ -891,6 +925,16 @@
          ]
         }
        ]
+      },
+      {
+       "Action": "lambda:GetFunction",
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueiscomplete5825929D",
+         "Arn"
+        ]
+       }
       }
      ],
      "Version": "2012-10-17"
@@ -910,7 +954,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4dc48ffba382f93077a1e6824599bbd4ceb6f91eb3d9442eca3b85bdb1a20b1e.zip"
+     "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip"
     },
     "Description": "AWS CDK resource provider framework - onTimeout (ActiveMqBrokerInstanceStack/RabbitListener/MqEventSource:ActiveMqBrokerInstanceStackBroker94B6AF23myQueue/MqEsmDeleter:ActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker9",
     "Environment": {
@@ -930,21 +974,17 @@
      }
     },
     "Handler": "framework.onTimeout",
+    "LoggingConfig": {
+     "ApplicationLogLevel": "FATAL",
+     "LogFormat": "JSON"
+    },
     "Role": {
      "Fn::GetAtt": [
       "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801frameworkonTimeoutServiceRoleB269ED00",
       "Arn"
      ]
     },
-    "Runtime": {
-     "Fn::FindInMap": [
-      "LatestNodeRuntimeMap",
-      {
-       "Ref": "AWS::Region"
-      },
-      "value"
-     ]
-    },
+    "Runtime": "nodejs22.x",
     "Timeout": 900
    },
    "DependsOn": [
@@ -1025,22 +1065,6 @@
          ]
         }
        ]
-      },
-      {
-       "Action": [
-        "logs:CreateLogDelivery",
-        "logs:CreateLogStream",
-        "logs:GetLogDelivery",
-        "logs:UpdateLogDelivery",
-        "logs:DeleteLogDelivery",
-        "logs:ListLogDeliveries",
-        "logs:PutLogEvents",
-        "logs:PutResourcePolicy",
-        "logs:DescribeResourcePolicies",
-        "logs:DescribeLogGroups"
-       ],
-       "Effect": "Allow",
-       "Resource": "*"
       }
      ],
      "Version": "2012-10-17"
@@ -1052,26 +1076,6 @@
      }
     ]
    }
-  },
-  "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801waiterstatemachineLogGroup0065C33A": {
-   "Type": "AWS::Logs::LogGroup",
-   "Properties": {
-    "LogGroupName": {
-     "Fn::Join": [
-      "",
-      [
-       "/aws/vendedlogs/states/waiter-state-machine-",
-       {
-        "Ref": "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801frameworkisComplete707D085B"
-       },
-       "-c8360fb4841b320318a892a87ab351f2dbb63c9b1f"
-      ]
-     ]
-    },
-    "RetentionInDays": 731
-   },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain"
   },
   "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801waiterstatemachine162CD796": {
    "Type": "AWS::StepFunctions::StateMachine",
@@ -1097,22 +1101,6 @@
        "\"}}}"
       ]
      ]
-    },
-    "LoggingConfiguration": {
-     "Destinations": [
-      {
-       "CloudWatchLogsLogGroup": {
-        "LogGroupArn": {
-         "Fn::GetAtt": [
-          "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueMqEsmDeleterActiveMqBrokerInstanceStackRabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueue13794801waiterstatemachineLogGroup0065C33A",
-          "Arn"
-         ]
-        }
-       }
-      }
-     ],
-     "IncludeExecutionData": false,
-     "Level": "ERROR"
     },
     "RoleArn": {
      "Fn::GetAtt": [
@@ -1149,130 +1137,6 @@
    ],
    "UpdateReplacePolicy": "Delete",
    "DeletionPolicy": "Delete"
-  }
- },
- "Mappings": {
-  "LatestNodeRuntimeMap": {
-   "af-south-1": {
-    "value": "nodejs20.x"
-   },
-   "ap-east-1": {
-    "value": "nodejs20.x"
-   },
-   "ap-northeast-1": {
-    "value": "nodejs20.x"
-   },
-   "ap-northeast-2": {
-    "value": "nodejs20.x"
-   },
-   "ap-northeast-3": {
-    "value": "nodejs20.x"
-   },
-   "ap-south-1": {
-    "value": "nodejs20.x"
-   },
-   "ap-south-2": {
-    "value": "nodejs20.x"
-   },
-   "ap-southeast-1": {
-    "value": "nodejs20.x"
-   },
-   "ap-southeast-2": {
-    "value": "nodejs20.x"
-   },
-   "ap-southeast-3": {
-    "value": "nodejs20.x"
-   },
-   "ap-southeast-4": {
-    "value": "nodejs20.x"
-   },
-   "ap-southeast-5": {
-    "value": "nodejs20.x"
-   },
-   "ap-southeast-7": {
-    "value": "nodejs20.x"
-   },
-   "ca-central-1": {
-    "value": "nodejs20.x"
-   },
-   "ca-west-1": {
-    "value": "nodejs20.x"
-   },
-   "cn-north-1": {
-    "value": "nodejs18.x"
-   },
-   "cn-northwest-1": {
-    "value": "nodejs18.x"
-   },
-   "eu-central-1": {
-    "value": "nodejs20.x"
-   },
-   "eu-central-2": {
-    "value": "nodejs20.x"
-   },
-   "eu-isoe-west-1": {
-    "value": "nodejs18.x"
-   },
-   "eu-north-1": {
-    "value": "nodejs20.x"
-   },
-   "eu-south-1": {
-    "value": "nodejs20.x"
-   },
-   "eu-south-2": {
-    "value": "nodejs20.x"
-   },
-   "eu-west-1": {
-    "value": "nodejs20.x"
-   },
-   "eu-west-2": {
-    "value": "nodejs20.x"
-   },
-   "eu-west-3": {
-    "value": "nodejs20.x"
-   },
-   "il-central-1": {
-    "value": "nodejs20.x"
-   },
-   "me-central-1": {
-    "value": "nodejs20.x"
-   },
-   "me-south-1": {
-    "value": "nodejs20.x"
-   },
-   "mx-central-1": {
-    "value": "nodejs20.x"
-   },
-   "sa-east-1": {
-    "value": "nodejs20.x"
-   },
-   "us-east-1": {
-    "value": "nodejs20.x"
-   },
-   "us-east-2": {
-    "value": "nodejs20.x"
-   },
-   "us-gov-east-1": {
-    "value": "nodejs18.x"
-   },
-   "us-gov-west-1": {
-    "value": "nodejs18.x"
-   },
-   "us-iso-east-1": {
-    "value": "nodejs18.x"
-   },
-   "us-iso-west-1": {
-    "value": "nodejs18.x"
-   },
-   "us-isob-east-1": {
-    "value": "nodejs18.x"
-   },
-   "us-west-1": {
-    "value": "nodejs20.x"
-   },
-   "us-west-2": {
-    "value": "nodejs20.x"
-   }
   }
  },
  "Outputs": {

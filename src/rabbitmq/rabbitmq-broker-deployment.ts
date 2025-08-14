@@ -314,7 +314,7 @@ export abstract class RabbitMqBrokerDeploymentBase
         ),
       },
       console: {
-        url: `https:${Fn.select(1, Fn.split(":", Fn.select(0, this._resource.attrAmqpEndpoints)))}`,
+        url: Fn.select(0, this._resource.attrConsoleUrLs),
         port: 443,
       },
     };

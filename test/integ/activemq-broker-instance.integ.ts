@@ -227,4 +227,7 @@ new CfnOutput(stack, "ConfigRevision", {
   value: `${broker.configuration.revision}`,
 });
 
+new CfnOutput(stack, "ConsoleUrl", {
+  value: broker.endpoints.console.url,
+});
 app.synth();

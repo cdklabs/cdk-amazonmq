@@ -86,32 +86,14 @@
      ]
     },
     "Url": {
-     "Fn::Join": [
-      "",
-      [
-       "https:",
-       {
-        "Fn::Select": [
-         1,
-         {
-          "Fn::Split": [
-           ":",
-           {
-            "Fn::Select": [
-             0,
-             {
-              "Fn::GetAtt": [
-               "BrokerE1355FD6",
-               "AmqpEndpoints"
-              ]
-             }
-            ]
-           }
-          ]
-         }
-        ]
-       }
-      ]
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAtt": [
+        "BrokerE1355FD6",
+        "ConsoleURLs"
+       ]
+      }
      ]
     },
     "Credentials": {
@@ -251,7 +233,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs18.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 60
    },
    "DependsOn": [
@@ -269,32 +251,14 @@
      ]
     },
     "Url": {
-     "Fn::Join": [
-      "",
-      [
-       "https:",
-       {
-        "Fn::Select": [
-         1,
-         {
-          "Fn::Split": [
-           ":",
-           {
-            "Fn::Select": [
-             0,
-             {
-              "Fn::GetAtt": [
-               "BrokerE1355FD6",
-               "AmqpEndpoints"
-              ]
-             }
-            ]
-           }
-          ]
-         }
-        ]
-       }
-      ]
+     "Fn::Select": [
+      0,
+      {
+       "Fn::GetAtt": [
+        "BrokerE1355FD6",
+        "ConsoleURLs"
+       ]
+      }
      ]
     },
     "Credentials": {

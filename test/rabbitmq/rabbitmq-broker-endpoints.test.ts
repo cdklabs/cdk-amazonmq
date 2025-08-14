@@ -86,29 +86,9 @@ describe("RabbitMqBrokerEndpoints", () => {
 
     template.hasOutput("Url", {
       Value: {
-        "Fn::Join": [
-          "",
-          [
-            "https:",
-            {
-              "Fn::Select": [
-                1,
-                {
-                  "Fn::Split": [
-                    ":",
-                    {
-                      "Fn::Select": [
-                        0,
-                        {
-                          "Fn::GetAtt": ["TestBrokerBD4D5330", "AmqpEndpoints"],
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
+        "Fn::Select": [
+          0,
+          { "Fn::GetAtt": ["TestBrokerBD4D5330", "ConsoleURLs"] },
         ],
       },
     });

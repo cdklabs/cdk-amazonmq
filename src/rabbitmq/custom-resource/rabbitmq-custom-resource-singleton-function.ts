@@ -18,7 +18,7 @@ export class RabbitMqCustomResourceSingletonFunction extends lambda.SingletonFun
         "src/rabbitmq/custom-resource/handler/rabbit-mq-api-call.lambda/index.ts",
       ...props,
       lambdaPurpose: "RMQ",
-      runtime: new lambda.Runtime("nodejs18.x", lambda.RuntimeFamily.NODEJS),
+      runtime: lambda.determineLatestNodeRuntime(scope),
       handler: "index.handler",
       code: lambda.Code.fromAsset(
         path.join(

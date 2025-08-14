@@ -2,7 +2,7 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Aws, Fn, Token, Annotations } from "aws-cdk-lib";
+import { Fn, Token, Annotations } from "aws-cdk-lib";
 import { ISecurityGroup } from "aws-cdk-lib/aws-ec2";
 import { Construct } from "constructs";
 import { IActiveMqBroker } from "./activemq-broker";
@@ -208,7 +208,7 @@ export class ActiveMqBrokerInstance
         ),
       },
       console: {
-        url: `https://${this.id}.mq.${Aws.REGION}.${Aws.URL_SUFFIX}:8162`,
+        url: Fn.select(0, this._resource.attrConsoleUrLs),
         port: 8162,
       },
     };
