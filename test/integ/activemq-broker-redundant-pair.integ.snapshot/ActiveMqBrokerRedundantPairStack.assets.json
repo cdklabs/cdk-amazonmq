@@ -1,54 +1,58 @@
 {
-  "version": "38.0.1",
+  "version": "48.0.0",
   "files": {
-    "7c6b13b17815db0373069a4470c7724a6471f60c56af2aee7b82d1ca5915f270": {
+    "7317d9e5a85da26c738d35faee1ab324e7f0867a3391ef300125f80a0f3822fd": {
+      "displayName": "MqttPublisher/Code",
       "source": {
-        "path": "asset.7c6b13b17815db0373069a4470c7724a6471f60c56af2aee7b82d1ca5915f270",
+        "path": "asset.7317d9e5a85da26c738d35faee1ab324e7f0867a3391ef300125f80a0f3822fd",
         "packaging": "zip"
       },
       "destinations": {
-        "current_account-current_region": {
+        "current_account-current_region-4104397c": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "7c6b13b17815db0373069a4470c7724a6471f60c56af2aee7b82d1ca5915f270.zip",
+          "objectKey": "7317d9e5a85da26c738d35faee1ab324e7f0867a3391ef300125f80a0f3822fd.zip",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
     },
     "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d": {
+      "displayName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code",
       "source": {
         "path": "asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d",
         "packaging": "zip"
       },
       "destinations": {
-        "current_account-current_region": {
+        "current_account-current_region-8cfb6a01": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
           "objectKey": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
     },
-    "9a15b3d7dcfa5e6348d2560f761428b055a6389f69216f69961b5f32c25f2054": {
+    "bde549d3f8e9300b25470b68476db08ebc5690bb2dc39ee2ba04b9421323cb0b": {
+      "displayName": "MqttSubscriber/Code",
       "source": {
-        "path": "asset.9a15b3d7dcfa5e6348d2560f761428b055a6389f69216f69961b5f32c25f2054",
+        "path": "asset.bde549d3f8e9300b25470b68476db08ebc5690bb2dc39ee2ba04b9421323cb0b",
         "packaging": "zip"
       },
       "destinations": {
-        "current_account-current_region": {
+        "current_account-current_region-29eef63a": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "9a15b3d7dcfa5e6348d2560f761428b055a6389f69216f69961b5f32c25f2054.zip",
+          "objectKey": "bde549d3f8e9300b25470b68476db08ebc5690bb2dc39ee2ba04b9421323cb0b.zip",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }
     },
-    "8733f0849d5ef766de32fb8c56f63503ac33eb6b99dcbb26dce4c1bc52741486": {
+    "f519644b8d085488c33a97a09f1e1acb5bea714f2d13ab342583a04fccf9d2bd": {
+      "displayName": "ActiveMqBrokerRedundantPairStack Template",
       "source": {
         "path": "ActiveMqBrokerRedundantPairStack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region": {
+        "current_account-current_region-29d40f4f": {
           "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "8733f0849d5ef766de32fb8c56f63503ac33eb6b99dcbb26dce4c1bc52741486.json",
+          "objectKey": "f519644b8d085488c33a97a09f1e1acb5bea714f2d13ab342583a04fccf9d2bd.json",
           "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
         }
       }

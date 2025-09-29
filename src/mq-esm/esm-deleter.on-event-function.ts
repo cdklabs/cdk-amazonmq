@@ -17,7 +17,7 @@ export class EsmDeleterOnEventFunction extends lambda.Function {
     super(scope, id, {
       description: 'src/mq-esm/esm-deleter.on-event.lambda.ts',
       ...props,
-      runtime: new lambda.Runtime('nodejs18.x', lambda.RuntimeFamily.NODEJS),
+      runtime: new lambda.Runtime('nodejs20.x', lambda.RuntimeFamily.NODEJS),
       handler: 'index.handler',
       code: lambda.Code.fromAsset(path.join(__dirname, '../../assets/mq-esm/esm-deleter.on-event.lambda')),
     });
