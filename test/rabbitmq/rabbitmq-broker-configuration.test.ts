@@ -19,7 +19,7 @@ describe("RabbitMqBrokerConfiguration", () => {
     new RabbitMqBrokerConfiguration(stack, "TestConfig", {
       description: "Test Description",
       definition: RabbitMqBrokerConfigurationDefinition.data("Test Definition"),
-      engineVersion: RabbitMqBrokerEngineVersion.V3_12_13,
+      engineVersion: RabbitMqBrokerEngineVersion.V3_13,
     });
 
     const template = Template.fromStack(stack);
@@ -28,7 +28,7 @@ describe("RabbitMqBrokerConfiguration", () => {
       Data: { "Fn::Base64": "Test Definition" },
       Description: "Test Description",
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       Name: "TestConfig",
     });
   });
@@ -39,12 +39,12 @@ describe("RabbitMqBrokerConfiguration", () => {
     const config = new RabbitMqBrokerConfiguration(stack, "TestConfig", {
       description: "Test Description",
       definition: RabbitMqBrokerConfigurationDefinition.data("Test Definition"),
-      engineVersion: RabbitMqBrokerEngineVersion.V3_12_13,
+      engineVersion: RabbitMqBrokerEngineVersion.V3_13,
     });
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: true,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: "username",
@@ -66,7 +66,7 @@ describe("RabbitMqBrokerConfiguration", () => {
       Data: { "Fn::Base64": "Test Definition" },
       Description: "Test Description",
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       Name: "TestConfig",
     });
 
@@ -130,14 +130,14 @@ describe("RabbitMqBrokerConfiguration", () => {
     const stack = new Stack();
 
     const config = new RabbitMqBrokerConfiguration(stack, "TestConfig", {
-      engineVersion: RabbitMqBrokerEngineVersion.V3_12_13,
+      engineVersion: RabbitMqBrokerEngineVersion.V3_13,
       description: "Test Description",
       definition: RabbitMqBrokerConfigurationDefinition.data("Test Definition"),
     });
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: true,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: "username",
@@ -154,7 +154,7 @@ describe("RabbitMqBrokerConfiguration", () => {
       Data: { "Fn::Base64": "Test Definition" },
       Description: "Test Description",
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       Name: "TestConfig",
     });
 

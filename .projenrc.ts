@@ -3,9 +3,10 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { CdklabsConstructLibrary } from "cdklabs-projen-project-types";
+import { LambdaRuntime } from "projen/lib/awscdk";
 import { Stability } from "projen/lib/cdk";
 
-const cdkVersion = "2.162.0";
+const cdkVersion = "2.218.0";
 
 const project = new CdklabsConstructLibrary({
   name: "@cdklabs/cdk-amazonmq",
@@ -19,6 +20,9 @@ const project = new CdklabsConstructLibrary({
   prettier: true,
   stability: Stability.EXPERIMENTAL,
   docgen: true,
+  lambdaOptions: {
+    runtime: LambdaRuntime.NODEJS_22_X,
+  },
   devDeps: [
     "cdklabs-projen-project-types",
     "cdk-nag",
@@ -35,6 +39,7 @@ const project = new CdklabsConstructLibrary({
   ],
   keywords: ["aws", "Amazon MQ", "ActiveMQ", "RabbitMQ", "AWS CDK"],
   gitignore: [".vscode", "**/.DS_Store"],
+  jsiiVersion: "~5.9",
 });
 
 project.bundler.addBundle("src/rabbitmq/custom-resource/handler/index.ts", {

@@ -5,124 +5,142 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
   "Mappings": {
     "LatestNodeRuntimeMap": {
       "af-south-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-east-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
+      },
+      "ap-east-2": {
+        "value": "nodejs22.x",
       },
       "ap-northeast-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-northeast-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-northeast-3": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-south-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-south-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-southeast-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-southeast-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-southeast-3": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-southeast-4": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ap-southeast-5": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
+      },
+      "ap-southeast-6": {
+        "value": "nodejs22.x",
       },
       "ap-southeast-7": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ca-central-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "ca-west-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "cn-north-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "cn-northwest-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "eu-central-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-central-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-isoe-west-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "eu-north-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-south-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-south-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-west-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-west-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "eu-west-3": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
+      },
+      "eusc-de-east-1": {
+        "value": "nodejs22.x",
       },
       "il-central-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "me-central-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "me-south-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "mx-central-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "sa-east-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "us-east-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "us-east-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "us-gov-east-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "us-gov-west-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "us-iso-east-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "us-iso-west-1": {
-        "value": "nodejs18.x",
+        "value": "nodejs22.x",
       },
       "us-isob-east-1": {
         "value": "nodejs18.x",
       },
+      "us-isob-west-1": {
+        "value": "nodejs18.x",
+      },
+      "us-isof-east-1": {
+        "value": "nodejs22.x",
+      },
+      "us-isof-south-1": {
+        "value": "nodejs22.x",
+      },
       "us-west-1": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
       "us-west-2": {
-        "value": "nodejs20.x",
+        "value": "nodejs22.x",
       },
     },
   },
@@ -166,7 +184,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           "UseAwsOwnedKey": true,
         },
         "EngineType": "RABBITMQ",
-        "EngineVersion": "3.12.13",
+        "EngineVersion": "3.13",
         "HostInstanceType": "mq.m5.large",
         "PubliclyAccessible": false,
         "Users": [
@@ -215,7 +233,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs22.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -287,7 +305,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4dc48ffba382f93077a1e6824599bbd4ceb6f91eb3d9442eca3b85bdb1a20b1e.zip",
+          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
         },
         "Description": "AWS CDK resource provider framework - isComplete (Default/fn/MqEventSource:TestBrokermyQueue/MqEsmDeleter:fnMqEventSourceTestBrokermyQueue9CD0AC00)",
         "Environment": {
@@ -307,6 +325,10 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           },
         },
         "Handler": "framework.isComplete",
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
         "Role": {
           "Fn::GetAtt": [
             "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00frameworkisCompleteServiceRoleC3B75526",
@@ -388,6 +410,16 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               ],
             },
             {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "fnMqEventSourceTestBrokermyQueueonevent1C0F4885",
+                  "Arn",
+                ],
+              },
+            },
+            {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
               "Resource": [
@@ -412,6 +444,16 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                   ],
                 },
               ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "fnMqEventSourceTestBrokermyQueueiscompleteC33E9EA0",
+                  "Arn",
+                ],
+              },
             },
           ],
           "Version": "2012-10-17",
@@ -445,7 +487,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4dc48ffba382f93077a1e6824599bbd4ceb6f91eb3d9442eca3b85bdb1a20b1e.zip",
+          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (Default/fn/MqEventSource:TestBrokermyQueue/MqEsmDeleter:fnMqEventSourceTestBrokermyQueue9CD0AC00)",
         "Environment": {
@@ -468,6 +510,10 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           },
         },
         "Handler": "framework.onEvent",
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
         "Role": {
           "Fn::GetAtt": [
             "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00frameworkonEventServiceRole24538CC0",
@@ -549,6 +595,16 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               ],
             },
             {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "fnMqEventSourceTestBrokermyQueueonevent1C0F4885",
+                  "Arn",
+                ],
+              },
+            },
+            {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
               "Resource": [
@@ -573,6 +629,16 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                   ],
                 },
               ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "fnMqEventSourceTestBrokermyQueueiscompleteC33E9EA0",
+                  "Arn",
+                ],
+              },
             },
             {
               "Action": "states:StartExecution",
@@ -613,7 +679,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "4dc48ffba382f93077a1e6824599bbd4ceb6f91eb3d9442eca3b85bdb1a20b1e.zip",
+          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
         },
         "Description": "AWS CDK resource provider framework - onTimeout (Default/fn/MqEventSource:TestBrokermyQueue/MqEsmDeleter:fnMqEventSourceTestBrokermyQueue9CD0AC00)",
         "Environment": {
@@ -633,6 +699,10 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
           },
         },
         "Handler": "framework.onTimeout",
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
         "Role": {
           "Fn::GetAtt": [
             "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00frameworkonTimeoutServiceRoleC63EC7E1",
@@ -714,6 +784,16 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
               ],
             },
             {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "fnMqEventSourceTestBrokermyQueueonevent1C0F4885",
+                  "Arn",
+                ],
+              },
+            },
+            {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
               "Resource": [
@@ -738,6 +818,16 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                   ],
                 },
               ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "fnMqEventSourceTestBrokermyQueueiscompleteC33E9EA0",
+                  "Arn",
+                ],
+              },
             },
           ],
           "Version": "2012-10-17",
@@ -779,22 +869,6 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
             ],
           ],
         },
-        "LoggingConfiguration": {
-          "Destinations": [
-            {
-              "CloudWatchLogsLogGroup": {
-                "LogGroupArn": {
-                  "Fn::GetAtt": [
-                    "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00waiterstatemachineLogGroup9E3B72C5",
-                    "Arn",
-                  ],
-                },
-              },
-            },
-          ],
-          "IncludeExecutionData": false,
-          "Level": "ERROR",
-        },
         "RoleArn": {
           "Fn::GetAtt": [
             "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00waiterstatemachineRole91630863",
@@ -803,26 +877,6 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
         },
       },
       "Type": "AWS::StepFunctions::StateMachine",
-    },
-    "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00waiterstatemachineLogGroup9E3B72C5": {
-      "DeletionPolicy": "Retain",
-      "Properties": {
-        "LogGroupName": {
-          "Fn::Join": [
-            "",
-            [
-              "/aws/vendedlogs/states/waiter-state-machine-",
-              {
-                "Ref": "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00frameworkisComplete5D5CB33A",
-              },
-              "-c87553821016000da982230bddb5c939b8826f0153",
-            ],
-          ],
-        },
-        "RetentionInDays": 731,
-      },
-      "Type": "AWS::Logs::LogGroup",
-      "UpdateReplacePolicy": "Retain",
     },
     "fnMqEventSourceTestBrokermyQueueMqEsmDeleterfnMqEventSourceTestBrokermyQueue9CD0AC00waiterstatemachineRole91630863": {
       "Properties": {
@@ -897,22 +951,6 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
                 },
               ],
             },
-            {
-              "Action": [
-                "logs:CreateLogDelivery",
-                "logs:CreateLogStream",
-                "logs:GetLogDelivery",
-                "logs:UpdateLogDelivery",
-                "logs:DeleteLogDelivery",
-                "logs:ListLogDeliveries",
-                "logs:PutLogEvents",
-                "logs:PutResourcePolicy",
-                "logs:DescribeResourcePolicies",
-                "logs:DescribeLogGroups",
-              ],
-              "Effect": "Allow",
-              "Resource": "*",
-            },
           ],
           "Version": "2012-10-17",
         },
@@ -950,7 +988,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs22.x",
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -1031,7 +1069,7 @@ exports[`RabbitMqBrokerInstance Best Practices RabbitMQ Private Single Instance 
             "Arn",
           ],
         },
-        "Runtime": "nodejs18.x",
+        "Runtime": "nodejs22.x",
       },
       "Type": "AWS::Lambda::Function",
     },
