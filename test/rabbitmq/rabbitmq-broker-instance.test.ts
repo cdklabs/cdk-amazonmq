@@ -21,7 +21,7 @@ describe("RabbitMqBrokerInstance", () => {
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: true,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: "username",
@@ -44,7 +44,7 @@ describe("RabbitMqBrokerInstance", () => {
       DeploymentMode: "SINGLE_INSTANCE",
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: true,
       Users: [
@@ -61,7 +61,7 @@ describe("RabbitMqBrokerInstance", () => {
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: false,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: "username",
@@ -84,7 +84,7 @@ describe("RabbitMqBrokerInstance", () => {
       DeploymentMode: "SINGLE_INSTANCE",
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: false,
       Users: [
@@ -106,7 +106,7 @@ describe("RabbitMqBrokerInstance", () => {
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: false,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: "username",
@@ -155,7 +155,7 @@ describe("RabbitMqBrokerInstance", () => {
       DeploymentMode: "SINGLE_INSTANCE",
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: false,
       Users: [
@@ -190,7 +190,7 @@ describe("RabbitMqBrokerInstance", () => {
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: false,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: "username",
@@ -240,7 +240,7 @@ describe("RabbitMqBrokerInstance", () => {
       DeploymentMode: "SINGLE_INSTANCE",
       EncryptionOptions: { UseAwsOwnedKey: true },
       EngineType: "RABBITMQ",
-      EngineVersion: "3.12.13",
+      EngineVersion: "3.13",
       HostInstanceType: "mq.m5.large",
       PubliclyAccessible: false,
       SubnetIds: Match.arrayEquals([
