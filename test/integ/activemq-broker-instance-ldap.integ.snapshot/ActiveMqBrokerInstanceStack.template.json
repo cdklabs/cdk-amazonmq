@@ -418,7 +418,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueoneventServiceRoleDefaultPolicy2734EAF0",
@@ -499,7 +499,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "RabbitListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueiscompleteServiceRoleDefaultPolicy23EA76FF",

@@ -20,7 +20,7 @@ import {
 const createBroker = (stack: Stack) => {
   return new RabbitMqBrokerInstance(stack, "TestBroker", {
     publiclyAccessible: true,
-    version: RabbitMqBrokerEngineVersion.V3_12_13,
+    version: RabbitMqBrokerEngineVersion.V3_13,
     instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
     admin: {
       username: "admin",

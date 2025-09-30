@@ -21,7 +21,7 @@ const project = new CdklabsConstructLibrary({
   stability: Stability.EXPERIMENTAL,
   docgen: true,
   lambdaOptions: {
-    runtime: LambdaRuntime.NODEJS_20_X,
+    runtime: LambdaRuntime.NODEJS_22_X,
   },
   devDeps: [
     "cdklabs-projen-project-types",

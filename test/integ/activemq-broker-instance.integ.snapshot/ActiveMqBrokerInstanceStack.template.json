@@ -1438,7 +1438,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "ActiveMqListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueoneventServiceRoleDefaultPolicy1289D624",
@@ -1519,7 +1519,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "ActiveMqListenerMqEventSourceActiveMqBrokerInstanceStackBroker94B6AF23myQueueiscompleteServiceRoleDefaultPolicy94B8B18B",

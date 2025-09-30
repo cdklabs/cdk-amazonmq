@@ -503,7 +503,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "RabbitListenerMqEventSourceRabbitMqBrokerInstanceTestBroker1C6CA076usereventsoneventServiceRoleDefaultPolicyBFF18434",
@@ -584,7 +584,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x"
+    "Runtime": "nodejs22.x"
    },
    "DependsOn": [
     "RabbitListenerMqEventSourceRabbitMqBrokerInstanceTestBroker1C6CA076usereventsiscompleteServiceRoleDefaultPolicyFDF30055",

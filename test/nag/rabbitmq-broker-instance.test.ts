@@ -42,7 +42,7 @@ describe("RabbitMqBrokerInstance Best Practices", () => {
 
     const broker = new RabbitMqBrokerInstance(stack, "TestBroker", {
       publiclyAccessible: false,
-      version: RabbitMqBrokerEngineVersion.V3_12_13,
+      version: RabbitMqBrokerEngineVersion.V3_13,
       instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
       admin: {
         username: brokerAdminCreds
@@ -54,7 +54,7 @@ describe("RabbitMqBrokerInstance Best Practices", () => {
     });
 
     const fn = new LambdaFunction(stack, "fn", {
-      runtime: LambdaRuntime.NODEJS_20_X,
+      runtime: LambdaRuntime.NODEJS_22_X,
       code: LambdaCode.fromInline(
         "exports.handler = async (event) => { console.log(JSON.stringify(event, null, 2)); };",
       ),
@@ -141,7 +141,7 @@ describe("RabbitMqBrokerInstance Best Practices", () => {
 
     expect(warnings).toHaveLength(0);
     // INFO: these are due to the requirement of waiting for an ESM to be "actually" deleted
-    expect(errors).toHaveLength(19);
+    expect(errors).toHaveLength(16);
 
     expect(template.toJSON()).toMatchSnapshot();
   });
