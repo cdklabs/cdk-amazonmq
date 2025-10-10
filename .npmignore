@@ -30,6 +30,7 @@ test/integ/activemq-broker-instance.integ.snapshot
 test/integ/activemq-broker-redundant-pair.integ.snapshot
 test/integ/rabbitmq-broker-cluster.integ.snapshot
 test/integ/rabbitmq-broker-custom-resource.integ.snapshot
+test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot
 test/integ/.tmp
 test/integ/rabbitmq-broker-instance.integ.snapshot
 /.gitattributes

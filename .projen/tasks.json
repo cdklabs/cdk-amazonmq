@@ -548,6 +548,69 @@
         }
       ]
     },
+    "integ:rabbitmq-broker-instance-config-managed:assert": {
+      "name": "integ:rabbitmq-broker-instance-config-managed:assert",
+      "description": "assert the snapshot of integration test 'rabbitmq-broker-instance-config-managed'",
+      "steps": [
+        {
+          "exec": "[ -d \"test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-instance-config-managed'. Run 'projen integ:rabbitmq-broker-instance-config-managed:deploy' to capture.\" && exit 1)"
+        },
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/assert.cdk.out > /dev/null"
+        },
+        {
+          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/assert.cdk.out/"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-config-managed:deploy": {
+      "name": "integ:rabbitmq-broker-instance-config-managed:deploy",
+      "description": "deploy integration test 'rabbitmq-broker-instance-config-managed' and capture snapshot",
+      "steps": [
+        {
+          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+        },
+        {
+          "exec": "rm -fr test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+        },
+        {
+          "exec": "mv test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-instance-config-managed:destroy"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-config-managed:destroy": {
+      "name": "integ:rabbitmq-broker-instance-config-managed:destroy",
+      "description": "destroy integration test 'rabbitmq-broker-instance-config-managed'",
+      "steps": [
+        {
+          "exec": "cdk destroy --app test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot '**' --no-version-reporting"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-config-managed:snapshot": {
+      "name": "integ:rabbitmq-broker-instance-config-managed:snapshot",
+      "description": "update snapshot for integration test \"rabbitmq-broker-instance-config-managed\"",
+      "steps": [
+        {
+          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot > /dev/null"
+        }
+      ]
+    },
+    "integ:rabbitmq-broker-instance-config-managed:watch": {
+      "name": "integ:rabbitmq-broker-instance-config-managed:watch",
+      "description": "watch integration test 'rabbitmq-broker-instance-config-managed' (without updating snapshots)",
+      "steps": [
+        {
+          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+        }
+      ]
+    },
     "integ:rabbitmq-broker-instance:assert": {
       "name": "integ:rabbitmq-broker-instance:assert",
       "description": "assert the snapshot of integration test 'rabbitmq-broker-instance'",
@@ -629,6 +692,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-custom-resource:snapshot"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-instance-config-managed:snapshot"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:snapshot"
@@ -808,6 +874,9 @@
         },
         {
           "spawn": "integ:rabbitmq-broker-custom-resource:assert"
+        },
+        {
+          "spawn": "integ:rabbitmq-broker-instance-config-managed:assert"
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:assert"

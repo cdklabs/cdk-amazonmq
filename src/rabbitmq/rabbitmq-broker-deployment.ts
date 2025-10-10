@@ -21,6 +21,7 @@ import {
   IBrokerDeployment,
 } from "../broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
+import { IRabbitMqBrokerUserManagement } from "./usermanagement/rabbitmq-broker-user-management";
 
 export interface RabbitMqCloudwatchLogsExports {
   /**
@@ -34,8 +35,15 @@ export interface RabbitMqCloudwatchLogsExports {
 export interface RabbitMqBrokerDeploymentProps extends BrokerDeploymentProps {
   /**
    * Sets the credentials of the broker administrative user.
+   *
+   * @deprecated - prefer userManagement
    */
-  readonly admin: Admin;
+  readonly admin?: Admin;
+
+  /**
+   * Sets the RabbitMq broker user management
+   */
+  readonly userManagement?: IRabbitMqBrokerUserManagement;
 
   /**
    * Sets the version of the broker engine.
@@ -289,17 +297,39 @@ export abstract class RabbitMqBrokerDeploymentBase
     id: string,
     props: RabbitMqBrokerDeploymentBaseProps,
   ) {
+    const { admin, userManagement } = props;
+
+    if (admin && userManagement) {
+      throw new Error(
+        "Only one of 'admin' or 'userManagement' can be specified",
+      );
+    }
+
+    if (admin === undefined && userManagement === undefined) {
+      throw new Error(
+        "One of 'admin' or 'userManagement' needs to be specified",
+      );
+    }
+
+    const { users, authenticationStrategy } = userManagement
+      ? userManagement.render()
+      : {
+          users: [
+            {
+              username: admin!.username,
+              password: admin!.password.unsafeUnwrap(),
+            },
+          ],
+          authenticationStrategy: undefined,
+        };
+
     super(scope, id, {
       ...props,
       version: props.version.toString(),
       defaultPort: Port.tcp(5671),
       engine: BrokerEngine.RABBITMQ,
-      users: [
-        {
-          username: props.admin.username,
-          password: props.admin.password.unsafeUnwrap(),
-        },
-      ],
+      users,
+      authenticationStrategy,
       cloudwatchLogsExports: props.cloudwatchLogsExports,
     });
 

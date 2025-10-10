@@ -16,6 +16,7 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
+    "AuthenticationStrategy": "SIMPLE",
     "BrokerName": "RabbitMqBrokerCustomResourceTestBroker92857339",
     "DeploymentMode": "SINGLE_INSTANCE",
     "EncryptionOptions": {

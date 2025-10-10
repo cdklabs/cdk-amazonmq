@@ -904,6 +904,7 @@
   "BrokerE1355FD6": {
    "Type": "AWS::AmazonMQ::Broker",
    "Properties": {
+    "AuthenticationStrategy": "SIMPLE",
     "BrokerName": "my-super-broker",
     "DeploymentMode": "CLUSTER_MULTI_AZ",
     "EncryptionOptions": {
@@ -1267,7 +1268,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "5d4a7897fd5f3044da5bc7b751aa95a3a02618a80592328fbc22b4ce42344790.zip"
+     "S3Key": "df545201e4a722cc274d6e010585374d6915940a29f7f0b31bc07682ecbf95d8.zip"
     },
     "Environment": {
      "Variables": {
