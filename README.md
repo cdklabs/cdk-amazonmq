@@ -663,7 +663,7 @@ const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBroker', {
 With config-managed authentication:
 - No users are created in the broker's Management plugin database
 - Authentication is handled through external configuration mechanisms
-- Supports integration with LDAP, OAuth, and other authentication systems
+- Currently supports OAuth authentication and authorization
 - Requires additional configuration outside of the broker deployment
 
 ### RabbitMQ Broker Configurations
