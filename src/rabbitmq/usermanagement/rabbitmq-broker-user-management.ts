@@ -109,7 +109,7 @@ export class RabbitMqBrokerUserManagement {
    * With config-managed authentication:
    * - No users are created in the broker's internal database
    * - Authentication is handled through external configuration
-   * - Supports integration with LDAP, OAuth, and other authentication systems
+   * - Currently supports OAuth authentication and authorization
    * - Requires additional configuration outside of the broker deployment
    *
    * @returns A user management implementation using config-managed authentication
