@@ -10904,7 +10904,7 @@ authentication infrastructure and supports advanced authentication scenarios.
 With config-managed authentication:
 - No users are created in the broker's internal database
 - Authentication is handled through external configuration
-- Supports integration with LDAP, OAuth, and other authentication systems
+- Currently supports OAuth authentication and authorization
 - Requires additional configuration outside of the broker deployment
 
 ##### `simple` <a name="simple" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.simple"></a>
