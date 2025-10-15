@@ -13,6 +13,7 @@ import {
   DayOfWeek,
   RabbitMqBrokerEngineVersion,
   RabbitMqBrokerInstance,
+  RabbitMqBrokerUserManagement,
   RabbitMqEventSource,
 } from "../../src";
 
@@ -35,10 +36,12 @@ const broker = new RabbitMqBrokerInstance(stack, "Broker", {
   publiclyAccessible: true,
   version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
-  admin: {
-    username: brokerAdminCreds.secretValueFromJson("username").unsafeUnwrap(),
-    password: brokerAdminCreds.secretValueFromJson("password"),
-  },
+  userManagement: RabbitMqBrokerUserManagement.simple({
+    admin: {
+      username: brokerAdminCreds.secretValueFromJson("username").unsafeUnwrap(),
+      password: brokerAdminCreds.secretValueFromJson("password"),
+    },
+  }),
   maintenanceWindowStartTime: {
     timeOfDay: "13:00",
     dayOfWeek: DayOfWeek.SUNDAY,

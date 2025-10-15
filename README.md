@@ -40,6 +40,9 @@ Higher level constructs for RabbitMQ Bokers  | ![Experimental](https://img.shiel
   - [Importing Existing RabbitMq Brokers](#importing-exisitng-rabbitmq-brokers)
     - [Importing Dual-Stack RabbitMQ Brokers](#importing-dual-stack-rabbitmq-brokers)
   - [Allowing Connections to a RabbitMQ Broker](#allowing-connections-to-a-rabbitmq-broker)
+  - [RabbitMQ Broker User Management](#rabbitmq-broker-user-management)
+    - [RabbitMQ Broker Simple Authentication](#rabbitmq-broker-simple-authentication)
+    - [RabbitMQ Broker Config-Managed Authentication](#rabbitmq-broker-config-managed-authentication)
   - [RabbitMQ Broker Configurations](#rabbitmq-broker-configurations)
   - [Monitoring RabbitMQ Brokers](#monitoring-rabbitmq-brokers)
   - [RabbitMQ Broker Integration with AWS Lambda](#rabbitmq-broker-integration-with-aws-lambda)
@@ -423,7 +426,11 @@ The following example creates a minimal, single-instance RabbitMQ broker deploym
 ```typescript
 import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
 import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
-import { RabbitMqBrokerEngineVersion, RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq';
+import { 
+  RabbitMqBrokerEngineVersion, 
+  RabbitMqBrokerInstance,
+  RabbitMqBrokerUserManagement,
+} from '@cdklabs/cdk-amazonmq';
 
 declare const stack: Stack;
 declare const adminSecret: ISecret;
@@ -432,10 +439,12 @@ const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBroker', {
   publiclyAccessible: false,
   version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
-  admin: {
-    username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
-    password: adminSecret.secretValueFromJson('password'),
-   },
+  userManagement: RabbitMqBrokerUserManagement.simple({
+    admin: {
+      username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
+      password: adminSecret.secretValueFromJson('password'),
+    },
+  }),
 });
 ```
 
@@ -447,6 +456,7 @@ import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
 import {
   RabbitMqBrokerCluster,
   RabbitMqBrokerEngineVersion,
+  RabbitMqBrokerUserManagement,
 } from '@cdklabs/cdk-amazonmq';
 
 declare const stack: Stack;
@@ -456,10 +466,12 @@ const broker = new RabbitMqBrokerCluster(stack, 'RabbitMqBroker', {
   publiclyAccessible: false,
   version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
-  admin: {
-    username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
-    password: adminSecret.secretValueFromJson('password'),
-   },
+  userManagement: RabbitMqBrokerUserManagement.simple({
+    admin: {
+      username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
+      password: adminSecret.secretValueFromJson('password'),
+    },
+  }),
 });
 ```
 
@@ -593,6 +605,67 @@ new CfnOutput(this, 'AmqpUrl', {
 });
 ```
 
+### RabbitMQ Broker User Management
+
+#### RabbitMQ Broker Simple Authentication
+
+RabbitMQ brokers support simple authentication using the RabbitMQ Management plugin. With this approach, users are managed directly through the RabbitMQ Management plugin and credentials are specified during broker deployment.
+
+***Note:*** While the `admin` property is still supported for backward compatibility, it is deprecated and discouraged. Use the `userManagement` property with `RabbitMqBrokerUserManagement.simple()` instead.
+
+```typescript
+import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
+import { ISecret } from 'aws-cdk-lib/aws-secretsmanager';
+import { 
+  RabbitMqBrokerEngineVersion,
+  RabbitMqBrokerInstance,
+  RabbitMqBrokerUserManagement,
+} from '@cdklabs/cdk-amazonmq';
+
+declare const stack: Stack;
+declare const adminSecret: ISecret;
+
+const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBroker', {
+  publiclyAccessible: false,
+  version: RabbitMqBrokerEngineVersion.V3_13,
+  instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
+  userManagement: RabbitMqBrokerUserManagement.simple({
+    admin: {
+      username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
+      password: adminSecret.secretValueFromJson('password'),
+    },
+  }),
+});
+```
+
+#### RabbitMQ Broker Config-Managed Authentication
+
+Amazon MQ for RabbitMQ also supports config-managed authentication, which allows for external user management systems to handle authentication instead of using RabbitMQ's Management plugin. This approach provides more flexibility for integrating with existing authentication infrastructure.
+
+```typescript
+import { InstanceClass, InstanceSize, InstanceType } from 'aws-cdk-lib/aws-ec2';
+import { 
+  RabbitMqBrokerEngineVersion,
+  RabbitMqBrokerInstance,
+  RabbitMqBrokerUserManagement,
+} from '@cdklabs/cdk-amazonmq';
+
+declare const stack: Stack;
+
+const broker = new RabbitMqBrokerInstance(stack, 'RabbitMqBroker', {
+  publiclyAccessible: false,
+  version: RabbitMqBrokerEngineVersion.V3_13,
+  instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
+  userManagement: RabbitMqBrokerUserManagement.configManaged(),
+});
+```
+
+With config-managed authentication:
+- No users are created in the broker's Management plugin database
+- Authentication is handled through external configuration mechanisms
+- Currently supports OAuth authentication and authorization
+- Requires additional configuration outside of the broker deployment
+
 ### RabbitMQ Broker Configurations
 
 If you do not specify a custom RabbitMQ Broker configuration, Amazon MQ for RabbitMQ will create a default configuration for the broker on your behalf. You can introduce custom configurations by explicitly creating one as in the example below:
@@ -606,6 +679,7 @@ import {
   RabbitMqBrokerConfigurationDefinition,
   RabbitMqBrokerEngineVersion,
   RabbitMqBrokerInstance,
+  RabbitMqBrokerUserManagement,
 } from '@cdklabs/cdk-amazonmq';
 
 declare const stack: Stack;
@@ -624,10 +698,12 @@ const broker = new RabbitMqBrokerInstance(stack, 'Broker', {
   publiclyAccessible: false,
   version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
-  admin: {
-    username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
-    password: adminSecret.secretValueFromJson('password'),
-   },
+  userManagement: RabbitMqBrokerUserManagement.simple({
+    admin: {
+      username: adminSecret.secretValueFromJson('username').unsafeUnwrap(),
+      password: adminSecret.secretValueFromJson('password'),
+    },
+  }),
   configuration: customConfiguration
 });
 ```

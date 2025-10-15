@@ -24,6 +24,7 @@ import * as regionInformation from "aws-cdk-lib/region-info";
 import {
   RabbitMqBrokerCluster,
   RabbitMqBrokerEngineVersion,
+  RabbitMqBrokerUserManagement,
   RabbitMqEventSource,
 } from "../../src";
 
@@ -112,10 +113,12 @@ const cluster = new RabbitMqBrokerCluster(stack, "Broker", {
   publiclyAccessible: false,
   version: RabbitMqBrokerEngineVersion.V3_13,
   instanceType: InstanceType.of(InstanceClass.M5, InstanceSize.LARGE),
-  admin: {
-    username: brokerAdminCreds.secretValueFromJson("username").unsafeUnwrap(),
-    password: brokerAdminCreds.secretValueFromJson("password"),
-  },
+  userManagement: RabbitMqBrokerUserManagement.simple({
+    admin: {
+      username: brokerAdminCreds.secretValueFromJson("username").unsafeUnwrap(),
+      password: brokerAdminCreds.secretValueFromJson("password"),
+    },
+  }),
   vpc,
   vpcSubnets: brokerSubnets,
   cloudwatchLogsExports: {

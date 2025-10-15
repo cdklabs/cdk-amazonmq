@@ -8725,10 +8725,11 @@ const rabbitMqBrokerClusterProps: RabbitMqBrokerClusterProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The Security Groups to apply for a non publicly accessible broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC in which create the communication endpoints for a private broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | vpcSubnets and vpc are optional. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.userManagement">userManagement</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a></code> | Sets the RabbitMq broker user management. |
 
 ---
 
@@ -8871,18 +8872,6 @@ But when present - publiclyAccessible attribute must equal false.
 
 ---
 
-##### `admin`<sup>Required</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.admin"></a>
-
-```typescript
-public readonly admin: Admin;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
-
-Sets the credentials of the broker administrative user.
-
----
-
 ##### `version`<sup>Required</sup> <a name="version" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.version"></a>
 
 ```typescript
@@ -8892,6 +8881,20 @@ public readonly version: RabbitMqBrokerEngineVersion;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
 
 Sets the version of the broker engine.
+
+---
+
+##### ~~`admin`~~<sup>Optional</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.admin"></a>
+
+- *Deprecated:* - prefer userManagement
+
+```typescript
+public readonly admin: Admin;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
+
+Sets the credentials of the broker administrative user.
 
 ---
 
@@ -8916,6 +8919,18 @@ public readonly configuration: IRabbitMqBrokerConfiguration;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
 
 Sets the configuration of the broker.
+
+---
+
+##### `userManagement`<sup>Optional</sup> <a name="userManagement" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerClusterProps.property.userManagement"></a>
+
+```typescript
+public readonly userManagement: IRabbitMqBrokerUserManagement;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a>
+
+Sets the RabbitMq broker user management.
 
 ---
 
@@ -9072,10 +9087,11 @@ const rabbitMqBrokerDeploymentBaseProps: RabbitMqBrokerDeploymentBaseProps = { .
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The Security Groups to apply for a non publicly accessible broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC in which create the communication endpoints for a private broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | vpcSubnets and vpc are optional. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.userManagement">userManagement</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a></code> | Sets the RabbitMq broker user management. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.deploymentMode">deploymentMode</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentMode">BrokerDeploymentMode</a></code> | *No description.* |
 
 ---
@@ -9219,18 +9235,6 @@ But when present - publiclyAccessible attribute must equal false.
 
 ---
 
-##### `admin`<sup>Required</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.admin"></a>
-
-```typescript
-public readonly admin: Admin;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
-
-Sets the credentials of the broker administrative user.
-
----
-
 ##### `version`<sup>Required</sup> <a name="version" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.version"></a>
 
 ```typescript
@@ -9240,6 +9244,20 @@ public readonly version: RabbitMqBrokerEngineVersion;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
 
 Sets the version of the broker engine.
+
+---
+
+##### ~~`admin`~~<sup>Optional</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.admin"></a>
+
+- *Deprecated:* - prefer userManagement
+
+```typescript
+public readonly admin: Admin;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
+
+Sets the credentials of the broker administrative user.
 
 ---
 
@@ -9264,6 +9282,18 @@ public readonly configuration: IRabbitMqBrokerConfiguration;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
 
 Sets the configuration of the broker.
+
+---
+
+##### `userManagement`<sup>Optional</sup> <a name="userManagement" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBaseProps.property.userManagement"></a>
+
+```typescript
+public readonly userManagement: IRabbitMqBrokerUserManagement;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a>
+
+Sets the RabbitMq broker user management.
 
 ---
 
@@ -9302,10 +9332,11 @@ const rabbitMqBrokerDeploymentProps: RabbitMqBrokerDeploymentProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The Security Groups to apply for a non publicly accessible broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC in which create the communication endpoints for a private broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | vpcSubnets and vpc are optional. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.userManagement">userManagement</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a></code> | Sets the RabbitMq broker user management. |
 
 ---
 
@@ -9448,18 +9479,6 @@ But when present - publiclyAccessible attribute must equal false.
 
 ---
 
-##### `admin`<sup>Required</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.admin"></a>
-
-```typescript
-public readonly admin: Admin;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
-
-Sets the credentials of the broker administrative user.
-
----
-
 ##### `version`<sup>Required</sup> <a name="version" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.version"></a>
 
 ```typescript
@@ -9469,6 +9488,20 @@ public readonly version: RabbitMqBrokerEngineVersion;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
 
 Sets the version of the broker engine.
+
+---
+
+##### ~~`admin`~~<sup>Optional</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.admin"></a>
+
+- *Deprecated:* - prefer userManagement
+
+```typescript
+public readonly admin: Admin;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
+
+Sets the credentials of the broker administrative user.
 
 ---
 
@@ -9493,6 +9526,72 @@ public readonly configuration: IRabbitMqBrokerConfiguration;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
 
 Sets the configuration of the broker.
+
+---
+
+##### `userManagement`<sup>Optional</sup> <a name="userManagement" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentProps.property.userManagement"></a>
+
+```typescript
+public readonly userManagement: IRabbitMqBrokerUserManagement;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a>
+
+Sets the RabbitMq broker user management.
+
+---
+
+### RabbitMqBrokerDeploymentUserManagementDefinition <a name="RabbitMqBrokerDeploymentUserManagementDefinition" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentUserManagementDefinition"></a>
+
+Configuration definition for RabbitMQ broker user management.
+
+This interface defines the structure of user management configuration
+that will be applied to the broker deployment.
+
+#### Initializer <a name="Initializer" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentUserManagementDefinition.Initializer"></a>
+
+```typescript
+import { RabbitMqBrokerDeploymentUserManagementDefinition } from '@cdklabs/cdk-amazonmq'
+
+const rabbitMqBrokerDeploymentUserManagementDefinition: RabbitMqBrokerDeploymentUserManagementDefinition = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentUserManagementDefinition.property.users">users</a></code> | <code>aws-cdk-lib.aws_amazonmq.CfnBroker.UserProperty[]</code> | List of users to be created on the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentUserManagementDefinition.property.authenticationStrategy">authenticationStrategy</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy">RabbitMqAuthenticationStrategy</a></code> | The authentication strategy to use for this broker. |
+
+---
+
+##### `users`<sup>Required</sup> <a name="users" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentUserManagementDefinition.property.users"></a>
+
+```typescript
+public readonly users: UserProperty[];
+```
+
+- *Type:* aws-cdk-lib.aws_amazonmq.CfnBroker.UserProperty[]
+
+List of users to be created on the broker.
+
+For SIMPLE authentication, this contains the actual user credentials.
+For CONFIG_MANAGED authentication, this is typically empty as users
+are managed externally.
+
+---
+
+##### `authenticationStrategy`<sup>Optional</sup> <a name="authenticationStrategy" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentUserManagementDefinition.property.authenticationStrategy"></a>
+
+```typescript
+public readonly authenticationStrategy: RabbitMqAuthenticationStrategy;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy">RabbitMqAuthenticationStrategy</a>
+
+The authentication strategy to use for this broker.
+
+Determines how user authentication will be handled by the broker.
 
 ---
 
@@ -9560,10 +9659,11 @@ const rabbitMqBrokerInstanceProps: RabbitMqBrokerInstanceProps = { ... }
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The Security Groups to apply for a non publicly accessible broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | The VPC in which create the communication endpoints for a private broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | vpcSubnets and vpc are optional. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.version">version</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | Sets the version of the broker engine. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Sets the credentials of the broker administrative user. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.cloudwatchLogsExports">cloudwatchLogsExports</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCloudwatchLogsExports">RabbitMqCloudwatchLogsExports</a></code> | Sets the CloudWatch logs exports for the broker. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.configuration">configuration</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a></code> | Sets the configuration of the broker. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.userManagement">userManagement</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a></code> | Sets the RabbitMq broker user management. |
 
 ---
 
@@ -9706,18 +9806,6 @@ But when present - publiclyAccessible attribute must equal false.
 
 ---
 
-##### `admin`<sup>Required</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.admin"></a>
-
-```typescript
-public readonly admin: Admin;
-```
-
-- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
-
-Sets the credentials of the broker administrative user.
-
----
-
 ##### `version`<sup>Required</sup> <a name="version" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.version"></a>
 
 ```typescript
@@ -9727,6 +9815,20 @@ public readonly version: RabbitMqBrokerEngineVersion;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
 
 Sets the version of the broker engine.
+
+---
+
+##### ~~`admin`~~<sup>Optional</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.admin"></a>
+
+- *Deprecated:* - prefer userManagement
+
+```typescript
+public readonly admin: Admin;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
+
+Sets the credentials of the broker administrative user.
 
 ---
 
@@ -9751,6 +9853,18 @@ public readonly configuration: IRabbitMqBrokerConfiguration;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration">IRabbitMqBrokerConfiguration</a>
 
 Sets the configuration of the broker.
+
+---
+
+##### `userManagement`<sup>Optional</sup> <a name="userManagement" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstanceProps.property.userManagement"></a>
+
+```typescript
+public readonly userManagement: IRabbitMqBrokerUserManagement;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a>
+
+Sets the RabbitMq broker user management.
 
 ---
 
@@ -10121,6 +10235,44 @@ public readonly virtualHost: string;
 - *Default:* the default virtual host '/' will be used.
 
 he name of the RabbitMQ virtual host from which a queue will be the source of messages.
+
+---
+
+### RabbitMqSimpleAuthenticationUserManagementOptions <a name="RabbitMqSimpleAuthenticationUserManagementOptions" id="@cdklabs/cdk-amazonmq.RabbitMqSimpleAuthenticationUserManagementOptions"></a>
+
+Configuration options for simple authentication user management.
+
+Simple authentication uses RabbitMQ's Management plugin for user management
+where users are stored in the broker's internal database.
+
+#### Initializer <a name="Initializer" id="@cdklabs/cdk-amazonmq.RabbitMqSimpleAuthenticationUserManagementOptions.Initializer"></a>
+
+```typescript
+import { RabbitMqSimpleAuthenticationUserManagementOptions } from '@cdklabs/cdk-amazonmq'
+
+const rabbitMqSimpleAuthenticationUserManagementOptions: RabbitMqSimpleAuthenticationUserManagementOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqSimpleAuthenticationUserManagementOptions.property.admin">admin</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a></code> | Administrative user credentials for the broker. |
+
+---
+
+##### `admin`<sup>Required</sup> <a name="admin" id="@cdklabs/cdk-amazonmq.RabbitMqSimpleAuthenticationUserManagementOptions.property.admin"></a>
+
+```typescript
+public readonly admin: Admin;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.Admin">Admin</a>
+
+Administrative user credentials for the broker.
+
+This user will have full administrative privileges on the broker
+and can manage other users, virtual hosts, and broker configuration.
 
 ---
 
@@ -10702,6 +10854,82 @@ public readonly V3_13: RabbitMqBrokerEngineVersion;
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
 
 ---
+
+### RabbitMqBrokerUserManagement <a name="RabbitMqBrokerUserManagement" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement"></a>
+
+Factory class for creating RabbitMQ broker user management configurations.
+
+This class provides static methods to create different types of user management
+strategies for RabbitMQ brokers, supporting both simple and config-managed
+authentication approaches.
+
+#### Initializers <a name="Initializers" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.Initializer"></a>
+
+```typescript
+import { RabbitMqBrokerUserManagement } from '@cdklabs/cdk-amazonmq'
+
+new RabbitMqBrokerUserManagement()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.configManaged">configManaged</a></code> | Creates a config-managed authentication user management configuration. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.simple">simple</a></code> | Creates a simple authentication user management configuration. |
+
+---
+
+##### `configManaged` <a name="configManaged" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.configManaged"></a>
+
+```typescript
+import { RabbitMqBrokerUserManagement } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqBrokerUserManagement.configManaged()
+```
+
+Creates a config-managed authentication user management configuration.
+
+Config-managed authentication allows for external user management systems
+to handle authentication instead of using RabbitMQ's built-in user database.
+This approach provides more flexibility for integrating with existing
+authentication infrastructure and supports advanced authentication scenarios.
+
+With config-managed authentication:
+- No users are created in the broker's internal database
+- Authentication is handled through external configuration
+- Currently supports OAuth authentication and authorization
+- Requires additional configuration outside of the broker deployment
+
+##### `simple` <a name="simple" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.simple"></a>
+
+```typescript
+import { RabbitMqBrokerUserManagement } from '@cdklabs/cdk-amazonmq'
+
+RabbitMqBrokerUserManagement.simple(options: RabbitMqSimpleAuthenticationUserManagementOptions)
+```
+
+Creates a simple authentication user management configuration.
+
+Simple authentication uses RabbitMQ's Management plugin for user management
+where user credentials are stored in the broker's internal database. This is
+the traditional approach for RabbitMQ user management.
+
+###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerUserManagement.simple.parameter.options"></a>
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqSimpleAuthenticationUserManagementOptions">RabbitMqSimpleAuthenticationUserManagementOptions</a>
+
+Configuration options including admin user credentials.
+
+---
+
+
 
 ### RabbitMqCustomResourcePolicy <a name="RabbitMqCustomResourcePolicy" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResourcePolicy"></a>
 
@@ -12892,6 +13120,33 @@ public readonly endpoints: RabbitMqBrokerEndpoints;
 
 ---
 
+### IRabbitMqBrokerUserManagement <a name="IRabbitMqBrokerUserManagement" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement"></a>
+
+- *Implemented By:* <a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement">IRabbitMqBrokerUserManagement</a>
+
+Interface for RabbitMQ broker user management implementations.
+
+This interface allows different user management strategies to be plugged
+into RabbitMQ broker deployments, providing flexibility in how users
+and authentication are configured.
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement.render">render</a></code> | Renders the user management configuration for the broker deployment. |
+
+---
+
+##### `render` <a name="render" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerUserManagement.render"></a>
+
+```typescript
+public render(): RabbitMqBrokerDeploymentUserManagementDefinition
+```
+
+Renders the user management configuration for the broker deployment.
+
+
 ## Enums <a name="Enums" id="Enums"></a>
 
 ### ActiveMqAuthenticationStrategy <a name="ActiveMqAuthenticationStrategy" id="@cdklabs/cdk-amazonmq.ActiveMqAuthenticationStrategy"></a>
@@ -13047,6 +13302,44 @@ All http request methods.
 
 
 ##### `DELETE` <a name="DELETE" id="@cdklabs/cdk-amazonmq.HttpMethods.DELETE"></a>
+
+---
+
+
+### RabbitMqAuthenticationStrategy <a name="RabbitMqAuthenticationStrategy" id="@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy"></a>
+
+Authentication strategies available for Amazon MQ RabbitMQ brokers.
+
+These strategies determine how user authentication is handled by the broker.
+
+#### Members <a name="Members" id="Members"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy.SIMPLE">SIMPLE</a></code> | Simple Authentication using RabbitMQ's built-in user management. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy.CONFIG_MANAGED">CONFIG_MANAGED</a></code> | Configuration-managed authentication strategy. |
+
+---
+
+##### `SIMPLE` <a name="SIMPLE" id="@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy.SIMPLE"></a>
+
+Simple Authentication using RabbitMQ's built-in user management.
+
+With this strategy, users are managed directly through the broker's
+configuration and stored in the broker's internal database. User credentials
+are specified during broker deployment.
+
+---
+
+
+##### `CONFIG_MANAGED` <a name="CONFIG_MANAGED" id="@cdklabs/cdk-amazonmq.RabbitMqAuthenticationStrategy.CONFIG_MANAGED"></a>
+
+Configuration-managed authentication strategy.
+
+With this strategy, user authentication is handled through external
+configuration mechanisms rather than the broker's internal user database.
+This allows for integration with external authentication systems and
+more flexible user management approaches.
 
 ---
 
