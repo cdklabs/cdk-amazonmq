@@ -101,9 +101,9 @@
     "aws-cdk": "^2",
     "aws-cdk-lib": "2.218.0",
     "cdk-nag": "^2.37.41",
-    "cdklabs-projen-project-types": "^0.3.5",
+    "cdklabs-projen-project-types": "^0.3.16",
     "commit-and-tag-version": "^12",
-    "constructs": "10.0.5",
+    "constructs": "10.5.1",
     "esbuild": "^0.25.10",
     "eslint": "^9",
     "eslint-config-prettier": "^9.1.2",
@@ -119,7 +119,7 @@
     "jsii-rosetta": "^5.9.7",
     "mqtt": "^5.14.1",
     "prettier": "^3.6.2",
-    "projen": "^0.97.0",
+    "projen": "^0.99.17",
     "rabbitmq-client": "^4.6.0",
     "rhea": "^3.0.4",
     "ts-jest": "^29.4.4",
@@ -128,7 +128,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.218.0",
-    "constructs": "^10.0.5"
+    "constructs": "^10.5.1"
   },
   "keywords": [
     "AWS CDK",
