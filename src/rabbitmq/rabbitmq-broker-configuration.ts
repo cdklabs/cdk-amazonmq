@@ -27,14 +27,32 @@ export interface RabbitMqBrokerConfigurationOptions {
   readonly definition: RabbitMqBrokerConfigurationDefinition;
 }
 
-export interface RabbitMqBrokerConfigurationProps
-  extends RabbitMqBrokerConfigurationOptions {
+export interface RabbitMqBrokerConfigurationProps extends RabbitMqBrokerConfigurationOptions {
   readonly configurationName?: string;
   readonly engineVersion: RabbitMqBrokerEngineVersion;
 }
 
 export interface IRabbitMqBrokerConfiguration extends IBrokerConfiguration {
   associateWith(broker: IRabbitMqBrokerDeployment): ConfigurationAssociation;
+  /**
+   * Creates a new revision of this configuration.
+   *
+   * @deprecated Due to the limitations of custom resources, this method is unwieldy and will be removed in a future version.
+   * Instead, create a new RabbitMqBrokerConfiguration and associate it with your broker.
+   * AWS now supports deleting configurations via the DeleteConfiguration API (since April 22, 2025),
+   * so creating new configurations is the recommended approach.
+   *
+   * @example
+   * // Instead of using createRevision():
+   * // config.createRevision({ definition: ..., description: ... });
+   *
+   * // Create a new configuration and associate it:
+   * // new RabbitMqBrokerConfiguration(stack, 'NewConfig', {
+   * //   engineVersion: RabbitMqBrokerEngineVersion.V4_2,
+   * //   definition: RabbitMqBrokerConfigurationDefinition.data('...'),
+   * //   description: 'New configuration'
+   * // }).associateWith(broker);
+   */
   createRevision(
     options: RabbitMqBrokerConfigurationOptions,
   ): IRabbitMqBrokerConfiguration;

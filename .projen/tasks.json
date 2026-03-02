@@ -99,7 +99,7 @@
       "description": "Create a JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
         }
       ]
     },
@@ -108,7 +108,7 @@
       "description": "Continuously update the JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node18\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
         }
       ]
     },
@@ -196,7 +196,8 @@
       "name": "eslint",
       "description": "Runs eslint against the codebase",
       "env": {
-        "ESLINT_USE_FLAT_CONFIG": "false"
+        "ESLINT_USE_FLAT_CONFIG": "false",
+        "NODE_NO_WARNINGS": "1"
       },
       "steps": [
         {
@@ -228,7 +229,7 @@
       "description": "Run integration snapshot tests",
       "steps": [
         {
-          "exec": "yarn integ-runner --language typescript",
+          "exec": "integ-runner --language typescript",
           "receiveArgs": true
         }
       ]
@@ -706,7 +707,7 @@
       "description": "Run and update integration snapshot tests",
       "steps": [
         {
-          "exec": "yarn integ-runner --language typescript --update-on-failed",
+          "exec": "integ-runner --language typescript --update-on-failed",
           "receiveArgs": true
         }
       ]
@@ -845,7 +846,7 @@
       "description": "Test rosetta extract",
       "steps": [
         {
-          "exec": "yarn --silent jsii-rosetta extract --strict"
+          "exec": "jsii-rosetta extract --strict"
         }
       ]
     },
@@ -933,7 +934,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=latest --peer --no-deprecated --dep=dev,peer,prod,optional --filter=cdklabs-projen-project-types,projen"
+          "exec": "npx npm-check-updates@18 --upgrade --target=latest --peer --no-deprecated --dep=dev,peer,prod,optional --filter=cdklabs-projen-project-types,projen"
         },
         {
           "exec": "yarn install --check-files"
@@ -957,7 +958,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@aws-sdk/util-arn-parser,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,prettier,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
+          "exec": "npx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@aws-sdk/util-arn-parser,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,prettier,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
         },
         {
           "exec": "yarn install --check-files"

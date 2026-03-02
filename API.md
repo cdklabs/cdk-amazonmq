@@ -43,6 +43,7 @@ new ActiveMqBrokerConfiguration(scope: Construct, id: string, props: ActiveMqBro
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.associateWith">associateWith</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.createRevision">createRevision</a></code> | *No description.* |
@@ -56,6 +57,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.applyRemovalPolicy"></a>
 
@@ -114,7 +136,7 @@ public createRevision(options: ActiveMqBrokerConfigurationOptions): IActiveMqBro
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.isConstruct"></a>
 
 ```typescript
 import { ActiveMqBrokerConfiguration } from '@cdklabs/cdk-amazonmq'
@@ -123,6 +145,20 @@ ActiveMqBrokerConfiguration.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.isConstruct.parameter.x"></a>
 
@@ -195,7 +231,7 @@ ActiveMqBrokerConfiguration.fromAttributes(scope: Construct, logicalId: string, 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -221,16 +257,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -320,6 +357,7 @@ new ActiveMqBrokerDeploymentBase(scope: Construct, id: string, props: ActiveMqBr
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metric">metric</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.metricAmqpMaximumConnections">metricAmqpMaximumConnections</a></code> | *No description.* |
@@ -371,6 +409,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.applyRemovalPolicy"></a>
 
@@ -890,7 +949,7 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.isConstruct"></a>
 
 ```typescript
 import { ActiveMqBrokerDeploymentBase } from '@cdklabs/cdk-amazonmq'
@@ -899,6 +958,20 @@ ActiveMqBrokerDeploymentBase.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.isConstruct.parameter.x"></a>
 
@@ -945,7 +1018,7 @@ Check whether the given construct is a Resource.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerDeploymentBase.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -973,16 +1046,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -1102,6 +1176,7 @@ new ActiveMqBrokerInstance(scope: Construct, id: string, props: ActiveMqBrokerIn
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metric">metric</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.metricAmqpMaximumConnections">metricAmqpMaximumConnections</a></code> | *No description.* |
@@ -1153,6 +1228,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.applyRemovalPolicy"></a>
 
@@ -1674,7 +1770,7 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isConstruct"></a>
 
 ```typescript
 import { ActiveMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
@@ -1683,6 +1779,20 @@ ActiveMqBrokerInstance.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.isConstruct.parameter.x"></a>
 
@@ -1815,7 +1925,7 @@ the ID of the existing ActiveMQ Broker Instance to be imported.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -1845,16 +1955,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -1998,6 +2109,7 @@ new ActiveMqBrokerRedundantPair(scope: Construct, id: string, props: ActiveMqBro
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metric">metric</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.metricAmqpMaximumConnections">metricAmqpMaximumConnections</a></code> | *No description.* |
@@ -2049,6 +2161,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.applyRemovalPolicy"></a>
 
@@ -2570,7 +2703,7 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isConstruct"></a>
 
 ```typescript
 import { ActiveMqBrokerRedundantPair } from '@cdklabs/cdk-amazonmq'
@@ -2579,6 +2712,20 @@ ActiveMqBrokerRedundantPair.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.isConstruct.parameter.x"></a>
 
@@ -2711,7 +2858,7 @@ the ID of the existing ActiveMQ Broker Redundant Pair to be imported.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerRedundantPair.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -2741,16 +2888,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -2886,6 +3034,7 @@ new BrokerConfiguration(scope: Construct, id: string, props: ConfigurationProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 
 ---
@@ -2897,6 +3046,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.BrokerConfiguration.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.BrokerConfiguration.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.BrokerConfiguration.applyRemovalPolicy"></a>
 
@@ -2930,7 +3100,7 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.BrokerConfiguration.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.BrokerConfiguration.isConstruct"></a>
 
 ```typescript
 import { BrokerConfiguration } from '@cdklabs/cdk-amazonmq'
@@ -2939,6 +3109,20 @@ BrokerConfiguration.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.BrokerConfiguration.isConstruct.parameter.x"></a>
 
@@ -2985,7 +3169,7 @@ Check whether the given construct is a Resource.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -3011,16 +3195,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -3110,6 +3295,7 @@ new BrokerDeploymentBase(scope: Construct, id: string, props: BrokerDeploymentBa
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.metric">metric</a></code> | *No description.* |
 
@@ -3122,6 +3308,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBase.applyRemovalPolicy"></a>
 
@@ -3173,7 +3380,7 @@ public metric(metricName: string, options?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBase.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBase.isConstruct"></a>
 
 ```typescript
 import { BrokerDeploymentBase } from '@cdklabs/cdk-amazonmq'
@@ -3182,6 +3389,20 @@ BrokerDeploymentBase.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.BrokerDeploymentBase.isConstruct.parameter.x"></a>
 
@@ -3228,7 +3449,7 @@ Check whether the given construct is a Resource.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.BrokerDeploymentBase.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -3255,16 +3476,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -3364,6 +3586,7 @@ new ConfigurationAssociation(scope: Construct, id: string, props: ConfigurationA
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 
 ---
@@ -3375,6 +3598,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.ConfigurationAssociation.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.ConfigurationAssociation.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.ConfigurationAssociation.applyRemovalPolicy"></a>
 
@@ -3408,7 +3652,7 @@ account for data recovery and cleanup later (`RemovalPolicy.RETAIN`).
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ConfigurationAssociation.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.ConfigurationAssociation.isConstruct"></a>
 
 ```typescript
 import { ConfigurationAssociation } from '@cdklabs/cdk-amazonmq'
@@ -3417,6 +3661,20 @@ ConfigurationAssociation.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.ConfigurationAssociation.isConstruct.parameter.x"></a>
 
@@ -3463,7 +3721,7 @@ Check whether the given construct is a Resource.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.ConfigurationAssociation.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 
 ---
@@ -3486,16 +3744,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -3557,6 +3816,7 @@ new RabbitMqBrokerCluster(scope: Construct, id: string, props: RabbitMqBrokerClu
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metric">metric</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.metricAckRate">metricAckRate</a></code> | *No description.* |
@@ -3588,6 +3848,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.applyRemovalPolicy"></a>
 
@@ -3869,7 +4150,7 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isConstruct"></a>
 
 ```typescript
 import { RabbitMqBrokerCluster } from '@cdklabs/cdk-amazonmq'
@@ -3878,6 +4159,20 @@ RabbitMqBrokerCluster.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.isConstruct.parameter.x"></a>
 
@@ -4028,7 +4323,7 @@ optionally pass security groups for working with network connections.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerCluster.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -4056,16 +4351,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -4175,6 +4471,7 @@ new RabbitMqBrokerConfiguration(scope: Construct, id: string, props: RabbitMqBro
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.associateWith">associateWith</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.createRevision">createRevision</a></code> | *No description.* |
@@ -4188,6 +4485,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.applyRemovalPolicy"></a>
 
@@ -4246,7 +4564,7 @@ public createRevision(options: RabbitMqBrokerConfigurationOptions): IRabbitMqBro
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.isConstruct"></a>
 
 ```typescript
 import { RabbitMqBrokerConfiguration } from '@cdklabs/cdk-amazonmq'
@@ -4255,6 +4573,20 @@ RabbitMqBrokerConfiguration.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.isConstruct.parameter.x"></a>
 
@@ -4327,7 +4659,7 @@ RabbitMqBrokerConfiguration.fromAttributes(scope: Construct, logicalId: string, 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -4353,16 +4685,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -4452,6 +4785,7 @@ new RabbitMqBrokerDeploymentBase(scope: Construct, id: string, props: RabbitMqBr
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metric">metric</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.metricAckRate">metricAckRate</a></code> | *No description.* |
@@ -4483,6 +4817,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.applyRemovalPolicy"></a>
 
@@ -4762,7 +5117,7 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.isConstruct"></a>
 
 ```typescript
 import { RabbitMqBrokerDeploymentBase } from '@cdklabs/cdk-amazonmq'
@@ -4771,6 +5126,20 @@ RabbitMqBrokerDeploymentBase.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.isConstruct.parameter.x"></a>
 
@@ -4817,7 +5186,7 @@ Check whether the given construct is a Resource.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerDeploymentBase.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -4845,16 +5214,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -4970,6 +5340,7 @@ new RabbitMqBrokerInstance(scope: Construct, id: string, props: RabbitMqBrokerIn
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metric">metric</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.metricAckRate">metricAckRate</a></code> | *No description.* |
@@ -5001,6 +5372,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.applyRemovalPolicy"></a>
 
@@ -5282,7 +5674,7 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isConstruct"></a>
 
 ```typescript
 import { RabbitMqBrokerInstance } from '@cdklabs/cdk-amazonmq'
@@ -5291,6 +5683,20 @@ RabbitMqBrokerInstance.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.isConstruct.parameter.x"></a>
 
@@ -5439,7 +5845,7 @@ the ID of the existing RabbitMQ Broker Instance to be imported.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -5467,16 +5873,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -5588,6 +5995,7 @@ new RabbitMqCustomResource(scope: Construct, id: string, props: RabbitMqCustomRe
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseField">getResponseField</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseFieldReference">getResponseFieldReference</a></code> | *No description.* |
 
@@ -5600,6 +6008,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `getResponseField` <a name="getResponseField" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.getResponseField"></a>
 
@@ -5633,7 +6062,7 @@ public getResponseFieldReference(key: string): Reference
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.isConstruct"></a>
 
 ```typescript
 import { RabbitMqCustomResource } from '@cdklabs/cdk-amazonmq'
@@ -5642,6 +6071,20 @@ RabbitMqCustomResource.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@cdklabs/cdk-amazonmq.RabbitMqCustomResource.isConstruct.parameter.x"></a>
 
@@ -10434,14 +10877,15 @@ ActiveMqBrokerEngineVersion.of(version: string)
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7">V5_16_7</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6">V5_17_6</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | it is recommended to use V5_18 instead. |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6">V5_17_6</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_18">V5_18</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_19">V5_19</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a></code> | *No description.* |
 
 ---
 
 ##### ~~`V5_16_7`~~<sup>Required</sup> <a name="V5_16_7" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7"></a>
 
-- *Deprecated:* use V5_18 instead
+- *Deprecated:* ActiveMQ 5.16 reached end of support on November 15, 2024. Use V5_19 or V5_18 instead.
 
 ```typescript
 public readonly V5_16_7: ActiveMqBrokerEngineVersion;
@@ -10451,7 +10895,9 @@ public readonly V5_16_7: ActiveMqBrokerEngineVersion;
 
 ---
 
-##### `V5_17_6`<sup>Required</sup> <a name="V5_17_6" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6"></a>
+##### ~~`V5_17_6`~~<sup>Required</sup> <a name="V5_17_6" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6"></a>
+
+- *Deprecated:* ActiveMQ 5.17 reached end of support on June 16, 2025. Use V5_19 or V5_18 instead.
 
 ```typescript
 public readonly V5_17_6: ActiveMqBrokerEngineVersion;
@@ -10459,14 +10905,22 @@ public readonly V5_17_6: ActiveMqBrokerEngineVersion;
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>
 
-it is recommended to use V5_18 instead.
-
 ---
 
 ##### `V5_18`<sup>Required</sup> <a name="V5_18" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_18"></a>
 
 ```typescript
 public readonly V5_18: ActiveMqBrokerEngineVersion;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>
+
+---
+
+##### `V5_19`<sup>Required</sup> <a name="V5_19" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_19"></a>
+
+```typescript
+public readonly V5_19: ActiveMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion">ActiveMqBrokerEngineVersion</a>
@@ -10794,12 +11248,13 @@ RabbitMqBrokerEngineVersion.of(version: string)
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_28">V3_11_28</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13">V3_12_13</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_13">V3_13</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V4_2">V4_2</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a></code> | *No description.* |
 
 ---
 
 ##### ~~`V3_11_16`~~<sup>Required</sup> <a name="V3_11_16" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_16"></a>
 
-- *Deprecated:* use V3_13 instead
+- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead.
 
 ```typescript
 public readonly V3_11_16: RabbitMqBrokerEngineVersion;
@@ -10811,7 +11266,7 @@ public readonly V3_11_16: RabbitMqBrokerEngineVersion;
 
 ##### ~~`V3_11_20`~~<sup>Required</sup> <a name="V3_11_20" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_20"></a>
 
-- *Deprecated:* use V3_13 instead
+- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead.
 
 ```typescript
 public readonly V3_11_20: RabbitMqBrokerEngineVersion;
@@ -10823,7 +11278,7 @@ public readonly V3_11_20: RabbitMqBrokerEngineVersion;
 
 ##### ~~`V3_11_28`~~<sup>Required</sup> <a name="V3_11_28" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_28"></a>
 
-- *Deprecated:* use V3_13 instead
+- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead.
 
 ```typescript
 public readonly V3_11_28: RabbitMqBrokerEngineVersion;
@@ -10835,7 +11290,7 @@ public readonly V3_11_28: RabbitMqBrokerEngineVersion;
 
 ##### ~~`V3_12_13`~~<sup>Required</sup> <a name="V3_12_13" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13"></a>
 
-- *Deprecated:* use V3_13 instead
+- *Deprecated:* RabbitMQ 3.12 reached end of support on March 17, 2025. Use V4_2 or V3_13 instead.
 
 ```typescript
 public readonly V3_12_13: RabbitMqBrokerEngineVersion;
@@ -10849,6 +11304,16 @@ public readonly V3_12_13: RabbitMqBrokerEngineVersion;
 
 ```typescript
 public readonly V3_13: RabbitMqBrokerEngineVersion;
+```
+
+- *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
+
+---
+
+##### `V4_2`<sup>Required</sup> <a name="V4_2" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V4_2"></a>
+
+```typescript
+public readonly V4_2: RabbitMqBrokerEngineVersion;
 ```
 
 - *Type:* <a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion">RabbitMqBrokerEngineVersion</a>
@@ -11109,7 +11574,7 @@ The IP address of the broker.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.associateWith">associateWith</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.createRevision">createRevision</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.createRevision">createRevision</a></code> | Creates a new revision of this configuration. |
 
 ---
 
@@ -11125,11 +11590,28 @@ public associateWith(broker: IActiveMqBrokerDeployment): ConfigurationAssociatio
 
 ---
 
-##### `createRevision` <a name="createRevision" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.createRevision"></a>
+##### ~~`createRevision`~~ <a name="createRevision" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.createRevision"></a>
 
 ```typescript
 public createRevision(options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
 ```
+
+Creates a new revision of this configuration.
+
+*Example*
+
+```typescript
+// Instead of using createRevision():
+// config.createRevision({ definition: ..., description: ... });
+
+// Create a new configuration and associate it:
+// new ActiveMqBrokerConfiguration(stack, 'NewConfig', {
+//   engineVersion: ActiveMqBrokerEngineVersion.V5_19,
+//   definition: ActiveMqBrokerConfigurationDefinition.data('...'),
+//   description: 'New configuration'
+// }).associateWith(broker);
+```
+
 
 ###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.createRevision.parameter.options"></a>
 
@@ -11142,7 +11624,7 @@ public createRevision(options: ActiveMqBrokerConfigurationOptions): IActiveMqBro
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -11168,16 +11650,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -11748,7 +12231,7 @@ public metricWsMaximumConnections(props?: MetricOptions): Metric
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerDeployment.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -11775,16 +12258,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -11852,7 +12336,7 @@ public readonly connections: Connections;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -11881,16 +12365,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -11982,7 +12467,7 @@ The IP address of the broker.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IActiveMqBrokerRedundantPair.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -12011,16 +12496,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -12127,7 +12613,7 @@ public render(): ActiveMqBrokerDeploymentUserManagementDefinition
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerConfiguration.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -12153,16 +12639,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -12245,7 +12732,7 @@ public metric(metricName: string, options?: MetricOptions): Metric
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IBrokerDeployment.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -12272,16 +12759,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -12349,7 +12837,7 @@ public readonly connections: Connections;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBroker.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
 
@@ -12373,16 +12861,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -12420,7 +12909,7 @@ public readonly endpoints: RabbitMqBrokerEndpoints;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.endpoints">endpoints</a></code> | <code><a href="#@cdklabs/cdk-amazonmq.RabbitMqBrokerEndpoints">RabbitMqBrokerEndpoints</a></code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerCluster.property.arn">arn</a></code> | <code>string</code> | *No description.* |
@@ -12448,16 +12937,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -12534,7 +13024,7 @@ public readonly connections: Connections;
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.associateWith">associateWith</a></code> | *No description.* |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.createRevision">createRevision</a></code> | *No description.* |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.createRevision">createRevision</a></code> | Creates a new revision of this configuration. |
 
 ---
 
@@ -12550,11 +13040,28 @@ public associateWith(broker: IRabbitMqBrokerDeployment): ConfigurationAssociatio
 
 ---
 
-##### `createRevision` <a name="createRevision" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.createRevision"></a>
+##### ~~`createRevision`~~ <a name="createRevision" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.createRevision"></a>
 
 ```typescript
 public createRevision(options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
 ```
+
+Creates a new revision of this configuration.
+
+*Example*
+
+```typescript
+// Instead of using createRevision():
+// config.createRevision({ definition: ..., description: ... });
+
+// Create a new configuration and associate it:
+// new RabbitMqBrokerConfiguration(stack, 'NewConfig', {
+//   engineVersion: RabbitMqBrokerEngineVersion.V4_2,
+//   definition: RabbitMqBrokerConfigurationDefinition.data('...'),
+//   description: 'New configuration'
+// }).associateWith(broker);
+```
+
 
 ###### `options`<sup>Required</sup> <a name="options" id="@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.createRevision.parameter.options"></a>
 
@@ -12567,7 +13074,7 @@ public createRevision(options: RabbitMqBrokerConfigurationOptions): IRabbitMqBro
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerConfiguration.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -12593,16 +13100,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -12913,7 +13421,7 @@ public metricSystemCpuUtilization(props?: MetricOptions): Metric
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerDeployment.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -12940,16 +13448,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -13017,7 +13526,7 @@ public readonly connections: Connections;
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.arn">arn</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#@cdklabs/cdk-amazonmq.IRabbitMqBrokerInstance.property.id">id</a></code> | <code>string</code> | *No description.* |
@@ -13045,16 +13554,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 

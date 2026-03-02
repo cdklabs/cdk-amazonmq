@@ -1,5 +1,5 @@
 {
-  "version": "48.0.0",
+  "version": "50.0.0",
   "files": {
     "714db1432ca2587c5f831c08c340c3e086936a9514b2200bc2f2a16108d7f8c1": {
       "displayName": "RabbitMqBrokerInstanceConfigManagedTest Template",

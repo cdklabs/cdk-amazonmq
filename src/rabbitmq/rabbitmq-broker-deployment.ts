@@ -61,8 +61,7 @@ export interface RabbitMqBrokerDeploymentProps extends BrokerDeploymentProps {
   readonly cloudwatchLogsExports?: RabbitMqCloudwatchLogsExports;
 }
 
-export interface RabbitMqBrokerDeploymentBaseProps
-  extends RabbitMqBrokerDeploymentProps {
+export interface RabbitMqBrokerDeploymentBaseProps extends RabbitMqBrokerDeploymentProps {
   readonly deploymentMode: BrokerDeploymentMode;
 }
 

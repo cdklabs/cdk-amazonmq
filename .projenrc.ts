@@ -5,7 +5,7 @@ SPDX-License-Identifier: Apache-2.0
 import { CdklabsConstructLibrary } from "cdklabs-projen-project-types";
 import { Stability } from "projen/lib/cdk";
 
-const cdkVersion = "2.218.0";
+const cdkVersion = "2.240.0";
 
 const project = new CdklabsConstructLibrary({
   name: "@cdklabs/cdk-amazonmq",
@@ -39,7 +39,7 @@ const project = new CdklabsConstructLibrary({
 });
 
 project.bundler.addBundle("src/rabbitmq/custom-resource/handler/index.ts", {
-  target: "node18",
+  target: "node22",
   platform: "node",
   externals: ["@aws-sdk/*"],
   tsconfigPath: "tsconfig.dev.json",

@@ -14,11 +14,9 @@ import {
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
 
 export interface IRabbitMqBrokerCluster
-  extends IRabbitMqBroker,
-    IRabbitMqBrokerDeployment {}
+  extends IRabbitMqBroker, IRabbitMqBrokerDeployment {}
 
-export interface RabbitMqBrokerClusterProps
-  extends RabbitMqBrokerDeploymentProps {}
+export interface RabbitMqBrokerClusterProps extends RabbitMqBrokerDeploymentProps {}
 
 /**
  * A representation of a RabbitMQ cluster deployment is a logical grouping of three RabbitMQ broker nodes behind a Network Load Balancer, each sharing users, queues, and a distributed state across multiple Availability Zones (AZ).

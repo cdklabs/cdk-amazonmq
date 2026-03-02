@@ -7,7 +7,9 @@ export interface RabbitMqCustomResourceSingletonFunctionProps
   uuid: string;
 }
 
-export class RabbitMqCustomResourceSingletonFunction extends lambda.SingletonFunction {
+export class RabbitMqCustomResourceSingletonFunction
+  extends lambda.SingletonFunction
+{
   constructor(
     scope: Construct,
     id: string,

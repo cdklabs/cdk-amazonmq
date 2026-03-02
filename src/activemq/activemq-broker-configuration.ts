@@ -28,8 +28,7 @@ export interface ActiveMqBrokerConfigurationOptions {
   readonly definition: ActiveMqBrokerConfigurationDefinition;
 }
 
-export interface ActiveMqBrokerConfigurationProps
-  extends ActiveMqBrokerConfigurationOptions {
+export interface ActiveMqBrokerConfigurationProps extends ActiveMqBrokerConfigurationOptions {
   readonly configurationName?: string;
   readonly engineVersion: ActiveMqBrokerEngineVersion;
 
@@ -43,6 +42,25 @@ export interface ActiveMqBrokerConfigurationProps
 
 export interface IActiveMqBrokerConfiguration extends IBrokerConfiguration {
   associateWith(broker: IActiveMqBrokerDeployment): ConfigurationAssociation;
+  /**
+   * Creates a new revision of this configuration.
+   *
+   * @deprecated Due to the limitations of custom resources, this method is unwieldy and will be removed in a future version.
+   * Instead, create a new ActiveMqBrokerConfiguration and associate it with your broker.
+   * AWS now supports deleting configurations via the DeleteConfiguration API (since April 22, 2025),
+   * so creating new configurations is the recommended approach.
+   *
+   * @example
+   * // Instead of using createRevision():
+   * // config.createRevision({ definition: ..., description: ... });
+   *
+   * // Create a new configuration and associate it:
+   * // new ActiveMqBrokerConfiguration(stack, 'NewConfig', {
+   * //   engineVersion: ActiveMqBrokerEngineVersion.V5_19,
+   * //   definition: ActiveMqBrokerConfigurationDefinition.data('...'),
+   * //   description: 'New configuration'
+   * // }).associateWith(broker);
+   */
   createRevision(
     options: ActiveMqBrokerConfigurationOptions,
   ): IActiveMqBrokerConfiguration;

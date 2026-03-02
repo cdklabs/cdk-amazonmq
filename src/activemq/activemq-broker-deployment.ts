@@ -68,8 +68,7 @@ export interface ActiveMqBrokerDeploymentProps extends BrokerDeploymentProps {
   readonly configuration?: IActiveMqBrokerConfiguration;
 }
 
-export interface ActiveMqBrokerDeploymentBaseProps
-  extends ActiveMqBrokerDeploymentProps {
+export interface ActiveMqBrokerDeploymentBaseProps extends ActiveMqBrokerDeploymentProps {
   readonly deploymentMode: BrokerDeploymentMode;
 }
 

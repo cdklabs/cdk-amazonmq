@@ -7,6 +7,7 @@ import { ActiveMqBrokerEngineVersion } from "../../src";
 describe("ActiveMqBrokerEngineVersion", () => {
   test("Only Known Versions Specified", () => {
     const expectedEngineVersions = [
+      { version: "5.19" },
       { version: "5.18" },
       { version: "5.17.6" },
       { version: "5.16.7" },
