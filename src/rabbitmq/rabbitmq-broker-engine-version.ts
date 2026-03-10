@@ -12,16 +12,16 @@ export class RabbitMqBrokerEngineVersion {
 
   public static readonly V3_13 = new RabbitMqBrokerEngineVersion("3.13");
 
-  /** @deprecated RabbitMQ 3.12 reached end of support on March 17, 2025. Use V4_2 or V3_13 instead. */
+  /** @deprecated RabbitMQ 3.12 reached end of support on March 17, 2025. */
   public static readonly V3_12_13 = new RabbitMqBrokerEngineVersion("3.12.13");
 
-  /** @deprecated RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead. */
+  /** @deprecated RabbitMQ 3.11 reached end of support on February 17, 2025. */
   public static readonly V3_11_28 = new RabbitMqBrokerEngineVersion("3.11.28");
 
-  /** @deprecated RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead. */
+  /** @deprecated RabbitMQ 3.11 reached end of support on February 17, 2025. */
   public static readonly V3_11_20 = new RabbitMqBrokerEngineVersion("3.11.20");
 
-  /** @deprecated RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead. */
+  /** @deprecated RabbitMQ 3.11 reached end of support on February 17, 2025. */
   public static readonly V3_11_16 = new RabbitMqBrokerEngineVersion("3.11.16");
 
   public static of(version: string): RabbitMqBrokerEngineVersion {

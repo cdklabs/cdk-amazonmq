@@ -3,7 +3,15 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-import { Arn, ArnFormat, Fn, Resource, Stack, Token } from "aws-cdk-lib";
+import {
+  Arn,
+  ArnFormat,
+  Fn,
+  Resource,
+  Stack,
+  Token,
+  Annotations,
+} from "aws-cdk-lib";
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
@@ -107,6 +115,7 @@ export class ActiveMqBrokerConfiguration extends BrokerConfiguration {
         });
       }
 
+      /** @deprecated Use a new ActiveMqBrokerConfiguration instead. See IActiveMqBrokerConfiguration.createRevision for details. */
       createRevision(
         options: ActiveMqBrokerConfigurationOptions,
       ): IActiveMqBrokerConfiguration {
@@ -163,7 +172,13 @@ export class ActiveMqBrokerConfiguration extends BrokerConfiguration {
     return this._associateWith(broker);
   }
 
+  /** @deprecated Use a new ActiveMqBrokerConfiguration instead. See IActiveMqBrokerConfiguration.createRevision for details. */
   public createRevision(options: ActiveMqBrokerConfigurationOptions) {
+    Annotations.of(this).addWarningV2(
+      "@cdklabs/cdk-amazonmq:createRevisionDeprecated",
+      "createRevision() is deprecated. Create a new ActiveMqBrokerConfiguration instead. AWS now supports DeleteConfiguration API, making the custom resource approach unnecessary.",
+    );
+
     const revisor = this._createRevisor(
       options.definition.toString(),
       options.description,

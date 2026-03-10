@@ -62,7 +62,7 @@ export class ActiveMqLdapValidation implements IValidation {
           url.port !== "389"
         ) {
           this.errors.push(
-            `Invalid host: '${hosts}'. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html`,
+            `Invalid host: '${v}'. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html`,
           );
         }
       });

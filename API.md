@@ -113,7 +113,7 @@ public associateWith(broker: IActiveMqBrokerDeployment): ConfigurationAssociatio
 
 ---
 
-##### `createRevision` <a name="createRevision" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.createRevision"></a>
+##### ~~`createRevision`~~ <a name="createRevision" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerConfiguration.createRevision"></a>
 
 ```typescript
 public createRevision(options: ActiveMqBrokerConfigurationOptions): IActiveMqBrokerConfiguration
@@ -4541,7 +4541,7 @@ public associateWith(broker: IRabbitMqBrokerDeployment): ConfigurationAssociatio
 
 ---
 
-##### `createRevision` <a name="createRevision" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.createRevision"></a>
+##### ~~`createRevision`~~ <a name="createRevision" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerConfiguration.createRevision"></a>
 
 ```typescript
 public createRevision(options: RabbitMqBrokerConfigurationOptions): IRabbitMqBrokerConfiguration
@@ -10885,7 +10885,7 @@ ActiveMqBrokerEngineVersion.of(version: string)
 
 ##### ~~`V5_16_7`~~<sup>Required</sup> <a name="V5_16_7" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_16_7"></a>
 
-- *Deprecated:* ActiveMQ 5.16 reached end of support on November 15, 2024. Use V5_19 or V5_18 instead.
+- *Deprecated:* ActiveMQ 5.16 reached end of support on November 15, 2024.
 
 ```typescript
 public readonly V5_16_7: ActiveMqBrokerEngineVersion;
@@ -10897,7 +10897,7 @@ public readonly V5_16_7: ActiveMqBrokerEngineVersion;
 
 ##### ~~`V5_17_6`~~<sup>Required</sup> <a name="V5_17_6" id="@cdklabs/cdk-amazonmq.ActiveMqBrokerEngineVersion.property.V5_17_6"></a>
 
-- *Deprecated:* ActiveMQ 5.17 reached end of support on June 16, 2025. Use V5_19 or V5_18 instead.
+- *Deprecated:* ActiveMQ 5.17 reached end of support on June 16, 2025.
 
 ```typescript
 public readonly V5_17_6: ActiveMqBrokerEngineVersion;
@@ -11254,7 +11254,7 @@ RabbitMqBrokerEngineVersion.of(version: string)
 
 ##### ~~`V3_11_16`~~<sup>Required</sup> <a name="V3_11_16" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_16"></a>
 
-- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead.
+- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025.
 
 ```typescript
 public readonly V3_11_16: RabbitMqBrokerEngineVersion;
@@ -11266,7 +11266,7 @@ public readonly V3_11_16: RabbitMqBrokerEngineVersion;
 
 ##### ~~`V3_11_20`~~<sup>Required</sup> <a name="V3_11_20" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_20"></a>
 
-- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead.
+- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025.
 
 ```typescript
 public readonly V3_11_20: RabbitMqBrokerEngineVersion;
@@ -11278,7 +11278,7 @@ public readonly V3_11_20: RabbitMqBrokerEngineVersion;
 
 ##### ~~`V3_11_28`~~<sup>Required</sup> <a name="V3_11_28" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_11_28"></a>
 
-- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025. Use V4_2 or V3_13 instead.
+- *Deprecated:* RabbitMQ 3.11 reached end of support on February 17, 2025.
 
 ```typescript
 public readonly V3_11_28: RabbitMqBrokerEngineVersion;
@@ -11290,7 +11290,7 @@ public readonly V3_11_28: RabbitMqBrokerEngineVersion;
 
 ##### ~~`V3_12_13`~~<sup>Required</sup> <a name="V3_12_13" id="@cdklabs/cdk-amazonmq.RabbitMqBrokerEngineVersion.property.V3_12_13"></a>
 
-- *Deprecated:* RabbitMQ 3.12 reached end of support on March 17, 2025. Use V4_2 or V3_13 instead.
+- *Deprecated:* RabbitMQ 3.12 reached end of support on March 17, 2025.
 
 ```typescript
 public readonly V3_12_13: RabbitMqBrokerEngineVersion;

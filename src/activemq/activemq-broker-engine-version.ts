@@ -13,10 +13,10 @@ export class ActiveMqBrokerEngineVersion {
 
   public static readonly V5_18 = new ActiveMqBrokerEngineVersion("5.18");
 
-  /** @deprecated ActiveMQ 5.17 reached end of support on June 16, 2025. Use V5_19 or V5_18 instead. */
+  /** @deprecated ActiveMQ 5.17 reached end of support on June 16, 2025. */
   public static readonly V5_17_6 = new ActiveMqBrokerEngineVersion("5.17.6");
 
-  /** @deprecated ActiveMQ 5.16 reached end of support on November 15, 2024. Use V5_19 or V5_18 instead. */
+  /** @deprecated ActiveMQ 5.16 reached end of support on November 15, 2024. */
   public static readonly V5_16_7 = new ActiveMqBrokerEngineVersion("5.16.7");
 
   public static of(version: string): ActiveMqBrokerEngineVersion {
