@@ -81,15 +81,7 @@ describe("ActiveMqBrokerConfiguration", () => {
           "Arn",
         ],
       },
-      Runtime: {
-        "Fn::FindInMap": [
-          "LatestNodeRuntimeMap",
-          {
-            Ref: "AWS::Region",
-          },
-          "value",
-        ],
-      },
+      Runtime: "nodejs22.x",
       Timeout: 120,
     });
 

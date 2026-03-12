@@ -14,11 +14,9 @@ import {
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
 
 export interface IRabbitMqBrokerInstance
-  extends IRabbitMqBrokerDeployment,
-    IRabbitMqBroker {}
+  extends IRabbitMqBrokerDeployment, IRabbitMqBroker {}
 
-export interface RabbitMqBrokerInstanceProps
-  extends RabbitMqBrokerDeploymentProps {}
+export interface RabbitMqBrokerInstanceProps extends RabbitMqBrokerDeploymentProps {}
 
 /**
  * A representation of a single-instance broker comprised of one broker in one Availability Zone behind a Network Load Balancer (NLB)

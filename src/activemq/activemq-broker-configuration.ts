@@ -3,7 +3,15 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 
-import { Arn, ArnFormat, Fn, Resource, Stack, Token } from "aws-cdk-lib";
+import {
+  Arn,
+  ArnFormat,
+  Fn,
+  Resource,
+  Stack,
+  Token,
+  Annotations,
+} from "aws-cdk-lib";
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
@@ -28,8 +36,7 @@ export interface ActiveMqBrokerConfigurationOptions {
   readonly definition: ActiveMqBrokerConfigurationDefinition;
 }
 
-export interface ActiveMqBrokerConfigurationProps
-  extends ActiveMqBrokerConfigurationOptions {
+export interface ActiveMqBrokerConfigurationProps extends ActiveMqBrokerConfigurationOptions {
   readonly configurationName?: string;
   readonly engineVersion: ActiveMqBrokerEngineVersion;
 
@@ -43,6 +50,25 @@ export interface ActiveMqBrokerConfigurationProps
 
 export interface IActiveMqBrokerConfiguration extends IBrokerConfiguration {
   associateWith(broker: IActiveMqBrokerDeployment): ConfigurationAssociation;
+  /**
+   * Creates a new revision of this configuration.
+   *
+   * @deprecated Due to the limitations of custom resources, this method is unwieldy and will be removed in a future version.
+   * Instead, create a new ActiveMqBrokerConfiguration and associate it with your broker.
+   * AWS now supports deleting configurations via the DeleteConfiguration API (since April 22, 2025),
+   * so creating new configurations is the recommended approach.
+   *
+   * @example
+   * // Instead of using createRevision():
+   * // config.createRevision({ definition: ..., description: ... });
+   *
+   * // Create a new configuration and associate it:
+   * // new ActiveMqBrokerConfiguration(stack, 'NewConfig', {
+   * //   engineVersion: ActiveMqBrokerEngineVersion.V5_19,
+   * //   definition: ActiveMqBrokerConfigurationDefinition.data('...'),
+   * //   description: 'New configuration'
+   * // }).associateWith(broker);
+   */
   createRevision(
     options: ActiveMqBrokerConfigurationOptions,
   ): IActiveMqBrokerConfiguration;
@@ -89,6 +115,7 @@ export class ActiveMqBrokerConfiguration extends BrokerConfiguration {
         });
       }
 
+      /** @deprecated Use a new ActiveMqBrokerConfiguration instead. See IActiveMqBrokerConfiguration.createRevision for details. */
       createRevision(
         options: ActiveMqBrokerConfigurationOptions,
       ): IActiveMqBrokerConfiguration {
@@ -145,7 +172,13 @@ export class ActiveMqBrokerConfiguration extends BrokerConfiguration {
     return this._associateWith(broker);
   }
 
+  /** @deprecated Use a new ActiveMqBrokerConfiguration instead. See IActiveMqBrokerConfiguration.createRevision for details. */
   public createRevision(options: ActiveMqBrokerConfigurationOptions) {
+    Annotations.of(this).addWarningV2(
+      "@cdklabs/cdk-amazonmq:createRevisionDeprecated",
+      "createRevision() is deprecated. Create a new ActiveMqBrokerConfiguration instead. AWS now supports DeleteConfiguration API, making the custom resource approach unnecessary.",
+    );
+
     const revisor = this._createRevisor(
       options.definition.toString(),
       options.description,

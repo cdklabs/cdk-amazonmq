@@ -141,7 +141,7 @@ describe("RabbitMqBrokerInstance Best Practices", () => {
 
     expect(warnings).toHaveLength(0);
     // INFO: these are due to the requirement of waiting for an ESM to be "actually" deleted
-    expect(errors).toHaveLength(16);
+    expect(errors).toHaveLength(22);
 
     expect(template.toJSON()).toMatchSnapshot();
   });

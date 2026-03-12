@@ -290,6 +290,11 @@ declare const deployment: IActiveMqBrokerDeployment;
 configuration.associateWith(deployment);
 ```
 
+> ⚠️ **Deprecated:** The `createRevision()` method is deprecated due to the limitations of custom resources. Instead, create a new `ActiveMqBrokerConfiguration` and associate it with your broker. AWS now supports the [DeleteConfiguration API](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/amazon-mq-creating-applying-configurations.html), making it simpler to manage configurations without revisions.
+
+<details>
+<summary>Legacy: creating configuration revisions (deprecated)</summary>
+
 This library also allows to modify an existing configuration. Such update of a particular configuration is [creating a new configuration *revision*](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/amazon-mq-creating-applying-configurations.html#creating-new-configuration-revision-console) so that a history of revisions can be viewed in the AWS Console. The new revision can be then associated with the broker so it uses it as a working configuration. 
 
 ```typescript
@@ -310,6 +315,8 @@ const newRevision = configuration.createRevision({
 
 newRevision.associateWith(deployment);
 ```
+
+</details>
 
 ### ActiveMQ Broker User Management
 
@@ -722,6 +729,11 @@ declare const deployment: IRabbitMqBrokerDeployment;
 configuration.associateWith(deployment);
 ```
 
+> ⚠️ **Deprecated:** The `createRevision()` method is deprecated due to the limitations of custom resources. Instead, create a new `RabbitMqBrokerConfiguration` and associate it with your broker. AWS now supports the [DeleteConfiguration API](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-creating-applying-configurations.html), making it simpler to manage configurations without revisions.
+
+<details>
+<summary>Legacy: creating configuration revisions (deprecated)</summary>
+
 This library also allows to modify an existing configuration. Such update of a particular configuration is [creating a new configuration *revision*](https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/rabbitmq-creating-applying-configurations.html#creating-new-rabbitmq-configuration-revision-console) so that a history of revisions can be viewed in the AWS Console. The new revision can be then associated with the broker so it uses it as a working configuration. 
 
 ```typescript
@@ -745,6 +757,8 @@ const newRevision = configuration.createRevision({
 
 newRevision.associateWith(deployment);
 ```
+
+</details>
 
 ### Monitoring RabbitMQ Brokers
 

@@ -9,12 +9,14 @@ SPDX-License-Identifier: Apache-2.0
  * @see https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/activemq-version-management.html
  */
 export class ActiveMqBrokerEngineVersion {
+  public static readonly V5_19 = new ActiveMqBrokerEngineVersion("5.19");
+
   public static readonly V5_18 = new ActiveMqBrokerEngineVersion("5.18");
 
-  /** it is recommended to use V5_18 instead */
+  /** @deprecated ActiveMQ 5.17 reached end of support on June 16, 2025. */
   public static readonly V5_17_6 = new ActiveMqBrokerEngineVersion("5.17.6");
 
-  /** @deprecated use V5_18 instead */
+  /** @deprecated ActiveMQ 5.16 reached end of support on November 15, 2024. */
   public static readonly V5_16_7 = new ActiveMqBrokerEngineVersion("5.16.7");
 
   public static of(version: string): ActiveMqBrokerEngineVersion {

@@ -2,7 +2,15 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
-import { Arn, ArnFormat, Fn, Resource, Stack, Token } from "aws-cdk-lib";
+import {
+  Arn,
+  ArnFormat,
+  Fn,
+  Resource,
+  Stack,
+  Token,
+  Annotations,
+} from "aws-cdk-lib";
 import {
   AwsCustomResource,
   AwsCustomResourcePolicy,
@@ -27,14 +35,32 @@ export interface RabbitMqBrokerConfigurationOptions {
   readonly definition: RabbitMqBrokerConfigurationDefinition;
 }
 
-export interface RabbitMqBrokerConfigurationProps
-  extends RabbitMqBrokerConfigurationOptions {
+export interface RabbitMqBrokerConfigurationProps extends RabbitMqBrokerConfigurationOptions {
   readonly configurationName?: string;
   readonly engineVersion: RabbitMqBrokerEngineVersion;
 }
 
 export interface IRabbitMqBrokerConfiguration extends IBrokerConfiguration {
   associateWith(broker: IRabbitMqBrokerDeployment): ConfigurationAssociation;
+  /**
+   * Creates a new revision of this configuration.
+   *
+   * @deprecated Due to the limitations of custom resources, this method is unwieldy and will be removed in a future version.
+   * Instead, create a new RabbitMqBrokerConfiguration and associate it with your broker.
+   * AWS now supports deleting configurations via the DeleteConfiguration API (since April 22, 2025),
+   * so creating new configurations is the recommended approach.
+   *
+   * @example
+   * // Instead of using createRevision():
+   * // config.createRevision({ definition: ..., description: ... });
+   *
+   * // Create a new configuration and associate it:
+   * // new RabbitMqBrokerConfiguration(stack, 'NewConfig', {
+   * //   engineVersion: RabbitMqBrokerEngineVersion.V4_2,
+   * //   definition: RabbitMqBrokerConfigurationDefinition.data('...'),
+   * //   description: 'New configuration'
+   * // }).associateWith(broker);
+   */
   createRevision(
     options: RabbitMqBrokerConfigurationOptions,
   ): IRabbitMqBrokerConfiguration;
@@ -81,6 +107,7 @@ export class RabbitMqBrokerConfiguration extends BrokerConfiguration {
         });
       }
 
+      /** @deprecated Use a new RabbitMqBrokerConfiguration instead. See IRabbitMqBrokerConfiguration.createRevision for details. */
       createRevision(
         options: RabbitMqBrokerConfigurationOptions,
       ): IRabbitMqBrokerConfiguration {
@@ -133,7 +160,13 @@ export class RabbitMqBrokerConfiguration extends BrokerConfiguration {
     return this._associateWith(broker);
   }
 
+  /** @deprecated Use a new RabbitMqBrokerConfiguration instead. See IRabbitMqBrokerConfiguration.createRevision for details. */
   public createRevision(options: RabbitMqBrokerConfigurationOptions) {
+    Annotations.of(this).addWarningV2(
+      "@cdklabs/cdk-amazonmq:createRevisionDeprecated",
+      "createRevision() is deprecated. Create a new RabbitMqBrokerConfiguration instead. AWS now supports DeleteConfiguration API, making the custom resource approach unnecessary.",
+    );
+
     const revisor = this._createRevisor(
       options.definition.toString(),
       options.description,

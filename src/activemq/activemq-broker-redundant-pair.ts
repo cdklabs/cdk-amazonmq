@@ -13,14 +13,12 @@ import {
 } from "./activemq-broker-deployment";
 import { BrokerDeploymentMode } from "../broker-deployment-mode";
 
-export interface IActiveMqBrokerRedundantPair
-  extends IActiveMqBrokerDeployment {
+export interface IActiveMqBrokerRedundantPair extends IActiveMqBrokerDeployment {
   readonly first: IActiveMqBroker;
   readonly second: IActiveMqBroker;
 }
 
-export interface ActiveMqBrokerRedundantPairProps
-  extends ActiveMqBrokerDeploymentProps {}
+export interface ActiveMqBrokerRedundantPairProps extends ActiveMqBrokerDeploymentProps {}
 
 /**
  * A representation of an active/standby broker that is comprised of two brokers in two different Availability Zones.

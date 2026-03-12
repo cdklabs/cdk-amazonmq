@@ -3,6 +3,7 @@ Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
 import { URL } from "url";
+import { Token } from "aws-cdk-lib";
 import { CfnBroker } from "aws-cdk-lib/aws-amazonmq";
 import { IValidation } from "constructs";
 
@@ -28,6 +29,11 @@ export class ActiveMqLdapValidation implements IValidation {
   }
 
   private validateDit(propertyValue: string, propertyName: string): void {
+    // Skip validation if the value is a token (unresolved reference)
+    if (Token.isUnresolved(propertyValue)) {
+      return;
+    }
+
     if (this.ditRegex && !this.ditRegex.test(propertyValue)) {
       this.errors.push(
         `Incorrect LDAP directory information tree: '${propertyValue}' at '${propertyName}'. Should match regular expression: ${this.ditRegex}`,
@@ -36,9 +42,19 @@ export class ActiveMqLdapValidation implements IValidation {
   }
 
   private validateHosts(hosts: string[]): void {
+    // Skip validation if the hosts array is a token (unresolved reference)
+    if (Token.isUnresolved(hosts)) {
+      return;
+    }
+
     try {
       // add URI parts (protocol and port) that will be added by the ActiveMQ.
       hosts.forEach((v) => {
+        // Skip validation if individual host is a token
+        if (Token.isUnresolved(v)) {
+          return;
+        }
+
         const url = new URL(`ldap://${v}:389`);
         if (
           url.hostname !== v ||
@@ -46,7 +62,7 @@ export class ActiveMqLdapValidation implements IValidation {
           url.port !== "389"
         ) {
           this.errors.push(
-            `Invalid host: '${hosts}'. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html`,
+            `Invalid host: '${v}'. ActiveMQ requires host name without protocol and port. Check https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/security-authentication-authorization.html`,
           );
         }
       });
