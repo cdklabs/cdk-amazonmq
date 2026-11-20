@@ -1,4 +1,8 @@
 {
+  "manifestVersion": 3,
+  "env": {
+    "PATH": "$(npx -c \"node --print process.env.PATH\")"
+  },
   "tasks": {
     "build": {
       "name": "build",
@@ -33,15 +37,36 @@
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
         "RELEASE_TAG_PREFIX": "",
-        "BUMP_PACKAGE": "commit-and-tag-version@^12",
-        "RELEASABLE_COMMITS": "git log --no-merges --oneline $LATEST_TAG..HEAD -E --grep \"^(feat|fix){1}(\\([^()[:space:]]+\\))?(!)?:[[:blank:]]+.+\""
+        "BUMP_PACKAGE": "commit-and-tag-version@^13"
       },
       "steps": [
         {
-          "builtin": "release/bump-version"
+          "builtin": "release/resolve-latest-tag",
+          "outputEnv": "LATEST_TAG"
+        },
+        {
+          "spawn": "bump:releasable-commits",
+          "outputEnv": "RELEASABLE_COMMITS",
+          "condition": "git rev-parse --verify --quiet \"refs/tags/$LATEST_TAG\""
+        },
+        {
+          "builtin": "release/suggest-version-bump",
+          "outputEnv": "SUGGESTED_BUMP"
+        },
+        {
+          "builtin": "release/apply-version-bump"
         }
       ],
-      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -v \"chore(release):\" > /dev/null"
+    },
+    "bump:releasable-commits": {
+      "name": "bump:releasable-commits",
+      "description": "Print the releasable commits since the latest release",
+      "steps": [
+        {
+          "exec": "git log --no-merges --oneline $LATEST_TAG..HEAD -E --grep '^(feat|fix){1}(\\([^()[:space:]]+\\))?(!)?:[[:blank:]]+.+'"
+        }
+      ]
     },
     "bundle": {
       "name": "bundle",
@@ -63,7 +88,17 @@
       "description": "Create a JavaScript bundle from src/mq-esm/esm-deleter.is-complete.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/mq-esm/esm-deleter.is-complete.lambda.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/mq-esm/esm-deleter.is-complete.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/mq-esm/esm-deleter.is-complete.lambda.ts",
+            "--target=node22",
+            "--platform=node",
+            "--outfile=assets/mq-esm/esm-deleter.is-complete.lambda/index.js",
+            "--packages=bundle",
+            "--tsconfig=test/tsconfig.json",
+            "--external:@aws-sdk/*"
+          ]
         }
       ]
     },
@@ -72,7 +107,18 @@
       "description": "Continuously update the JavaScript bundle from src/mq-esm/esm-deleter.is-complete.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/mq-esm/esm-deleter.is-complete.lambda.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/mq-esm/esm-deleter.is-complete.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/mq-esm/esm-deleter.is-complete.lambda.ts",
+            "--target=node22",
+            "--platform=node",
+            "--outfile=assets/mq-esm/esm-deleter.is-complete.lambda/index.js",
+            "--packages=bundle",
+            "--tsconfig=test/tsconfig.json",
+            "--external:@aws-sdk/*",
+            "--watch"
+          ]
         }
       ]
     },
@@ -81,7 +127,17 @@
       "description": "Create a JavaScript bundle from src/mq-esm/esm-deleter.on-event.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/mq-esm/esm-deleter.on-event.lambda.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/mq-esm/esm-deleter.on-event.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/mq-esm/esm-deleter.on-event.lambda.ts",
+            "--target=node22",
+            "--platform=node",
+            "--outfile=assets/mq-esm/esm-deleter.on-event.lambda/index.js",
+            "--packages=bundle",
+            "--tsconfig=test/tsconfig.json",
+            "--external:@aws-sdk/*"
+          ]
         }
       ]
     },
@@ -90,7 +146,18 @@
       "description": "Continuously update the JavaScript bundle from src/mq-esm/esm-deleter.on-event.lambda.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/mq-esm/esm-deleter.on-event.lambda.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/mq-esm/esm-deleter.on-event.lambda/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/mq-esm/esm-deleter.on-event.lambda.ts",
+            "--target=node22",
+            "--platform=node",
+            "--outfile=assets/mq-esm/esm-deleter.on-event.lambda/index.js",
+            "--packages=bundle",
+            "--tsconfig=test/tsconfig.json",
+            "--external:@aws-sdk/*",
+            "--watch"
+          ]
         }
       ]
     },
@@ -99,7 +166,17 @@
       "description": "Create a JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/*"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/rabbitmq/custom-resource/handler/index.ts",
+            "--target=node22",
+            "--platform=node",
+            "--outfile=assets/rabbitmq/custom-resource/handler/index/index.js",
+            "--packages=bundle",
+            "--tsconfig=tsconfig.dev.json",
+            "--external:@aws-sdk/*"
+          ]
         }
       ]
     },
@@ -108,7 +185,18 @@
       "description": "Continuously update the JavaScript bundle from src/rabbitmq/custom-resource/handler/index.ts",
       "steps": [
         {
-          "exec": "esbuild --bundle src/rabbitmq/custom-resource/handler/index.ts --target=\"node22\" --platform=\"node\" --outfile=\"assets/rabbitmq/custom-resource/handler/index/index.js\" --tsconfig=\"tsconfig.dev.json\" --external:@aws-sdk/* --watch"
+          "execArgs": [
+            "esbuild",
+            "--bundle",
+            "src/rabbitmq/custom-resource/handler/index.ts",
+            "--target=node22",
+            "--platform=node",
+            "--outfile=assets/rabbitmq/custom-resource/handler/index/index.js",
+            "--packages=bundle",
+            "--tsconfig=tsconfig.dev.json",
+            "--external:@aws-sdk/*",
+            "--watch"
+          ]
         }
       ]
     },
@@ -116,30 +204,39 @@
       "name": "clobber",
       "description": "hard resets to HEAD of origin and cleans the local repo",
       "env": {
-        "BRANCH": "$(git branch --show-current)"
+        "BRANCH": "$(git branch --show-current)",
+        "HEAD_COMMIT": "$(git rev-parse --short HEAD)"
       },
       "steps": [
         {
-          "exec": "git checkout -b scratch",
-          "name": "save current HEAD in \"scratch\" branch"
+          "exec": "git checkout -B \"scratch-$HEAD_COMMIT\"",
+          "name": "save current HEAD in a \"scratch-<commit>\" branch"
         },
         {
-          "exec": "git checkout $BRANCH"
+          "exec": "git checkout \"$BRANCH\""
         },
         {
-          "exec": "git fetch origin",
+          "execArgs": [
+            "git",
+            "fetch",
+            "origin"
+          ],
           "name": "fetch latest changes from origin"
         },
         {
-          "exec": "git reset --hard origin/$BRANCH",
+          "exec": "git reset --hard \"origin/$BRANCH\"",
           "name": "hard reset to origin commit"
         },
         {
-          "exec": "git clean -fdx",
+          "execArgs": [
+            "git",
+            "clean",
+            "-fdx"
+          ],
           "name": "clean all untracked files"
         },
         {
-          "say": "ready to rock! (unpushed commits are under the \"scratch\" branch)"
+          "say": "ready to rock! (unpushed commits are under a \"scratch-<commit>\" branch)"
         }
       ],
       "condition": "git diff --exit-code > /dev/null"
@@ -149,7 +246,13 @@
       "description": "Perform API compatibility check against latest version",
       "steps": [
         {
-          "exec": "jsii-diff npm:$(node -p \"require('./package.json').name\") -k --ignore-file .compatignore || (echo \"\nUNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .compatignore to skip.\n\" && exit 1)"
+          "execArgs": [
+            "jsii-diff",
+            "npm:@cdklabs/cdk-amazonmq",
+            "-k",
+            "--ignore-file",
+            ".compatignore"
+          ]
         }
       ]
     },
@@ -167,7 +270,12 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
+          "execArgs": [
+            "ts-node",
+            "--project",
+            "projenrc/tsconfig.json",
+            ".projenrc.ts"
+          ]
         }
       ]
     },
@@ -176,7 +284,11 @@
       "description": "Generate API.md from .jsii manifest",
       "steps": [
         {
-          "exec": "jsii-docgen -o API.md"
+          "execArgs": [
+            "jsii-docgen",
+            "-o",
+            "API.md"
+          ]
         }
       ]
     },
@@ -201,7 +313,19 @@
       },
       "steps": [
         {
-          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools projenrc .projenrc.ts",
+          "execArgs": [
+            "eslint",
+            "--ext",
+            ".ts,.tsx",
+            "--fix",
+            "--no-error-on-unmatched-pattern",
+            "$@",
+            "src",
+            "test",
+            "build-tools",
+            "projenrc",
+            ".projenrc.ts"
+          ],
           "receiveArgs": true
         }
       ]
@@ -239,13 +363,45 @@
       "description": "assert the snapshot of integration test 'activemq-broker-instance-ldap'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/activemq-broker-instance-ldap.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'activemq-broker-instance-ldap'. Run 'projen integ:activemq-broker-instance-ldap:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/activemq-broker-instance-ldap.integ.snapshot",
+            "activemq-broker-instance-ldap",
+            "integ:activemq-broker-instance-ldap:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-ldap.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/activemq-broker-instance-ldap.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance-ldap.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/activemq-broker-instance-ldap.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/activemq-broker-instance-ldap.integ.snapshot/ test/integ/.tmp/activemq-broker-instance-ldap.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/activemq-broker-instance-ldap.integ.snapshot/",
+            "test/integ/.tmp/activemq-broker-instance-ldap.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -254,16 +410,41 @@
       "description": "deploy integration test 'activemq-broker-instance-ldap' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-ldap.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance-ldap.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/activemq-broker-instance-ldap.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/activemq-broker-instance-ldap.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out test/integ/activemq-broker-instance-ldap.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out",
+            "test/integ/activemq-broker-instance-ldap.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:activemq-broker-instance-ldap:destroy"
@@ -275,7 +456,14 @@
       "description": "destroy integration test 'activemq-broker-instance-ldap'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/activemq-broker-instance-ldap.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/activemq-broker-instance-ldap.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -284,7 +472,19 @@
       "description": "update snapshot for integration test \"activemq-broker-instance-ldap\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-ldap.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/activemq-broker-instance-ldap.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance-ldap.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/activemq-broker-instance-ldap.integ.snapshot"
+          ]
         }
       ]
     },
@@ -293,7 +493,19 @@
       "description": "watch integration test 'activemq-broker-instance-ldap' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance-ldap.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance-ldap.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/activemq-broker-instance-ldap.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -302,13 +514,45 @@
       "description": "assert the snapshot of integration test 'activemq-broker-instance'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/activemq-broker-instance.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'activemq-broker-instance'. Run 'projen integ:activemq-broker-instance:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/activemq-broker-instance.integ.snapshot",
+            "activemq-broker-instance",
+            "integ:activemq-broker-instance:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/activemq-broker-instance.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/activemq-broker-instance.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/activemq-broker-instance.integ.snapshot/ test/integ/.tmp/activemq-broker-instance.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/activemq-broker-instance.integ.snapshot/",
+            "test/integ/.tmp/activemq-broker-instance.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -317,16 +561,41 @@
       "description": "deploy integration test 'activemq-broker-instance' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/activemq-broker-instance.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/activemq-broker-instance.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out test/integ/activemq-broker-instance.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out",
+            "test/integ/activemq-broker-instance.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:activemq-broker-instance:destroy"
@@ -338,7 +607,14 @@
       "description": "destroy integration test 'activemq-broker-instance'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/activemq-broker-instance.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/activemq-broker-instance.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -347,7 +623,19 @@
       "description": "update snapshot for integration test \"activemq-broker-instance\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/activemq-broker-instance.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/activemq-broker-instance.integ.snapshot"
+          ]
         }
       ]
     },
@@ -356,7 +644,19 @@
       "description": "watch integration test 'activemq-broker-instance' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/activemq-broker-instance.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -365,13 +665,45 @@
       "description": "assert the snapshot of integration test 'activemq-broker-redundant-pair'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/activemq-broker-redundant-pair.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'activemq-broker-redundant-pair'. Run 'projen integ:activemq-broker-redundant-pair:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/activemq-broker-redundant-pair.integ.snapshot",
+            "activemq-broker-redundant-pair",
+            "integ:activemq-broker-redundant-pair:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-redundant-pair.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/activemq-broker-redundant-pair.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-redundant-pair.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/activemq-broker-redundant-pair.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/activemq-broker-redundant-pair.integ.snapshot/ test/integ/.tmp/activemq-broker-redundant-pair.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/activemq-broker-redundant-pair.integ.snapshot/",
+            "test/integ/.tmp/activemq-broker-redundant-pair.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -380,16 +712,41 @@
       "description": "deploy integration test 'activemq-broker-redundant-pair' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-redundant-pair.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-redundant-pair.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/activemq-broker-redundant-pair.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/activemq-broker-redundant-pair.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out test/integ/activemq-broker-redundant-pair.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out",
+            "test/integ/activemq-broker-redundant-pair.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:activemq-broker-redundant-pair:destroy"
@@ -401,7 +758,14 @@
       "description": "destroy integration test 'activemq-broker-redundant-pair'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/activemq-broker-redundant-pair.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/activemq-broker-redundant-pair.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -410,7 +774,19 @@
       "description": "update snapshot for integration test \"activemq-broker-redundant-pair\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-redundant-pair.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/activemq-broker-redundant-pair.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-redundant-pair.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/activemq-broker-redundant-pair.integ.snapshot"
+          ]
         }
       ]
     },
@@ -419,7 +795,19 @@
       "description": "watch integration test 'activemq-broker-redundant-pair' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/activemq-broker-redundant-pair.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/activemq-broker-redundant-pair.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/activemq-broker-redundant-pair.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -428,13 +816,45 @@
       "description": "assert the snapshot of integration test 'rabbitmq-broker-cluster'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/rabbitmq-broker-cluster.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-cluster'. Run 'projen integ:rabbitmq-broker-cluster:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/rabbitmq-broker-cluster.integ.snapshot",
+            "rabbitmq-broker-cluster",
+            "integ:rabbitmq-broker-cluster:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-cluster.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-cluster.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-cluster.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-cluster.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-cluster.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-cluster.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/rabbitmq-broker-cluster.integ.snapshot/",
+            "test/integ/.tmp/rabbitmq-broker-cluster.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -443,16 +863,41 @@
       "description": "deploy integration test 'rabbitmq-broker-cluster' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-cluster.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-cluster.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/rabbitmq-broker-cluster.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/rabbitmq-broker-cluster.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out test/integ/rabbitmq-broker-cluster.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out",
+            "test/integ/rabbitmq-broker-cluster.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:rabbitmq-broker-cluster:destroy"
@@ -464,7 +909,14 @@
       "description": "destroy integration test 'rabbitmq-broker-cluster'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/rabbitmq-broker-cluster.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/rabbitmq-broker-cluster.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -473,7 +925,19 @@
       "description": "update snapshot for integration test \"rabbitmq-broker-cluster\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-cluster.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-cluster.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-cluster.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/rabbitmq-broker-cluster.integ.snapshot"
+          ]
         }
       ]
     },
@@ -482,7 +946,19 @@
       "description": "watch integration test 'rabbitmq-broker-cluster' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-cluster.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-cluster.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-cluster.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -491,13 +967,45 @@
       "description": "assert the snapshot of integration test 'rabbitmq-broker-custom-resource'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/rabbitmq-broker-custom-resource.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-custom-resource'. Run 'projen integ:rabbitmq-broker-custom-resource:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/rabbitmq-broker-custom-resource.integ.snapshot",
+            "rabbitmq-broker-custom-resource",
+            "integ:rabbitmq-broker-custom-resource:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-custom-resource.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-custom-resource.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/rabbitmq-broker-custom-resource.integ.snapshot/",
+            "test/integ/.tmp/rabbitmq-broker-custom-resource.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -506,16 +1014,41 @@
       "description": "deploy integration test 'rabbitmq-broker-custom-resource' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-custom-resource.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out",
+            "test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:rabbitmq-broker-custom-resource:destroy"
@@ -527,7 +1060,14 @@
       "description": "destroy integration test 'rabbitmq-broker-custom-resource'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/rabbitmq-broker-custom-resource.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/rabbitmq-broker-custom-resource.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -536,7 +1076,19 @@
       "description": "update snapshot for integration test \"rabbitmq-broker-custom-resource\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-custom-resource.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-custom-resource.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/rabbitmq-broker-custom-resource.integ.snapshot"
+          ]
         }
       ]
     },
@@ -545,7 +1097,19 @@
       "description": "watch integration test 'rabbitmq-broker-custom-resource' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-custom-resource.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-custom-resource.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-custom-resource.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -554,13 +1118,45 @@
       "description": "assert the snapshot of integration test 'rabbitmq-broker-instance-config-managed'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-instance-config-managed'. Run 'projen integ:rabbitmq-broker-instance-config-managed:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot",
+            "rabbitmq-broker-instance-config-managed",
+            "integ:rabbitmq-broker-instance-config-managed:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot/",
+            "test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -569,16 +1165,41 @@
       "description": "deploy integration test 'rabbitmq-broker-instance-config-managed' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out",
+            "test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:rabbitmq-broker-instance-config-managed:destroy"
@@ -590,7 +1211,14 @@
       "description": "destroy integration test 'rabbitmq-broker-instance-config-managed'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -599,7 +1227,19 @@
       "description": "update snapshot for integration test \"rabbitmq-broker-instance-config-managed\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/rabbitmq-broker-instance-config-managed.integ.snapshot"
+          ]
         }
       ]
     },
@@ -608,7 +1248,19 @@
       "description": "watch integration test 'rabbitmq-broker-instance-config-managed' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance-config-managed.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-instance-config-managed.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -617,13 +1269,45 @@
       "description": "assert the snapshot of integration test 'rabbitmq-broker-instance'",
       "steps": [
         {
-          "exec": "[ -d \"test/integ/rabbitmq-broker-instance.integ.snapshot\" ] || (echo \"No snapshot available for integration test 'rabbitmq-broker-instance'. Run 'projen integ:rabbitmq-broker-instance:deploy' to capture.\" && exit 1)"
+          "execArgs": [
+            "node",
+            "-e",
+            "const [dir, name, task] = process.argv.slice(1); const stat = require('fs').statSync(dir, { throwIfNoEntry: false }); if (!stat || !stat.isDirectory()) { console.error(`No snapshot available for integration test '${name}'. Run 'projen ${task}' to capture.`); process.exit(1); }",
+            "test/integ/rabbitmq-broker-instance.integ.snapshot",
+            "rabbitmq-broker-instance",
+            "integ:rabbitmq-broker-instance:deploy"
+          ]
         },
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/.tmp/rabbitmq-broker-instance.integ/assert.cdk.out > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-instance.integ/assert.cdk.out"
+          ]
         },
         {
-          "exec": "diff -r -x asset.* -x cdk.out -x manifest.json -x tree.json test/integ/rabbitmq-broker-instance.integ.snapshot/ test/integ/.tmp/rabbitmq-broker-instance.integ/assert.cdk.out/"
+          "execArgs": [
+            "diff",
+            "-r",
+            "-x",
+            "asset.*",
+            "-x",
+            "cdk.out",
+            "-x",
+            "manifest.json",
+            "-x",
+            "tree.json",
+            "test/integ/rabbitmq-broker-instance.integ.snapshot/",
+            "test/integ/.tmp/rabbitmq-broker-instance.integ/assert.cdk.out/"
+          ]
         }
       ]
     },
@@ -632,16 +1316,41 @@
       "description": "deploy integration test 'rabbitmq-broker-instance' and capture snapshot",
       "steps": [
         {
-          "exec": "rm -fr test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "cdk deploy --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' --require-approval=never -o test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "deploy",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "--require-approval=never",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out"
+          ]
         },
         {
-          "exec": "rm -fr test/integ/rabbitmq-broker-instance.integ.snapshot"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "test/integ/rabbitmq-broker-instance.integ.snapshot"
+          ]
         },
         {
-          "exec": "mv test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out test/integ/rabbitmq-broker-instance.integ.snapshot"
+          "execArgs": [
+            "mv",
+            "test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out",
+            "test/integ/rabbitmq-broker-instance.integ.snapshot"
+          ]
         },
         {
           "spawn": "integ:rabbitmq-broker-instance:destroy"
@@ -653,7 +1362,14 @@
       "description": "destroy integration test 'rabbitmq-broker-instance'",
       "steps": [
         {
-          "exec": "cdk destroy --app test/integ/rabbitmq-broker-instance.integ.snapshot '**' --no-version-reporting"
+          "execArgs": [
+            "cdk",
+            "destroy",
+            "--app",
+            "test/integ/rabbitmq-broker-instance.integ.snapshot",
+            "**",
+            "--no-version-reporting"
+          ]
         }
       ]
     },
@@ -662,7 +1378,19 @@
       "description": "update snapshot for integration test \"rabbitmq-broker-instance\"",
       "steps": [
         {
-          "exec": "cdk synth --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata -o test/integ/rabbitmq-broker-instance.integ.snapshot > /dev/null"
+          "execArgs": [
+            "cdk",
+            "synth",
+            "--quiet",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "-o",
+            "test/integ/rabbitmq-broker-instance.integ.snapshot"
+          ]
         }
       ]
     },
@@ -671,7 +1399,19 @@
       "description": "watch integration test 'rabbitmq-broker-instance' (without updating snapshots)",
       "steps": [
         {
-          "exec": "cdk watch --app \"ts-node -P tsconfig.dev.json test/integ/rabbitmq-broker-instance.integ.ts\" --no-notices --no-version-reporting --no-asset-metadata --no-path-metadata '**' -o test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out"
+          "execArgs": [
+            "cdk",
+            "watch",
+            "--app",
+            "ts-node -P test/tsconfig.json test/integ/rabbitmq-broker-instance.integ.ts",
+            "--no-notices",
+            "--no-version-reporting",
+            "--no-asset-metadata",
+            "--no-path-metadata",
+            "**",
+            "-o",
+            "test/integ/.tmp/rabbitmq-broker-instance.integ/deploy.cdk.out"
+          ]
         }
       ]
     },
@@ -752,7 +1492,12 @@
       "description": "Create dotnet language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target dotnet"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "dotnet"
+          ]
         }
       ]
     },
@@ -761,7 +1506,12 @@
       "description": "Create go language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target go"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "go"
+          ]
         }
       ]
     },
@@ -770,7 +1520,12 @@
       "description": "Create java language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target java"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "java"
+          ]
         }
       ]
     },
@@ -779,7 +1534,12 @@
       "description": "Create js language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target js"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "js"
+          ]
         }
       ]
     },
@@ -788,7 +1548,12 @@
       "description": "Create python language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target python"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "python"
+          ]
         }
       ]
     },
@@ -825,7 +1590,11 @@
       },
       "steps": [
         {
-          "exec": "rm -fr dist"
+          "execArgs": [
+            "rm",
+            "-fr",
+            "dist"
+          ]
         },
         {
           "spawn": "bump"
@@ -839,7 +1608,8 @@
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
         }
-      ]
+      ],
+      "condition": "git log --oneline -1 | grep -v \"chore(release):\" > /dev/null"
     },
     "rosetta:extract": {
       "name": "rosetta:extract",
@@ -855,7 +1625,11 @@
       "description": "Run tests",
       "steps": [
         {
-          "exec": "jest --passWithNoTests --updateSnapshot",
+          "execArgs": [
+            "jest",
+            "--passWithNoTests",
+            "--updateSnapshot"
+          ],
           "receiveArgs": true
         },
         {
@@ -892,7 +1666,10 @@
       "description": "Run jest in watch mode",
       "steps": [
         {
-          "exec": "jest --watch"
+          "execArgs": [
+            "jest",
+            "--watch"
+          ]
         }
       ]
     },
@@ -905,8 +1682,7 @@
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
         "RELEASE_TAG_PREFIX": "",
-        "BUMP_PACKAGE": "commit-and-tag-version@^12",
-        "RELEASABLE_COMMITS": "git log --no-merges --oneline $LATEST_TAG..HEAD -E --grep \"^(feat|fix){1}(\\([^()[:space:]]+\\))?(!)?:[[:blank:]]+.+\""
+        "BUMP_PACKAGE": "commit-and-tag-version@^13"
       },
       "steps": [
         {
@@ -922,7 +1698,10 @@
       },
       "steps": [
         {
-          "exec": "echo No dependencies to upgrade."
+          "execArgs": [
+            "echo",
+            "No dependencies to upgrade."
+          ]
         }
       ]
     },
@@ -934,13 +1713,27 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@18 --upgrade --target=latest --peer --no-deprecated --dep=dev,peer,prod,optional --filter=cdklabs-projen-project-types,projen"
+          "execArgs": [
+            "npx",
+            "npm-check-updates@20",
+            "--upgrade",
+            "--target=latest",
+            "--peer",
+            "--no-deprecated",
+            "--dep=dev,prod,peer,optional",
+            "--filter=cdklabs-projen-project-types,projen"
+          ]
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade cdklabs-projen-project-types projen"
+          "execArgs": [
+            "yarn",
+            "upgrade",
+            "cdklabs-projen-project-types",
+            "projen"
+          ]
         },
         {
           "exec": "npx projen"
@@ -958,13 +1751,60 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev --filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@aws-sdk/util-arn-parser,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,prettier,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
+          "execArgs": [
+            "npx",
+            "npm-check-updates@20",
+            "--upgrade",
+            "--target=minor",
+            "--peer",
+            "--no-deprecated",
+            "--dep=dev",
+            "--filter=@aws-sdk/client-ec2,@aws-sdk/client-lambda,@aws-sdk/client-secrets-manager,@aws-sdk/client-ssm,@aws-sdk/util-arn-parser,@types/aws-lambda,@types/jest,cdk-nag,esbuild,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,jsii-diff,jsii-pacmak,jsii-rosetta,mqtt,prettier,rabbitmq-client,rhea,ts-jest,ts-node,typescript"
+          ]
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @aws-sdk/client-ec2 @aws-sdk/client-lambda @aws-sdk/client-secrets-manager @aws-sdk/client-ssm @aws-sdk/util-arn-parser @types/aws-lambda @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk cdk-nag commit-and-tag-version esbuild eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mqtt prettier rabbitmq-client rhea ts-jest ts-node typescript @aws-cdk/integ-runner @aws-cdk/integ-tests-alpha"
+          "execArgs": [
+            "yarn",
+            "upgrade",
+            "@aws-sdk/client-ec2",
+            "@aws-sdk/client-lambda",
+            "@aws-sdk/client-secrets-manager",
+            "@aws-sdk/client-ssm",
+            "@aws-sdk/util-arn-parser",
+            "@types/aws-lambda",
+            "@types/jest",
+            "@types/node",
+            "@typescript-eslint/eslint-plugin",
+            "@typescript-eslint/parser",
+            "aws-cdk",
+            "cdk-nag",
+            "commit-and-tag-version",
+            "esbuild",
+            "eslint-config-prettier",
+            "eslint-import-resolver-typescript",
+            "eslint-plugin-import",
+            "eslint-plugin-prettier",
+            "eslint",
+            "jest",
+            "jest-junit",
+            "jsii-diff",
+            "jsii-docgen",
+            "jsii-pacmak",
+            "jsii-rosetta",
+            "jsii",
+            "mqtt",
+            "prettier",
+            "rabbitmq-client",
+            "rhea",
+            "ts-jest",
+            "ts-node",
+            "typescript",
+            "@aws-cdk/integ-runner",
+            "@aws-cdk/integ-tests-alpha"
+          ]
         },
         {
           "exec": "npx projen"
@@ -983,9 +1823,6 @@
         }
       ]
     }
-  },
-  "env": {
-    "PATH": "$(npx -c \"node --print process.env.PATH\")"
   },
   "//": "~~ Generated by projen. To modify, edit .projenrc.ts and run \"npx projen\"."
 }
